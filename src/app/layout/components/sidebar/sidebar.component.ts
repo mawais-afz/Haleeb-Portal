@@ -8,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class SidebarComponent implements OnInit {
     public showMenu: string;
     constructor() {}
+    toggleValue = true;
 
     ngOnInit() {
         this.showMenu = '';

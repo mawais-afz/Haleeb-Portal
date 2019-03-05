@@ -22,18 +22,20 @@
             <mat-icon class="sidenav-icon">insert_drive_file</mat-icon> {{ 'Blank Page' | translate }}
         </a> -->
         <div class="nested-menu">
-            <a mat-list-item (click)="addExpandClass('pages')">
-                <mat-icon class="sidenav-icon">add</mat-icon> {{ 'Menu' | translate }}
+            <a mat-list-item (click)="addExpandClass('pages')" (click)="toggleValue=!toggleValue">
+                <mat-icon class="sidenav-icon" *ngIf="toggleValue">add</mat-icon>
+                <mat-icon class="sidenav-icon" *ngIf="!toggleValue">remove</mat-icon>
+                {{ 'Reports' | translate }}
             </a>
             <ul class="nested submenu" [class.expand]="showMenu === 'pages'">
                 <li>
-                    <a href="javascript:void(0)"><span>{{ 'Submenu' | translate }}</span></a>
+                    <a href="javascript:void(0)"><span>{{ 'OOS Shop List' | translate }}</span></a>
                 </li>
                 <li>
-                    <a href="javascript:void(0)"><span>{{ 'Submenu' | translate }}</span></a>
+                    <a href="javascript:void(0)"><span>{{ 'OOS Summary' | translate }}</span></a>
                 </li>
                 <li>
-                    <a href="javascript:void(0)"><span>{{ 'Submenu' | translate }}</span></a>
+                    <a href="javascript:void(0)"><span>{{ 'Merchandiser Productivity' | translate }}</span></a>
                 </li>
             </ul>
         </div>
