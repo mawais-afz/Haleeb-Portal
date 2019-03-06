@@ -1,5 +1,4 @@
 @import '~@angular/material/theming';
-
 :host /deep/ .mat-card-header-text {
     width: 100%;
     text-align: right;
@@ -20,7 +19,6 @@
     .mat-card-subtitle {
         color: #fff;
     }
-
     .mat-card-actions {
         a {
             text-decoration: none;
@@ -44,4 +42,12 @@
 
 .mat-card.info {
     background: linear-gradient(60deg, #26c6da, #00acc1);
+}
+
+.mat-card.primary {
+    background: linear-gradient(60deg, #68da26, #abc901);
+}
+
+.mat-card.purple {
+    background: linear-gradient(60deg, #9826da, #7400c1);
 }
