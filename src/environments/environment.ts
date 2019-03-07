@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  ip: ''
+  ip: 'http://cbl.rtdtradetracker.com/'
 };
 
 /*

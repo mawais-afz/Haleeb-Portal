@@ -25,7 +25,8 @@ import { HttpClientModule } from '@angular/common/http';
         MatTableModule,
         MatButtonModule,
         MatIconModule,
-        FlexLayoutModule.withConfig({addFlexToParent: false})
+        FlexLayoutModule.withConfig({addFlexToParent: false}),
+
     ],
     declarations: [DashboardComponent]
 })
