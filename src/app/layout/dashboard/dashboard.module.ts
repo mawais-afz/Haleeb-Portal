@@ -9,6 +9,10 @@ import { StatModule } from '../../shared/modules/stat/stat.module';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardComponent } from './dashboard.component';
 import { HttpClientModule } from '@angular/common/http';
+import { HomeComponent } from './innerComponents/home/home.component';
+import { ShopListComponent } from './innerComponents/shop-list/shop-list.component';
+import { SummaryComponent } from './innerComponents/summary/summary.component';
+import { ProductivityComponent } from './innerComponents/productivity/productivity.component';
 
 @NgModule({
     imports: [
@@ -28,6 +32,6 @@ import { HttpClientModule } from '@angular/common/http';
         FlexLayoutModule.withConfig({addFlexToParent: false}),
 
     ],
-    declarations: [DashboardComponent]
+    declarations: [DashboardComponent, HomeComponent, ShopListComponent, SummaryComponent, ProductivityComponent]
 })
 export class DashboardModule {}

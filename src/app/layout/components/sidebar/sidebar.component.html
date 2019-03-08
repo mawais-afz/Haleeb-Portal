@@ -1,6 +1,6 @@
 <div id="sidebar">
     <mat-nav-list>
-        <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['/dashboard']">
+        <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['/dashboard/home']">
             <mat-icon class="sidenav-icon">dashboard</mat-icon> {{ 'Dashboard' | translate }}
         </a>
         <!-- <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['/charts']">
@@ -29,13 +29,13 @@
             </a>
             <ul class="nested submenu" [class.expand]="showMenu === 'pages'">
                 <li>
-                    <a href="javascript:void(0)"><span>{{ 'OOS Shop List' | translate }}</span></a>
+                    <a [class.active]=true [routerLink]="['/dashboard/shop_list']"><span>{{ 'OOS Shop List' | translate }}</span></a>
                 </li>
                 <li>
-                    <a href="javascript:void(0)"><span>{{ 'OOS Summary' | translate }}</span></a>
+                    <a [routerLink]="['/dashboard/summary']"><span>{{ 'OOS Summary' | translate }}</span></a>
                 </li>
                 <li>
-                    <a href="javascript:void(0)"><span>{{ 'Merchandiser Productivity' | translate }}</span></a>
+                    <a [routerLink]="['/dashboard/productivity']"><span>{{ 'Merchandiser Productivity' | translate }}</span></a>
                 </li>
             </ul>
         </div>
