@@ -1,0 +1,37 @@
+<mat-card class="mb-20">
+
+    <mat-card-content>
+        <section class="example-section">
+
+            <mat-form-field class="example-margin ml10IMP">
+                <mat-select placeholder="Zone">
+                    <mat-option value="zone.id" *ngFor="let zone of zones">{{zone.title}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <!-- <mat-form-field class="example-margin ml10IMP">
+                <mat-select placeholder="Region">
+                    <mat-option value="option">Option</mat-option>
+                </mat-select>
+            </mat-form-field> -->
+
+
+
+
+
+        </section>
+
+        <section class="example-section">
+            <mat-form-field class="example-full-width ml10IMP">
+                <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker0" placeholder="Choose a start date" readonly>
+                <mat-datepicker-toggle matSuffix [for]="picker0"></mat-datepicker-toggle>
+                <mat-datepicker #picker0></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field class="example-full-width ml10IMP">
+                <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker1" placeholder="Choose a end date" readonly>
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
+        </section>
+    </mat-card-content>
+</mat-card>

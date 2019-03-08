@@ -1,6 +1,7 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Output, EventEmitter } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -8,6 +9,7 @@ import { environment } from 'src/environments/environment';
 export class DashboardService {
   ip: any = environment.ip;
   user = 0;
+
 
   constructor(private http: HttpClient) { }
 
@@ -18,8 +20,10 @@ export class DashboardService {
 
   }
 
+
+
   getZone() {
-    const filter = JSON.stringify({ act: 0, userId: this.user });
+    const filter = JSON.stringify({ act: 0});
     const url = this.ip + 'loadFilters';
     return this.http.post(url, filter);
 
