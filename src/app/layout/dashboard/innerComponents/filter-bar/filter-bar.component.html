@@ -1,6 +1,9 @@
 <mat-card class="mb-20">
 
     <mat-card-content>
+        <mat-card-title>
+            {{title| uppercase}}
+        </mat-card-title>
         <section class="example-section">
 
             <mat-form-field class="example-margin ml10IMP">
@@ -21,7 +24,7 @@
 
         </section>
 
-        <section class="example-section">
+        <!-- <section class="example-section">
             <mat-form-field class="example-full-width ml10IMP">
                 <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker0" placeholder="Choose a start date" readonly>
                 <mat-datepicker-toggle matSuffix [for]="picker0"></mat-datepicker-toggle>
@@ -32,6 +35,6 @@
                 <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                 <mat-datepicker #picker1></mat-datepicker>
             </mat-form-field>
-        </section>
+        </section> -->
     </mat-card-content>
 </mat-card>

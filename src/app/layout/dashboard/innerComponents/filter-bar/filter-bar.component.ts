@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewChecked } from '@angular/core';
+import { Component, OnInit, AfterViewChecked, Input } from '@angular/core';
 import { DashboardService } from '../../dashboard.service';
 
 @Component({
@@ -9,6 +9,7 @@ import { DashboardService } from '../../dashboard.service';
 export class FilterBarComponent implements OnInit {
   minDate = new Date(2000, 0, 1);
   maxDate = new Date(2020, 0, 1);
+  @Input() title;
   zones: any = [];
   constructor(private httpService: DashboardService) {
     this.zones = JSON.parse(localStorage.getItem('zoneList'));
