@@ -15,9 +15,11 @@ import { ShopListComponent } from './innerComponents/shop-list/shop-list.compone
 import { SummaryComponent } from './innerComponents/summary/summary.component';
 import { ProductivityComponent } from './innerComponents/productivity/productivity.component';
 import { FilterBarComponent } from './innerComponents/filter-bar/filter-bar.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
     imports: [
+        FormsModule,
         HttpClientModule,
         CommonModule,
         DashboardRoutingModule,

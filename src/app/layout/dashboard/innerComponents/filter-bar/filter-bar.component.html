@@ -7,34 +7,39 @@
         <section class="example-section">
 
             <mat-form-field class="example-margin ml10IMP">
-                <mat-select placeholder="Zone">
-                    <mat-option value="zone.id" *ngFor="let zone of zones">{{zone.title}}</mat-option>
+                <mat-select placeholder="Zone" name='zone' [(ngModel)]="selectedZone" (ngModelChange)="zoneChange()">
+                    <mat-option [value]="zone" *ngFor="let zone of zones">{{zone.title}}</mat-option>
                 </mat-select>
             </mat-form-field>
 
-            <!-- <mat-form-field class="example-margin ml10IMP">
-                <mat-select placeholder="Region">
-                    <mat-option value="option">Option</mat-option>
+            <mat-form-field *ngIf="regions.length>0" class="example-margin ml10IMP">
+                <mat-select placeholder="Region" name='region' [(ngModel)]="selectedRegion" (ngModelChange)="regionChange()">
+                    <mat-option [value]="region" *ngFor="let region of regions">{{region.title}}</mat-option>
                 </mat-select>
-            </mat-form-field> -->
-
+            </mat-form-field>
+            <mat-form-field *ngIf="channels.length>0" class="example-margin ml10IMP">
+                <mat-select placeholder="Channel" name='channel' [(ngModel)]="selectedChannel" >
+                    <mat-option [value]="channel" *ngFor="let channel of channels">{{channel.title}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <button mat-raised-button color="warn" (click)="getReport()"> Get Report</button>
 
 
 
 
         </section>
 
-        <!-- <section class="example-section">
+        <section class="example-section">
             <mat-form-field class="example-full-width ml10IMP">
-                <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker0" placeholder="Choose a start date" readonly>
+                <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker0" [(ngModel)]="startDate" placeholder="Choose a start date" readonly>
                 <mat-datepicker-toggle matSuffix [for]="picker0"></mat-datepicker-toggle>
                 <mat-datepicker #picker0></mat-datepicker>
             </mat-form-field>
             <mat-form-field class="example-full-width ml10IMP">
-                <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker1" placeholder="Choose a end date" readonly>
+                <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker1" [(ngModel)]="endDate" placeholder="Choose a end date" readonly>
                 <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                 <mat-datepicker #picker1></mat-datepicker>
             </mat-form-field>
-        </section> -->
+        </section>
     </mat-card-content>
 </mat-card>
