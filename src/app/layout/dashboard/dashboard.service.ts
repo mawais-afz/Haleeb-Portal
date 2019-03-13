@@ -1,5 +1,5 @@
 import { Injectable, Output, EventEmitter } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Subject } from 'rxjs';
 
@@ -10,7 +10,13 @@ export class DashboardService {
   ip: any = environment.ip;
   user = 0;
 
-  constructor(private http: HttpClient) {}
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/ms-excel'
+    })
+  };
+
+  constructor(private http: HttpClient) { }
 
   login(credentials: any) {
     const url = this.ip + 'pictureLogin';
@@ -36,7 +42,59 @@ export class DashboardService {
   }
 
   downloadOOSDetail(obj) {
-    const url = this.ip + 'oosDetail';
-    return this.http.post(url, obj);
+    const formData = new FormData();
+
+
+    for (const key in obj) {
+      formData.append(key, obj[key]);
+    }
+
+// tslint:disable-next-line: max-line-length
+    let body=`areaId=${obj.areaId}&distId=${obj.distId}&actionType=${obj.actionType}&zoneId=${obj.zoneId}&regionId=${obj.regionId}&chennalId=${obj.channelId}&startDate=${obj.startDate}&endDate=${obj.endDate}&pageType=8`
+
+    const url =  'http://192.168.3.240:8080/audit/oosDetail';
+    // this.ip + \'oosDetail\''
+
+    return this.http.post(url, formData, this.httpOptions);
   }
+
+  public DownloadResource(obj){
+
+    let path;
+
+    path = 'http://192.168.3.240:8080/audit/oosDetail';
+    
+
+    let form = document.createElement("form");
+
+    form.setAttribute("action", path);
+    
+    form.setAttribute("method","post");
+    
+    document.body.appendChild(form);
+
+    this.appendInputToForm(form, obj);
+
+    form.submit();
+
+    document.body.removeChild(form);
+
+  }
+  private appendInputToForm(form, obj){
+
+    
+    
+    Object.keys(obj).forEach((key)=>{
+
+       let input = document.createElement("input");
+
+       input.setAttribute("value", obj[key]);
+       
+       input.setAttribute("name", key);
+       
+       form.appendChild(input);
+
+    });
+
+ }
 }

@@ -82,13 +82,82 @@ export class FilterBarComponent implements OnInit {
       channelId: this.selectedChannel.id || -1,
       areaId: '',
       distId: '',
-      actionType: ''
+      actionType: '1',
+      pageType: '8'
 
     };
 
+    // var formData = new FormData();
+    // formData.append('startDate',obj.startDate)
+    // formData.append('endDate',obj.endDate)
+    // formData.append('zoneId',obj.zoneId)
+    // formData.append('regionId',obj.regionId)
+    // formData.append('channelId',obj.channelId)
+    // formData.append('areaId',obj.areaId)
+    // formData.append('distId',obj.distId)
+    // formData.append('actionType',obj.actionType)
+    // formData.append('pageType',obj.pageType)
+    // formData.append('startDate',obj.startDate)
+
+
     console.log(obj);
 
-    this.httpService.downloadOOSDetail(obj).subscribe(data => { }, error => { });
+        this.httpService.DownloadResource(obj);
+
+    // var form = document.createElement("form");
+    // var startDate = document.createElement("input");
+    // var endDate = document.createElement("input");
+    // var zoneId = document.createElement("input");
+    // var regionId = document.createElement("input");
+    // var channelId = document.createElement("input");
+    // var areaId = document.createElement("input");
+    // var distId = document.createElement("input");
+    // var actionType = document.createElement("input");
+    // var pageType = document.createElement("input");
+
+
+    // form.method = "POST";
+    // form.action = 'http://192.168.3.240:8080/audit/oosDetail';
+
+    // startDate.value = obj.startDate;
+    // startDate.name = "startDate";
+    // form.appendChild(startDate);
+
+    // endDate.value = obj.endDate;
+    // endDate.name = "endDate";
+    // form.appendChild(endDate);
+
+    // zoneId.value = obj.zoneId;
+    // zoneId.name = "zoneId";
+    // form.appendChild(zoneId);
+
+    // regionId.value = obj.regionId;
+    // regionId.name = "regionId";
+    // form.appendChild(regionId);
+
+    // channelId.value = obj.channelId;
+    // channelId.name = "channelId";
+    // form.appendChild(channelId);
+
+    // areaId.value = obj.areaId;
+    // areaId.name = "areaId";
+    // form.appendChild(areaId);
+
+    // distId.value = obj.distId;
+    // distId.name = "distId";
+    // form.appendChild(distId);
+
+    // actionType.value = obj.actionType;
+    // actionType.name = "actionType";
+    // form.appendChild(actionType);
+
+    // pageType.value = obj.pageType;
+    // pageType.name = "pageType";
+    // form.appendChild(pageType);
+
+    // document.body.appendChild(form);
+
+    // form.submit();
 
 
   }
