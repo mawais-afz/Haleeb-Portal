@@ -16,6 +16,7 @@ import { SummaryComponent } from './innerComponents/summary/summary.component';
 import { ProductivityComponent } from './innerComponents/productivity/productivity.component';
 import { FilterBarComponent } from './innerComponents/filter-bar/filter-bar.component';
 import { FormsModule } from '@angular/forms';
+import { DetailsComponent } from './innerComponents/details/details.component';
 
 @NgModule({
     imports: [
@@ -38,6 +39,6 @@ import { FormsModule } from '@angular/forms';
         FlexLayoutModule.withConfig({addFlexToParent: false}),
 
     ],
-    declarations: [DashboardComponent, HomeComponent, ShopListComponent, SummaryComponent, ProductivityComponent, FilterBarComponent]
+    declarations: [DashboardComponent, HomeComponent, ShopListComponent, SummaryComponent, ProductivityComponent, FilterBarComponent, DetailsComponent]
 })
 export class DashboardModule {}

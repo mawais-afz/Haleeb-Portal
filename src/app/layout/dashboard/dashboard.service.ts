@@ -8,6 +8,7 @@ import { Subject } from 'rxjs';
 })
 export class DashboardService {
   ip: any = environment.ip;
+  //  'http://192.168.3.240:8080/audit/';
   user = 0;
 
   httpOptions = {
@@ -41,36 +42,23 @@ export class DashboardService {
     return this.http.post(url, filter);
   }
 
-  downloadOOSDetail(obj) {
-    const formData = new FormData();
-
-
-    for (const key in obj) {
-      formData.append(key, obj[key]);
-    }
-
-// tslint:disable-next-line: max-line-length
-    let body=`areaId=${obj.areaId}&distId=${obj.distId}&actionType=${obj.actionType}&zoneId=${obj.zoneId}&regionId=${obj.regionId}&chennalId=${obj.channelId}&startDate=${obj.startDate}&endDate=${obj.endDate}&pageType=8`
-
-    const url =  'http://192.168.3.240:8080/audit/oosDetail';
-    // this.ip + \'oosDetail\''
-
-    return this.http.post(url, formData, this.httpOptions);
+  getAreas(channelId) {
+    const filter = JSON.stringify({ act: 3, channelId: channelId, userId: this.user });
+    const url = this.ip + 'loadFilters';
+    return this.http.post(url, filter);
   }
 
-  public DownloadResource(obj){
-
+  public DownloadResource(obj) {
     let path;
 
-    path = 'http://192.168.3.240:8080/audit/oosDetail';
-    
+    path = this.ip + 'oosDetail';
 
-    let form = document.createElement("form");
+    let form = document.createElement('form');
 
-    form.setAttribute("action", path);
-    
-    form.setAttribute("method","post");
-    
+    form.setAttribute('action', path);
+
+    form.setAttribute('method', 'post');
+
     document.body.appendChild(form);
 
     this.appendInputToForm(form, obj);
@@ -78,23 +66,16 @@ export class DashboardService {
     form.submit();
 
     document.body.removeChild(form);
-
   }
-  private appendInputToForm(form, obj){
+  private appendInputToForm(form, obj) {
+    Object.keys(obj).forEach(key => {
+      let input = document.createElement('input');
 
-    
-    
-    Object.keys(obj).forEach((key)=>{
+      input.setAttribute('value', obj[key]);
 
-       let input = document.createElement("input");
+      input.setAttribute('name', key);
 
-       input.setAttribute("value", obj[key]);
-       
-       input.setAttribute("name", key);
-       
-       form.appendChild(input);
-
+      form.appendChild(input);
     });
-
- }
+  }
 }

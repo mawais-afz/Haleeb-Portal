@@ -29,6 +29,9 @@
             </a>
             <ul class="nested submenu" [class.expand]="showMenu === 'pages'">
                 <li>
+                    <a [class.active]=true [routerLink]="['/dashboard/oos_deatils']"><span>{{ 'OOS Details' | translate }}</span></a>
+                </li>
+                <li>
                     <a [class.active]=true [routerLink]="['/dashboard/shop_list']"><span>{{ 'OOS Shop List' | translate }}</span></a>
                 </li>
                 <li>
