@@ -159,7 +159,7 @@ export class FilterBarComponent implements OnInit {
     let obj = {
       zoneId: this.selectedZone.id,
       regionId: this.selectedRegion.id,
-      starDate: moment(this.startDate).format('YYYY-MM-DD'),
+      startDate: moment(this.startDate).format('YYYY-MM-DD'),
       reportType: '',
       surveyorId: this.selectedMerchandiser.id,
       excelDump: 'Y',
