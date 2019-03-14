@@ -31,8 +31,9 @@ export class DashboardComponent implements OnInit {
             localStorage.setItem('zoneList', JSON.stringify(this.zones));
 
         }, error => {
-
-           (error.status === 0) ? this.toastr.error('Please check Internet Connection', 'Error') : this.toastr.error(error.description, 'Error');
+            (error.status === 0) ? 
+            this.toastr.error('Please check Internet Connection', 'Error') : 
+            this.toastr.error(error.description, 'Error');
 
         });
     }

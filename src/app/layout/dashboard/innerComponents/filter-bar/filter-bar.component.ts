@@ -4,6 +4,7 @@ import * as moment from 'moment';
 import { subscribeOn } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { DashboardDataService } from '../../dashboard-data.service';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'filter-bar',
   templateUrl: './filter-bar.component.html',
@@ -28,8 +29,11 @@ export class FilterBarComponent implements OnInit {
   lastVisit: any = [];
   selectedLastVisit = 0;
   mustHave: { key: string; value: string; }[];
-  selectedMustHave=false;
-  constructor(private httpService: DashboardService, public router: Router, private dataService: DashboardDataService) {
+  selectedMustHave = false;
+  merchandiserList: any = [];
+  selectedMerchandiser: any = {}
+  constructor(private toastr: ToastrService,
+    private httpService: DashboardService, public router: Router, private dataService: DashboardDataService) {
     this.zones = JSON.parse(localStorage.getItem('zoneList'));
   }
 
@@ -106,10 +110,66 @@ export class FilterBarComponent implements OnInit {
       pageType: '8'
 
     };
+    let url = 'oosDetail'
 
-    this.httpService.DownloadResource(obj);
+    this.httpService.DownloadResource(obj, url);
 
 
+
+  }
+
+  getMerchandiserList(event) {
+
+    if (!this.selectedZone.id || !this.selectedRegion.id) {
+      // console.log(this.selectedZone.id,this.selectedRegion.id)
+      this.toastr.info('Please select zone and region to proceed', 'PDF Download');
+
+
+    }
+    else {
+      let obj = {
+        zoneId: this.selectedZone.id,
+        regionId: this.selectedRegion.id,
+        date: moment(this.startDate).format('YYYY-MM-DD'),
+
+      }
+
+      this.httpService.getMerchandiserList(obj).subscribe(data => {
+        console.log('merchandiser', data);
+        let res: any = data
+        if (!res)
+          this.toastr.warning('NO record found', 'Merchandiser List')
+
+        else if (res.length == 0)
+          this.toastr.info('NO record found,Please try again', 'Merchandiser List')
+
+
+        this.merchandiserList = data
+      }, error => {
+        (error.status === 0) ?
+          this.toastr.error('Please check Internet Connection', 'Error') :
+          this.toastr.error(error.description, 'Error');
+      })
+    }
+
+  }
+
+  downloadDailyReport() {
+
+    let obj = {
+      zoneId: this.selectedZone.id,
+      regionId: this.selectedRegion.id,
+      starDate: moment(this.startDate).format('YYYY-MM-DD'),
+      reportType: '',
+      surveyorId: this.selectedMerchandiser.id,
+      excelDump: 'Y',
+      mailData: 'Y',
+      reportLink: ''
+
+    }
+    let url = 'cbl-pdf'
+
+    this.httpService.DownloadResource(obj, url);
 
   }
 }

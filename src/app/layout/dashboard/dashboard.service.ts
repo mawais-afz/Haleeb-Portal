@@ -43,15 +43,23 @@ export class DashboardService {
   }
 
   getAreas(channelId) {
-    const filter = JSON.stringify({ act: 3, channelId: channelId, userId: this.user });
+    const filter = JSON.stringify({ act: 3, channelId: channelId });
     const url = this.ip + 'loadFilters';
     return this.http.post(url, filter);
   }
+  getMerchandiserList(obj) {
+    const filter = JSON.stringify({ act: 4, regionId: obj.regionId, zoneId: obj.zoneId, date: obj.date });
+    const url = this.ip + 'loadFilters';
 
-  public DownloadResource(obj) {
+    // const url = this.ip + 'cbl-pdf';
+    return this.http.post(url, filter);
+  }
+
+  public DownloadResource(obj, url) {
     let path;
 
-    path = this.ip + 'oosDetail';
+    path = this.ip + url;
+
 
     let form = document.createElement('form');
 

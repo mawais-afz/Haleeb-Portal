@@ -17,6 +17,7 @@ import { ProductivityComponent } from './innerComponents/productivity/productivi
 import { FilterBarComponent } from './innerComponents/filter-bar/filter-bar.component';
 import { FormsModule } from '@angular/forms';
 import { DetailsComponent } from './innerComponents/details/details.component';
+import { DailyVisitReportComponent } from './innerComponents/daily-visit-report/daily-visit-report.component';
 
 @NgModule({
     imports: [
@@ -37,8 +38,9 @@ import { DetailsComponent } from './innerComponents/details/details.component';
         MatButtonModule,
         MatIconModule,
         FlexLayoutModule.withConfig({addFlexToParent: false}),
+   
 
     ],
-    declarations: [DashboardComponent, HomeComponent, ShopListComponent, SummaryComponent, ProductivityComponent, FilterBarComponent, DetailsComponent]
+    declarations: [DashboardComponent, HomeComponent, ShopListComponent, SummaryComponent, ProductivityComponent, FilterBarComponent, DetailsComponent, DailyVisitReportComponent]
 })
 export class DashboardModule {}

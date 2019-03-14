@@ -33,7 +33,7 @@
         "moment": "^2.24.0",
         "ng2-charts": "1.6.0",
         "ng2-validation": "^4.2.0",
-        "ngx-toastr": "^9.1.2",
+        "ngx-toastr": "^10.0.0",
         "rxjs": "6.3.3",
         "web-animations-js": "2.3.1",
         "zone.js": "0.8.26"

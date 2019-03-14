@@ -8,6 +8,7 @@ import { ShopListComponent } from './innerComponents/shop-list/shop-list.compone
 import { SummaryComponent } from './innerComponents/summary/summary.component';
 import { ProductivityComponent } from './innerComponents/productivity/productivity.component';
 import { DetailsComponent } from './innerComponents/details/details.component';
+import { DailyVisitReportComponent } from './innerComponents/daily-visit-report/daily-visit-report.component';
 
 const routes: Routes = [
     {
@@ -17,8 +18,8 @@ const routes: Routes = [
         children: [
             { path: '', redirectTo: 'home', pathMatch: 'full' },
             { path: 'home', component: HomeComponent },
-
-            { path: 'oos_deatils', component: DetailsComponent },
+            { path: 'daily_visit_report', component: DailyVisitReportComponent },
+            { path: 'oos_details', component: DetailsComponent },
             { path: 'shop_list', component: ShopListComponent },
             { path: 'summary', component: SummaryComponent },
             { path: 'productivity', component: ProductivityComponent }
