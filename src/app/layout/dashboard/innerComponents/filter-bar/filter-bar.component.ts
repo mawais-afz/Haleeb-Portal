@@ -31,7 +31,8 @@ export class FilterBarComponent implements OnInit {
   mustHave: { key: string; value: string; }[];
   selectedMustHave = false;
   merchandiserList: any = [];
-  selectedMerchandiser: any = {}
+  selectedMerchandiser: any = {};
+  clickedOnce = 1;
   constructor(private toastr: ToastrService,
     private httpService: DashboardService, public router: Router, private dataService: DashboardDataService) {
     this.zones = JSON.parse(localStorage.getItem('zoneList'));
@@ -120,8 +121,10 @@ export class FilterBarComponent implements OnInit {
 
   getMerchandiserList(event) {
 
-    console.log(event)
+    console.log(event);
+    this.clickedOnce = 1;
     this.startDate = event;
+    this.merchandiserList = [];
     if (!this.selectedZone.id || !this.selectedRegion.id) {
       // console.log(this.selectedZone.id,this.selectedRegion.id)
       this.toastr.info('Please select zone and region to proceed', 'PDF Download');
@@ -140,6 +143,7 @@ export class FilterBarComponent implements OnInit {
         let res: any = data
         if (!res) {
           this.toastr.warning('NO record found', 'Merchandiser List');
+          this.merchandiserList = [];
         }
         else if (res.length == 0) {
           this.toastr.info('NO record found,Please try again', 'Merchandiser List');
@@ -159,6 +163,7 @@ export class FilterBarComponent implements OnInit {
   }
 
   downloadDailyReport() {
+    this.clickedOnce++;
 
     let obj = {
       zoneId: this.selectedZone.id,

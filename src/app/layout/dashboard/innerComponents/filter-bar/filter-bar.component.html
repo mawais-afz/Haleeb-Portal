@@ -79,23 +79,24 @@
                     <mat-option [value]="region" *ngFor="let region of regions">{{region.title}}</mat-option>
                 </mat-select>
             </mat-form-field>
-            <mat-form-field *ngIf="merchandiserList" class="example-margin mr-10-IMP">
-                <mat-select placeholder="Merchandiser List" name='merchandiserList' [(ngModel)]="selectedMerchandiser">
-                    <mat-option [value]="ml" *ngFor="let ml of merchandiserList">{{ml.fullName}}</mat-option>
-                </mat-select>
-            </mat-form-field>
-
             <mat-form-field class="example-full-width mr-10-IMP">
                 <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker0" (ngModelChange)="getMerchandiserList($event)" [(ngModel)]="startDate" placeholder="Choose date to get merchandisers" readonly>
                 <mat-datepicker-toggle matSuffix [for]="picker0"></mat-datepicker-toggle>
                 <mat-datepicker #picker0></mat-datepicker>
 
             </mat-form-field>
+            <mat-form-field *ngIf="merchandiserList.length>0" class="example-margin mr-10-IMP">
+                <mat-select placeholder="Merchandiser List" name='merchandiserList' [(ngModel)]="selectedMerchandiser">
+                    <mat-option [value]="ml" *ngFor="let ml of merchandiserList">{{ml.fullName}}</mat-option>
+                </mat-select>
+            </mat-form-field>
 
 
 
 
-            <button *ngIf="selectedZone.id&& selectedRegion.id && selectedMerchandiser.fullName " mat-raised-button color="warn" (click)="downloadDailyReport()">Download Report</button>
+
+
+            <button [disabled]="clickedOnce!=1" *ngIf="selectedZone.id&& selectedRegion.id && selectedMerchandiser.fullName " mat-raised-button color="warn" (click)="downloadDailyReport()">Download Report</button>
 
 
 
