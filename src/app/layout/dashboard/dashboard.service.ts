@@ -1,5 +1,5 @@
 import { Injectable, Output, EventEmitter } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Subject } from 'rxjs';
 
@@ -13,8 +13,9 @@ export class DashboardService {
 
   httpOptions = {
     headers: new HttpHeaders({
-      'Content-Type': 'application/ms-excel'
-    })
+      'Content-Type': 'application/x-www-form-urlencoded'
+    }),
+    withCredentials: true
   };
 
   constructor(private http: HttpClient) { }
@@ -48,11 +49,25 @@ export class DashboardService {
     return this.http.post(url, filter);
   }
   getMerchandiserList(obj) {
-    const filter = JSON.stringify({ act: 4, regionId: obj.regionId, zoneId: obj.zoneId, date: obj.date });
+    const filter = JSON.stringify({ act: 4, regionId: obj.regionId, zoneId: obj.zoneId, date: obj.startDate });
     const url = this.ip + 'loadFilters';
 
     // const url = this.ip + 'cbl-pdf';
     return this.http.post(url, filter);
+  }
+
+  downloadMerchandiserPDF(obj) {
+    let httpParams = new FormData();
+    httpParams.append('reportType','');
+    httpParams.append('zoneId',obj.zoneId);
+    httpParams.append('regionId',obj.regionId);
+    httpParams.append('startDate',obj.startDate);
+    httpParams.append('surveyorId',obj.surveyorId);
+  
+
+    const url = this.ip + `cbl-pdf`;
+    let o=`surveyorId=${obj.surveyorId}&startDate=${obj.startDate}`;
+    return this.http.post(url,o,this.httpOptions);
   }
 
   public DownloadResource(obj, url) {

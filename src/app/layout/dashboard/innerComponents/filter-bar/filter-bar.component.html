@@ -79,7 +79,7 @@
                     <mat-option [value]="region" *ngFor="let region of regions">{{region.title}}</mat-option>
                 </mat-select>
             </mat-form-field>
-            <mat-form-field *ngIf="merchandiserList.length>0" class="example-margin mr-10-IMP">
+            <mat-form-field *ngIf="merchandiserList" class="example-margin mr-10-IMP">
                 <mat-select placeholder="Merchandiser List" name='merchandiserList' [(ngModel)]="selectedMerchandiser">
                     <mat-option [value]="ml" *ngFor="let ml of merchandiserList">{{ml.fullName}}</mat-option>
                 </mat-select>

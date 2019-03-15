@@ -120,6 +120,8 @@ export class FilterBarComponent implements OnInit {
 
   getMerchandiserList(event) {
 
+    console.log(event)
+    this.startDate = event;
     if (!this.selectedZone.id || !this.selectedRegion.id) {
       // console.log(this.selectedZone.id,this.selectedRegion.id)
       this.toastr.info('Please select zone and region to proceed', 'PDF Download');
@@ -130,21 +132,23 @@ export class FilterBarComponent implements OnInit {
       let obj = {
         zoneId: this.selectedZone.id,
         regionId: this.selectedRegion.id,
-        date: moment(this.startDate).format('YYYY-MM-DD'),
+        startDate: moment(this.startDate).format('YYYY-MM-DD'),
 
       }
-
       this.httpService.getMerchandiserList(obj).subscribe(data => {
         console.log('merchandiser', data);
         let res: any = data
-        if (!res)
-          this.toastr.warning('NO record found', 'Merchandiser List')
+        if (!res) {
+          this.toastr.warning('NO record found', 'Merchandiser List');
+        }
+        else if (res.length == 0) {
+          this.toastr.info('NO record found,Please try again', 'Merchandiser List');
+        }
+        else {
+          this.merchandiserList = res;
 
-        else if (res.length == 0)
-          this.toastr.info('NO record found,Please try again', 'Merchandiser List')
+        }
 
-
-        this.merchandiserList = data
       }, error => {
         (error.status === 0) ?
           this.toastr.error('Please check Internet Connection', 'Error') :
@@ -168,6 +172,9 @@ export class FilterBarComponent implements OnInit {
 
     }
     let url = 'cbl-pdf'
+    // this.httpService.downloadMerchandiserPDF(obj).subscribe(d => { }, error => {
+
+    // });
 
     this.httpService.DownloadResource(obj, url);
 
