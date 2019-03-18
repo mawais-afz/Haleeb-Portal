@@ -18,8 +18,7 @@ export class FilterBarComponent implements OnInit {
   loadingData: boolean;
   regions: any = [];
   channels: any = [];
-  allData: any;
-  allDataClone: any;
+ 
   selectedZone: any = {};
   selectedRegion: any = {};
   selectedChannel: any = {};
@@ -29,7 +28,7 @@ export class FilterBarComponent implements OnInit {
   selectedArea: any = {};
   lastVisit: any = [];
   selectedLastVisit = 0;
-  mustHave: { key: string; value: string }[];
+  mustHave: any=[]
   selectedMustHave = false;
   merchandiserList: any = [];
   selectedMerchandiser: any = {};
@@ -225,7 +224,8 @@ export class FilterBarComponent implements OnInit {
       endDate:moment(this.endDate).format('YYYY-MM-DD'),
       category:this.selectedCategory.id,
       lastVisit:-1,
-      productId:1
+      productId:1,
+      mustHave:this.selectedMustHave
     }
 
     let url='shopwise-ost-report';
