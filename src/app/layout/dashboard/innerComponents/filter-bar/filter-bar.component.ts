@@ -231,4 +231,24 @@ export class FilterBarComponent implements OnInit {
     let url='shopwise-ost-report';
     this.httpService.DownloadResource(obj,url);
   }
+
+  getOOSSummary(){
+    let obj = {
+      zoneId: this.selectedZone.id,
+      regionId: this.selectedRegion.id,
+      cityId: this.selectedCity.id,
+      areaId: this.selectedArea.id,
+      channelId:this.selectedChannel.id,
+      startDate:moment(this.startDate).format('YYYY-MM-DD'),
+      endDate:moment(this.endDate).format('YYYY-MM-DD'),
+      category:this.selectedCategory.id,
+      lastVisit:-1,
+      productId:1,
+      mustHave:this.selectedMustHave
+    }
+
+    let url='oosSummaryReport';
+    this.httpService.DownloadResource(obj,url);
+  }
+  }
 }
