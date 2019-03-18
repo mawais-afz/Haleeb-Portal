@@ -7,8 +7,8 @@ import { Subject } from 'rxjs';
   providedIn: 'root'
 })
 export class DashboardService {
-  ip: any = environment.ip;
-  //  'http://192.168.3.240:8080/audit/';
+  ip: any = 'http://192.168.3.94:8080/audit/'; //environment.ip;
+
   user = 0;
 
   httpOptions = {
@@ -39,6 +39,12 @@ export class DashboardService {
 
   getCities(regionId) {
     const filter = JSON.stringify({ act: 2, regionId: regionId });
+    const url = this.ip + 'loadFilters';
+    return this.http.post(url, filter);
+  }
+
+  getProducts(categoryId) {
+    const filter = JSON.stringify({ act: 4, categoryId: categoryId });
     const url = this.ip + 'loadFilters';
     return this.http.post(url, filter);
   }

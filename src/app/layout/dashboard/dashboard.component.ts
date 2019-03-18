@@ -11,7 +11,7 @@ import { ToastrService } from 'ngx-toastr';
     styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-    zones: any = [];
+   
 
     constructor(private httpService: DashboardService, private toastr: ToastrService) {
 
@@ -23,12 +23,12 @@ export class DashboardComponent implements OnInit {
     }
 
     getZone() {
-        this.zones = [];
 
         this.httpService.getZone().subscribe(data => {
             const res: any = data;
-            this.zones = res;
-            localStorage.setItem('zoneList', JSON.stringify(this.zones));
+            localStorage.setItem('zoneList', JSON.stringify(res.zoneList));
+            localStorage.setItem('assetList', JSON.stringify(res.assetList));
+            localStorage.setItem('channelList', JSON.stringify(res.channelList));
 
         }, error => {
             (error.status === 0) ? 
