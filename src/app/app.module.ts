@@ -49,7 +49,9 @@ export const createTranslateLoader = (http: HttpClient) => {
     ],
 
     exports: [],
-    providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy }],
+    providers: [
+        { provide: LocationStrategy, useClass: HashLocationStrategy }
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule {}

@@ -18,7 +18,7 @@ export class FilterBarComponent implements OnInit {
   loadingData: boolean;
   regions: any = [];
   channels: any = [];
- 
+
   selectedZone: any = {};
   selectedRegion: any = {};
   selectedChannel: any = {};
@@ -28,13 +28,13 @@ export class FilterBarComponent implements OnInit {
   selectedArea: any = {};
   lastVisit: any = [];
   selectedLastVisit = 0;
-  mustHave: any=[]
+  mustHave: any = []
   selectedMustHave = false;
   merchandiserList: any = [];
   selectedMerchandiser: any = {};
   clickedOnce = 1;
   categoryList: any = [];
-  selectedCategory: any = {}
+  selectedCategory: any = {};
   cities: any = [];
   selectedCity: any = {};
   productsList: any = [];
@@ -51,6 +51,10 @@ export class FilterBarComponent implements OnInit {
     this.channels = JSON.parse(localStorage.getItem('channelList'));
 
     console.log(this.categoryList)
+    if (!this.zones) {
+      this.getZone()
+
+    }
   }
 
   ngOnInit() {
@@ -58,6 +62,25 @@ export class FilterBarComponent implements OnInit {
     this.lastVisit = this.dataService.getLastVisit();
     this.mustHave = this.dataService.getYesNo();
     this.httpService.getZone();
+
+  }
+
+  getZone() {
+
+    this.httpService.getZone().subscribe(data => {
+      const res: any = data;
+      if (res.zoneList) {
+        localStorage.setItem('zoneList', JSON.stringify(res.zoneList));
+        localStorage.setItem('assetList', JSON.stringify(res.assetList));
+        localStorage.setItem('channelList', JSON.stringify(res.channelList));
+      }
+
+    }, error => {
+      (error.status === 0) ?
+        this.toastr.error('Please check Internet Connection', 'Error') :
+        this.toastr.error(error.description, 'Error');
+
+    });
   }
 
   zoneChange() {
@@ -219,36 +242,36 @@ export class FilterBarComponent implements OnInit {
       regionId: this.selectedRegion.id,
       cityId: this.selectedCity.id,
       areaId: this.selectedArea.id,
-      channelId:this.selectedChannel.id,
-      startDate:moment(this.startDate).format('YYYY-MM-DD'),
-      endDate:moment(this.endDate).format('YYYY-MM-DD'),
-      category:this.selectedCategory.id,
-      lastVisit:-1,
-      productId:1,
-      mustHave:this.selectedMustHave
+      channelId: this.selectedChannel.id,
+      startDate: moment(this.startDate).format('YYYY-MM-DD'),
+      endDate: moment(this.endDate).format('YYYY-MM-DD'),
+      category: this.selectedCategory.id,
+      lastVisit: -1,
+      productId: 1,
+      mustHave: this.selectedMustHave
     }
 
-    let url='shopwise-ost-report';
-    this.httpService.DownloadResource(obj,url);
+    let url = 'shopwise-ost-report';
+    this.httpService.DownloadResource(obj, url);
   }
 
-  getOOSSummary(){
+  getOOSSummary() {
     let obj = {
       zoneId: this.selectedZone.id,
       regionId: this.selectedRegion.id,
       cityId: this.selectedCity.id,
       areaId: this.selectedArea.id,
-      channelId:this.selectedChannel.id,
-      startDate:moment(this.startDate).format('YYYY-MM-DD'),
-      endDate:moment(this.endDate).format('YYYY-MM-DD'),
-      category:this.selectedCategory.id,
-      lastVisit:-1,
-      productId:1,
-      mustHave:this.selectedMustHave
+      channelId: this.selectedChannel.id,
+      startDate: moment(this.startDate).format('YYYY-MM-DD'),
+      endDate: moment(this.endDate).format('YYYY-MM-DD'),
+      category: this.selectedCategory.id,
+      lastVisit: -1,
+      productId: 1,
+      mustHave: this.selectedMustHave
     }
 
-    let url='oosSummaryReport';
-    this.httpService.DownloadResource(obj,url);
+    let url = 'oosSummaryReport';
+    this.httpService.DownloadResource(obj, url);
   }
-  }
+
 }
