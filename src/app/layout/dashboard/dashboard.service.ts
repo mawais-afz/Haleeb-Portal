@@ -24,7 +24,13 @@ export class DashboardService {
     const url = this.ip + 'pictureLogin';
     return this.http.post(url, credentials);
   }
+  getDashboardData() {
+    const url = this.ip + 'dashboardDataCBL'
 
+    // const url = this.ip + 'cbl-pdf';
+    return this.http.get(url);
+
+  }
   getZone() {
     const filter = JSON.stringify({ act: 0 });
     const url = this.ip + 'loadFilters';
@@ -112,6 +118,6 @@ export class DashboardService {
     let url = this.ip + 'productivityreport';
 
     let body = `zoneId=${obj.zoneId}&regionId=${obj.regionId}&startDate=${obj.startDate}&endDate=${obj.endDate}&totalShops=${obj.totalShops}`
-    return this.http.post(url, body,this.httpOptions);
+    return this.http.post(url, body, this.httpOptions);
   }
 }

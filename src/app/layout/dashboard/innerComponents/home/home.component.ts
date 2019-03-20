@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material';
+import { DashboardService } from '../../dashboard.service';
 export interface PeriodicElement {
   name: string;
   position: number;
@@ -28,18 +29,29 @@ export class HomeComponent implements OnInit {
 
   displayedColumns = ['position', 'name', 'weight', 'symbol'];
   dataSource = new MatTableDataSource(ELEMENT_DATA);
-
+  tabsData: any = [];
 
   applyFilter(filterValue: string) {
-      filterValue = filterValue.trim(); // Remove whitespace
-      filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
-      this.dataSource.filter = filterValue;
+    filterValue = filterValue.trim(); // Remove whitespace
+    filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
+    this.dataSource.filter = filterValue;
   }
 
 
-  constructor() { }
+  constructor(private httpService: DashboardService) { }
 
   ngOnInit() {
+    this.getData()
   }
 
+  getData() {
+    this.httpService.getDashboardData().subscribe(data => {
+      console.log(data, 'home data');
+      this.tabsData=data;
+    }, error => {
+      console.log(error, 'home error')
+
+    })
+
+  }
 }
