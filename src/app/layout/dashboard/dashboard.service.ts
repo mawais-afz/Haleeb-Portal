@@ -7,7 +7,7 @@ import { Subject } from 'rxjs';
   providedIn: 'root'
 })
 export class DashboardService {
-  ip: any = 'http://192.168.3.189:8080/audit/';// environment.ip;
+  ip: any = 'http://192.168.3.94:8080/audit/';// environment.ip;
   // ;
   user = 0;
 
@@ -106,5 +106,12 @@ export class DashboardService {
 
       form.appendChild(input);
     });
+  }
+
+  getKeyForProductivityReport(obj) {
+    let url = this.ip + 'productivityreport';
+
+    let body = `zoneId=${obj.zoneId}&regionId=${obj.regionId}&startDate=${obj.startDate}&endDate=${obj.endDate}&totalShops=${obj.totalShops}`
+    return this.http.post(url, body,this.httpOptions);
   }
 }

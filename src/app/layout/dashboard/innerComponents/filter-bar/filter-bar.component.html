@@ -1,5 +1,5 @@
 <!-- shop list  -->
-<mat-card class="mb-20" *ngIf="router.url==='/dashboard/shop_list' || router.url==='/dashboard/summary'">
+<mat-card class="mb-20" *ngIf="router.url==='/dashboard/shop_list_report' || router.url==='/dashboard/summary_report'">
 
     <mat-card-content>
         <mat-card-title>
@@ -80,7 +80,7 @@
 </mat-card>
 <!-- /shop list -->
 <!-- oss details  -->
-<mat-card class="mb-20" *ngIf="router.url==='/dashboard/oos_details'">
+<mat-card class="mb-20" *ngIf="router.url==='/dashboard/oos_details_report'">
 
     <mat-card-content>
         <mat-card-title>
@@ -195,12 +195,15 @@
 <!-- / daily visit report -->
 
 <!-- merchandiser productivity -->
-<mat-card class="mb-20" *ngIf="router.url==='/dashboard/productivity'">
+<mat-card class="mb-20" *ngIf="router.url==='/dashboard/productivity_report'">
 
     <mat-card-content>
         <mat-card-title>
             {{title| uppercase}} <i color="warn" [ngClass]="{'fa fa-cog fa-spin':loadingData}"></i>
+            <small class="mtb-5-IMP" *ngIf="loadingReportMessage">Please be patient we are compiling report for you</small>
+
         </mat-card-title>
+
         <section class="example-section">
 
 

@@ -41,6 +41,7 @@ export class FilterBarComponent implements OnInit {
   selectedProduct: any = {};
   selectedImpactType: any = {};
   impactTypeList: any = [];
+  loadingReportMessage: boolean = false;
 
   constructor(
     private toastr: ToastrService,
@@ -63,7 +64,7 @@ export class FilterBarComponent implements OnInit {
     this.lastVisit = this.dataService.getLastVisit();
     this.mustHave = this.dataService.getYesNo();
     this.httpService.getZone();
-    this.impactTypeList=this.dataService.getImpactType();
+    this.impactTypeList = this.dataService.getImpactType();
   }
 
   getZone() {
@@ -100,24 +101,24 @@ export class FilterBarComponent implements OnInit {
   }
 
   regionChange() {
-   if((this.router.url!=='/dashboard/productivity') && (this.router.url !== '/dashboard/daily_visit_report')){
-    this.loadingData = true;
+    if ((this.router.url !== '/dashboard/productivity_report') && (this.router.url !== '/dashboard/daily_visit_report')) {
+      this.loadingData = true;
 
-    console.log('regions id', this.selectedRegion);
-    this.httpService.getCities(this.selectedRegion.id).subscribe(
-      data => {
-        // this.channels = data[0];
-        let res: any = data;
-        this.areas = res.areaList;
-        this.cities = res.cityList;
+      console.log('regions id', this.selectedRegion);
+      this.httpService.getCities(this.selectedRegion.id).subscribe(
+        data => {
+          // this.channels = data[0];
+          let res: any = data;
+          this.areas = res.areaList;
+          this.cities = res.cityList;
 
-        setTimeout(() => {
-          this.loadingData = false;
-        }, 500);
-      },
-      error => { }
-    );
-   }
+          setTimeout(() => {
+            this.loadingData = false;
+          }, 500);
+        },
+        error => { }
+      );
+    }
   }
 
   categoryChange() {
@@ -269,6 +270,8 @@ export class FilterBarComponent implements OnInit {
   }
 
   MProductivityReport() {
+    this.loadingData = true;
+    this.loadingReportMessage = true;
     let obj = {
       zoneId: this.selectedZone.id,
       regionId: this.selectedRegion.id,
@@ -277,7 +280,37 @@ export class FilterBarComponent implements OnInit {
       totalShops: this.selectedImpactType
     };
 
-    let url = 'productivityreport';
-    this.httpService.DownloadResource(obj, url);
+    // let url = 'productivityreport';
+    // this.httpService.DownloadResource(obj, url);
+
+
+    this.httpService.getKeyForProductivityReport(obj).subscribe(data => {
+      let res: any = data
+
+      let obj2 = {
+        key: res.key,
+        fileType: 'json.fileType'
+      }
+      console.log(data, 'productivity data')
+      setTimeout(() => {
+        this.loadingData = false;
+      }, 500);
+      this.getproductivityDownload(obj2)
+
+    }, error => {
+
+      console.log(error, 'productivity error')
+
+    })
+
+  }
+
+  getproductivityDownload(obj) {
+    let u = 'downloadReport'
+    this.httpService.DownloadResource(obj, u);
+
+    setTimeout(() => {
+      this.loadingReportMessage = false;
+    }, 1000);
   }
 }

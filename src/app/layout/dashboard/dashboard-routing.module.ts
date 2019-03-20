@@ -19,10 +19,10 @@ const routes: Routes = [
             { path: '', redirectTo: 'home', pathMatch: 'full' },
             { path: 'home', component: HomeComponent },
             { path: 'daily_visit_report', component: DailyVisitReportComponent },
-            { path: 'oos_details', component: DetailsComponent },
-            { path: 'shop_list', component: ShopListComponent },
-            { path: 'summary', component: SummaryComponent },
-            { path: 'productivity', component: ProductivityComponent }
+            { path: 'oos_details_report', component: DetailsComponent },
+            { path: 'shop_list_report', component: ShopListComponent },
+            { path: 'summary_report', component: SummaryComponent },
+            { path: 'productivity_report', component: ProductivityComponent }
 
 
 
