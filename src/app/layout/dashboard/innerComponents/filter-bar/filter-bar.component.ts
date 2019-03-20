@@ -28,7 +28,7 @@ export class FilterBarComponent implements OnInit {
   selectedArea: any = {};
   lastVisit: any = [];
   selectedLastVisit = 0;
-  mustHave: any = []
+  mustHave: any = [];
   selectedMustHave = false;
   merchandiserList: any = [];
   selectedMerchandiser: any = {};
@@ -38,7 +38,9 @@ export class FilterBarComponent implements OnInit {
   cities: any = [];
   selectedCity: any = {};
   productsList: any = [];
-  selectedProduct: any = {}
+  selectedProduct: any = {};
+  selectedImpactType: any = {};
+  impactTypeList: any = [];
 
   constructor(
     private toastr: ToastrService,
@@ -50,10 +52,9 @@ export class FilterBarComponent implements OnInit {
     this.categoryList = JSON.parse(localStorage.getItem('assetList'));
     this.channels = JSON.parse(localStorage.getItem('channelList'));
 
-    console.log(this.categoryList)
+    console.log(this.categoryList);
     if (!this.zones) {
-      this.getZone()
-
+      this.getZone();
     }
   }
 
@@ -62,25 +63,23 @@ export class FilterBarComponent implements OnInit {
     this.lastVisit = this.dataService.getLastVisit();
     this.mustHave = this.dataService.getYesNo();
     this.httpService.getZone();
-
+    this.impactTypeList=this.dataService.getImpactType();
   }
 
   getZone() {
-
-    this.httpService.getZone().subscribe(data => {
-      const res: any = data;
-      if (res.zoneList) {
-        localStorage.setItem('zoneList', JSON.stringify(res.zoneList));
-        localStorage.setItem('assetList', JSON.stringify(res.assetList));
-        localStorage.setItem('channelList', JSON.stringify(res.channelList));
+    this.httpService.getZone().subscribe(
+      data => {
+        const res: any = data;
+        if (res.zoneList) {
+          localStorage.setItem('zoneList', JSON.stringify(res.zoneList));
+          localStorage.setItem('assetList', JSON.stringify(res.assetList));
+          localStorage.setItem('channelList', JSON.stringify(res.channelList));
+        }
+      },
+      error => {
+        error.status === 0 ? this.toastr.error('Please check Internet Connection', 'Error') : this.toastr.error(error.description, 'Error');
       }
-
-    }, error => {
-      (error.status === 0) ?
-        this.toastr.error('Please check Internet Connection', 'Error') :
-        this.toastr.error(error.description, 'Error');
-
-    });
+    );
   }
 
   zoneChange() {
@@ -90,13 +89,10 @@ export class FilterBarComponent implements OnInit {
 
     this.httpService.getRegion(this.selectedZone.id).subscribe(
       data => {
-
-
         let res: any = data;
         this.regions = res;
         setTimeout(() => {
           this.loadingData = false;
-
         }, 500);
       },
       error => { }
@@ -104,36 +100,34 @@ export class FilterBarComponent implements OnInit {
   }
 
   regionChange() {
+   if(this.router.url!=='/dashboard/productivity'){
     this.loadingData = true;
 
     console.log('regions id', this.selectedRegion);
     this.httpService.getCities(this.selectedRegion.id).subscribe(
       data => {
-
         // this.channels = data[0];
-        let res: any = data
+        let res: any = data;
         this.areas = res.areaList;
         this.cities = res.cityList;
 
         setTimeout(() => {
           this.loadingData = false;
-
         }, 500);
       },
       error => { }
     );
+   }
   }
-
 
   categoryChange() {
     this.loadingData = true;
-    debugger
+    debugger;
     this.httpService.getProducts(this.selectedCategory).subscribe(
       data => {
         this.productsList = data;
         setTimeout(() => {
           this.loadingData = false;
-
         }, 500);
       },
       error => { }
@@ -236,7 +230,7 @@ export class FilterBarComponent implements OnInit {
   }
 
   getOOSShopListReport() {
-    debugger
+    debugger;
     let obj = {
       zoneId: this.selectedZone.id,
       regionId: this.selectedRegion.id,
@@ -249,7 +243,7 @@ export class FilterBarComponent implements OnInit {
       lastVisit: -1,
       productId: 1,
       mustHave: this.selectedMustHave
-    }
+    };
 
     let url = 'shopwise-ost-report';
     this.httpService.DownloadResource(obj, url);
@@ -268,10 +262,22 @@ export class FilterBarComponent implements OnInit {
       lastVisit: -1,
       productId: 1,
       mustHave: this.selectedMustHave
-    }
+    };
 
     let url = 'oosSummaryReport';
     this.httpService.DownloadResource(obj, url);
   }
 
+  MProductivityReport() {
+    let obj = {
+      zoneId: this.selectedZone.id,
+      regionId: this.selectedRegion.id,
+      startDate: moment(this.startDate).format('YYYY-MM-DD'),
+      endDate: moment(this.endDate).format('YYYY-MM-DD'),
+      totalShops: this.selectedImpactType
+    };
+
+    let url = 'productivityreport';
+    this.httpService.DownloadResource(obj, url);
+  }
 }

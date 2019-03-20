@@ -7,8 +7,8 @@ import { Subject } from 'rxjs';
   providedIn: 'root'
 })
 export class DashboardService {
-  ip: any =  environment.ip;
-  // 'http://192.168.3.94:8080/audit/';
+  ip: any = 'http://192.168.3.189:8080/audit/';// environment.ip;
+  // ;
   user = 0;
 
   httpOptions = {
@@ -64,16 +64,16 @@ export class DashboardService {
 
   downloadMerchandiserPDF(obj) {
     let httpParams = new FormData();
-    httpParams.append('reportType','');
-    httpParams.append('zoneId',obj.zoneId);
-    httpParams.append('regionId',obj.regionId);
-    httpParams.append('startDate',obj.startDate);
-    httpParams.append('surveyorId',obj.surveyorId);
-  
+    httpParams.append('reportType', '');
+    httpParams.append('zoneId', obj.zoneId);
+    httpParams.append('regionId', obj.regionId);
+    httpParams.append('startDate', obj.startDate);
+    httpParams.append('surveyorId', obj.surveyorId);
+
 
     const url = this.ip + `cbl-pdf`;
-    let o=`surveyorId=${obj.surveyorId}&startDate=${obj.startDate}`;
-    return this.http.post(url,o,this.httpOptions);
+    let o = `surveyorId=${obj.surveyorId}&startDate=${obj.startDate}`;
+    return this.http.post(url, o, this.httpOptions);
   }
 
   public DownloadResource(obj, url) {
