@@ -100,7 +100,7 @@ export class FilterBarComponent implements OnInit {
   }
 
   regionChange() {
-   if(this.router.url!=='/dashboard/productivity'){
+   if((this.router.url!=='/dashboard/productivity') && (this.router.url !== '/dashboard/daily_visit_report')){
     this.loadingData = true;
 
     console.log('regions id', this.selectedRegion);
