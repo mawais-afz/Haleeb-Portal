@@ -291,10 +291,7 @@ export class FilterBarComponent implements OnInit {
         key: res.key,
         fileType: 'json.fileType'
       }
-      console.log(data, 'productivity data')
-      setTimeout(() => {
-        this.loadingData = false;
-      }, 500);
+
       this.getproductivityDownload(obj2)
 
     }, error => {
@@ -310,6 +307,8 @@ export class FilterBarComponent implements OnInit {
     this.httpService.DownloadResource(obj, u);
 
     setTimeout(() => {
+      this.loadingData = false;
+
       this.loadingReportMessage = false;
     }, 1000);
   }
