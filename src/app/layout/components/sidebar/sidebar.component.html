@@ -1,6 +1,6 @@
 <div id="sidebar">
     <mat-nav-list>
-        <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['/dashboard/home']">
+        <a mat-list-item [routerLinkActive]="'link-active'" [routerLink]="['/dashboard/home']">
             <mat-icon class="sidenav-icon">dashboard</mat-icon> {{ 'Dashboard' | translate }}
         </a>
         <!-- <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['/charts']">
@@ -32,16 +32,16 @@
                     <a [class.active]=true [routerLink]="['/dashboard/oos_details']"><span>{{ 'OOS Details' | translate }}</span></a>
                 </li> -->
                 <li>
-                    <a [class.active]=true [routerLink]="['/dashboard/shop_list_report']"><span>{{ 'OOS Shop List' | translate }}</span></a>
+                    <a [routerLinkActive]="'link-active'" [routerLink]="['/dashboard/shop_list_report']"><span>{{ 'OOS Shop List' | translate }}</span></a>
                 </li>
                 <li>
-                    <a [routerLink]="['/dashboard/summary_report']"><span>{{ 'OOS Summary' | translate }}</span></a>
+                    <a [routerLinkActive]="'link-active'" [routerLink]="['/dashboard/summary_report']"><span>{{ 'OOS Summary' | translate }}</span></a>
                 </li>
                 <li>
-                    <a [routerLink]="['/dashboard/productivity_report']"><span>{{ 'Merchandiser Productivity' | translate }}</span></a>
+                    <a [routerLinkActive]="'link-active'" [routerLink]="['/dashboard/productivity_report']"><span>{{ 'Merchandiser Productivity' | translate }}</span></a>
                 </li>
                 <li>
-                    <a [routerLink]="['/dashboard/daily_visit_report']"><span>{{ 'Merchandiser Daily Report' | translate }}</span></a>
+                    <a [routerLinkActive]="'link-active'" [routerLink]="['/dashboard/daily_visit_report']"><span>{{ 'Merchandiser Daily Report' | translate }}</span></a>
                 </li>
             </ul>
         </div>

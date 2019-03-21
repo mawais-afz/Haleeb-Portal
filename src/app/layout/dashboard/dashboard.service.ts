@@ -30,6 +30,7 @@ export class DashboardService {
     return this.http.get(url);
 
   }
+  //#region FILTER CALL
   getZone() {
     const filter = JSON.stringify({ act: 0 });
     const url = this.ip + 'loadFilters';
@@ -66,7 +67,12 @@ export class DashboardService {
     // const url = this.ip + 'cbl-pdf';
     return this.http.post(url, filter);
   }
+  //#endregion
 
+
+  getOOSShopListKey(obj ){
+
+  }
   downloadMerchandiserPDF(obj) {
     let httpParams = new FormData();
     httpParams.append('reportType', '');
@@ -80,7 +86,12 @@ export class DashboardService {
     let o = `surveyorId=${obj.surveyorId}&startDate=${obj.startDate}`;
     return this.http.post(url, o, this.httpOptions);
   }
+  getKeyForProductivityReport(obj) {
+    let url = this.ip + 'productivityreport';
 
+    let body = `type=2&pageType=1&zoneId=${obj.zoneId}&regionId=${obj.regionId}&startDate=${obj.startDate}&endDate=${obj.endDate}&totalShops=${obj.totalShops}`
+    return this.http.post(url, body, this.httpOptions);
+  }
   public DownloadResource(obj, url) {
     let path;
 
@@ -113,10 +124,5 @@ export class DashboardService {
     });
   }
 
-  getKeyForProductivityReport(obj) {
-    let url = this.ip + 'productivityreport';
-
-    let body = `type=2&pageType=1&zoneId=${obj.zoneId}&regionId=${obj.regionId}&startDate=${obj.startDate}&endDate=${obj.endDate}&totalShops=${obj.totalShops}`
-    return this.http.post(url, body, this.httpOptions);
-  }
+ 
 }

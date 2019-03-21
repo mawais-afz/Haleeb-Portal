@@ -72,8 +72,8 @@
                 <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                 <mat-datepicker #picker1></mat-datepicker>
             </mat-form-field>
-            <button *ngIf="router.url==='/dashboard/shop_list'" mat-raised-button color="warn" (click)="getOOSShopListReport()">Download</button>
-            <button *ngIf="router.url==='/dashboard/summary'" mat-raised-button color="warn" (click)="getOOSSummary()">Download</button>
+            <button *ngIf="router.url==='/dashboard/shop_list_report'" mat-raised-button color="warn" (click)="getOOSShopListReport()">Download</button>
+            <button *ngIf="router.url==='/dashboard/summary_report'" mat-raised-button color="warn" (click)="getOOSSummary()">Download</button>
 
         </section>
     </mat-card-content>
@@ -143,7 +143,7 @@
                 <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                 <mat-datepicker #picker1></mat-datepicker>
             </mat-form-field>
-            <button mat-raised-button color="warn" (click)="getReport()">Download</button>
+            <button mat-raised-button color="warn" (click)="getOOSDetailReport()">Download</button>
 
         </section>
     </mat-card-content>

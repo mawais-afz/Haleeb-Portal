@@ -18,6 +18,7 @@
         }
     }
 }
+
 .nested-menu {
     .nested {
         list-style-type: none;
@@ -41,8 +42,13 @@
         }
     }
 }
+
 @media screen and (max-width: 992px) {
     #sidebar {
         left: -250px;
     }
+}
+
+.link-active {
+    background-color: #F3F3F3;
 }

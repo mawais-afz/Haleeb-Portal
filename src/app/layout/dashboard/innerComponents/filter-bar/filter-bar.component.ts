@@ -54,9 +54,9 @@ export class FilterBarComponent implements OnInit {
     this.channels = JSON.parse(localStorage.getItem('channelList'));
 
     console.log(this.categoryList);
-    if (!this.zones) {
+    
       this.getZone();
-    }
+    
   }
 
   ngOnInit() {
@@ -66,67 +66,53 @@ export class FilterBarComponent implements OnInit {
     this.httpService.getZone();
     this.impactTypeList = this.dataService.getImpactType();
   }
+//#region filters logic
 
-  getZone() {
-    this.httpService.getZone().subscribe(
-      data => {
-        const res: any = data;
-        if (res.zoneList) {
-          localStorage.setItem('zoneList', JSON.stringify(res.zoneList));
-          localStorage.setItem('assetList', JSON.stringify(res.assetList));
-          localStorage.setItem('channelList', JSON.stringify(res.channelList));
-        }
-      },
-      error => {
-        error.status === 0 ? this.toastr.error('Please check Internet Connection', 'Error') : this.toastr.error(error.description, 'Error');
+getZone() {
+  this.httpService.getZone().subscribe(
+    data => {
+      const res: any = data;
+      if (res.zoneList) {
+        localStorage.setItem('zoneList', JSON.stringify(res.zoneList));
+        localStorage.setItem('assetList', JSON.stringify(res.assetList));
+        localStorage.setItem('channelList', JSON.stringify(res.channelList));
       }
-    );
-  }
-
-  zoneChange() {
-    this.loadingData = true;
-    // this.regions = [];
-    // this.channels = [];
-
-    this.httpService.getRegion(this.selectedZone.id).subscribe(
-      data => {
-        let res: any = data;
-        this.regions = res;
-        setTimeout(() => {
-          this.loadingData = false;
-        }, 500);
-      },
-      error => { }
-    );
-  }
-
-  regionChange() {
-    if ((this.router.url !== '/dashboard/productivity_report') && (this.router.url !== '/dashboard/daily_visit_report')) {
-      this.loadingData = true;
-
-      console.log('regions id', this.selectedRegion);
-      this.httpService.getCities(this.selectedRegion.id).subscribe(
-        data => {
-          // this.channels = data[0];
-          let res: any = data;
-          this.areas = res.areaList;
-          this.cities = res.cityList;
-
-          setTimeout(() => {
-            this.loadingData = false;
-          }, 500);
-        },
-        error => { }
-      );
+    },
+    error => {
+      error.status === 0 ? this.toastr.error('Please check Internet Connection', 'Error') : this.toastr.error(error.description, 'Error');
     }
-  }
+  );
+}
 
-  categoryChange() {
+zoneChange() {
+  this.loadingData = true;
+  // this.regions = [];
+  // this.channels = [];
+
+  this.httpService.getRegion(this.selectedZone.id).subscribe(
+    data => {
+      let res: any = data;
+      this.regions = res;
+      setTimeout(() => {
+        this.loadingData = false;
+      }, 500);
+    },
+    error => { }
+  );
+}
+
+regionChange() {
+  if ((this.router.url !== '/dashboard/productivity_report') && (this.router.url !== '/dashboard/daily_visit_report')) {
     this.loadingData = true;
-    debugger;
-    this.httpService.getProducts(this.selectedCategory).subscribe(
+
+    console.log('regions id', this.selectedRegion);
+    this.httpService.getCities(this.selectedRegion.id).subscribe(
       data => {
-        this.productsList = data;
+        // this.channels = data[0];
+        let res: any = data;
+        this.areas = res.areaList;
+        this.cities = res.cityList;
+
         setTimeout(() => {
           this.loadingData = false;
         }, 500);
@@ -134,29 +120,45 @@ export class FilterBarComponent implements OnInit {
       error => { }
     );
   }
+}
 
-  cityChange() {
-    // this.httpService.getAreas(this.selectedChannel).subscribe(
-    //   data => {
-    //     this.areas = data;
-    //     // this.filterAllData();
-    //   },
-    //   error => { }
-    // );
-  }
+categoryChange() {
+  this.loadingData = true;
+  debugger;
+  this.httpService.getProducts(this.selectedCategory).subscribe(
+    data => {
+      this.productsList = data;
+      setTimeout(() => {
+        this.loadingData = false;
+      }, 500);
+    },
+    error => { }
+  );
+}
 
-  chanelChange() {
-    // console.log('seelcted chanel', this.selectedChannel);
-    // this.httpService.getAreas(this.selectedChannel).subscribe(
-    //   data => {
-    //     this.areas = data;
-    //     // this.filterAllData();
-    //   },
-    //   error => { }
-    // );
-  }
+cityChange() {
+  // this.httpService.getAreas(this.selectedChannel).subscribe(
+  //   data => {
+  //     this.areas = data;
+  //     // this.filterAllData();
+  //   },
+  //   error => { }
+  // );
+}
 
-  getReport() {
+chanelChange() {
+  // console.log('seelcted chanel', this.selectedChannel);
+  // this.httpService.getAreas(this.selectedChannel).subscribe(
+  //   data => {
+  //     this.areas = data;
+  //     // this.filterAllData();
+  //   },
+  //   error => { }
+  // );
+}
+//#endregion
+
+  getOOSDetailReport() {
     const obj = {
       startDate: moment(this.startDate).format('YYYY-MM-DD'),
       endDate: moment(this.endDate).format('YYYY-MM-DD'),
