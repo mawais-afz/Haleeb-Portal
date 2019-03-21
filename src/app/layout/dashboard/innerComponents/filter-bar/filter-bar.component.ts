@@ -277,7 +277,8 @@ export class FilterBarComponent implements OnInit {
       regionId: this.selectedRegion.id,
       startDate: moment(this.startDate).format('YYYY-MM-DD'),
       endDate: moment(this.endDate).format('YYYY-MM-DD'),
-      totalShops: this.selectedImpactType
+      totalShops: this.selectedImpactType,
+     
     };
 
     // let url = 'productivityreport';
