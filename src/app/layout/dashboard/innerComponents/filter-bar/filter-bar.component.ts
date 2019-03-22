@@ -339,8 +339,8 @@ export class FilterBarComponent implements OnInit {
       let res: any = data
       this.tabsData = data;
       this.loading = false;
-      if (res.planned == 0)
-        this.toastr.info('No data available for current selection', 'Summary')
+      // if (res.planned == 0)
+      //   this.toastr.info('No data available for current selection', 'Summary')
     }, error => {
       console.log(error, 'home error')
 
