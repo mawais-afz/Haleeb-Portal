@@ -7,7 +7,7 @@ import { Subject } from 'rxjs';
   providedIn: 'root'
 })
 export class DashboardService {
-  ip: any = environment.ip;
+  ip: any = 'http://192.168.3.189:8080/audit/'// environment.ip;
   user = 0;
 
   httpOptions = {
@@ -24,8 +24,9 @@ export class DashboardService {
     return this.http.post(url, credentials);
   }
   getDashboardData(obj) {
+    let body = `zoneId=${obj.zoneId}&regionId=${obj.regionId}&endDate=${obj.endDate}`
     const url = this.ip + 'dashboardDataCBL'
-    return this.http.post(url, obj);
+    return this.http.post(url, body,this.httpOptions);
 
   }
   //#region FILTER CALL

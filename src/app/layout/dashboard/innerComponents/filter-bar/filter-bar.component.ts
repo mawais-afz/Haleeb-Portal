@@ -327,16 +327,20 @@ export class FilterBarComponent implements OnInit {
 
 
   getTabsData(data?: any) {
+    this.loading = true;
     let obj: any = {
-      zoneId: this.selectedZone.id,
-      regionId: this.selectedRegion.id,
-      endDate: moment(this.endDate).format('YYYY-MM-DD')    
+      zoneId: (this.selectedZone.id) ? this.selectedZone.id : -1,
+      regionId: (this.selectedRegion.id) ? this.selectedRegion.id : -1,
+      endDate: (data) ? moment(data).format('YYYY-MM-DD') : moment(this.endDate).format('YYYY-MM-DD')
     }
 
     this.httpService.getDashboardData(obj).subscribe(data => {
       console.log(data, 'home data');
+      let res: any = data
       this.tabsData = data;
       this.loading = false;
+      if (res.planned == 0)
+        this.toastr.info('No data available for current selection', 'Summary')
     }, error => {
       console.log(error, 'home error')
 
