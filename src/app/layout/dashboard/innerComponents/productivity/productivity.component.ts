@@ -6,10 +6,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./productivity.component.scss']
 })
 export class ProductivityComponent implements OnInit {
-title = 'Merchandiser Productivity';
+  title = 'Merchandiser Productivity';
+ 
   constructor() { }
 
   ngOnInit() {
   }
+
+  
 
 }

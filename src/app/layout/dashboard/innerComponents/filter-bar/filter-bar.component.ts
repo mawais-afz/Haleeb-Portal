@@ -11,6 +11,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./filter-bar.component.scss']
 })
 export class FilterBarComponent implements OnInit {
+  //#region veriables
   minDate = new Date(2000, 0, 1);
   maxDate = new Date(2020, 0, 1);
   @Input() title;
@@ -42,6 +43,9 @@ export class FilterBarComponent implements OnInit {
   selectedImpactType: any = {};
   impactTypeList: any = [];
   loadingReportMessage: boolean = false;
+  tabsData: any = [];
+  loading = true;
+  //#endregion
 
   constructor(
     private toastr: ToastrService,
@@ -54,9 +58,9 @@ export class FilterBarComponent implements OnInit {
     this.channels = JSON.parse(localStorage.getItem('channelList'));
 
     console.log(this.categoryList);
-    
-      this.getZone();
-    
+
+    this.getZone();
+
   }
 
   ngOnInit() {
@@ -65,54 +69,37 @@ export class FilterBarComponent implements OnInit {
     this.mustHave = this.dataService.getYesNo();
     this.httpService.getZone();
     this.impactTypeList = this.dataService.getImpactType();
+    this.getTabsData()
   }
-//#region filters logic
+  //#region filters logic
 
-getZone() {
-  this.httpService.getZone().subscribe(
-    data => {
-      const res: any = data;
-      if (res.zoneList) {
-        localStorage.setItem('zoneList', JSON.stringify(res.zoneList));
-        localStorage.setItem('assetList', JSON.stringify(res.assetList));
-        localStorage.setItem('channelList', JSON.stringify(res.channelList));
-      }
-    },
-    error => {
-      error.status === 0 ? this.toastr.error('Please check Internet Connection', 'Error') : this.toastr.error(error.description, 'Error');
-    }
-  );
-}
-
-zoneChange() {
-  this.loadingData = true;
-  // this.regions = [];
-  // this.channels = [];
-
-  this.httpService.getRegion(this.selectedZone.id).subscribe(
-    data => {
-      let res: any = data;
-      this.regions = res;
-      setTimeout(() => {
-        this.loadingData = false;
-      }, 500);
-    },
-    error => { }
-  );
-}
-
-regionChange() {
-  if ((this.router.url !== '/dashboard/productivity_report') && (this.router.url !== '/dashboard/daily_visit_report')) {
-    this.loadingData = true;
-
-    console.log('regions id', this.selectedRegion);
-    this.httpService.getCities(this.selectedRegion.id).subscribe(
+  getZone() {
+    this.httpService.getZone().subscribe(
       data => {
-        // this.channels = data[0];
-        let res: any = data;
-        this.areas = res.areaList;
-        this.cities = res.cityList;
+        const res: any = data;
+        if (res.zoneList) {
+          localStorage.setItem('zoneList', JSON.stringify(res.zoneList));
+          localStorage.setItem('assetList', JSON.stringify(res.assetList));
+          localStorage.setItem('channelList', JSON.stringify(res.channelList));
+        }
+      },
+      error => {
+        error.status === 0 ? this.toastr.error('Please check Internet Connection', 'Error') : this.toastr.error(error.description, 'Error');
+      }
+    );
+  }
 
+  zoneChange() {
+    this.loadingData = true;
+    // this.regions = [];
+    // this.channels = [];
+    if (this.router.url === '/dashboard/productivity_report')
+      this.getTabsData()
+
+    this.httpService.getRegion(this.selectedZone.id).subscribe(
+      data => {
+        let res: any = data;
+        this.regions = res;
         setTimeout(() => {
           this.loadingData = false;
         }, 500);
@@ -120,43 +107,65 @@ regionChange() {
       error => { }
     );
   }
-}
 
-categoryChange() {
-  this.loadingData = true;
-  debugger;
-  this.httpService.getProducts(this.selectedCategory).subscribe(
-    data => {
-      this.productsList = data;
-      setTimeout(() => {
-        this.loadingData = false;
-      }, 500);
-    },
-    error => { }
-  );
-}
+  regionChange() {
+    if (this.router.url === '/dashboard/productivity_report')
+      this.getTabsData()
+    if ((this.router.url !== '/dashboard/productivity_report') && (this.router.url !== '/dashboard/daily_visit_report')) {
+      this.loadingData = true;
 
-cityChange() {
-  // this.httpService.getAreas(this.selectedChannel).subscribe(
-  //   data => {
-  //     this.areas = data;
-  //     // this.filterAllData();
-  //   },
-  //   error => { }
-  // );
-}
+      console.log('regions id', this.selectedRegion);
+      this.httpService.getCities(this.selectedRegion.id).subscribe(
+        data => {
+          // this.channels = data[0];
+          let res: any = data;
+          this.areas = res.areaList;
+          this.cities = res.cityList;
 
-chanelChange() {
-  // console.log('seelcted chanel', this.selectedChannel);
-  // this.httpService.getAreas(this.selectedChannel).subscribe(
-  //   data => {
-  //     this.areas = data;
-  //     // this.filterAllData();
-  //   },
-  //   error => { }
-  // );
-}
-//#endregion
+          setTimeout(() => {
+            this.loadingData = false;
+          }, 500);
+        },
+        error => { }
+      );
+    }
+  }
+
+  categoryChange() {
+    this.loadingData = true;
+    debugger;
+    this.httpService.getProducts(this.selectedCategory).subscribe(
+      data => {
+        this.productsList = data;
+        setTimeout(() => {
+          this.loadingData = false;
+        }, 500);
+      },
+      error => { }
+    );
+  }
+
+  cityChange() {
+    // this.httpService.getAreas(this.selectedChannel).subscribe(
+    //   data => {
+    //     this.areas = data;
+    //     // this.filterAllData();
+    //   },
+    //   error => { }
+    // );
+  }
+
+  chanelChange() {
+    // console.log('seelcted chanel', this.selectedChannel);
+    // this.httpService.getAreas(this.selectedChannel).subscribe(
+    //   data => {
+    //     this.areas = data;
+    //     // this.filterAllData();
+    //   },
+    //   error => { }
+    // );
+  }
+  //#endregion
 
   getOOSDetailReport() {
     const obj = {
@@ -279,8 +288,8 @@ chanelChange() {
       regionId: this.selectedRegion.id,
       startDate: moment(this.startDate).format('YYYY-MM-DD'),
       endDate: moment(this.endDate).format('YYYY-MM-DD'),
-      totalShops: this.selectedImpactType,
-     
+      // totalShops: this.selectedImpactType,
+
     };
 
     // let url = 'productivityreport';
@@ -314,5 +323,24 @@ chanelChange() {
 
       this.loadingReportMessage = false;
     }, 1000);
+  }
+
+
+  getTabsData(data?: any) {
+    let obj: any = {
+      zoneId: this.selectedZone.id,
+      regionId: this.selectedRegion.id,
+      endDate: moment(this.endDate).format('YYYY-MM-DD')    
+    }
+
+    this.httpService.getDashboardData(obj).subscribe(data => {
+      console.log(data, 'home data');
+      this.tabsData = data;
+      this.loading = false;
+    }, error => {
+      console.log(error, 'home error')
+
+    })
+
   }
 }

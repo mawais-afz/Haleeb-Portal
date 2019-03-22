@@ -219,11 +219,11 @@
                 </mat-select>
             </mat-form-field>
 
-            <mat-form-field *ngIf="impactTypeList.length>0" class="example-margin mr-10-IMP">
+            <!-- <mat-form-field *ngIf="impactTypeList.length>0" class="example-margin mr-10-IMP">
                 <mat-select placeholder="Remove Impact" name='removeImpact' [(ngModel)]="selectedImpactType">
                     <mat-option [value]="impact.key" *ngFor="let impact of impactTypeList">{{impact.value}}</mat-option>
                 </mat-select>
-            </mat-form-field>
+            </mat-form-field> -->
 
             <mat-form-field class="example-full-width mr-10-IMP">
                 <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker0" [(ngModel)]="startDate" placeholder="Choose a start date" readonly>
@@ -231,7 +231,7 @@
                 <mat-datepicker #picker0></mat-datepicker>
             </mat-form-field>
             <mat-form-field class="example-full-width mr-10-IMP">
-                <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker1" [(ngModel)]="endDate" placeholder="Choose a end date" readonly>
+                <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker1" [(ngModel)]="endDate" (ngModelChange)="getTabsData($event)" placeholder="Choose a end date" readonly>
                 <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                 <mat-datepicker #picker1></mat-datepicker>
             </mat-form-field>
@@ -245,5 +245,35 @@
 
     </mat-card-content>
 </mat-card>
+
+<div *ngIf="!loading && router.url==='/dashboard/productivity_report'" class="mb-20 animated  slideInLeft" fxLayout="row" fxLayout.lt-md="column" fxFlex fxLayoutGap="10px">
+    <div fxFlex>
+        <app-stat [bgClass]="'danger'" [icon]="'assignment'" [count]="tabsData?.planned" [label]="'PLANNED'">
+        </app-stat>
+    </div>
+    <div fxFlex>
+        <app-stat [bgClass]="'warn'" [icon]="'view_list'" [count]="tabsData?.completed" [label]="'COMPLETED'">
+        </app-stat>
+    </div>
+    <div fxFlex>
+        <app-stat [bgClass]="'success'" [icon]="'assignment_late'" [count]="tabsData?.successful" [label]="'SUCCESSFUL'"></app-stat>
+    </div>
+    <div fxFlex>
+        <app-stat [bgClass]="'info'" [icon]="'contact_support'" [count]="tabsData?.unvisited" [label]="'UNVISITED'">
+        </app-stat>
+    </div>
+    <div fxFlex>
+        <app-stat [bgClass]="'purple'" [icon]="'check_circle'" [count]="tabsData?.completedPercent" [label]="'Completion'"></app-stat>
+    </div>
+    <div fxFlex>
+        <app-stat [bgClass]="'primary'" [icon]="'thumb_up'" [count]="tabsData?.successfulPercent" [label]="'Successful'"></app-stat>
+    </div>
+</div>
+
+<div *ngIf="loading && router.url==='/dashboard/productivity_report'" class="mb-20" flFlex flexLayout="row" flexLayout.lt-md="column">
+    <div fxFlex class="img-center">
+        <img src="assets/images/basicloader.gif" alt="" srcset="">
+    </div>
+</div>
 
 <!-- / merchandiser productivity -->
