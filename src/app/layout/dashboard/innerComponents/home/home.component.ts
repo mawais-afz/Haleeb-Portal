@@ -30,6 +30,7 @@ export class HomeComponent implements OnInit {
   displayedColumns = ['position', 'name', 'weight', 'symbol'];
   dataSource = new MatTableDataSource(ELEMENT_DATA);
   tabsData: any = [];
+  loading = true;
 
   applyFilter(filterValue: string) {
     filterValue = filterValue.trim(); // Remove whitespace
@@ -45,9 +46,15 @@ export class HomeComponent implements OnInit {
   }
 
   getData() {
-    this.httpService.getDashboardData().subscribe(data => {
+    let obj: any = {
+      zoneId: '',
+      regionId: '',
+      endDate: ''
+    }
+    this.httpService.getDashboardData(obj).subscribe(data => {
       console.log(data, 'home data');
-      this.tabsData=data;
+      this.tabsData = data;
+      this.loading = false;
     }, error => {
       console.log(error, 'home error')
 

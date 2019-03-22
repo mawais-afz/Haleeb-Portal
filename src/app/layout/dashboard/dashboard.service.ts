@@ -23,11 +23,9 @@ export class DashboardService {
     const url = this.ip + 'pictureLogin';
     return this.http.post(url, credentials);
   }
-  getDashboardData() {
+  getDashboardData(obj) {
     const url = this.ip + 'dashboardDataCBL'
-
-    // const url = this.ip + 'cbl-pdf';
-    return this.http.get(url);
+    return this.http.post(url, obj);
 
   }
   //#region FILTER CALL
@@ -70,7 +68,7 @@ export class DashboardService {
   //#endregion
 
 
-  getOOSShopListKey(obj ){
+  getOOSShopListKey(obj) {
 
   }
   downloadMerchandiserPDF(obj) {
@@ -124,5 +122,5 @@ export class DashboardService {
     });
   }
 
- 
+
 }

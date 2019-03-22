@@ -1,4 +1,4 @@
-<div class="animated  slideInLeft">
+<div>
     <!-- <mat-card class="mb-20">
   
     <mat-card-content>
@@ -21,24 +21,33 @@
 </mat-card> -->
 
 
-    <div class="mb-20" fxLayout="row" fxLayout.lt-md="column" fxFlex fxLayoutGap="10px">
+    <div *ngIf="!loading" class="mb-20 animated  slideInLeft" fxLayout="row" fxLayout.lt-md="column" fxFlex fxLayoutGap="10px">
         <div fxFlex>
-            <app-stat [bgClass]="'danger'" [icon]="'assignment'" [count]="tabsData?.planned" [label]="'PLANNED'"></app-stat>
+            <app-stat [bgClass]="'danger'" [icon]="'assignment'" [count]="tabsData?.planned" [label]="'PLANNED'">
+            </app-stat>
         </div>
         <div fxFlex>
-            <app-stat [bgClass]="'warn'" [icon]="'view_list'" [count]="tabsData?.completed" [label]="'COMPLETED'"></app-stat>
+            <app-stat [bgClass]="'warn'" [icon]="'view_list'" [count]="tabsData?.completed" [label]="'COMPLETED'">
+            </app-stat>
         </div>
         <div fxFlex>
             <app-stat [bgClass]="'success'" [icon]="'assignment_late'" [count]="tabsData?.successful" [label]="'SUCCESSFUL'"></app-stat>
         </div>
         <div fxFlex>
-            <app-stat [bgClass]="'info'" [icon]="'contact_support'" [count]="tabsData?.unvisited" [label]="'UNVISITED'"></app-stat>
+            <app-stat [bgClass]="'info'" [icon]="'contact_support'" [count]="tabsData?.unvisited" [label]="'UNVISITED'">
+            </app-stat>
         </div>
         <div fxFlex>
             <app-stat [bgClass]="'purple'" [icon]="'check_circle'" [count]="tabsData?.completedPercent" [label]="'Completion'"></app-stat>
         </div>
         <div fxFlex>
             <app-stat [bgClass]="'primary'" [icon]="'thumb_up'" [count]="tabsData?.successfulPercent" [label]="'Successful'"></app-stat>
+        </div>
+    </div>
+
+    <div *ngIf="loading" class="mb-20" flFlex flexLayout="row" flexLayout.lt-md="column">
+        <div fxFlex class="img-center">
+            <img src="assets/images/basicloader.gif" alt="" srcset="">
         </div>
     </div>
 
