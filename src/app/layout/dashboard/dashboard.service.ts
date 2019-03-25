@@ -7,7 +7,7 @@ import { Subject } from 'rxjs';
   providedIn: 'root'
 })
 export class DashboardService {
-  ip: any =  environment.ip;
+  ip: any = environment.ip;
   // 
   user = 0;
 
@@ -50,7 +50,7 @@ export class DashboardService {
   }
 
   getProducts(categoryId) {
-    const filter = JSON.stringify({ act: 4, categoryId: categoryId });
+    const filter = JSON.stringify({ act: 5, category: categoryId });
     const url = this.ip + 'loadFilters';
     return this.http.post(url, filter);
   }
@@ -70,9 +70,7 @@ export class DashboardService {
   //#endregion
 
 
-  getOOSShopListKey(obj) {
 
-  }
   downloadMerchandiserPDF(obj) {
     let httpParams = new FormData();
     httpParams.append('reportType', '');
@@ -86,10 +84,8 @@ export class DashboardService {
     let o = `surveyorId=${obj.surveyorId}&startDate=${obj.startDate}`;
     return this.http.post(url, o, this.httpOptions);
   }
-  getKeyForProductivityReport(obj) {
-    let url = this.ip + 'productivityreport';
-
-    let body = `type=2&pageType=1&zoneId=${obj.zoneId}&regionId=${obj.regionId}&startDate=${obj.startDate}&endDate=${obj.endDate}&totalShops=${obj.totalShops}`
+  getKeyForProductivityReport(body,reportUrl) {
+    let url = this.ip + reportUrl;
     return this.http.post(url, body, this.httpOptions);
   }
   public DownloadResource(obj, url) {

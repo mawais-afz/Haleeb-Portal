@@ -22,7 +22,7 @@ export class FilterBarComponent implements OnInit {
 
   selectedZone: any = {};
   selectedRegion: any = {};
-  selectedChannel: any = {};
+  selectedChannel: any = [];
   startDate = new Date();
   endDate = new Date();
   areas: any = [];
@@ -39,7 +39,7 @@ export class FilterBarComponent implements OnInit {
   cities: any = [];
   selectedCity: any = {};
   productsList: any = [];
-  selectedProduct: any = {};
+  selectedProduct: any = [];
   selectedImpactType: any = {};
   impactTypeList: any = [];
   loadingReportMessage: boolean = false;
@@ -133,10 +133,11 @@ export class FilterBarComponent implements OnInit {
 
   categoryChange() {
     this.loadingData = true;
-    debugger;
-    this.httpService.getProducts(this.selectedCategory).subscribe(
+
+    this.httpService.getProducts(this.selectedCategory.id).subscribe(
       data => {
         this.productsList = data;
+  
         setTimeout(() => {
           this.loadingData = false;
         }, 500);
@@ -241,24 +242,53 @@ export class FilterBarComponent implements OnInit {
     this.httpService.DownloadResource(obj, url);
   }
 
+  arrayMaker(arr) {
+
+    let result: any = [];
+    arr.forEach(e => {
+      result.push(e.id);
+
+    });
+    return result;
+  }
+
   getOOSShopListReport() {
-    debugger;
+    this.loadingReportMessage=true;
+    this.loadingData=true
+   
     let obj = {
-      zoneId: this.selectedZone.id,
-      regionId: this.selectedRegion.id,
-      cityId: this.selectedCity.id,
-      areaId: this.selectedArea.id,
-      channelId: this.selectedChannel.id,
+      zoneId: this.selectedZone.id || "",
+      regionId: this.selectedRegion.id || "",
+      cityId: this.selectedCity.id || "",
+      areaId: this.selectedArea.id || "",
+      channelId: this.arrayMaker(this.selectedChannel),
       startDate: moment(this.startDate).format('YYYY-MM-DD'),
       endDate: moment(this.endDate).format('YYYY-MM-DD'),
-      category: this.selectedCategory.id,
-      lastVisit: -1,
-      productId: 1,
+      category: this.selectedCategory.id || "",
+      lastVisit: this.selectedLastVisit || "",
+      productId: this.arrayMaker(this.selectedProduct),
       mustHave: this.selectedMustHave
     };
-
+    
     let url = 'shopwise-ost-report';
-    this.httpService.DownloadResource(obj, url);
+    let body = `pageType=2&zoneId=${obj.zoneId}&regionId=${obj.regionId}&startDate=${obj.startDate}&endDate=${obj.endDate}&cityId=${obj.cityId}&areaId=${obj.areaId}&channelId=${obj.channelId}&category=${obj.category}&lastVisit=${obj.lastVisit}&productId=${obj.productId}&mustHave=${obj.mustHave}`;
+    this.httpService.getKeyForProductivityReport(body, url).subscribe(data => {
+      console.log(data, 'oos shoplist');
+      let res: any = data
+      let obj2 = {
+        key: res.key,
+        fileType: 'json.fileType'
+      }
+      let url = 'downloadReport'
+      this.getproductivityDownload(obj2, url)
+
+    }, error => {
+
+    })
+
+
+    // let url = 'downloadReport';
+    // this.httpService.DownloadResource(obj, url);
   }
 
   getOOSSummary() {
@@ -284,27 +314,25 @@ export class FilterBarComponent implements OnInit {
     this.loadingData = true;
     this.loadingReportMessage = true;
     let obj = {
-      zoneId: this.selectedZone.id,
-      regionId: this.selectedRegion.id,
+      zoneId: this.selectedZone.id || -1,
+      regionId: this.selectedRegion.id || -1,
       startDate: moment(this.startDate).format('YYYY-MM-DD'),
       endDate: moment(this.endDate).format('YYYY-MM-DD'),
       // totalShops: this.selectedImpactType,
 
     };
+    let url = 'productivityreport'
+    let body = `type=2&pageType=1&zoneId=${obj.zoneId}&regionId=${obj.regionId}&startDate=${obj.startDate}&endDate=${obj.endDate}`;
 
-    // let url = 'productivityreport';
-    // this.httpService.DownloadResource(obj, url);
-
-
-    this.httpService.getKeyForProductivityReport(obj).subscribe(data => {
+    this.httpService.getKeyForProductivityReport(body, url).subscribe(data => {
       let res: any = data
 
       let obj2 = {
         key: res.key,
         fileType: 'json.fileType'
       }
-
-      this.getproductivityDownload(obj2)
+      let url = 'downloadReport'
+      this.getproductivityDownload(obj2, url)
 
     }, error => {
 
@@ -314,8 +342,8 @@ export class FilterBarComponent implements OnInit {
 
   }
 
-  getproductivityDownload(obj) {
-    let u = 'downloadReport'
+  getproductivityDownload(obj, url) {
+    let u = url
     this.httpService.DownloadResource(obj, u);
 
     setTimeout(() => {

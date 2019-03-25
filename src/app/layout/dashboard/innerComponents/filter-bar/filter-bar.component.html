@@ -4,33 +4,41 @@
     <mat-card-content>
         <mat-card-title>
             {{title| uppercase}} <i color="warn" [ngClass]="{'fa fa-cog fa-spin':loadingData}"></i>
+            <small style="color:lightseagreen !important" class="mtb-5-IMP" *ngIf="loadingReportMessage">Please be patient we
+        are compiling report for you</small>
+
         </mat-card-title>
         <section class="example-section">
 
             <mat-form-field class="example-margin mr-10-IMP">
                 <mat-select placeholder="Zone" name='zone' [(ngModel)]="selectedZone" (ngModelChange)="zoneChange()">
+
                     <mat-option [value]="zone" *ngFor="let zone of zones">{{zone.title}}</mat-option>
                 </mat-select>
             </mat-form-field>
             <mat-form-field *ngIf="channels.length>0" class="example-margin mr-10-IMP">
-                <mat-select placeholder="Channel" name='channel' [(ngModel)]="selectedChannel">
+                <!-- {{selectedChannel |json }} -->
+                <mat-select placeholder="Channel" name='channel' [(ngModel)]="selectedChannel" multiple>
+
+
                     <mat-option [value]="channel" *ngFor="let channel of channels">{{channel.title}}</mat-option>
                 </mat-select>
             </mat-form-field>
-            <mat-form-field *ngIf="categoryList.length>0" class="example-margin mr-10-IMP" (ngModelChange)="categoryChange()">
-                <mat-select placeholder="Category" name='category' [(ngModel)]="selectedCategory">
+            <mat-form-field *ngIf="categoryList.length>0" class="example-margin mr-10-IMP">
+                <mat-select placeholder="Category" name='category' [(ngModel)]="selectedCategory" (ngModelChange)="categoryChange()">
                     <mat-option [value]="category" *ngFor="let category of categoryList">{{category.title}}</mat-option>
                 </mat-select>
             </mat-form-field>
 
             <mat-form-field *ngIf="productsList.length>0" class="example-margin mr-10-IMP">
-                <mat-select placeholder="product" name='product' [(ngModel)]="selectedProduct">
+                <mat-select placeholder="product" name='product' [(ngModel)]="selectedProduct" multiple>
                     <mat-option [value]="product" *ngFor="let product of productsList">{{product.title}}</mat-option>
                 </mat-select>
             </mat-form-field>
 
             <mat-form-field *ngIf="regions.length>0" class="example-margin mr-10-IMP">
                 <mat-select placeholder="Region" name='region' [(ngModel)]="selectedRegion" (ngModelChange)="regionChange()">
+
                     <mat-option [value]="region" *ngFor="let region of regions">{{region.title}}</mat-option>
                 </mat-select>
             </mat-form-field>
@@ -200,7 +208,8 @@
     <mat-card-content>
         <mat-card-title>
             {{title| uppercase}} <i color="warn" [ngClass]="{'fa fa-cog fa-spin':loadingData}"></i>
-            <small style="color:lightseagreen !important" class="mtb-5-IMP" *ngIf="loadingReportMessage">Please be patient we are compiling report for you</small>
+            <small style="color:lightseagreen !important" class="mtb-5-IMP" *ngIf="loadingReportMessage">Please be patient we
+        are compiling report for you</small>
 
         </mat-card-title>
 
@@ -256,17 +265,20 @@
         </app-stat>
     </div>
     <div fxFlex>
-        <app-stat [bgClass]="'success'" [icon]="'thumb_up'" [count]="tabsData?.successful" [label]="'SUCCESSFUL'"></app-stat>
+        <app-stat [bgClass]="'success'" [icon]="'thumb_up'" [count]="tabsData?.successful" [label]="'SUCCESSFUL'">
+        </app-stat>
     </div>
     <div fxFlex>
         <app-stat [bgClass]="'info'" [icon]="'contact_support'" [count]="tabsData?.unvisited" [label]="'UNVISITED'">
         </app-stat>
     </div>
     <div fxFlex>
-        <app-stat [bgClass]="'purple'" [icon]="'check_circle'" [count]="tabsData?.completedPercent" [label]="'Completion'"></app-stat>
+        <app-stat [bgClass]="'purple'" [icon]="'check_circle'" [count]="tabsData?.completedPercent" [label]="'Completion'">
+        </app-stat>
     </div>
     <div fxFlex>
-        <app-stat [bgClass]="'primary'" [icon]="'thumb_up'" [count]="tabsData?.successfulPercent" [label]="'Successful'"></app-stat>
+        <app-stat [bgClass]="'primary'" [icon]="'thumb_up'" [count]="tabsData?.successfulPercent" [label]="'Successful'">
+        </app-stat>
     </div>
 </div>
 
