@@ -307,22 +307,49 @@ export class FilterBarComponent implements OnInit {
   }
 
   getOOSSummary() {
+
+    if(this.endDate >= this.startDate){
+      this.loadingData=true
+      this.loadingReportMessage=true
     let obj = {
       zoneId: this.selectedZone.id,
       regionId: this.selectedRegion.id,
       cityId: this.selectedCity.id,
       areaId: this.selectedArea.id,
-      channelId: this.selectedChannel.id,
+      channelId: this.arrayMaker(this.selectedChannel),
       startDate: moment(this.startDate).format('YYYY-MM-DD'),
       endDate: moment(this.endDate).format('YYYY-MM-DD'),
       category: this.selectedCategory.id,
-      lastVisit: -1,
-      productId: 1,
+      lastVisit: this.selectedLastVisit,
+      productId: this.arrayMaker(this.selectedProduct),
       mustHave: this.selectedMustHave
     };
 
-    let url = 'oosSummaryReport';
-    this.httpService.DownloadResource(obj, url);
+    let url = 'oosSummaryReport'
+    let body = `type=2&pageType=1&zoneId=${obj.zoneId}&regionId=${obj.regionId}&startDate=${obj.startDate}&endDate=${obj.endDate}&mustHave=${obj.mustHave}`;
+
+    this.httpService.getKeyForProductivityReport(body, url).subscribe(data => {
+      let res: any = data
+
+      let obj2 = {
+        key: res.key,
+        fileType: 'json.fileType'
+      }
+      let url = 'downloadReport'
+      this.getproductivityDownload(obj2, url)
+
+    }, error => {
+
+      console.log(error, 'summary report')
+
+    })
+    }else{
+      this.toastr.info('End date must be greater than start date', 'Date Selection')
+
+    }
+
+    // let url = 'oosSummaryReport';
+    // this.httpService.DownloadResource(obj, url);
   }
 
   MProductivityReport() {
