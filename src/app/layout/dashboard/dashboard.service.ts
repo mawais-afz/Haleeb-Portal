@@ -7,7 +7,7 @@ import { Subject } from 'rxjs';
   providedIn: 'root'
 })
 export class DashboardService {
-  ip: any = environment.ip;
+  ip: any = 'http://192.168.3.94:8080/audit/';//environment.ip;
   // 
   user = 0;
 
