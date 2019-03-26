@@ -1,5 +1,5 @@
 <!-- shop list  -->
-<mat-card class="mb-20" *ngIf="router.url==='/dashboard/shop_list_report' || router.url==='/dashboard/summary_report'">
+<mat-card class="mb-20" *ngIf="router.url==='/dashboard/shop_list_report' ">
 
     <mat-card-content>
         <mat-card-title>
@@ -15,25 +15,6 @@
                 <mat-select placeholder="Zone" name='zone' [(ngModel)]="selectedZone" (ngModelChange)="zoneChange()">
 
                     <mat-option [value]="zone" *ngFor="let zone of zones">{{zone.title}}</mat-option>
-                </mat-select>
-            </mat-form-field>
-            <mat-form-field *ngIf="channels.length>0" class="example-margin mr-10-IMP">
-                <!-- {{selectedChannel |json }} -->
-                <mat-select placeholder="Channel" name='channel' [(ngModel)]="selectedChannel" multiple>
-
-
-                    <mat-option [value]="channel" *ngFor="let channel of channels">{{channel.title}}</mat-option>
-                </mat-select>
-            </mat-form-field>
-            <mat-form-field *ngIf="categoryList.length>0" class="example-margin mr-10-IMP">
-                <mat-select placeholder="Category" name='category' [(ngModel)]="selectedCategory" (ngModelChange)="categoryChange()">
-                    <mat-option [value]="category" *ngFor="let category of categoryList">{{category.title}}</mat-option>
-                </mat-select>
-            </mat-form-field>
-
-            <mat-form-field *ngIf="productsList.length>0" class="example-margin mr-10-IMP">
-                <mat-select placeholder="product" name='product' [(ngModel)]="selectedProduct" multiple>
-                    <mat-option [value]="product" *ngFor="let product of productsList">{{product.title}}</mat-option>
                 </mat-select>
             </mat-form-field>
 
@@ -57,18 +38,41 @@
 
 
 
+
+
+
         </section>
         <section class="example-section">
+
+            <mat-form-field *ngIf="channels.length>0" class="example-margin mr-10-IMP">
+                <!-- {{selectedChannel |json }} -->
+                <mat-select placeholder="Channel" name='channel' [(ngModel)]="selectedChannel" multiple>
+                    <mat-option value="all">Select All</mat-option>
+                    <mat-option [value]="channel" *ngFor="let channel of channels">{{channel.title}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <!-- <mat-form-field *ngIf="categoryList.length>0" class="example-margin mr-10-IMP">
+                <mat-select placeholder="Category" name='category' [(ngModel)]="selectedCategory" (ngModelChange)="categoryChange()">
+                    <mat-option [value]="category" *ngFor="let category of categoryList" [class.active]=true>{{category.title}}</mat-option>
+                </mat-select>
+            </mat-form-field> -->
+
+            <mat-form-field *ngIf="productsList.length>0" class="example-margin mr-10-IMP">
+                <mat-select placeholder="product" name='product' [(ngModel)]="selectedProduct" multiple>
+                    <mat-option value="all">Select All</mat-option>
+                    <mat-option [value]="product" *ngFor="let product of productsList">{{product.title}}</mat-option>
+                </mat-select>
+            </mat-form-field>
             <mat-form-field *ngIf="lastVisit.length>0" class="example-margin mr-5-IMP">
                 <mat-select placeholder="Last Visit" name='lastVisit' [(ngModel)]="selectedLastVisit">
                     <mat-option [value]="lv" *ngFor="let lv of lastVisit">{{lv}}</mat-option>
                 </mat-select>
             </mat-form-field>
-            <mat-form-field *ngIf="mustHave.length>0" class="example-margin mr-5-IMP">
+            <!-- <mat-form-field *ngIf="mustHave.length>0" class="example-margin mr-5-IMP">
                 <mat-select placeholder="Must Have" name='mustHave' [(ngModel)]="selectedMustHave">
                     <mat-option [value]="m.key" *ngFor="let m of mustHave">{{m.value}}</mat-option>
                 </mat-select>
-            </mat-form-field>
+            </mat-form-field> -->
 
             <mat-form-field class="example-full-width mr-10-IMP">
                 <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker0" [(ngModel)]="startDate" placeholder="Choose a start date" readonly>
@@ -80,16 +84,112 @@
                 <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                 <mat-datepicker #picker1></mat-datepicker>
             </mat-form-field>
+            <button *ngIf="router.url==='/dashboard/shop_list_report'" mat-raised-button color="warn" (click)="getOOSShopListReport()">Download</button>
+
         </section>
         <section class="example-section">
 
-            <button *ngIf="router.url==='/dashboard/shop_list_report'" mat-raised-button color="warn" (click)="getOOSShopListReport()">Download</button>
-            <button *ngIf="router.url==='/dashboard/summary_report'" mat-raised-button color="warn" (click)="getOOSSummary()">Download</button>
 
         </section>
     </mat-card-content>
 </mat-card>
 <!-- /shop list -->
+<!-- shop summary  -->
+<mat-card class="mb-20" *ngIf="router.url==='/dashboard/summary_report'">
+
+    <mat-card-content>
+        <mat-card-title>
+            {{title| uppercase}} <i color="warn" [ngClass]="{'fa fa-cog fa-spin':loadingData}"></i>
+            <small style="color:lightseagreen !important" class="mtb-5-IMP" *ngIf="loadingReportMessage">Please be
+                patient we
+                are compiling report for you</small>
+
+        </mat-card-title>
+        <section class="example-section">
+
+            <mat-form-field class="example-margin mr-10-IMP">
+                <mat-select placeholder="Zone" name='zone' [(ngModel)]="selectedZone" (ngModelChange)="zoneChange()">
+
+                    <mat-option [value]="zone" *ngFor="let zone of zones">{{zone.title}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field *ngIf="regions.length>0" class="example-margin mr-10-IMP">
+                <mat-select placeholder="Region" name='region' [(ngModel)]="selectedRegion" (ngModelChange)="regionChange()">
+
+                    <mat-option [value]="region" *ngFor="let region of regions">{{region.title}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field *ngIf="areas.length>0" class="example-margin mr-10-IMP">
+                <mat-select placeholder="Areas" name='areas' [(ngModel)]="selectedArea">
+                    <mat-option [value]="area" *ngFor="let area of areas">{{area.title}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field *ngIf="cities.length>0" class="example-margin mr-10-IMP">
+                <mat-select placeholder="City" name='city' [(ngModel)]="selectedCity">
+                    <mat-option [value]="city" *ngFor="let city of cities">{{city.title}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <!-- <mat-form-field *ngIf="categoryList.length>0" class="example-margin mr-10-IMP">
+                <mat-select placeholder="Category" name='category' [(ngModel)]="selectedCategory" (ngModelChange)="categoryChange()">
+                    <mat-option [value]="category" *ngFor="let category of categoryList">{{category.title}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field *ngIf="productsList.length>0" class="example-margin mr-10-IMP">
+                <mat-select placeholder="product" name='product' [(ngModel)]="selectedProduct" multiple>
+                    <mat-option [value]="product" *ngFor="let product of productsList">{{product.title}}</mat-option>
+                </mat-select>
+            </mat-form-field> -->
+
+
+
+
+
+
+        </section>
+
+        <section class="example-section">
+            <mat-form-field *ngIf="channels.length>0" class="example-margin mr-10-IMP">
+                <!-- {{selectedChannel |json }} -->
+                <mat-select placeholder="Channel" name='channel' [(ngModel)]="selectedChannel" multiple>
+                    <mat-option value="all">Select All</mat-option>
+
+                    <mat-option [value]="channel" *ngFor="let channel of channels">{{channel.title}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </section>
+        <section class="example-section">
+            <!-- <mat-form-field *ngIf="lastVisit.length>0" class="example-margin mr-5-IMP">
+                <mat-select placeholder="Last Visit" name='lastVisit' [(ngModel)]="selectedLastVisit">
+                    <mat-option [value]="lv" *ngFor="let lv of lastVisit">{{lv}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field *ngIf="mustHave.length>0" class="example-margin mr-5-IMP">
+                <mat-select placeholder="Must Have" name='mustHave' [(ngModel)]="selectedMustHave">
+                    <mat-option [value]="m.key" *ngFor="let m of mustHave">{{m.value}}</mat-option>
+                </mat-select>
+            </mat-form-field> -->
+
+            <mat-form-field class="example-full-width mr-10-IMP">
+                <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker0" [(ngModel)]="startDate" placeholder="Choose a start date" readonly>
+                <mat-datepicker-toggle matSuffix [for]="picker0"></mat-datepicker-toggle>
+                <mat-datepicker #picker0></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field class="example-full-width mr-10-IMP">
+                <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker1" [(ngModel)]="endDate" placeholder="Choose a end date" readonly>
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
+
+            <button *ngIf="router.url==='/dashboard/summary_report'" mat-raised-button color="warn" (click)="getOOSSummary()">Download</button>
+
+        </section>
+
+    </mat-card-content>
+</mat-card>
+<!-- /shop summary -->
 <!-- oss details  -->
 <mat-card class="mb-20" *ngIf="router.url==='/dashboard/oos_details_report'">
 
@@ -166,6 +266,9 @@
     <mat-card-content>
         <mat-card-title>
             {{title| uppercase}} <i color="warn" [ngClass]="{'fa fa-cog fa-spin':loadingData}"></i>
+            <small style="color:lightseagreen !important" class="mtb-5-IMP" *ngIf="loadingReportMessage">Please be
+                patient we
+                are compiling report for you</small>
         </mat-card-title>
         <section class="example-section">
 
@@ -193,7 +296,7 @@
                 </mat-select>
             </mat-form-field>
 
-            <button [disabled]="!loadingData" *ngIf="selectedZone.id&& selectedRegion.id && selectedMerchandiser.fullName " mat-raised-button color="warn" (click)="downloadDailyReport()">Download Report</button>
+            <button [disabled]="loadingData" *ngIf="selectedZone.id&& selectedRegion.id && selectedMerchandiser.fullName " mat-raised-button color="warn" (click)="downloadDailyReport()">Download Report</button>
 
 
 
@@ -291,5 +394,39 @@
         <img src="assets/images/basicloader.gif" alt="" srcset="">
     </div>
 </div>
+
+<mat-form-field *ngIf="router.url==='/dashboard/productivity_report'">
+    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+</mat-form-field>
+
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8" *ngIf="router.url==='/dashboard/productivity_report'">
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="position">
+        <th mat-header-cell *matHeaderCellDef> No. </th>
+        <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Name </th>
+        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="weight">
+        <th mat-header-cell *matHeaderCellDef> Weight </th>
+        <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="symbol">
+        <th mat-header-cell *matHeaderCellDef> Symbol </th>
+        <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
 
 <!-- / merchandiser productivity -->

@@ -5,12 +5,39 @@ import { subscribeOn } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { DashboardDataService } from '../../dashboard-data.service';
 import { ToastrService } from 'ngx-toastr';
+import { MatTableDataSource } from '@angular/material';
+export interface PeriodicElement {
+  name: string;
+  position: number;
+  weight: number;
+  symbol: string;
+}
+
+const ELEMENT_DATA: PeriodicElement[] = [
+  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
+  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
+  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
+  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
+  {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
+  {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
+  {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
+  {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
+  {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
+  {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
+];
 @Component({
   selector: 'filter-bar',
   templateUrl: './filter-bar.component.html',
   styleUrls: ['./filter-bar.component.scss']
 })
 export class FilterBarComponent implements OnInit {
+
+  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
+  dataSource = new MatTableDataSource(ELEMENT_DATA);
+
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
   //#region veriables
   minDate = new Date(2000, 0, 1);
   maxDate = new Date(2020, 0, 1);
@@ -61,6 +88,18 @@ export class FilterBarComponent implements OnInit {
 
     this.getZone();
 
+  }
+
+  clearAllSections() {
+    this.selectedZone = {};
+    this.selectedRegion = {};
+    this.selectedArea = {};
+    this.selectedCategory = {};
+    this.selectedChannel = [];
+    this.selectedProduct = [];
+    this.selectedCity = {};
+    this.startDate = new Date();
+    this.endDate = new Date();
   }
 
   ngOnInit() {
@@ -137,18 +176,18 @@ export class FilterBarComponent implements OnInit {
   }
 
   categoryChange() {
-    this.loadingData = true;
+    // this.loadingData = true;
 
-    this.httpService.getProducts(this.selectedCategory.id).subscribe(
-      data => {
-        this.productsList = data;
+    // this.httpService.getProducts(this.selectedCategory.id).subscribe(
+    //   data => {
+    //     this.productsList = data;
 
-        setTimeout(() => {
-          this.loadingData = false;
-        }, 500);
-      },
-      error => { }
-    );
+    //     setTimeout(() => {
+    //       this.loadingData = false;
+    //     }, 500);
+    //   },
+    //   error => { }
+    // );
   }
 
   cityChange() {
@@ -232,7 +271,9 @@ export class FilterBarComponent implements OnInit {
   }
 
   downloadDailyReport() {
-    this.clickedOnce++;
+    this.loadingData = true;
+    this.loadingReportMessage = true;
+    // this.clickedOnce++;
 
     let obj = {
       zoneId: this.selectedZone.id,
@@ -250,11 +291,20 @@ export class FilterBarComponent implements OnInit {
     // });
 
     this.httpService.DownloadResource(obj, url);
+
+    setTimeout(() => {
+      this.loadingData = false;
+      this.loadingReportMessage = false;
+      this.clearAllSections()
+    }, 20000);
   }
 
   arrayMaker(arr) {
-
-    let result: any = [];
+    let all = arr.filter(a => a === 'all')
+    let result: any = []
+    if (all[0] === 'all') {
+      arr = this.channels;
+    }
     arr.forEach(e => {
       result.push(e.id);
 
@@ -275,10 +325,10 @@ export class FilterBarComponent implements OnInit {
         channelId: this.arrayMaker(this.selectedChannel),
         startDate: moment(this.startDate).format('YYYY-MM-DD'),
         endDate: moment(this.endDate).format('YYYY-MM-DD'),
-        category: this.selectedCategory.id || "",
+        category: -1,
         lastVisit: this.selectedLastVisit || "",
-        productId: this.arrayMaker(this.selectedProduct),
-        mustHave: this.selectedMustHave
+        productId: -1,
+        mustHave: 'n'
       };
 
       let url = 'shopwise-ost-report';
@@ -308,42 +358,41 @@ export class FilterBarComponent implements OnInit {
 
   getOOSSummary() {
 
-    if(this.endDate >= this.startDate){
-      this.loadingData=true
-      this.loadingReportMessage=true
-    let obj = {
-      zoneId: this.selectedZone.id,
-      regionId: this.selectedRegion.id,
-      cityId: this.selectedCity.id,
-      areaId: this.selectedArea.id,
-      channelId: this.arrayMaker(this.selectedChannel),
-      startDate: moment(this.startDate).format('YYYY-MM-DD'),
-      endDate: moment(this.endDate).format('YYYY-MM-DD'),
-      category: this.selectedCategory.id,
-      lastVisit: this.selectedLastVisit,
-      productId: this.arrayMaker(this.selectedProduct),
-      mustHave: this.selectedMustHave
-    };
+    if (this.endDate >= this.startDate) {
+      this.loadingData = true
+      this.loadingReportMessage = true
+      let obj = {
+        zoneId: this.selectedZone.id,
+        regionId: this.selectedRegion.id,
+        cityId: this.selectedCity.id,
+        areaId: this.selectedArea.id,
+        channelId: this.arrayMaker(this.selectedChannel),
+        startDate: moment(this.startDate).format('YYYY-MM-DD'),
+        endDate: moment(this.endDate).format('YYYY-MM-DD'),
+        category: -1,
+        productId: -1,
+        mustHave: 'n'
+      };
 
-    let url = 'oosSummaryReport'
-    let body = `type=2&pageType=1&zoneId=${obj.zoneId}&regionId=${obj.regionId}&startDate=${obj.startDate}&endDate=${obj.endDate}&mustHave=${obj.mustHave}`;
+      let url = 'oosSummaryReport'
+      let body = `type=2&pageType=1&zoneId=${obj.zoneId}&regionId=${obj.regionId}&startDate=${obj.startDate}&endDate=${obj.endDate}&mustHave=${obj.mustHave}&channelId=${obj.channelId}`;
 
-    this.httpService.getKeyForProductivityReport(body, url).subscribe(data => {
-      let res: any = data
+      this.httpService.getKeyForProductivityReport(body, url).subscribe(data => {
+        let res: any = data
 
-      let obj2 = {
-        key: res.key,
-        fileType: 'json.fileType'
-      }
-      let url = 'downloadReport'
-      this.getproductivityDownload(obj2, url)
+        let obj2 = {
+          key: res.key,
+          fileType: 'json.fileType'
+        }
+        let url = 'downloadReport'
+        this.getproductivityDownload(obj2, url)
 
-    }, error => {
+      }, error => {
 
-      console.log(error, 'summary report')
+        console.log(error, 'summary report')
 
-    })
-    }else{
+      })
+    } else {
       this.toastr.info('End date must be greater than start date', 'Date Selection')
 
     }
@@ -397,6 +446,8 @@ export class FilterBarComponent implements OnInit {
       this.loadingData = false;
 
       this.loadingReportMessage = false;
+      this.clearAllSections();
+
     }, 1000);
   }
 
