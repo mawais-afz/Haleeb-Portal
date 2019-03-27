@@ -7,8 +7,8 @@ import { Subject } from 'rxjs';
   providedIn: 'root'
 })
 export class DashboardService {
-  ip: any = 'http://192.168.3.94:8080/audit/';
-  // environment.ip;
+  ip: any =environment.ip;
+  // ;
   // 'http://192.168.3.94:8080/audit/';
   user = 0;
 
@@ -30,6 +30,12 @@ export class DashboardService {
     const url = this.ip + 'dashboardDataCBL'
     return this.http.post(url, body, this.httpOptions);
 
+  }
+
+  getTableList(obj){
+    let body = `zoneId=${obj.zoneId}&regionId=${obj.regionId}&endDate=${obj.endDate}&startDate=${obj.startDate}`
+    const url = this.ip + 'completedShopListCBL'
+    return this.http.post(url, body, this.httpOptions);
   }
   //#region FILTER CALL
   getZone() {
@@ -100,6 +106,7 @@ export class DashboardService {
     form.setAttribute('action', path);
 
     form.setAttribute('method', 'post');
+    form.setAttribute('target', '_blank');
 
     document.body.appendChild(form);
 
