@@ -23,7 +23,7 @@
 
     <div *ngIf="!loading" class="mb-20 animated  slideInLeft" fxLayout="row" fxLayout.lt-md="column" fxFlex fxLayoutGap="10px">
         <div fxFlex>
-            <app-stat [bgClass]="'danger'" [icon]="'assignment'" [count]="tabsData?.planned" [label]="'PLANNED'">
+            <app-stat [bgClass]="'info'" [icon]="'assignment'" [count]="tabsData?.planned" [label]="'PLANNED'">
             </app-stat>
         </div>
         <div fxFlex>
@@ -34,7 +34,7 @@
             <app-stat [bgClass]="'success'" [icon]="'thumb_up'" [count]="tabsData?.successful" [label]="'SUCCESSFUL'"></app-stat>
         </div>
         <div fxFlex>
-            <app-stat [bgClass]="'info'" [icon]="'contact_support'" [count]="tabsData?.unvisited" [label]="'UNVISITED'">
+            <app-stat [bgClass]="'danger'" [icon]="'contact_support'" [count]="tabsData?.unvisited" [label]="'UNVISITED'">
             </app-stat>
         </div>
         <div fxFlex>

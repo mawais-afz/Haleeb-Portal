@@ -21,6 +21,16 @@ table {
     width: 100%;
 }
 
+.fix-width {
+    // background: red;
+    min-width: 120px;
+}
+
+.fix-address {
+    word-wrap: break-word;
+    max-width: 300px
+}
+
 .mat-form-field1 {
     font-size: 14px;
     width: 100%;

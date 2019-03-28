@@ -7,6 +7,7 @@ import { DashboardDataService } from '../../dashboard-data.service';
 import { ToastrService } from 'ngx-toastr';
 import { MatTableDataSource } from '@angular/material';
 import { environment } from 'src/environments/environment';
+import { NgModel } from '@angular/forms';
 
 
 
@@ -445,6 +446,7 @@ export class FilterBarComponent implements OnInit {
       startDate: (dateType == 'start') ? moment(data).format('YYYY-MM-DD') : moment(this.startDate).format('YYYY-MM-DD'),
       endDate: (dateType == 'end') ? moment(data).format('YYYY-MM-DD') : moment(this.endDate).format('YYYY-MM-DD')
     }
+    this.getTableData(obj)
 
     this.httpService.getDashboardData(obj).subscribe(data => {
       // console.log(data, 'home data');
@@ -459,7 +461,6 @@ export class FilterBarComponent implements OnInit {
     })
 
 
-    this.getTableData(obj)
 
   }
   getTableData(obj) {
@@ -478,10 +479,26 @@ export class FilterBarComponent implements OnInit {
     })
   }
 
-  getPdf(survayId){
+  selectAll(select: NgModel, values) {
+    select.update.emit(values); 
+  }
+
+  deselectAll(select: NgModel) {
+    select.update.emit([]); 
+  }
+
+  equals(objOne, objTwo) {
+    if (typeof objOne !== 'undefined' && typeof objTwo !== 'undefined') {
+      return objOne.id === objTwo.id;
+    }
+  }
+
+  getPdf(item){
+    debugger
     let obj={
-      surveyId:survayId,
-      type:25
+      surveyId:item.survey_id,
+      type:25,
+      shopName:item.shop_title
     }
     let url='url-pdf'
     this.httpService.DownloadResource(obj,url)

@@ -7,9 +7,9 @@ import { Subject } from 'rxjs';
   providedIn: 'root'
 })
 export class DashboardService {
-  ip: any =environment.ip;
-  // ;
-  // 'http://192.168.3.94:8080/audit/';
+  ip: any = environment.ip;
+  // 
+
   user = 0;
 
   httpOptions = {
@@ -22,13 +22,14 @@ export class DashboardService {
   constructor(private http: HttpClient) { }
 
   login(credentials: any) {
+    // let body=JSON.stringify(credentials)
     const url = this.ip + 'pictureLogin';
     return this.http.post(url, credentials);
   }
   getDashboardData(obj) {
     let body = `zoneId=${obj.zoneId}&regionId=${obj.regionId}&endDate=${obj.endDate}&startDate=${obj.startDate}`
     const url = this.ip + 'dashboardDataCBL'
-    return this.http.post(url, body, this.httpOptions);
+    return this.http.post(url, null, this.httpOptions);
 
   }
 
@@ -106,7 +107,7 @@ export class DashboardService {
     form.setAttribute('action', path);
 
     form.setAttribute('method', 'post');
-    form.setAttribute('target', '_blank');
+    // form.setAttribute('target', '_blank');
 
     document.body.appendChild(form);
 

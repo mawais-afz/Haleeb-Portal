@@ -47,9 +47,9 @@ export class HomeComponent implements OnInit {
 
   getData() {
     let obj: any = {
-      zoneId: '',
-      regionId: '',
-      endDate: ''
+      // zoneId: '',
+      // regionId: '',
+      // endDate: ''
     }
     this.httpService.getDashboardData(obj).subscribe(data => {
       console.log(data, 'home data');

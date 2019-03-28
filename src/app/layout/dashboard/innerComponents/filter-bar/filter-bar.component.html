@@ -35,19 +35,20 @@
                 </mat-select>
             </mat-form-field>
 
-
-
-
-
-
-
         </section>
         <section class="example-section">
 
             <mat-form-field *ngIf="channels.length>0" class="example-margin mr-10-IMP">
                 <!-- {{selectedChannel |json }} -->
-                <mat-select placeholder="Channel" name='channel' [(ngModel)]="selectedChannel" multiple>
-                    <mat-option value="all">Select All</mat-option>
+                <mat-select placeholder="Channel" name='channel' [(ngModel)]="selectedChannel" multiple #channelSelect="ngModel" [compareWith]="equals">
+                    <mat-option disabled="disabled" class="filter-option"> <button mat-raised-button class="mat-primary fill text-sm" (click)="selectAll(channelSelect, channels)">
+                            Select All
+                          </button>
+                        <button mat-raised-button color="warn" class="ml-1 mat-accent fill text-sm" (click)="deselectAll(channelSelect)">
+                            Deselect All
+                          </button>
+                    </mat-option>
+
                     <mat-option [value]="channel" *ngFor="let channel of channels">{{channel.title}}</mat-option>
                 </mat-select>
             </mat-form-field>
@@ -153,8 +154,14 @@
         <section class="example-section">
             <mat-form-field *ngIf="channels.length>0" class="example-margin mr-10-IMP">
                 <!-- {{selectedChannel |json }} -->
-                <mat-select placeholder="Channel" name='channel' [(ngModel)]="selectedChannel" multiple>
-                    <mat-option value="all">Select All</mat-option>
+                <mat-select placeholder="Channel" name='channel' [(ngModel)]="selectedChannel" multiple #channelSelect="ngModel" [compareWith]="equals">
+                    <mat-option disabled="disabled" class="filter-option"> <button mat-raised-button class="mat-primary fill text-sm" (click)="selectAll(channelSelect, channels)">
+                        Select All
+                      </button>
+                        <button mat-raised-button color="warn" class="ml-1 mat-accent fill text-sm" (click)="deselectAll(channelSelect)">
+                        Deselect All
+                      </button>
+                    </mat-option>
 
                     <mat-option [value]="channel" *ngFor="let channel of channels">{{channel.title}}</mat-option>
                 </mat-select>
@@ -205,7 +212,15 @@
                 </mat-select>
             </mat-form-field>
             <mat-form-field *ngIf="channels.length>0" class="example-margin mr-10-IMP">
-                <mat-select placeholder="Channel" name='channel' [(ngModel)]="selectedChannel">
+                <mat-select placeholder="Channel" name='channel' [(ngModel)]="selectedChannel" multiple #channelSelect="ngModel" [compareWith]="equals">
+                    <mat-option disabled="disabled" class="filter-option"> <button mat-raised-button class="mat-primary fill text-sm" (click)="selectAll(channelSelect, channels)">
+                                Select All
+                              </button>
+                        <button mat-raised-button color="warn" class="ml-1 mat-accent fill text-sm" (click)="deselectAll(channelSelect)">
+                                Deselect All
+                              </button>
+                    </mat-option>
+
                     <mat-option [value]="channel" *ngFor="let channel of channels">{{channel.title}}</mat-option>
                 </mat-select>
             </mat-form-field>
@@ -284,7 +299,11 @@
 
             <mat-form-field *ngIf="regions.length>0" class="example-margin mr-10-IMP">
                 <mat-select placeholder="Region" name='region' [(ngModel)]="selectedRegion" (ngModelChange)="regionChange()">
-                    <mat-option [value]="region" *ngFor="let region of regions">{{region.title}}</mat-option>
+                    <ng-container *ngFor="let region of regions">
+                        <mat-option *ngIf="region.id!==-1" [value]="region">{{region.title}}</mat-option>
+
+                    </ng-container>
+
                 </mat-select>
             </mat-form-field>
             <mat-form-field class="example-full-width mr-10-IMP">
@@ -299,7 +318,7 @@
                 </mat-select>
             </mat-form-field>
 
-            <button [disabled]="loadingData" *ngIf="selectedZone.id&& selectedRegion.id && selectedMerchandiser.fullName " mat-raised-button color="warn" (click)="downloadDailyReport()">Download Report</button>
+            <button [disabled]="loadingReportMessage" *ngIf="selectedZone.id&& selectedRegion.id && selectedMerchandiser.fullName " mat-raised-button color="warn" (click)="downloadDailyReport()">Download Report</button>
 
 
 
@@ -368,7 +387,7 @@
 
 <div *ngIf="!loading && router.url==='/dashboard/productivity_report'" class="mb-20 animated  slideInLeft" fxLayout="row" fxLayout.lt-md="column" fxFlex fxLayoutGap="10px">
     <div fxFlex>
-        <app-stat [bgClass]="'danger'" [icon]="'assignment'" [count]="tabsData?.planned" [label]="'PLANNED'">
+        <app-stat [bgClass]="'info'" [icon]="'assignment'" [count]="tabsData?.planned" [label]="'PLANNED'">
         </app-stat>
     </div>
     <div fxFlex>
@@ -380,7 +399,7 @@
         </app-stat>
     </div>
     <div fxFlex>
-        <app-stat [bgClass]="'info'" [icon]="'contact_support'" [count]="tabsData?.unvisited" [label]="'UNVISITED'">
+        <app-stat [bgClass]="'danger'" [icon]="'contact_support'" [count]="tabsData?.unvisited" [label]="'UNVISITED'">
         </app-stat>
     </div>
     <div fxFlex>
@@ -393,16 +412,18 @@
     </div>
 </div>
 
-<div *ngIf="loading && router.url==='/dashboard/productivity_report'" class="mb-20" flFlex flexLayout="row" flexLayout.lt-md="column">
+<!-- <div *ngIf="loading && router.url==='/dashboard/productivity_report'" class="mb-20" flFlex flexLayout="row" flexLayout.lt-md="column">
     <div fxFlex class="img-center">
         <img src="assets/images/basicloader.gif" alt="" srcset="">
     </div>
-</div>
+</div> -->
 
 
 <!-- <mat-form-field class="mat-form-field1" *ngIf="router.url==='/dashboard/productivity_report'">
     <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
 </mat-form-field> -->
+
+
 <table class="table animated slideInLeft" *ngIf="tableData.length>0 && router.url==='/dashboard/productivity_report'">
     <thead>
         <tr>
@@ -426,13 +447,13 @@
         <tr *ngFor="let item of tableData">
             <td scope="row">{{item.shop_code}}</td>
             <td>
-                <a class="a-link" (click)="getPdf(item.survey_id)" title="download pdf">{{item.shop_title}}</a>
+                <a class="a-link" (click)="getPdf(item)" title="view shop details">{{item.shop_title}}</a>
             </td>
-            <td>{{item.address}}</td>
-            <td>{{item.m_code}}</td>
-            <td>{{item.full_name}}</td>
-            <td>{{item.visit_date}}</td>
-            <td>{{item.description}}</td>
+            <td class="fix-address">{{item.address}}</td>
+            <td class="fix-width">{{item.m_code}}</td>
+            <td class="fix-width">{{item.full_name}}</td>
+            <td class="fix-width">{{item.visit_date}}</td>
+            <td class="fix-width">{{item.description}}</td>
             <!-- <td>{{item.full_name}}</td> -->
 
         </tr>
@@ -442,7 +463,7 @@
 
 </table>
 
-<div class="row " *ngIf="tableData.length==0 && router.url==='/dashboard/productivity_report'">
+<div class="row " *ngIf="tableData.length==0 || loading && router.url==='/dashboard/productivity_report'">
     <div class="col-md-12 text-center">
         <div class="img-center">
             <img src="assets/images/basicloader.gif" alt="" srcset="">
