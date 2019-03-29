@@ -676,9 +676,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 
-@angular/material/toolbar
-
 @angular/material/list
+
+@angular/material/toolbar
 
 ng2-validation
 MIT

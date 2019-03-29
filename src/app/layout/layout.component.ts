@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-layout',
@@ -6,7 +7,16 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./layout.component.scss']
 })
 export class LayoutComponent implements OnInit {
-    constructor() {}
+    hideSideBar: boolean = false;
+    constructor(public router: Router) { }
 
-    ngOnInit() {}
+    ngOnInit() {
+        let url: any = new Array();
+        url = this.router.url.split('/');
+        let t: any = url.find(d => d === 'shop_detail')
+        if (t) {
+            this.hideSideBar = true
+        }
+
+    }
 }

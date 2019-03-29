@@ -7,7 +7,9 @@ import { Subject } from 'rxjs';
   providedIn: 'root'
 })
 export class DashboardService {
-  ip: any = environment.ip;
+  ip: any =environment.ip;
+  // 'http://192.168.3.94:8080/audit/' ;
+  // ;
   // 
 
   user = 0;
@@ -27,15 +29,23 @@ export class DashboardService {
     return this.http.post(url, credentials);
   }
   getDashboardData(obj) {
-    let body = `zoneId=${obj.zoneId}&regionId=${obj.regionId}&endDate=${obj.endDate}&startDate=${obj.startDate}`
+    let body=null
+    if(obj!=null)
+    body = `zoneId=${obj.zoneId}&regionId=${obj.regionId}&endDate=${obj.endDate}&startDate=${obj.startDate}&distributionId=${obj.distributionId}&cityId=${obj.cityId}&storeType=${obj.storeType}&channelId=${obj.channelId}`
     const url = this.ip + 'dashboardDataCBL'
-    return this.http.post(url, null, this.httpOptions);
+    return this.http.post(url, body, this.httpOptions);
 
   }
 
   getTableList(obj){
-    let body = `zoneId=${obj.zoneId}&regionId=${obj.regionId}&endDate=${obj.endDate}&startDate=${obj.startDate}`
+    let body = `zoneId=${obj.zoneId}&regionId=${obj.regionId}&endDate=${obj.endDate}&startDate=${obj.startDate}&merchandiserId=${obj.merchandiserId}`
     const url = this.ip + 'completedShopListCBL'
+    return this.http.post(url, body, this.httpOptions);
+  }
+
+  merchandiserShopListCBL(obj){
+    let body = `zoneId=${obj.zoneId}&regionId=${obj.regionId}&endDate=${obj.endDate}&startDate=${obj.startDate}&distributionId=${obj.distributionId}&cityId=${obj.cityId}&storeType=${obj.storeType}&channelId=${obj.channelId}`
+    const url = this.ip + 'merchandiserShopListCBL'
     return this.http.post(url, body, this.httpOptions);
   }
   //#region FILTER CALL

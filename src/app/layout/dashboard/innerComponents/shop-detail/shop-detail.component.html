@@ -1,0 +1,54 @@
+<mat-card class="mb-20">
+
+    <mat-card-content>
+        <mat-card-title>
+            {{title| uppercase}} <i color="warn" [ngClass]="{'fa fa-cog fa-spin':loading}"></i>
+            <!-- <small style="color:lightseagreen !important" class="mtb-5-IMP" *ngIf="loadingReportMessage">Please be
+                patient we
+                are compiling report for you</small> -->
+
+        </mat-card-title>
+
+        <section class="example-section">
+            <table class="table animated slideInLeft" *ngIf="tableData.length>0 ">
+                <thead>
+                    <tr>
+
+                        <th scope="col">Shop Code</th>
+                        <th scope="col">Shop Name</th>
+                        <th scope="col">Address</th>
+                        <th scope="col">VO Code</th>
+
+                        <th scope="col">VO Name</th>
+
+                        <th scope="col">Visit Date</th>
+
+                        <th scope="col">Remarks</th>
+
+
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of tableData">
+                        <td scope="row">{{item.shop_code}}</td>
+                        <td>
+                            <a class="a-link" (click)="getPdf(item);" title="view shop details">{{item.shop_title}}</a>
+                        </td>
+                        <td class="fix-address">{{item.address}}</td>
+                        <td class="fix-width">{{item.m_code}}</td>
+                        <td class="fix-width">{{item.full_name}}</td>
+                        <td class="fix-width">{{item.visit_date}}</td>
+                        <td class="fix-width">{{item.description}}</td>
+
+
+                    </tr>
+
+                </tbody>
+
+
+            </table>
+
+        </section>
+    </mat-card-content>
+</mat-card>

@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewChecked, Input } from '@angular/core';
+import { Component, OnInit, AfterViewChecked, Input, ViewChild } from '@angular/core';
 import { DashboardService } from '../../dashboard.service';
 import * as moment from 'moment';
 import { subscribeOn } from 'rxjs/operators';
@@ -8,8 +8,7 @@ import { ToastrService } from 'ngx-toastr';
 import { MatTableDataSource } from '@angular/material';
 import { environment } from 'src/environments/environment';
 import { NgModel } from '@angular/forms';
-
-
+import { ModalDirective } from 'ngx-bootstrap';
 
 @Component({
   selector: 'filter-bar',
@@ -20,6 +19,14 @@ export class FilterBarComponent implements OnInit {
   tableData: any = [];
   ip = environment.ip;
 
+  distributionList: any = [];
+  selectedDitribution: any = {}
+  storeType: any = ['Elite',
+    'Platinum',
+    'Gold',
+    'Silver',
+    'Others']
+  selectedStoreType = null;
   applyFilter(filterValue: string) {
     this.tableData = this.tableData.filter(f => f.shop_title)
     console.log(this.tableData, 'table data filter')
@@ -84,6 +91,8 @@ export class FilterBarComponent implements OnInit {
     this.selectedChannel = [];
     this.selectedProduct = [];
     this.selectedCity = {};
+    this.selectedDitribution = {};
+    this.distributionList = [];
     this.startDate = new Date();
     this.endDate = new Date();
   }
@@ -138,7 +147,7 @@ export class FilterBarComponent implements OnInit {
 
     if (this.router.url === '/dashboard/productivity_report')
       this.getTabsData()
-    if ((this.router.url !== '/dashboard/productivity_report') && (this.router.url !== '/dashboard/daily_visit_report')) {
+    if ((this.router.url !== '/dashboard/daily_visit_report')) {
       this.loadingData = true;
 
       console.log('regions id', this.selectedRegion);
@@ -148,6 +157,7 @@ export class FilterBarComponent implements OnInit {
           let res: any = data;
           this.areas = res.areaList;
           this.cities = res.cityList;
+          this.distributionList = res.distributionList
 
           setTimeout(() => {
             this.loadingData = false;
@@ -394,13 +404,17 @@ export class FilterBarComponent implements OnInit {
       let obj = {
         zoneId: this.selectedZone.id || -1,
         regionId: this.selectedRegion.id || -1,
+        cityId: this.selectedCity || -1,
+        distributionId:this.selectedDitribution.id ||-1,
+        storeType:this.selectedStoreType || null,
         startDate: moment(this.startDate).format('YYYY-MM-DD'),
         endDate: moment(this.endDate).format('YYYY-MM-DD'),
         // totalShops: this.selectedImpactType,
+        channelId:-1
 
       };
       let url = 'productivityreport'
-      let body = `type=2&pageType=1&zoneId=${obj.zoneId}&regionId=${obj.regionId}&startDate=${obj.startDate}&endDate=${obj.endDate}`;
+      let body = `type=2&pageType=1&zoneId=${obj.zoneId}&regionId=${obj.regionId}&startDate=${obj.startDate}&endDate=${obj.endDate}&distributionId=${obj.distributionId}&cityId=${obj.cityId}&storeType=${obj.storeType}&channelId=${obj.channelId}`;
 
       this.httpService.getKeyForProductivityReport(body, url).subscribe(data => {
         let res: any = data
@@ -437,15 +451,25 @@ export class FilterBarComponent implements OnInit {
     }, 1000);
   }
 
+  getPercentage(n) {
 
+    return Math.round(n) + ' %';
+
+  }
   getTabsData(data?: any, dateType?: string) {
+
     this.loading = true;
     let obj: any = {
       zoneId: (this.selectedZone.id) ? this.selectedZone.id : -1,
       regionId: (this.selectedRegion.id) ? this.selectedRegion.id : -1,
       startDate: (dateType == 'start') ? moment(data).format('YYYY-MM-DD') : moment(this.startDate).format('YYYY-MM-DD'),
-      endDate: (dateType == 'end') ? moment(data).format('YYYY-MM-DD') : moment(this.endDate).format('YYYY-MM-DD')
+      endDate: (dateType == 'end') ? moment(data).format('YYYY-MM-DD') : moment(this.endDate).format('YYYY-MM-DD'),
+      cityId: this.selectedCity.id || -1,
+      distributionId:this.selectedDitribution.id ||-1,
+      storeType:this.selectedStoreType || null,
+      channelId:-1
     }
+    localStorage.setItem('obj', JSON.stringify(obj));
     this.getTableData(obj)
 
     this.httpService.getDashboardData(obj).subscribe(data => {
@@ -465,7 +489,7 @@ export class FilterBarComponent implements OnInit {
   }
   getTableData(obj) {
 
-    this.httpService.getTableList(obj).subscribe(data => {
+    this.httpService.merchandiserShopListCBL(obj).subscribe(data => {
       console.log(data, 'table data');
       let res: any = data
       // this.dataSource = res;
@@ -479,12 +503,16 @@ export class FilterBarComponent implements OnInit {
     })
   }
 
+  // getMerchandiserDetailPage(id){
+  //   this.router.navigate
+  // }
+
   selectAll(select: NgModel, values) {
-    select.update.emit(values); 
+    select.update.emit(values);
   }
 
   deselectAll(select: NgModel) {
-    select.update.emit([]); 
+    select.update.emit([]);
   }
 
   equals(objOne, objTwo) {
@@ -493,16 +521,6 @@ export class FilterBarComponent implements OnInit {
     }
   }
 
-  getPdf(item){
-    debugger
-    let obj={
-      surveyId:item.survey_id,
-      type:25,
-      shopName:item.shop_title
-    }
-    let url='url-pdf'
-    this.httpService.DownloadResource(obj,url)
 
-  }
 
 }

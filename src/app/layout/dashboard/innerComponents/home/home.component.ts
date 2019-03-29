@@ -51,7 +51,7 @@ export class HomeComponent implements OnInit {
       // regionId: '',
       // endDate: ''
     }
-    this.httpService.getDashboardData(obj).subscribe(data => {
+    this.httpService.getDashboardData(null).subscribe(data => {
       console.log(data, 'home data');
       this.tabsData = data;
       this.loading = false;

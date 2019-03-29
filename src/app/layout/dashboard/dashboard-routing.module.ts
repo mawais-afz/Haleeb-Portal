@@ -9,6 +9,8 @@ import { SummaryComponent } from './innerComponents/summary/summary.component';
 import { ProductivityComponent } from './innerComponents/productivity/productivity.component';
 import { DetailsComponent } from './innerComponents/details/details.component';
 import { DailyVisitReportComponent } from './innerComponents/daily-visit-report/daily-visit-report.component';
+import { pathToFileURL } from 'url';
+import { ShopDetailComponent } from './innerComponents/shop-detail/shop-detail.component';
 
 const routes: Routes = [
     {
@@ -24,10 +26,10 @@ const routes: Routes = [
             { path: 'summary_report', component: SummaryComponent },
             { path: 'productivity_report', component: ProductivityComponent }
 
-
-
         ]
-    }
+    },
+    { path: 'shop_detail/:id', component: ShopDetailComponent },
+
 ];
 
 @NgModule({

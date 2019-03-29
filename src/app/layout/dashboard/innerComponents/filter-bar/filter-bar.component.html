@@ -357,6 +357,22 @@
                     <mat-option [value]="region" *ngFor="let region of regions">{{region.title}}</mat-option>
                 </mat-select>
             </mat-form-field>
+            <mat-form-field *ngIf="cities.length>0" class="example-margin mr-10-IMP">
+                <mat-select placeholder="City" name='city' [(ngModel)]="selectedCity" (ngModelChange)="getTabsData()">
+                    <mat-option [value]="city" *ngFor="let city of cities">{{city.title}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field *ngIf="distributionList.length>0" class="example-margin mr-10-IMP">
+                <mat-select placeholder="Distribution List" name='distributionList' [(ngModel)]="selectedDitribution" (ngModelChange)="getTabsData()">
+                    <mat-option [value]="dist" *ngFor="let dist of distributionList">{{dist.title}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field *ngIf="storeType.length>0" class="example-margin mr-10-IMP">
+                <mat-select placeholder="Store Type" name='storeType' [(ngModel)]="selectedStoreType" (ngModelChange)="getTabsData()">
+                    <mat-option [value]="store" *ngFor="let store of storeType">{{store}}</mat-option>
+                </mat-select>
+            </mat-form-field>
 
             <!-- <mat-form-field *ngIf="impactTypeList.length>0" class="example-margin mr-10-IMP">
                 <mat-select placeholder="Remove Impact" name='removeImpact' [(ngModel)]="selectedImpactType">
@@ -428,16 +444,17 @@
     <thead>
         <tr>
 
-            <th scope="col">Shop Code</th>
-            <th scope="col">Shop Name</th>
-            <th scope="col">Address</th>
-            <th scope="col">VO Code</th>
+            <th scope="col">Merchandiser Code</th>
+            <th scope="col">Merchandiser Name</th>
+            <th scope="col">Planned</th>
+            <th scope="col">Completed</th>
 
-            <th scope="col">VO Name</th>
+            <th scope="col">Successfull</th>
 
-            <th scope="col">Visit Date</th>
+            <th scope="col" style="background:#F12E2B;color: white">Unvisited</th>
 
-            <th scope="col">Remarks</th>
+            <th scope="col">Completed <strong>%</strong></th>
+            <th scope="col">Successful <strong>%</strong></th>
 
 
 
@@ -445,16 +462,16 @@
     </thead>
     <tbody>
         <tr *ngFor="let item of tableData">
-            <td scope="row">{{item.shop_code}}</td>
+            <td scope="row">{{item.merchandiser_code}}</td>
             <td>
-                <a class="a-link" (click)="getPdf(item)" title="view shop details">{{item.shop_title}}</a>
+                <a class="a-link" target="_blank" title="view shop details" [routerLink]="['/dashboard/shop_detail',item.id]">{{item.merchandiser_name}}</a>
             </td>
-            <td class="fix-address">{{item.address}}</td>
-            <td class="fix-width">{{item.m_code}}</td>
-            <td class="fix-width">{{item.full_name}}</td>
-            <td class="fix-width">{{item.visit_date}}</td>
-            <td class="fix-width">{{item.description}}</td>
-            <!-- <td>{{item.full_name}}</td> -->
+            <td>{{item.planned}}</td>
+            <td>{{item.completed}}</td>
+            <td>{{item.successfull}}</td>
+            <td>{{item.unvisited}}</td>
+            <td>{{getPercentage(item.completed_percent)}}</td>
+            <td>{{getPercentage(item.successful_percent)}}</td>
 
         </tr>
 

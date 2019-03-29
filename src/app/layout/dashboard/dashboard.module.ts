@@ -18,6 +18,7 @@ import { FilterBarComponent } from './innerComponents/filter-bar/filter-bar.comp
 import { FormsModule } from '@angular/forms';
 import { DetailsComponent } from './innerComponents/details/details.component';
 import { DailyVisitReportComponent } from './innerComponents/daily-visit-report/daily-visit-report.component';
+import { ShopDetailComponent } from './innerComponents/shop-detail/shop-detail.component';
 
 @NgModule({
     imports: [
@@ -41,6 +42,6 @@ import { DailyVisitReportComponent } from './innerComponents/daily-visit-report/
    
 
     ],
-    declarations: [DashboardComponent, HomeComponent, ShopListComponent, SummaryComponent, ProductivityComponent, FilterBarComponent, DetailsComponent, DailyVisitReportComponent]
+    declarations: [DashboardComponent, HomeComponent, ShopListComponent, SummaryComponent, ProductivityComponent, FilterBarComponent, DetailsComponent, DailyVisitReportComponent, ShopDetailComponent]
 })
 export class DashboardModule {}
