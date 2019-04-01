@@ -1,3 +1,21 @@
 mat-card-title {
     color: #F44336;
 }
+
+.example-card {
+    max-width: 400px;
+}
+
+.example-header-image {
+    background-image: url('src/assets/images/LU-logo.png');
+    background-size: cover;
+}
+
+.card2 {
+    max-width: 265px !important;
+}
+
+.a-link {
+    cursor: pointer;
+    color: blue !important;
+}

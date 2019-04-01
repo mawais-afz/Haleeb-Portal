@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DashboardService } from '../../dashboard.service';
 import { ActivatedRoute } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-shop-detail',
@@ -11,6 +12,8 @@ export class ShopDetailComponent implements OnInit {
   title='completed shop list'
   tableData: any = [];
   loading: boolean = false;
+  ip='http://192.168.3.152:8080/audit/';
+  // environment.ip
 
   constructor(private httpService: DashboardService, public activatedRoute: ActivatedRoute) { }
 

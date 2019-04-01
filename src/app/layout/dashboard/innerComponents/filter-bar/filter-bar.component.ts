@@ -239,7 +239,7 @@ export class FilterBarComponent implements OnInit {
     this.clickedOnce = 1;
     if(event)
     this.startDate = event;
-    debugger  
+  
     this.merchandiserList = [];
     if (!this.selectedZone.id || !this.selectedRegion.id) {
       // console.log(this.selectedZone.id,this.selectedRegion.id)
