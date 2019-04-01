@@ -363,7 +363,7 @@
                 </mat-select>
             </mat-form-field>
             <mat-form-field *ngIf="distributionList.length>0" class="example-margin mr-10-IMP">
-                <mat-select placeholder="Distribution List" name='distributionList' [(ngModel)]="selectedDitribution" (ngModelChange)="getTabsData()">
+                <mat-select placeholder="Distribution List" name='distributionList' [(ngModel)]="selectedDistribution" (ngModelChange)="getTabsData()">
                     <mat-option [value]="dist" *ngFor="let dist of distributionList">{{dist.title}}</mat-option>
                 </mat-select>
             </mat-form-field>
@@ -480,7 +480,7 @@
 
 </table>
 
-<div class="row " *ngIf="tableData.length==0 || loading && router.url==='/dashboard/productivity_report'">
+<div class="row " *ngIf="loading && router.url==='/dashboard/productivity_report'">
     <div class="col-md-12 text-center">
         <div class="img-center">
             <img src="assets/images/basicloader.gif" alt="" srcset="">

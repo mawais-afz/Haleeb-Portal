@@ -20,7 +20,7 @@ export class FilterBarComponent implements OnInit {
   ip = environment.ip;
 
   distributionList: any = [];
-  selectedDitribution: any = {}
+  selectedDistribution: any = {}
   storeType: any = ['Elite',
     'Platinum',
     'Gold',
@@ -91,7 +91,7 @@ export class FilterBarComponent implements OnInit {
     this.selectedChannel = [];
     this.selectedProduct = [];
     this.selectedCity = {};
-    this.selectedDitribution = {};
+    this.selectedDistribution = {};
     this.distributionList = [];
     this.startDate = new Date();
     this.endDate = new Date();
@@ -144,6 +144,10 @@ export class FilterBarComponent implements OnInit {
 
   regionChange() {
 
+    this.selectedArea={}
+    this.selectedCity={}
+    this.selectedDistribution={};
+    this.getMerchandiserList(this.startDate);
 
     if (this.router.url === '/dashboard/productivity_report')
       this.getTabsData()
@@ -230,10 +234,12 @@ export class FilterBarComponent implements OnInit {
     }
   }
 
-  getMerchandiserList(event) {
+  getMerchandiserList(event?) {
     console.log(event);
     this.clickedOnce = 1;
+    if(event)
     this.startDate = event;
+    debugger  
     this.merchandiserList = [];
     if (!this.selectedZone.id || !this.selectedRegion.id) {
       // console.log(this.selectedZone.id,this.selectedRegion.id)
@@ -405,7 +411,7 @@ export class FilterBarComponent implements OnInit {
         zoneId: this.selectedZone.id || -1,
         regionId: this.selectedRegion.id || -1,
         cityId: this.selectedCity || -1,
-        distributionId:this.selectedDitribution.id ||-1,
+        distributionId:this.selectedDistribution.id ||-1,
         storeType:this.selectedStoreType || null,
         startDate: moment(this.startDate).format('YYYY-MM-DD'),
         endDate: moment(this.endDate).format('YYYY-MM-DD'),
@@ -465,7 +471,7 @@ export class FilterBarComponent implements OnInit {
       startDate: (dateType == 'start') ? moment(data).format('YYYY-MM-DD') : moment(this.startDate).format('YYYY-MM-DD'),
       endDate: (dateType == 'end') ? moment(data).format('YYYY-MM-DD') : moment(this.endDate).format('YYYY-MM-DD'),
       cityId: this.selectedCity.id || -1,
-      distributionId:this.selectedDitribution.id ||-1,
+      distributionId:this.selectedDistribution.id ||-1,
       storeType:this.selectedStoreType || null,
       channelId:-1
     }
