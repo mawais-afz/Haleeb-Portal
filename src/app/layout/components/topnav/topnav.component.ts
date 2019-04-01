@@ -9,6 +9,7 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class TopnavComponent implements OnInit {
     public pushRightClass: string;
+    showButton=true
 
     constructor(public router: Router, private translate: TranslateService) {
         this.router.events.subscribe(val => {
@@ -20,6 +21,12 @@ export class TopnavComponent implements OnInit {
 
     ngOnInit() {
         this.pushRightClass = 'push-right';
+        let url: any = new Array();
+        url = this.router.url.split('/');
+        let t: any = url.find(d => d === 'shop_detail')
+        if (t) {
+            this.showButton = false
+        }
     }
 
     isToggled(): boolean {
