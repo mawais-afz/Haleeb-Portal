@@ -51,24 +51,34 @@
     </mat-card-content>
 </mat-card>
 
-<div class="container" *ngIf="tableData.length>0">
-    <div class="row" style="justify-content: center">
-        <ng-container *ngFor="let item of tableData">
-            <mat-card class=" col-md-3 example-card card2 ml-1 mt-2">
+<div class="container-fluid" *ngIf="tableData.length>0">
+    <div class="row js">
+        <ng-container *ngFor="let item of tableData;let i=index">
+            <mat-card class=" col-md-3 example-card card2 ml-3 mt-3">
                 <!-- <mat-card-header>
                     <div mat-card-avatar class="example-header-image"></div>
                     <mat-card-title>Shiba Inu</mat-card-title>
                     <mat-card-subtitle>Dog Breed</mat-card-subtitle>
                 </mat-card-header> -->
-                {{tableData.itemList |json}}
-                <img mat-card-image src="{{ip}}{{item.shopFullImg}}" width="200" height="300" alt="Photo of a Shiba Inu">
+                <!-- {{tableData.itemList |json}} -->
+                <img mat-card-image src="assets/images/LU-logo.png" height="300" alt="">
+
+                <!-- <img mat-card-image src="{{ip}}{{item.shopFullImg}}" width="250" height="300" alt=""> -->
                 <mat-card-content>
-                    <table>
-                        <tr *ngFor="let item2 of tableData.itemList">
-                            test
+                    <table class="table" (click)="getPdf(item);" style="cursor:pointer">
+                        <tr *ngFor="let item2 of tableData[i].itemList">
+                            <!-- test -->
                             <th>{{item2.heading}}</th>
                             <td>{{item2.value}}</td>
+                            <!-- <td>
+                                <hr>
+                            </td>
+                            <td>
+                                <hr>
+                            </td> -->
+
                         </tr>
+                        <!-- <hr> -->
                     </table>
                 </mat-card-content>
                 <!-- <mat-card-actions>

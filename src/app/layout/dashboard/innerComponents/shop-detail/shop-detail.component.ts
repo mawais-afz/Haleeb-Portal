@@ -43,6 +43,7 @@ export class ShopDetailComponent implements OnInit {
       console.log(data, 'table data');
       let res: any = data
       // this.dataSource = res;
+      if(res!=null)
       this.tableData = res;
       this.loading = false;
       // if (res.planned == 0)
@@ -54,11 +55,11 @@ export class ShopDetailComponent implements OnInit {
   }
 
   getPdf(item){
-    debugger
+    // debugger
     let obj={
-      surveyId:item.survey_id,
+      surveyId:item.surveyId,
       type:25,
-      shopName:item.shop_title
+      shopName:item.shopName
     }
     let url='url-pdf'
     this.httpService.DownloadResource(obj,url)
