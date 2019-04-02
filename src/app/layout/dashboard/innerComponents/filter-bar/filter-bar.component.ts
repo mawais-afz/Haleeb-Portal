@@ -103,6 +103,7 @@ export class FilterBarComponent implements OnInit {
     this.mustHave = this.dataService.getYesNo();
     this.httpService.getZone();
     this.impactTypeList = this.dataService.getImpactType();
+    if(this.router.url=='/dashboard/productivity_report')
     this.getTabsData()
   }
   //#region filters logic
