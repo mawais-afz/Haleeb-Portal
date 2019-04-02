@@ -13,6 +13,7 @@ export class LoginComponent implements OnInit {
         userName: '',
         password: ''
     };
+    loading=false;
     constructor(private router: Router, private httpService: DashboardService, private toastr: ToastrService) { }
 
     ngOnInit() {
@@ -21,6 +22,7 @@ export class LoginComponent implements OnInit {
      }
 
     onLogin(loginForm: any) {
+        this.loading=true;
         console.log(loginForm);
 
 
@@ -31,6 +33,9 @@ export class LoginComponent implements OnInit {
             localStorage.setItem('isLoggedin', 'true');
             localStorage.setItem('user_id', res.user_id);
             this.router.navigate(['/dashboard']);
+            setTimeout(() => {
+                this.loading=false;
+            }, 30000);
 
         }, error => {
             this.toastr.error(error.error.description, 'Login Status');

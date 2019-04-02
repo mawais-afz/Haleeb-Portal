@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { DashboardService } from '../../dashboard.service';
 import { ActivatedRoute } from '@angular/router';
 import { environment } from 'src/environments/environment';
+import { ModalDirective } from 'ngx-bootstrap';
 
 @Component({
   selector: 'app-shop-detail',
@@ -12,11 +13,26 @@ export class ShopDetailComponent implements OnInit {
   title='completed shop list'
   tableData: any = [];
   loading: boolean = false;
-  ip='http://192.168.3.152:8080/audit/';
-  // environment.ip
+  ip= environment.ip
+
+  @ViewChild('childModal') childModal: ModalDirective;
+  selectedItem: any={};
+ 
+  showChildModal(): void {
+    this.childModal.show();
+  }
+ 
+  hideChildModal(): void {
+    this.childModal.hide();
+  }
 
   constructor(private httpService: DashboardService, public activatedRoute: ActivatedRoute) { }
 
+
+  setSelectedItem(item){
+    this.selectedItem=item
+
+  }
   ngOnInit() {
     let id = 0
     let o: any = JSON.parse(localStorage.getItem('obj'));

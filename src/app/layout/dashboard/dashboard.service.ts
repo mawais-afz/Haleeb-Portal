@@ -9,8 +9,8 @@ import { timeout, catchError } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class DashboardService {
-  ip: any ='http://192.168.3.94:8080/audit/';
-  // environment.ip;
+  ip: any =environment.ip;
+  // 
   // 'http://192.168.3.94:8080/audit/' ;
   // ;
   // 
@@ -30,7 +30,7 @@ export class DashboardService {
     // let body=JSON.stringify(credentials)
     const url = this.ip + 'pictureLogin';
     return this.http.post(url, credentials).pipe(
-      timeout(100000),
+      timeout(60000),
       catchError(e => {
         this.toastr.error('Due to limited connectivity your request could not be completed, please try again','Request Timeout')
         return of(null);
@@ -43,7 +43,7 @@ export class DashboardService {
     body = `zoneId=${obj.zoneId}&regionId=${obj.regionId}&endDate=${obj.endDate}&startDate=${obj.startDate}&distributionId=${obj.distributionId}&cityId=${obj.cityId}&storeType=${obj.storeType}&channelId=${obj.channelId}`
     const url = this.ip + 'dashboardDataCBL'
     return this.http.post(url, body, this.httpOptions).pipe(
-      timeout(100000),
+      timeout(60000),
       catchError(e => {
         this.toastr.error('Due to limited connectivity your request could not be completed, please try again','Request Timeout')
         return of(null);
@@ -56,7 +56,7 @@ export class DashboardService {
     let body = `zoneId=${obj.zoneId}&regionId=${obj.regionId}&endDate=${obj.endDate}&startDate=${obj.startDate}&merchandiserId=${obj.merchandiserId}`
     const url = this.ip + 'completedShopListCBL'
     return this.http.post(url, body, this.httpOptions).pipe(
-      timeout(100000),
+      timeout(60000),
       catchError(e => {
         this.toastr.error('Due to limited connectivity your request could not be completed, please try again','Request Timeout')
         return of(null);
@@ -68,7 +68,7 @@ export class DashboardService {
     let body = `zoneId=${obj.zoneId}&regionId=${obj.regionId}&endDate=${obj.endDate}&startDate=${obj.startDate}&distributionId=${obj.distributionId}&cityId=${obj.cityId}&storeType=${obj.storeType}&channelId=${obj.channelId}`
     const url = this.ip + 'merchandiserShopListCBL'
     return this.http.post(url, body, this.httpOptions).pipe(
-      timeout(100000),
+      timeout(60000),
       catchError(e => {
         this.toastr.error('Due to limited connectivity your request could not be completed, please try again','Request Timeout')
         return of(null);
@@ -80,7 +80,7 @@ export class DashboardService {
     const filter = JSON.stringify({ act: 0 });
     const url = this.ip + 'loadFilters';
     return this.http.post(url, filter).pipe(
-      timeout(100000),
+      timeout(60000),
       catchError(e => {
         this.toastr.error('Due to limited connectivity your request could not be completed, please try again','Request Timeout')
         return of(null);
@@ -92,7 +92,7 @@ export class DashboardService {
     const filter = JSON.stringify({ act: 1, zoneId: zoneId });
     const url = this.ip + 'loadFilters';
     return this.http.post(url, filter).pipe(
-      timeout(100000),
+      timeout(60000),
       catchError(e => {
         this.toastr.error('Due to limited connectivity your request could not be completed, please try again','Request Timeout')
         return of(null);
@@ -104,7 +104,7 @@ export class DashboardService {
     const filter = JSON.stringify({ act: 2, regionId: regionId });
     const url = this.ip + 'loadFilters';
     return this.http.post(url, filter).pipe(
-      timeout(100000),
+      timeout(60000),
       catchError(e => {
         this.toastr.error('Due to limited connectivity your request could not be completed, please try again','Request Timeout')
         return of(null);
@@ -116,7 +116,7 @@ export class DashboardService {
     const filter = JSON.stringify({ act: 5, category: categoryId });
     const url = this.ip + 'loadFilters';
     return this.http.post(url, filter).pipe(
-      timeout(100000),
+      timeout(60000),
       catchError(e => {
         this.toastr.error('Due to limited connectivity your request could not be completed, please try again','Request Timeout')
         return of(null);
@@ -128,7 +128,7 @@ export class DashboardService {
     const filter = JSON.stringify({ act: 3, channelId: channelId });
     const url = this.ip + 'loadFilters';
     return this.http.post(url, filter).pipe(
-      timeout(100000),
+      timeout(60000),
       catchError(e => {
         this.toastr.error('Due to limited connectivity your request could not be completed, please try again','Request Timeout')
         return of(null);
@@ -141,7 +141,7 @@ export class DashboardService {
 
     // const url = this.ip + 'cbl-pdf';
     return this.http.post(url, filter).pipe(
-      timeout(100000),
+      timeout(60000),
       catchError(e => {
         this.toastr.error('Due to limited connectivity your request could not be completed, please try again','Request Timeout')
         return of(null);
@@ -164,7 +164,7 @@ export class DashboardService {
     const url = this.ip + `cbl-pdf`;
     let o = `surveyorId=${obj.surveyorId}&startDate=${obj.startDate}`;
     return this.http.post(url, o, this.httpOptions).pipe(
-      timeout(100000),
+      timeout(60000),
       catchError(e => {
         this.toastr.error('Due to limited connectivity your request could not be completed, please try again','Request Timeout')
         return of(null);
@@ -174,7 +174,7 @@ export class DashboardService {
   getKeyForProductivityReport(body,reportUrl) {
     let url = this.ip + reportUrl;
     return this.http.post(url, body, this.httpOptions).pipe(
-      timeout(100000),
+      timeout(60000),
       catchError(e => {
         this.toastr.error('Due to limited connectivity your request could not be completed, please try again','Request Timeout')
         return of(null);

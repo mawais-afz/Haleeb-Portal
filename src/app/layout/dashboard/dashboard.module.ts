@@ -19,7 +19,7 @@ import { FormsModule } from '@angular/forms';
 import { DetailsComponent } from './innerComponents/details/details.component';
 import { DailyVisitReportComponent } from './innerComponents/daily-visit-report/daily-visit-report.component';
 import { ShopDetailComponent } from './innerComponents/shop-detail/shop-detail.component';
-
+import { ModalModule } from 'ngx-bootstrap/modal';
 @NgModule({
     imports: [
         FormsModule,
@@ -39,7 +39,7 @@ import { ShopDetailComponent } from './innerComponents/shop-detail/shop-detail.c
         MatButtonModule,
         MatIconModule,
         FlexLayoutModule.withConfig({addFlexToParent: false}),
-   
+        ModalModule.forRoot()
 
     ],
     declarations: [DashboardComponent, HomeComponent, ShopListComponent, SummaryComponent, ProductivityComponent, FilterBarComponent, DetailsComponent, DailyVisitReportComponent, ShopDetailComponent]
