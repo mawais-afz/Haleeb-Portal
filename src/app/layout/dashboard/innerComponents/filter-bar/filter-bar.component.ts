@@ -103,8 +103,8 @@ export class FilterBarComponent implements OnInit {
     this.mustHave = this.dataService.getYesNo();
     this.httpService.getZone();
     this.impactTypeList = this.dataService.getImpactType();
-    if(this.router.url=='/dashboard/productivity_report')
-    this.getTabsData()
+    if (this.router.url == '/dashboard/productivity_report')
+      this.getTabsData()
   }
   //#region filters logic
 
@@ -145,10 +145,11 @@ export class FilterBarComponent implements OnInit {
 
   regionChange() {
 
-    this.selectedArea={}
-    this.selectedCity={}
-    this.selectedDistribution={};
-    this.getMerchandiserList(this.startDate);
+    this.selectedArea = {}
+    this.selectedCity = {}
+    this.selectedDistribution = {};
+    if (this.router.url !== '/dashboard/summary_report')
+      this.getMerchandiserList(this.startDate);
 
     if (this.router.url === '/dashboard/productivity_report')
       this.getTabsData()
@@ -238,9 +239,9 @@ export class FilterBarComponent implements OnInit {
   getMerchandiserList(event?) {
     console.log(event);
     this.clickedOnce = 1;
-    if(event)
-    this.startDate = event;
-  
+    if (event)
+      this.startDate = event;
+
     this.merchandiserList = [];
     if (!this.selectedZone.id || !this.selectedRegion.id) {
       // console.log(this.selectedZone.id,this.selectedRegion.id)
@@ -298,7 +299,7 @@ export class FilterBarComponent implements OnInit {
     setTimeout(() => {
       this.loadingData = false;
       this.loadingReportMessage = false;
-      this.clearAllSections()
+      // this.clearAllSections()  
     }, 20000);
   }
 
@@ -336,6 +337,7 @@ export class FilterBarComponent implements OnInit {
 
       let url = 'shopwise-ost-report';
       let body = `pageType=2&zoneId=${obj.zoneId}&regionId=${obj.regionId}&startDate=${obj.startDate}&endDate=${obj.endDate}&cityId=${obj.cityId}&areaId=${obj.areaId}&channelId=${obj.channelId}&category=${obj.category}&lastVisit=${obj.lastVisit}&productId=${obj.productId}&mustHave=${obj.mustHave}`;
+     
       this.httpService.getKeyForProductivityReport(body, url).subscribe(data => {
         console.log(data, 'oos shoplist');
         let res: any = data
@@ -374,12 +376,69 @@ export class FilterBarComponent implements OnInit {
         endDate: moment(this.endDate).format('YYYY-MM-DD'),
         category: -1,
         productId: -1,
-        mustHave: 'n'
+        mustHave: 'N',
+        chillerAllocated: -1,
+        type:2,
+        pageType:1
       };
 
+     let encodeURL:any= this.httpService.UrlEncodeMaker(obj);
+      
       let url = 'oosSummaryReport'
-      let body = `type=2&pageType=1&zoneId=${obj.zoneId}&regionId=${obj.regionId}&startDate=${obj.startDate}&endDate=${obj.endDate}&mustHave=${obj.mustHave}&channelId=${obj.channelId}`;
+      let body = `chillerAllocated=${obj.chillerAllocated}&type=2&pageType=1&zoneId=${obj.zoneId}&regionId=${obj.regionId}&startDate=${obj.startDate}&endDate=${obj.endDate}&mustHave=${obj.mustHave}&channelId=${obj.channelId}`;
+      // encodeURL      // 
+      debugger
+      this.httpService.getKeyForProductivityReport(body, url).subscribe(data => {
+        let res: any = data
 
+        let obj2 = {
+          key: res.key,
+          fileType: 'json.fileType'
+        }
+        let url = 'downloadReport'
+        this.getproductivityDownload(obj2, url)
+
+      }, error => {
+
+        console.log(error, 'summary report')
+
+      })
+    } else {
+      this.toastr.info('End date must be greater than start date', 'Date Selection')
+
+    }
+
+    // let url = 'oosSummaryReport';
+    // this.httpService.DownloadResource(obj, url);
+  }
+  getMSLReport() {
+
+    if (this.endDate >= this.startDate) {
+      this.loadingData = true
+      this.loadingReportMessage = true
+      let obj = {
+        zoneId: this.selectedZone.id,
+        regionId: this.selectedRegion.id,
+        cityId: this.selectedCity.id,
+        areaId: this.selectedArea.id,
+        channelId: this.arrayMaker(this.selectedChannel),
+        startDate: moment(this.startDate).format('YYYY-MM-DD'),
+        endDate: moment(this.endDate).format('YYYY-MM-DD'),
+        category: -1,
+        productId: -1,
+        mustHave: 'N',
+        chillerAllocated: -1,
+        type:2,
+        pageType:1
+      };
+
+     let encodeURL:any= this.httpService.UrlEncodeMaker(obj);
+      
+      let url = 'mslDashboard'
+      let body = encodeURL  ;
+      // `chillerAllocated=${obj.chillerAllocated}&type=2&pageType=1&zoneId=${obj.zoneId}&regionId=${obj.regionId}&startDate=${obj.startDate}&endDate=${obj.endDate}&mustHave=${obj.mustHave}&channelId=${obj.channelId}`;
+      //     // 
+      debugger
       this.httpService.getKeyForProductivityReport(body, url).subscribe(data => {
         let res: any = data
 
@@ -404,6 +463,57 @@ export class FilterBarComponent implements OnInit {
     // this.httpService.DownloadResource(obj, url);
   }
 
+  getProuctivityDashboardReport() {
+
+    if (this.endDate >= this.startDate) {
+      this.loadingData = true
+      this.loadingReportMessage = true
+      let obj = {
+        zoneId: this.selectedZone.id,
+        regionId: this.selectedRegion.id,
+        cityId: this.selectedCity.id,
+        areaId: this.selectedArea.id,
+        channelId: this.arrayMaker(this.selectedChannel),
+        startDate: moment(this.startDate).format('YYYY-MM-DD'),
+        endDate: moment(this.endDate).format('YYYY-MM-DD'),
+        category: -1,
+        productId: -1,
+        mustHave: 'N',
+        chillerAllocated: -1,
+        type:2,
+        pageType:1
+      };
+
+     let encodeURL:any= this.httpService.UrlEncodeMaker(obj);
+      
+      let url = 'productivityDashboard'
+      let body = encodeURL  ;
+      // `chillerAllocated=${obj.chillerAllocated}&type=2&pageType=1&zoneId=${obj.zoneId}&regionId=${obj.regionId}&startDate=${obj.startDate}&endDate=${obj.endDate}&mustHave=${obj.mustHave}&channelId=${obj.channelId}`;
+      //     // 
+      debugger
+      this.httpService.getKeyForProductivityReport(body, url).subscribe(data => {
+        let res: any = data
+
+        let obj2 = {
+          key: res.key,
+          fileType: 'json.fileType'
+        }
+        let url = 'downloadReport'
+        this.getproductivityDownload(obj2, url)
+
+      }, error => {
+
+        console.log(error, 'summary report')
+
+      })
+    } else {
+      this.toastr.info('End date must be greater than start date', 'Date Selection')
+
+    }
+
+    // let url = 'oosSummaryReport';
+    // this.httpService.DownloadResource(obj, url);
+  }
   MProductivityReport() {
     if (this.endDate >= this.startDate) {
       this.loadingData = true;
@@ -411,13 +521,13 @@ export class FilterBarComponent implements OnInit {
       let obj = {
         zoneId: this.selectedZone.id || -1,
         regionId: this.selectedRegion.id || -1,
-        cityId: this.selectedCity || -1,
-        distributionId:this.selectedDistribution.id ||-1,
-        storeType:this.selectedStoreType || null,
+        cityId: this.selectedCity.id || -1,
+        distributionId: this.selectedDistribution.id || -1,
+        storeType: this.selectedStoreType || null,
         startDate: moment(this.startDate).format('YYYY-MM-DD'),
         endDate: moment(this.endDate).format('YYYY-MM-DD'),
         // totalShops: this.selectedImpactType,
-        channelId:-1
+        channelId: -1
 
       };
       let url = 'productivityreport'
@@ -453,7 +563,7 @@ export class FilterBarComponent implements OnInit {
       this.loadingData = false;
 
       this.loadingReportMessage = false;
-      this.clearAllSections();
+      // this.clearAllSections();
 
     }, 1000);
   }
@@ -472,9 +582,9 @@ export class FilterBarComponent implements OnInit {
       startDate: (dateType == 'start') ? moment(data).format('YYYY-MM-DD') : moment(this.startDate).format('YYYY-MM-DD'),
       endDate: (dateType == 'end') ? moment(data).format('YYYY-MM-DD') : moment(this.endDate).format('YYYY-MM-DD'),
       cityId: this.selectedCity.id || -1,
-      distributionId:this.selectedDistribution.id ||-1,
-      storeType:this.selectedStoreType || null,
-      channelId:-1
+      distributionId: this.selectedDistribution.id || -1,
+      storeType: this.selectedStoreType || null,
+      channelId: -1
     }
     localStorage.setItem('obj', JSON.stringify(obj));
     this.getTableData(obj)

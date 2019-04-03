@@ -1,7 +1,7 @@
 <div id="sidebar">
     <mat-nav-list>
         <a mat-list-item [routerLink]="['/dashboard/home']" [routerLinkActive]="'link-active'">
-            <mat-icon class="sidenav-icon">dashboard</mat-icon> {{ 'Dashboard' | translate }}
+            <mat-icon class="sidenav-icon">dashboard</mat-icon> {{ 'Main' | translate }}
         </a>
         <!-- <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['/charts']">
             <mat-icon class="sidenav-icon">bar_chart</mat-icon> {{ 'Charts' | translate }}
@@ -21,13 +21,35 @@
         <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['/blank-page']">
             <mat-icon class="sidenav-icon">insert_drive_file</mat-icon> {{ 'Blank Page' | translate }}
         </a> -->
+
         <div class="nested-menu">
-            <a mat-list-item (click)="addExpandClass('pages')" (click)="toggleValue=!toggleValue">
+            <a mat-list-item (click)="addExpandClass('pages')" (click)="toggleValueDashboard=!toggleValueDashboard">
+                <mat-icon class="sidenav-icon" *ngIf="toggleValueDashboard">add</mat-icon>
+                <mat-icon class="sidenav-icon" *ngIf="!toggleValueDashboard">remove</mat-icon>
+                {{ 'Dashboards' | translate }}
+            </a>
+            <ul class="nested submenu" [class.expand]="showMenu === 'pages'">
+
+                <li>
+                    <a [routerLinkActive]="'link-active'" [routerLink]="['/dashboard/msl_dashboard']"><span>{{ 'MSL Dashboard' | translate }}</span></a>
+                </li>
+
+                <li>
+                    <a [routerLinkActive]="'link-active'" [routerLink]="['/dashboard/productivity_dashboard']"><span>{{ 'Productivity Dashboard' | translate }}</span></a>
+                </li>
+            </ul>
+        </div>
+
+
+
+
+        <div class="nested-menu">
+            <a mat-list-item (click)="addExpandClass('pages1')" (click)="toggleValue=!toggleValue">
                 <mat-icon class="sidenav-icon" *ngIf="toggleValue">add</mat-icon>
                 <mat-icon class="sidenav-icon" *ngIf="!toggleValue">remove</mat-icon>
                 {{ 'Reports' | translate }}
             </a>
-            <ul class="nested submenu" [class.expand]="showMenu === 'pages'">
+            <ul class="nested submenu" [class.expand]="showMenu === 'pages1'">
                 <!-- <li>
                     <a [class.active]=true [routerLink]="['/dashboard/oos_details']"><span>{{ 'OOS Details' | translate }}</span></a>
                 </li> -->
@@ -43,7 +65,11 @@
                 <li>
                     <a [routerLinkActive]="'link-active'" [routerLink]="['/dashboard/daily_visit_report']"><span>{{ 'Merchandiser Daily Report' | translate }}</span></a>
                 </li>
+
             </ul>
         </div>
+
+
+
     </mat-nav-list>
 </div>

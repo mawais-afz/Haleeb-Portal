@@ -20,6 +20,8 @@ import { DetailsComponent } from './innerComponents/details/details.component';
 import { DailyVisitReportComponent } from './innerComponents/daily-visit-report/daily-visit-report.component';
 import { ShopDetailComponent } from './innerComponents/shop-detail/shop-detail.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { MslDashboardComponent } from './innerComponents/msl-dashboard/msl-dashboard.component';
+import { ProductivityDashboardComponent } from './innerComponents/productivity-dashboard/productivity-dashboard.component';
 @NgModule({
     imports: [
         FormsModule,
@@ -42,6 +44,6 @@ import { ModalModule } from 'ngx-bootstrap/modal';
         ModalModule.forRoot()
 
     ],
-    declarations: [DashboardComponent, HomeComponent, ShopListComponent, SummaryComponent, ProductivityComponent, FilterBarComponent, DetailsComponent, DailyVisitReportComponent, ShopDetailComponent]
+    declarations: [DashboardComponent, HomeComponent, ShopListComponent, SummaryComponent, ProductivityComponent, FilterBarComponent, DetailsComponent, DailyVisitReportComponent, ShopDetailComponent, MslDashboardComponent, ProductivityDashboardComponent]
 })
 export class DashboardModule {}

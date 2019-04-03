@@ -11,6 +11,8 @@ import { DetailsComponent } from './innerComponents/details/details.component';
 import { DailyVisitReportComponent } from './innerComponents/daily-visit-report/daily-visit-report.component';
 import { pathToFileURL } from 'url';
 import { ShopDetailComponent } from './innerComponents/shop-detail/shop-detail.component';
+import { MslDashboardComponent } from './innerComponents/msl-dashboard/msl-dashboard.component';
+import { ProductivityDashboardComponent } from './innerComponents/productivity-dashboard/productivity-dashboard.component';
 
 const routes: Routes = [
     {
@@ -24,7 +26,9 @@ const routes: Routes = [
             { path: 'oos_details_report', component: DetailsComponent },
             { path: 'shop_list_report', component: ShopListComponent },
             { path: 'summary_report', component: SummaryComponent },
-            { path: 'productivity_report', component: ProductivityComponent }
+            { path: 'productivity_report', component: ProductivityComponent },
+            { path: 'msl_dashboard', component: MslDashboardComponent },
+            { path: 'productivity_dashboard', component: ProductivityDashboardComponent }
 
         ]
     },

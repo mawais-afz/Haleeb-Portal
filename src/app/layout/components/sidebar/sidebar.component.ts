@@ -10,6 +10,7 @@ export class SidebarComponent implements OnInit {
     public showMenu: string;
     constructor(public router: Router) {}
     toggleValue = true;
+    toggleValueDashboard=true;
 
     ngOnInit() {
         this.showMenu = '';
