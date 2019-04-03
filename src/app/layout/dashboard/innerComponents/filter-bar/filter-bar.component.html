@@ -287,7 +287,7 @@
                 <mat-datepicker #picker1></mat-datepicker>
             </mat-form-field>
 
-            <button *ngIf="router.url==='/dashboard/msl_dashboard'" mat-raised-button color="warn" (click)="getMSLReport()">Download MSL</button>
+            <button *ngIf="router.url==='/dashboard/msl_dashboard'" mat-raised-button color="warn" (click)="getMSLReport()">Download</button>
 
         </section>
 
@@ -389,7 +389,7 @@
                 <mat-datepicker #picker1></mat-datepicker>
             </mat-form-field>
 
-            <button *ngIf="router.url==='/dashboard/productivity_dashboard'" mat-raised-button color="warn" (click)="getProuctivityDashboardReport()">Download PRODUCTIVITY</button>
+            <button *ngIf="router.url==='/dashboard/productivity_dashboard'" mat-raised-button color="warn" (click)="getProuctivityDashboardReport()">Download</button>
 
         </section>
 
@@ -517,7 +517,7 @@
                 </mat-select>
             </mat-form-field>
 
-            <button [disabled]="loadingReportMessage" *ngIf="selectedZone.id&& selectedRegion.id && selectedMerchandiser.fullName " mat-raised-button color="warn" (click)="downloadDailyReport()">Download Report</button>
+            <button [disabled]="loadingReportMessage" *ngIf="selectedZone.id&& selectedRegion.id && selectedMerchandiser.fullName " mat-raised-button color="warn" (click)="downloadDailyReport()">Download</button>
 
 
 
@@ -589,7 +589,7 @@
             </mat-form-field>
 
 
-            <button mat-raised-button color="warn" (click)="MProductivityReport()">Download Report</button>
+            <button mat-raised-button color="warn" (click)="MProductivityReport()">Download</button>
 
 
         </section>

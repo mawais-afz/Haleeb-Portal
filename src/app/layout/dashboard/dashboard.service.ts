@@ -9,14 +9,9 @@ import { timeout, catchError } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class DashboardService {
-  ip: any = 'http://192.168.3.94:8080/audit/'
-  // environment.ip;
-  // 
-  //  ;
-  // ;
-  // 
-
-  // user = 0;
+  ip: any = environment.ip;
+  // 'http://192.168.3.94:8080/audit/'
+ 
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -41,9 +36,7 @@ export class DashboardService {
 
   UrlEncodeMaker(obj) {
     let url = ''
-    debugger;
-
-    for (const key in obj) {
+      for (const key in obj) {
       url += `${key}=${obj[key]}&`
     }
     var newUrl = url.substring(0, url.length - 1)
