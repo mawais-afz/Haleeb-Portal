@@ -431,7 +431,7 @@ export class FilterBarComponent implements OnInit {
         mustHave: 'N',
         chillerAllocated: -1,
         type:2,
-        pageType:1
+        pageType:3
       };
 
      let encodeURL:any= this.httpService.UrlEncodeMaker(obj);
