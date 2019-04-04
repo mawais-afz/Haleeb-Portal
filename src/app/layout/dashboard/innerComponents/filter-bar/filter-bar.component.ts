@@ -267,7 +267,7 @@ export class FilterBarComponent implements OnInit {
     else {
       this.clearLoading()
 
-      this.toastr.info('End date must be greater than start date', 'Date Selection')
+      this.toastr.info('End date must be greater than start date', 'Date Selection');
     }
   }
   clearLoading(){
@@ -279,8 +279,9 @@ export class FilterBarComponent implements OnInit {
   getMerchandiserList(event?) {
     console.log(event);
     this.clickedOnce = 1;
-    if (event)
+    if (event) {
       this.startDate = event;
+    }
 
     this.merchandiserList = [];
     if (!this.selectedZone.id || !this.selectedRegion.id) {
@@ -342,7 +343,7 @@ export class FilterBarComponent implements OnInit {
   }
 
   arrayMaker(arr) {
-    let all = arr.filter(a => a === 'all')
+    let all = arr.filter(a => a === 'all');
     let result: any = []
     if (all[0] === 'all') {
       arr = this.channels;
@@ -367,15 +368,16 @@ export class FilterBarComponent implements OnInit {
         channelId: this.arrayMaker(this.selectedChannel),
         startDate: moment(this.startDate).format('YYYY-MM-DD'),
         endDate: moment(this.endDate).format('YYYY-MM-DD'),
-        category: -1,
+        // category: -1,
         lastVisit: this.selectedLastVisit || "",
-        productId: -1,
+        // productId: -1,
         mustHave: 'n'
       };
 
       let url = 'shopwise-ost-report';
-      let body = `pageType=2&zoneId=${obj.zoneId}&regionId=${obj.regionId}&startDate=${obj.startDate}&endDate=${obj.endDate}&cityId=${obj.cityId}&areaId=${obj.areaId}&channelId=${obj.channelId}&category=${obj.category}&lastVisit=${obj.lastVisit}&productId=${obj.productId}&mustHave=${obj.mustHave}`;
-     
+      let body =this.httpService.UrlEncodeMaker(obj);
+      //  `pageType=2&zoneId=${obj.zoneId}&regionId=${obj.regionId}&startDate=${obj.startDate}&endDate=${obj.endDate}&cityId=${obj.cityId}&areaId=${obj.areaId}&channelId=${obj.channelId}&category=${obj.category}&lastVisit=${obj.lastVisit}&productId=${obj.productId}&mustHave=${obj.mustHave}`;
+
       this.httpService.getKeyForProductivityReport(body, url).subscribe(data => {
         console.log(data, 'oos shoplist');
         let res: any = data
@@ -393,7 +395,7 @@ export class FilterBarComponent implements OnInit {
 
           this.toastr.info('Something went wrong,Please retry','Connectivity Message')
         }
-        
+
 
       }, error => {
         this.clearLoading()
@@ -433,11 +435,11 @@ export class FilterBarComponent implements OnInit {
       };
 
      let encodeURL:any= this.httpService.UrlEncodeMaker(obj);
-      
+
       let url = 'oosSummaryReport'
       let body = `chillerAllocated=${obj.chillerAllocated}&type=2&pageType=1&zoneId=${obj.zoneId}&regionId=${obj.regionId}&startDate=${obj.startDate}&endDate=${obj.endDate}&mustHave=${obj.mustHave}&channelId=${obj.channelId}`;
-      // encodeURL      // 
-     
+      // encodeURL      //
+
       this.httpService.getKeyForProductivityReport(body, url).subscribe(data => {
         let res: any = data
         if(res){
@@ -498,12 +500,12 @@ export class FilterBarComponent implements OnInit {
       };
 
      let encodeURL:any= this.httpService.UrlEncodeMaker(obj);
-      
+
       let url = 'mslDashboard'
       let body = encodeURL  ;
       // `chillerAllocated=${obj.chillerAllocated}&type=2&pageType=1&zoneId=${obj.zoneId}&regionId=${obj.regionId}&startDate=${obj.startDate}&endDate=${obj.endDate}&mustHave=${obj.mustHave}&channelId=${obj.channelId}`;
-      //     // 
-     
+      //     //
+
       this.httpService.getKeyForProductivityReport(body, url).subscribe(data => {
         let res: any = data
 
@@ -567,12 +569,12 @@ export class FilterBarComponent implements OnInit {
       };
 
      let encodeURL:any= this.httpService.UrlEncodeMaker(obj);
-      
+
       let url = 'productivityDashboard'
       let body = encodeURL  ;
       // `chillerAllocated=${obj.chillerAllocated}&type=2&pageType=1&zoneId=${obj.zoneId}&regionId=${obj.regionId}&startDate=${obj.startDate}&endDate=${obj.endDate}&mustHave=${obj.mustHave}&channelId=${obj.channelId}`;
-      //     // 
-  
+      //     //
+
       this.httpService.getKeyForProductivityReport(body, url).subscribe(data => {
         let res: any = data
 
@@ -583,8 +585,7 @@ export class FilterBarComponent implements OnInit {
           }
           let url = 'downloadReport'
           this.getproductivityDownload(obj2, url)
-        }
-        else{
+        } else {
           this.clearLoading()
 
           this.toastr.info('Something went wrong,Please retry','Connectivity Message')
@@ -636,8 +637,7 @@ export class FilterBarComponent implements OnInit {
           }
           let url = 'downloadReport'
           this.getproductivityDownload(obj2, url)
-        }
-        else{
+        } else {
           this.clearLoading()
 
           this.toastr.info('Something went wrong,Please retry','Connectivity Message')
@@ -659,7 +659,7 @@ export class FilterBarComponent implements OnInit {
   }
 
   getproductivityDownload(obj, url) {
-    let u = url
+    const u = url
     this.httpService.DownloadResource(obj, u);
 
     setTimeout(() => {
@@ -694,9 +694,10 @@ export class FilterBarComponent implements OnInit {
 
     this.httpService.getDashboardData(obj).subscribe(data => {
       // console.log(data, 'home data');
-      let res: any = data
-      if(res)
+      const res: any = data
+      if(res) {
       this.tabsData = data;
+      }
       this.loading = false;
       // if (res.planned == 0)
       //   this.toastr.info('No data available for current selection', 'Summary')
@@ -714,19 +715,20 @@ export class FilterBarComponent implements OnInit {
 
     this.httpService.merchandiserShopListCBL(obj).subscribe(data => {
       console.log(data, 'table data');
-      let res: any = data
+      const res: any = data;
 
-      if(res)
+      if(res) {
       this.tableData = res;
+      }
       this.loading = false;
       // if (res.planned == 0)
       //   this.toastr.info('No data available for current selection', 'Summary')
     }, error => {
-      this.clearLoading()
+      this.clearLoading();
 
-      console.log(error, 'home error')
+      console.log(error, 'home error');
 
-    })
+    });
   }
 
   // getMerchandiserDetailPage(id){
