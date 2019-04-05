@@ -23,7 +23,7 @@
         </a> -->
 
         <div class="nested-menu">
-            <a mat-list-item (click)="addExpandClass('pages')" (click)="toggleValueDashboard=!toggleValueDashboard">
+            <a mat-list-item (click)="addExpandClass('pages')" (click)="toggleValueDashboard=!toggleValueDashboard;toggleValue=true">
                 <mat-icon class="sidenav-icon" *ngIf="toggleValueDashboard">add</mat-icon>
                 <mat-icon class="sidenav-icon" *ngIf="!toggleValueDashboard">remove</mat-icon>
                 {{ 'Dashboards' | translate }}
@@ -44,7 +44,7 @@
 
 
         <div class="nested-menu">
-            <a mat-list-item (click)="addExpandClass('pages1')" (click)="toggleValue=!toggleValue">
+            <a mat-list-item (click)="addExpandClass('pages1')" (click)="toggleValue=!toggleValue;toggleValueDashboard=true">
                 <mat-icon class="sidenav-icon" *ngIf="toggleValue">add</mat-icon>
                 <mat-icon class="sidenav-icon" *ngIf="!toggleValue">remove</mat-icon>
                 {{ 'Reports' | translate }}
@@ -64,6 +64,9 @@
                 </li>
                 <li>
                     <a [routerLinkActive]="'link-active'" [routerLink]="['/dashboard/daily_visit_report']"><span>{{ 'Merchandiser Daily Report' | translate }}</span></a>
+                </li>
+                <li>
+                    <a [routerLinkActive]="'link-active'" [routerLink]="['/dashboard/tposm_deployment_report']"><span>{{ 'TPOSM Deployment Report' | translate }}</span></a>
                 </li>
 
             </ul>

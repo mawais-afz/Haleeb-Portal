@@ -22,6 +22,7 @@ import { ShopDetailComponent } from './innerComponents/shop-detail/shop-detail.c
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { MslDashboardComponent } from './innerComponents/msl-dashboard/msl-dashboard.component';
 import { ProductivityDashboardComponent } from './innerComponents/productivity-dashboard/productivity-dashboard.component';
+import { TposmDeploymentReportComponent } from './innerComponents/tposm-deployment-report/tposm-deployment-report.component';
 @NgModule({
     imports: [
         FormsModule,
@@ -44,6 +45,6 @@ import { ProductivityDashboardComponent } from './innerComponents/productivity-d
         ModalModule.forRoot()
 
     ],
-    declarations: [DashboardComponent, HomeComponent, ShopListComponent, SummaryComponent, ProductivityComponent, FilterBarComponent, DetailsComponent, DailyVisitReportComponent, ShopDetailComponent, MslDashboardComponent, ProductivityDashboardComponent]
+    declarations: [DashboardComponent, HomeComponent, ShopListComponent, SummaryComponent, ProductivityComponent, FilterBarComponent, DetailsComponent, DailyVisitReportComponent, ShopDetailComponent, MslDashboardComponent, ProductivityDashboardComponent, TposmDeploymentReportComponent]
 })
 export class DashboardModule {}

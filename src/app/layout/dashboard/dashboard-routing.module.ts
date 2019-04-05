@@ -13,6 +13,7 @@ import { pathToFileURL } from 'url';
 import { ShopDetailComponent } from './innerComponents/shop-detail/shop-detail.component';
 import { MslDashboardComponent } from './innerComponents/msl-dashboard/msl-dashboard.component';
 import { ProductivityDashboardComponent } from './innerComponents/productivity-dashboard/productivity-dashboard.component';
+import { TposmDeploymentReportComponent } from './innerComponents/tposm-deployment-report/tposm-deployment-report.component';
 
 const routes: Routes = [
     {
@@ -28,7 +29,9 @@ const routes: Routes = [
             { path: 'summary_report', component: SummaryComponent },
             { path: 'productivity_report', component: ProductivityComponent },
             { path: 'msl_dashboard', component: MslDashboardComponent },
-            { path: 'productivity_dashboard', component: ProductivityDashboardComponent }
+            { path: 'productivity_dashboard', component: ProductivityDashboardComponent },            
+            { path: 'tposm_deployment_report', component: TposmDeploymentReportComponent },
+
 
         ]
     },
