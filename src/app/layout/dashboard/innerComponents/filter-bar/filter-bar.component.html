@@ -83,13 +83,11 @@
                 <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                 <mat-datepicker #picker1></mat-datepicker>
             </mat-form-field>
-            <button *ngIf="router.url==='/dashboard/shop_list_report'" mat-raised-button color="warn" (click)="getOOSShopListReport()">Download</button>
+            <button *ngIf="router.url==='/dashboard/shop_list_report'" [disabled]="selectedChannel.length<1" mat-raised-button color="warn" (click)="getOOSShopListReport()">Download</button>
+            <span *ngIf="selectedChannel.length<1" class="channel-message"><small>(channel selection is mandatory)</small></span>
 
         </section>
-        <section class="example-section">
 
-
-        </section>
     </mat-card-content>
 </mat-card>
 <!-- /shop list -->
@@ -187,6 +185,7 @@
             </mat-form-field>
 
             <button *ngIf="router.url==='/dashboard/summary_report'" [disabled]="selectedChannel.length<1" mat-raised-button color="warn" (click)="getOOSSummary()">Download</button>
+            <span *ngIf="selectedChannel.length<1" class="channel-message"><small>(channel selection is mandatory)</small></span>
 
         </section>
 
@@ -584,6 +583,8 @@
             </mat-form-field>
 
             <button mat-raised-button color="warn" [disabled]="selectedChannel.length<1" (click)="tposmDeploymentReport()">Download</button>
+            <span *ngIf="selectedChannel.length<1" class="channel-message"><small>(channel selection is mandatory)</small></span>
+
 
 
 
