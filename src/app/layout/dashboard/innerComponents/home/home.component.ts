@@ -1,22 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material';
 import { DashboardService } from '../../dashboard.service';
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  { position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H' },
-  { position: 2, name: 'Helium', weight: 4.0026, symbol: 'He' },
-  { position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li' },
-  { position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' },
-  { position: 5, name: 'Boron', weight: 10.811, symbol: 'B' },
-  { position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C' },
-  { position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N' }
-];
+import { ChartType, ChartOptions } from 'chart.js';
+import * as moment from 'moment';
+// tslint:disable-next-line: import-blacklist
+import { Observable,interval } from 'rxjs';
+// import { Label } from 'ng2-charts';
+// import * as pluginDataLabels from 'chartjs-plugin-datalabels';
 
 @Component({
   selector: 'app-home',
@@ -27,34 +17,67 @@ const ELEMENT_DATA: PeriodicElement[] = [
 
 export class HomeComponent implements OnInit {
 
-  displayedColumns = ['position', 'name', 'weight', 'symbol'];
-  dataSource = new MatTableDataSource(ELEMENT_DATA);
   tabsData: any = [];
   loading = true;
+  date=Date();
 
-  applyFilter(filterValue: string) {
-    filterValue = filterValue.trim(); // Remove whitespace
-    filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
-    this.dataSource.filter = filterValue;
-  }
+// pi cahrt
+public pieChartOptions: ChartOptions = {
+  responsive: true,
+  legend: {
+    position: 'left',
+  },
+  // plugins: {
+  //   datalabels: {
+  //     formatter: (value, ctx) => {
+  //       const label = ctx.chart.data.labels[ctx.dataIndex];
+  //       return label;
+  //     },
+  //   },
+  // }
+};
+public pieChartLabels: any[] = [['MSL'], ['OOS']];
+public pieChartData: number[] = [67,100];
+public pieChartLabels2: any[] = [['CBL'], ['Competition']];
+public pieChartData2: number[] = [45,100];
+public pieChartType: ChartType = 'pie';
+public pieChartLegend = true;
+// public pieChartPlugins = [pluginDataLabels];
+public pieChartColors = [
+  {
+    backgroundColor: ['#AFFCAF','#FCAFAF'],
+  },
+];
+public pieChartColors2 = [
+  {
+    backgroundColor: [ '#AFFCAF','#FCAFAF'],
+  },
+];
+// pie chart end
 
 
   constructor(private httpService: DashboardService) { }
 
   ngOnInit() {
-    this.getData()
+    this.getData();
+    interval(1000).subscribe(i=>{this.date=Date()})
   }
 
   getData() {
+    let d=Date();
     let obj: any = {
-      // zoneId: '',
-      // regionId: '',
-      // endDate: ''
+      typeId:1,
+      startDate: moment(d).format('YYYY-MM-DD'),
+      endDate: moment(d).format('YYYY-MM-DD'),
     }
-    this.httpService.getDashboardData(null).subscribe(data => {
+    this.httpService.getDashboardData(obj).subscribe(data => {
       console.log(data, 'home data');
       this.tabsData = data;
       this.loading = false;
+
+      this.pieChartData=[this.tabsData.msl,100-this.tabsData.msl];
+      this.pieChartData2=[this.tabsData.sos,100-this.tabsData.sos]
+
     }, error => {
       console.log(error, 'home error')
 

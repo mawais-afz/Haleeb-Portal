@@ -48,7 +48,7 @@ export class FilterBarComponent implements OnInit {
   areas: any = [];
   selectedArea: any = {};
   lastVisit: any = [];
-  selectedLastVisit = 0;
+  selectedLastVisit = 1;
   mustHave: any = [];
   selectedMustHave = false;
   merchandiserList: any = [];
@@ -413,7 +413,7 @@ export class FilterBarComponent implements OnInit {
         startDate: moment(this.startDate).format('YYYY-MM-DD'),
         endDate: moment(this.endDate).format('YYYY-MM-DD'),
         // category: -1,
-        lastVisit: this.selectedLastVisit || "",
+        lastVisit: this.selectedLastVisit || 1,
         // productId: -1,
         mustHave: 'n'
       };

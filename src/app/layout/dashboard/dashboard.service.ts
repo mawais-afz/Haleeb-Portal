@@ -10,7 +10,7 @@ import { timeout, catchError } from 'rxjs/operators';
 })
 export class DashboardService {
   ip: any = environment.ip;
-  // 'http://192.168.3.94:8080/audit/'; 
+  //  'http://192.168.3.94:8080/audit/';
 
 
   httpOptions = {
@@ -46,7 +46,8 @@ export class DashboardService {
   getDashboardData(obj) {
     let body = null;
     if (obj != null) {
-      body = `zoneId=${obj.zoneId}&regionId=${obj.regionId}&endDate=${obj.endDate}&startDate=${obj.startDate}&distributionId=${obj.distributionId}&cityId=${obj.cityId}&storeType=${obj.storeType}&channelId=${obj.channelId}`;
+      body = this.UrlEncodeMaker(obj)
+      // `zoneId=${obj.zoneId}&regionId=${obj.regionId}&endDate=${obj.endDate}&startDate=${obj.startDate}&distributionId=${obj.distributionId}&cityId=${obj.cityId}&storeType=${obj.storeType}&channelId=${obj.channelId}`;
     }
     const url = this.ip + 'dashboardDataCBL';
     return this.http.post(url, body, this.httpOptions);

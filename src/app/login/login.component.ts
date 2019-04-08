@@ -26,9 +26,9 @@ export class LoginComponent implements OnInit {
         console.log(loginForm);
 
 
-        this.httpService.login(loginForm).subscribe(data => {
+        this.httpService.login(loginForm).subscribe((data:Response) => {
             const res: any = data;
-            console.log('data', data);
+            console.log('data', data.headers);
             // this.toastr.success(res, 'Login Status');
             localStorage.setItem('isLoggedin', 'true');
             localStorage.setItem('user_id', res.user_id);
