@@ -11,7 +11,8 @@ import { ToastrService } from 'ngx-toastr';
 export class LoginComponent implements OnInit {
     loginForm: any = {
         userName: '',
-        password: ''
+        password: '',
+        cbl:'Y'
     };
     loading=false;
     constructor(private router: Router, private httpService: DashboardService, private toastr: ToastrService) { }
@@ -28,7 +29,7 @@ export class LoginComponent implements OnInit {
 
         this.httpService.login(loginForm).subscribe((data:Response) => {
             const res: any = data;
-            console.log('data', data.headers);
+            // console.log('data', data.headers);
             // this.toastr.success(res, 'Login Status');
             localStorage.setItem('isLoggedin', 'true');
             localStorage.setItem('user_id', res.user_id);

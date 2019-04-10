@@ -332,7 +332,7 @@
                 </mat-select>
             </mat-form-field>
             <mat-form-field *ngIf="areas.length>0" class="example-margin mr-10-IMP">
-                <mat-select placeholder="Areas" name='areas' [(ngModel)]="selectedArea">
+                <mat-select placeholder="ASM" name='areas' [(ngModel)]="selectedArea">
                     <mat-option [value]="area" *ngFor="let area of areas">{{area.title}}</mat-option>
                 </mat-select>
             </mat-form-field>
@@ -580,8 +580,8 @@
                 </mat-select>
             </mat-form-field>
 
-            <mat-form-field *ngIf="channels.length>0" class="example-margin mr-10-IMP">
-                <!-- {{selectedChannel |json }} -->
+            <!-- <mat-form-field *ngIf="channels.length>0" class="example-margin mr-10-IMP">
+
                 <mat-select placeholder="Channel" name='channel' [(ngModel)]="selectedChannel" multiple #channelSelect="ngModel" [compareWith]="equals">
                     <mat-option disabled="disabled" class="filter-option"> <button mat-raised-button class="mat-primary fill text-sm" (click)="selectAll(channelSelect, channels)">
                         Select All
@@ -593,7 +593,7 @@
 
                     <mat-option [value]="channel" *ngFor="let channel of channels">{{channel.title}}</mat-option>
                 </mat-select>
-            </mat-form-field>
+            </mat-form-field> -->
             <mat-form-field class="example-full-width mr-10-IMP">
                 <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker0" [(ngModel)]="startDate" placeholder="Choose a start date" readonly>
                 <mat-datepicker-toggle matSuffix [for]="picker0"></mat-datepicker-toggle>
@@ -608,8 +608,9 @@
         </section>
 
         <section class="example-section">
-            <button mat-raised-button color="warn" [disabled]="selectedChannel.length<1" (click)="tposmDeploymentReport()">Download</button>
-            <span *ngIf="selectedChannel.length<1" class="channel-message"><small>(channel selection is mandatory)</small></span>
+            <!-- [disabled]="selectedChannel.length<1" -->
+            <button mat-raised-button color="warn" (click)="tposmDeploymentReport()">Download</button>
+            <!-- <span *ngIf="selectedChannel.length<1" class="channel-message"><small>(channel selection is mandatory)</small></span> -->
 
         </section>
 

@@ -9,9 +9,9 @@ import { timeout, catchError } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class DashboardService {
-  ip: any = environment.ip;
-  //  'http://192.168.3.94:8080/audit/';
+  ip: any = environment.ip;  
 
+  //'http://192.168.3.94:8080/audit/';
 
   httpOptions = {
     headers: new HttpHeaders({

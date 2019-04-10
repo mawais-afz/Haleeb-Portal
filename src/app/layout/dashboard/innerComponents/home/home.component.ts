@@ -35,7 +35,7 @@ export class HomeComponent implements OnInit {
 public pieChartOptions: ChartOptions = {
   responsive: true,
   legend: {
-    position: 'left',
+    position: 'right',
   },
   // plugins: {
   //   datalabels: {

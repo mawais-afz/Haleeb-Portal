@@ -255,7 +255,7 @@ export class FilterBarComponent implements OnInit {
         endDate: moment(this.endDate).format('YYYY-MM-DD'),
         zoneId: this.selectedZone.id || -1,
         regionId: this.selectedRegion.id || -1,
-        channelId: this.arrayMaker(this.selectedChannel),
+        // channelId: this.arrayMaker(this.selectedChannel),
       };
 
       let url = 'tposmDeploymentTracker';
