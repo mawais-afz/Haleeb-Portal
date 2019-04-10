@@ -1,8 +1,10 @@
 <div *ngIf="!loading" class="mb-20 animated  slideInLeft" fxLayout="row" fxLayout.lt-md="column" fxFlex fxLayoutGap="10px">
     <mat-card>
-        <mat-card-header>
-            <mat-card-title>Dashboard
-                <!-- {{date |date :'hh:mm:ss'}} -->
+        <mat-card-header style="justify-content: flex-end;">
+            <mat-card-title>
+                <i class="material-icons refresh-btn" matTooltip="Refresh Stats" (click)="getData()">
+                    cached
+                    </i>
             </mat-card-title>
         </mat-card-header>
         <mat-card-content>
@@ -65,7 +67,7 @@
             </mat-card-header>
             <mat-card-content>
                 <div class="chart">
-                    <canvas baseChart [data]="pieChartData" [labels]="pieChartLabels" [chartType]="pieChartType" [options]="pieChartOptions" [colors]="pieChartColors" [legend]="pieChartLegend">
+                    <canvas style="cursor:pointer" baseChart [data]="pieChartData" [labels]="pieChartLabels" [chartType]="pieChartType" [options]="pieChartOptions" [colors]="pieChartColors" [legend]="pieChartLegend" (chartClick)="chartClicked($event)">
                         </canvas>
                 </div>
             </mat-card-content>
@@ -75,7 +77,7 @@
 
         <mat-card>
             <mat-card-header>
-                <mat-card-title>CBL & Compilation</mat-card-title>
+                <mat-card-title>SOS</mat-card-title>
             </mat-card-header>
 
             <mat-card-content>

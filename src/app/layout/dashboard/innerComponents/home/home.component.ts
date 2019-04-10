@@ -5,6 +5,8 @@ import { ChartType, ChartOptions } from 'chart.js';
 import * as moment from 'moment';
 // tslint:disable-next-line: import-blacklist
 import { Observable,interval } from 'rxjs';
+
+import { Router } from '@angular/router';
 // import { Label } from 'ng2-charts';
 // import * as pluginDataLabels from 'chartjs-plugin-datalabels';
 
@@ -20,6 +22,14 @@ export class HomeComponent implements OnInit {
   tabsData: any = [];
   loading = true;
   date=Date();
+
+
+  constructor(private httpService: DashboardService,private router:Router) { }
+
+  ngOnInit() {
+    this.getData();
+    interval(300000).subscribe(i=>{this.getData()})
+  }
 
 // pi cahrt
 public pieChartOptions: ChartOptions = {
@@ -53,17 +63,29 @@ public pieChartColors2 = [
     backgroundColor: [ '#AFFCAF','#FCAFAF'],
   },
 ];
+public chartClicked( e: any ): void {
+  if (e.active.length > 0) {
+    const chart = e.active[0]._chart;
+    const activePoints = chart.getElementAtEvent(e.event);
+      if ( activePoints.length > 0) {
+        // get the internal index of slice in pie chart
+        const clickedElementIndex = activePoints[0]._index;
+        const label = chart.data.labels[clickedElementIndex];
+        // get value by index
+        const value = chart.data.datasets[0].data[clickedElementIndex];
+        // console.log(clickedElementIndex, label, value)
+        this.router.navigate(['/dashboard/msl_dashboard']);
+      }
+     }
+}
 // pie chart end
 
 
-  constructor(private httpService: DashboardService) { }
-
-  ngOnInit() {
-    this.getData();
-    interval(1000).subscribe(i=>{this.date=Date()})
-  }
+ 
 
   getData() {
+    this.tabsData=[];
+    this.loading=true;
     let d=Date();
     let obj: any = {
       typeId:1,

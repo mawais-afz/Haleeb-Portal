@@ -24,6 +24,7 @@ import { MslDashboardComponent } from './innerComponents/msl-dashboard/msl-dashb
 import { ProductivityDashboardComponent } from './innerComponents/productivity-dashboard/productivity-dashboard.component';
 import { ChartsModule as Ng2Charts } from 'ng2-charts';
 import { TposmDeploymentReportComponent } from './innerComponents/tposm-deployment-report/tposm-deployment-report.component';
+import {MatTooltipModule} from '@angular/material/tooltip';
 @NgModule({
     imports: [
         FormsModule,
@@ -36,6 +37,7 @@ import { TposmDeploymentReportComponent } from './innerComponents/tposm-deployme
         MatNativeDateModule,
         MatInputModule,
         MatSelectModule,
+        MatTooltipModule,
         StatModule,
         MatCardModule,
         MatCardModule,
