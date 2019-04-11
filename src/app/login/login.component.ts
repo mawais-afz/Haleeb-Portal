@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
             localStorage.setItem('isLoggedin', 'true');
             localStorage.setItem('user_id', res.user.id);
             localStorage.setItem('user_name', res.user.userName);
-            localStorage.setItem('menu', JSON.stringify(res.menuList));
+            localStorage.setItem('menu', JSON.stringify(res.list));
 
             this.router.navigate(['/dashboard']);
             setTimeout(() => {

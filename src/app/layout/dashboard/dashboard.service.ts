@@ -10,6 +10,7 @@ import { timeout, catchError } from 'rxjs/operators';
 })
 export class DashboardService {
   ip: any ='http://192.168.3.94:8080/audit/';  
+  user_id:any=0;
 
   //environment.ip; 
 
@@ -20,7 +21,10 @@ export class DashboardService {
     withCredentials: true
   };
 
-  constructor(private http: HttpClient, private toastr: ToastrService) { }
+  constructor(private http: HttpClient, private toastr: ToastrService) { 
+
+    this.user_id=localStorage.getItem('user_id')
+  }
 
   login(credentials: any) {
     // let body=JSON.stringify(credentials)
@@ -100,7 +104,9 @@ export class DashboardService {
   }
   //#region FILTER CALL
   getZone() {
-    const filter = JSON.stringify({ act: 0 });
+    this.user_id=localStorage.getItem('user_id')
+
+    const filter = JSON.stringify({ act: 0 ,userId:this.user_id});
     const url = this.ip + 'loadFilters';
     return this.http.post(url, filter);
     // .pipe(
@@ -113,7 +119,7 @@ export class DashboardService {
   }
 
   getRegion(zoneId) {
-    const filter = JSON.stringify({ act: 1, zoneId: zoneId });
+    const filter = JSON.stringify({ act: 1, zoneId: zoneId,userId:this.user_id });
     const url = this.ip + 'loadFilters';
     return this.http.post(url, filter);
     // .pipe(
@@ -126,7 +132,7 @@ export class DashboardService {
   }
 
   getCities(regionId) {
-    const filter = JSON.stringify({ act: 2, regionId: regionId });
+    const filter = JSON.stringify({ act: 2, regionId: regionId ,userId:this.user_id});
     const url = this.ip + 'loadFilters';
     return this.http.post(url, filter);
     // .pipe(
@@ -139,7 +145,7 @@ export class DashboardService {
   }
 
   getProducts(categoryId) {
-    const filter = JSON.stringify({ act: 5, category: categoryId });
+    const filter = JSON.stringify({ act: 5, category: categoryId,userId:this.user_id });
     const url = this.ip + 'loadFilters';
     return this.http.post(url, filter);
     // .pipe(
@@ -152,7 +158,7 @@ export class DashboardService {
   }
 
   getAreas(channelId) {
-    const filter = JSON.stringify({ act: 3, channelId: channelId });
+    const filter = JSON.stringify({ act: 3, channelId: channelId,userId:this.user_id });
     const url = this.ip + 'loadFilters';
     return this.http.post(url, filter);
     // .pipe(
@@ -164,7 +170,7 @@ export class DashboardService {
     // );
   }
   getMerchandiserList(obj) {
-    const filter = JSON.stringify({ act: 4, regionId: obj.regionId, zoneId: obj.zoneId, date: obj.startDate });
+    const filter = JSON.stringify({ act: 4, regionId: obj.regionId, zoneId: obj.zoneId, date: obj.startDate ,userId:this.user_id});
     const url = this.ip + 'loadFilters';
 
     // const url = this.ip + 'cbl-pdf';
