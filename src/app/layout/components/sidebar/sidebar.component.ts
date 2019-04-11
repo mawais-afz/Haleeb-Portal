@@ -8,12 +8,15 @@ import { Router } from '@angular/router';
 })
 export class SidebarComponent implements OnInit {
     public showMenu: string;
+    menuList: any=[];
     constructor(public router: Router) {}
     toggleValue = true;
     toggleValueDashboard=true;
 
     ngOnInit() {
         this.showMenu = '';
+        this.menuList=JSON.parse(localStorage.getItem('menu'))
+        console.log(this.menuList,'menu List')
     }
 
     addExpandClass(element: any) {

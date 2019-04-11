@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { BaseChartDirective, Color } from 'ng2-charts';
 import { ChartDataSets, ChartOptions } from 'chart.js';
+import { DashboardService } from '../../../dashboard.service';
 @Component({
   selector: 'line-chart',
   templateUrl: './line-chart.component.html',
@@ -8,9 +9,25 @@ import { ChartDataSets, ChartOptions } from 'chart.js';
 })
 export class LineChartComponent implements OnInit {
 
+  chartData:any=[];
+  @ViewChild(BaseChartDirective) chart: BaseChartDirective;
+
+  constructor(private httpService:DashboardService) { }
+
+  ngOnInit() {
+    this.httpService.getLineChartData().subscribe(data=>{
+      let res:any=data;
+
+      this.chartClicked=res;
+      this.lineChartData[0].data=res.completion;
+      this.lineChartData[1].data=res.successfull;
+      this.lineChartLabels=res.date
+
+      },error=>{})
+  }
   public lineChartData: ChartDataSets[] = [
-    { data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A' },
-    { data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B' },
+    { data: [65, 59, 80, 81, 56, 55, 40], label: 'Completion' },
+    { data: [28, 48, 40, 19, 86, 27, 90], label: 'Successful' },
     // { data: [180, 480, 90, 270, 400], label: 'Series C', yAxisID: 'y-axis-1' }
   ];
   public lineChartLabels: any[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
@@ -24,16 +41,16 @@ export class LineChartComponent implements OnInit {
           id: 'y-axis-0',
           position: 'left',
         },
-        {
-          id: 'y-axis-1',
-          position: 'right',
-          gridLines: {
-            color: 'rgba(255,0,0,0.3)',
-          },
-          ticks: {
-            fontColor: 'red',
-          }
-        }
+        // {
+        //   id: 'y-axis-1',
+        //   position: 'right',
+        //   gridLines: {
+        //     color: 'rgba(255,0,0,0.3)',
+        //   },
+        //   ticks: {
+        //     fontColor: 'red',
+        //   }
+        // }
       ]
     },
     annotation: {
@@ -72,7 +89,7 @@ export class LineChartComponent implements OnInit {
     //   pointHoverBorderColor: 'rgba(77,83,96,1)'
     // },
     { // red
-      backgroundColor: 'rgba(255,0,0,0.3)',
+      // backgroundColor: 'rgba(255,0,0,0.3)',
       borderColor: 'red',
       pointBackgroundColor: 'rgba(148,159,177,1)',
       pointBorderColor: '#fff',
@@ -80,7 +97,7 @@ export class LineChartComponent implements OnInit {
       pointHoverBorderColor: 'rgba(148,159,177,0.8)'
     },
     { // green
-      backgroundColor: '#AFFCAF',
+      // backgroundColor: '#AFFCAF',
       borderColor: 'green',
       pointBackgroundColor: 'rgba(148,159,177,1)',
       pointBorderColor: '#fff',
@@ -92,12 +109,7 @@ export class LineChartComponent implements OnInit {
   public lineChartType = 'line';
   // public lineChartPlugins = [pluginAnnotations];
 
-  @ViewChild(BaseChartDirective) chart: BaseChartDirective;
-
-  constructor() { }
-
-  ngOnInit() {
-  }
+  
 
   // public randomize(): void {
   //   for (let i = 0; i < this.lineChartData.length; i++) {

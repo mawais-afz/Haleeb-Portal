@@ -30,14 +30,52 @@ export class HomeComponent implements OnInit {
     this.getData();
     interval(300000).subscribe(i=>{this.getData()})
   }
+// doughnut chart
+public doughnutChartLabels: any[] = ['CBL', 'Competition',];
+  public doughnutChartData: any = [
+    [350, 450]
+  ];
+  public doughnutChartType: ChartType = 'doughnut';
 
+  public doughnutChartOptions:any={
+    type: 'doughnut',
+    legend: {
+      position: 'right',
+    },
+    tooltips: {
+      callbacks: {
+        afterLabel: function(tooltipItem, data) {
+          var dataset = data['datasets'][0];
+          var percent = Math.round((dataset['data'][tooltipItem['index']]))
+          return '(' + percent + '%)';
+        }
+      }
+    }
+  }
+// doughnut chart end
 // pi cahrt
 public pieChartOptions: ChartOptions = {
   responsive: true,
   legend: {
     position: 'right',
   },
-  // plugins: {
+
+  tooltips: {
+    callbacks: {
+      // title: function(tooltipItem, data) {
+      //   return data['labels'][tooltipItem[0]['index']];
+      // },
+      // label: function(tooltipItem, data) {
+      //   return data['datasets'][0]['data'][tooltipItem['index']];
+      // },
+      afterLabel: function(tooltipItem, data) {
+        var dataset = data['datasets'][0];
+        var percent = Math.round((dataset['data'][tooltipItem['index']] / dataset["_meta"][0]['total']) * 100)
+        return '(' + percent + '%)';
+      }
+    }
+  },
+  // plugins: {   
   //   datalabels: {
   //     formatter: (value, ctx) => {
   //       const label = ctx.chart.data.labels[ctx.dataIndex];
@@ -48,8 +86,8 @@ public pieChartOptions: ChartOptions = {
 };
 public pieChartLabels: any[] = [['MSL'], ['OOS']];
 public pieChartData: number[] = [67,100];
-public pieChartLabels2: any[] = [['CBL'], ['Competition']];
-public pieChartData2: number[] = [45,100];
+// public pieChartLabels2: any[] = [['CBL'], ['Competition']];
+// public pieChartData2: number[] = [45,100];
 public pieChartType: ChartType = 'pie';
 public pieChartLegend = true;
 // public pieChartPlugins = [pluginDataLabels];
@@ -98,7 +136,7 @@ public chartClicked( e: any ): void {
       this.loading = false;
 
       this.pieChartData=[this.tabsData.msl,100-this.tabsData.msl];
-      this.pieChartData2=[this.tabsData.sos,100-this.tabsData.sos]
+      this.doughnutChartData=[this.tabsData.sos,100-this.tabsData.sos]
 
     }, error => {
       console.log(error, 'home error')

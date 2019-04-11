@@ -9,9 +9,9 @@ import { timeout, catchError } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class DashboardService {
-  ip: any = environment.ip;  
+  ip: any ='http://192.168.3.94:8080/audit/';  
 
-  //'http://192.168.3.94:8080/audit/';
+  //environment.ip; 
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -59,6 +59,18 @@ export class DashboardService {
     //   })
     // );
 
+  }
+
+  getLineChartData() {
+    const url = this.ip + 'completionData';
+    return this.http.post(url, {}, this.httpOptions);
+    // .pipe(
+    //   timeout(60000),
+    //   catchError(e => {
+    //     this.toastr.error('Due to limited connectivity your request could not be completed, please try again', 'Request Timeout');
+    //     return of(null);
+    //   })
+    // );
   }
 
   getTableList(obj) {

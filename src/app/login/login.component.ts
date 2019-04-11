@@ -32,7 +32,10 @@ export class LoginComponent implements OnInit {
             // console.log('data', data.headers);
             // this.toastr.success(res, 'Login Status');
             localStorage.setItem('isLoggedin', 'true');
-            localStorage.setItem('user_id', res.user_id);
+            localStorage.setItem('user_id', res.user.id);
+            localStorage.setItem('user_name', res.user.userName);
+            localStorage.setItem('menu', JSON.stringify(res.menuList));
+
             this.router.navigate(['/dashboard']);
             setTimeout(() => {
                 this.loading=false;

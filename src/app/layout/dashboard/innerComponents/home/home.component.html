@@ -57,46 +57,57 @@
 
 
 <div class="row" *ngIf="!loading">
+    <div class="col-md-4">
 
-    <div class="col-md-6">
+        <div class="col-md-12">
+            <mat-card>
+                <mat-card-header>
+                    <mat-card-title>MSL & OOS</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                    <div class="chart">
+                        <canvas baseChart [data]="pieChartData" [labels]="pieChartLabels" [chartType]="pieChartType" [options]="pieChartOptions" [colors]="pieChartColors" [legend]="pieChartLegend" (chartClick)="chartClicked($event)">
+                                </canvas>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </div>
+        <div class="col-md-12">
+
+            <mat-card>
+                <mat-card-header>
+                    <mat-card-title>SOS</mat-card-title>
+                </mat-card-header>
+
+                <mat-card-content>
+                    <!-- <div class="chart">
+                            <canvas baseChart [data]="pieChartData2" [labels]="pieChartLabels2" [chartType]="pieChartType" [options]="pieChartOptions" [colors]="pieChartColors2" [legend]="pieChartLegend">
+                                                        </canvas>
+                        </div> -->
+
+                    <div style="display: block">
+                        <canvas baseChart [data]="doughnutChartData" [labels]="doughnutChartLabels" [chartType]="doughnutChartType" [options]="doughnutChartOptions" [colors]="pieChartColors2 ">
+                                </canvas>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+
+        </div>
+    </div>
+
+    <div class="col-md-8">
         <line-chart></line-chart>
     </div>
 
 
-    <div class="col-md-3">
-        <mat-card>
-            <mat-card-header>
-                <mat-card-title>MSL & OOS</mat-card-title>
-            </mat-card-header>
-            <mat-card-content>
-                <div class="chart">
-                    <canvas baseChart [data]="pieChartData" [labels]="pieChartLabels" [chartType]="pieChartType" [options]="pieChartOptions" [colors]="pieChartColors" [legend]="pieChartLegend" (chartClick)="chartClicked($event)">
-                        </canvas>
-                </div>
-            </mat-card-content>
-        </mat-card>
-    </div>
-    <div class="col-md-3">
+</div>
 
-        <mat-card>
-            <mat-card-header>
-                <mat-card-title>SOS</mat-card-title>
-            </mat-card-header>
-
-            <mat-card-content>
-                <div class="chart">
-                    <canvas baseChart [data]="pieChartData2" [labels]="pieChartLabels2" [chartType]="pieChartType" [options]="pieChartOptions" [colors]="pieChartColors2" [legend]="pieChartLegend">
-                                                </canvas>
-                </div>
-            </mat-card-content>
-        </mat-card>
-
-    </div>
+<div class="row" *ngIf="!loading">
 
 </div>
 
-<div *ngIf="loading" class="mb-20" flFlex flexLayout="row" flexLayout.lt-md="column">
-    <div fxFlex class="img-center">
-        <img src="assets/images/basicloader.gif" alt="" srcset="">
+<div *ngIf="loading " class="mb-20 " flFlex flexLayout="row " flexLayout.lt-md="column ">
+    <div fxFlex class="img-center ">
+        <img src="assets/images/basicloader.gif " alt=" " srcset=" ">
     </div>
 </div>
