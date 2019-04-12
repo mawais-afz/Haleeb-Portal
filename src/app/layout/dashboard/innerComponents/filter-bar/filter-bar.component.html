@@ -693,30 +693,65 @@
 </mat-card>
 
 <div *ngIf="!loading && router.url==='/dashboard/productivity_report'" class="mb-20 animated  slideInLeft" fxLayout="row" fxLayout.lt-md="column" fxFlex fxLayoutGap="10px">
-    <div fxFlex>
-        <app-stat [bgClass]="'info'" [icon]="'assignment'" [count]="tabsData?.planned" [label]="'PLANNED'">
-        </app-stat>
+
+    <div class="row">
+        <div class="col-md-12">
+            <mat-card>
+                <mat-card-header style="justify-content: flex-end;">
+                    <!-- <mat-card-title>
+                        <i class="material-icons refresh-btn" matTooltip="Refresh Stats" (click)="getData()">
+                                            cached
+                                            </i>
+                    </mat-card-title> -->
+                </mat-card-header>
+                <mat-card-content>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div fxFlex>
+                                <app-stat [bgClass]="'info'" [icon]="'assignment'" [count]="tabsData?.planned" [label]="'Planned'">
+                                </app-stat>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div fxFlex>
+                                <app-stat [bgClass]="'warn'" [icon]="'check_circle'" [count]="tabsData?.completed" [label]="'Completed Visits'">
+                                </app-stat>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div fxFlex>
+                                <app-stat [bgClass]="'success'" [icon]="'thumb_up'" [count]="tabsData?.successful" [label]="'Successful Visits'"></app-stat>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div fxFlex>
+                                <app-stat [bgClass]="'danger'" [icon]="'contact_support'" [count]="tabsData?.unvisited" [label]="'Unvisited'">
+                                </app-stat>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div fxFlex>
+                                <app-stat [bgClass]="'purple'" [icon]="'check_circle'" [count]="tabsData?.completedPercent" [label]="'Completion'"></app-stat>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+
+                            <div fxFlex>
+                                <app-stat [bgClass]="'primary'" [icon]="'thumb_up'" [count]="tabsData?.successfulPercent" [label]="'Successful'"></app-stat>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </div>
     </div>
-    <div fxFlex>
-        <app-stat [bgClass]="'warn'" [icon]="'check_circle'" [count]="tabsData?.completed" [label]="'COMPLETED'">
-        </app-stat>
-    </div>
-    <div fxFlex>
-        <app-stat [bgClass]="'success'" [icon]="'thumb_up'" [count]="tabsData?.successful" [label]="'SUCCESSFUL'">
-        </app-stat>
-    </div>
-    <div fxFlex>
-        <app-stat [bgClass]="'danger'" [icon]="'contact_support'" [count]="tabsData?.unvisited" [label]="'UNVISITED'">
-        </app-stat>
-    </div>
-    <div fxFlex>
-        <app-stat [bgClass]="'purple'" [icon]="'check_circle'" [count]="tabsData?.completedPercent" [label]="'Completion'">
-        </app-stat>
-    </div>
-    <div fxFlex>
-        <app-stat [bgClass]="'primary'" [icon]="'thumb_up'" [count]="tabsData?.successfulPercent" [label]="'Successful'">
-        </app-stat>
-    </div>
+
 </div>
 
 <!-- <div *ngIf="loading && router.url==='/dashboard/productivity_report'" class="mb-20" flFlex flexLayout="row" flexLayout.lt-md="column">
@@ -729,54 +764,56 @@
 <!-- <mat-form-field class="mat-form-field1" *ngIf="router.url==='/dashboard/productivity_report'">
     <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
 </mat-form-field> -->
+<mat-card>
+    <mat-card-content>
+        <table class="table animated slideInLeft" *ngIf="tableData.length>0 && router.url==='/dashboard/productivity_report'">
+            <thead>
+                <tr>
 
+                    <th scope="col">Merchandiser Code</th>
+                    <th scope="col">Merchandiser Name</th>
+                    <th scope="col">Planned</th>
+                    <th scope="col">Completed</th>
 
-<table class="table animated slideInLeft" *ngIf="tableData.length>0 && router.url==='/dashboard/productivity_report'">
-    <thead>
-        <tr>
+                    <th scope="col">Successfull</th>
 
-            <th scope="col">Merchandiser Code</th>
-            <th scope="col">Merchandiser Name</th>
-            <th scope="col">Planned</th>
-            <th scope="col">Completed</th>
+                    <th scope="col" style="background:#F12E2B;color: white">Unvisited</th>
 
-            <th scope="col">Successfull</th>
-
-            <th scope="col" style="background:#F12E2B;color: white">Unvisited</th>
-
-            <th scope="col">Completed <strong>%</strong></th>
-            <th scope="col">Successful <strong>%</strong></th>
-
-
-
-        </tr>
-    </thead>
-    <tbody>
-        <ng-container *ngFor="let item of tableData">
-            <tr>
-                <td scope="row">{{item.merchandiser_code}}</td>
-                <td *ngIf="item.completed!=0">
-                    <a class="a-link" target="_blank" title="view shop details" [routerLink]="['/dashboard/shop_detail',item.id]">{{item.merchandiser_name}}</a>
-                </td>
-                <td *ngIf="item.completed==0">
-                    {{item.merchandiser_name}}
-                </td>
-                <td>{{item.planned}}</td>
-                <td>{{item.completed}}</td>
-                <td>{{item.successfull}}</td>
-                <td>{{item.unvisited}}</td>
-                <td>{{getPercentage(item.completed_percent)}}</td>
-                <td>{{getPercentage(item.successful_percent)}}</td>
-
-            </tr>
-        </ng-container>
+                    <th scope="col">Completed <strong>%</strong></th>
+                    <th scope="col">Successful <strong>%</strong></th>
 
 
 
-    </tbody>
+                </tr>
+            </thead>
+            <tbody>
+                <ng-container *ngFor="let item of tableData">
+                    <tr>
+                        <td scope="row">{{item.merchandiser_code}}</td>
+                        <td *ngIf="item.completed!=0">
+                            <a class="a-link" target="_blank" title="view shop details" [routerLink]="['/dashboard/shop_detail',item.id]">{{item.merchandiser_name}}</a>
+                        </td>
+                        <td *ngIf="item.completed==0">
+                            {{item.merchandiser_name}}
+                        </td>
+                        <td>{{item.planned}}</td>
+                        <td>{{item.completed}}</td>
+                        <td>{{item.successfull}}</td>
+                        <td>{{item.unvisited}}</td>
+                        <td>{{getPercentage(item.completed_percent)}}</td>
+                        <td>{{getPercentage(item.successful_percent)}}</td>
+
+                    </tr>
+                </ng-container>
 
 
-</table>
+
+            </tbody>
+
+
+        </table>
+    </mat-card-content>
+</mat-card>
 
 <div class="row " *ngIf="loading && router.url==='/dashboard/productivity_report'">
     <div class="col-md-12 text-center">

@@ -80,7 +80,7 @@
                 <!-- {{tableData.itemList |json}} -->
                 <!-- <img mat-card-image src="assets/images/LU-logo.png" height="300" alt=""  style="cursor:pointer"> -->
 
-                <img mat-card-image src="{{ip}}{{item.shopFullImg}}" width="250" height="300" alt="" (click)="setSelectedItem(item);showChildModal()">
+                <img mat-card-image class="small" src="{{ip}}{{item.shopFullImg}}" width="250" height="300" alt="" (click)="setSelectedItem(item);showChildModal()">
                 <mat-card-content>
                     <table class="table" (click)="getPdf(item);" style="cursor:pointer">
                         <tr *ngFor="let item2 of tableData[i].itemList">

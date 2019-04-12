@@ -7,6 +7,7 @@ import * as moment from 'moment';
 import { Observable,interval } from 'rxjs';
 
 import { Router } from '@angular/router';
+import { checkAndUpdateTextDynamic } from '@angular/core/src/view/text';
 // import { Label } from 'ng2-charts';
 // import * as pluginDataLabels from 'chartjs-plugin-datalabels';
 
@@ -29,7 +30,10 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.getData();
     interval(300000).subscribe(i=>{this.getData()})
+    this.httpService.checkDate();
   }
+
+  
 // doughnut chart
 public doughnutChartLabels: any[] = ['CBL', 'Competition',];
   public doughnutChartData: any = [
@@ -93,12 +97,13 @@ public pieChartLegend = true;
 // public pieChartPlugins = [pluginDataLabels];
 public pieChartColors = [
   {
+    // 
     backgroundColor: ['#AFFCAF','#FCAFAF'],
   },
 ];
 public pieChartColors2 = [
   {
-    backgroundColor: [ '#AFFCAF','#FCAFAF'],
+    backgroundColor: [ '#FFA726','#00B8F0'],
   },
 ];
 public chartClicked( e: any ): void {

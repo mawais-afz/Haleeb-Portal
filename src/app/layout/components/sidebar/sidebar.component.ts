@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 export class SidebarComponent implements OnInit {
     public showMenu: string;
     menuList: any=[];
+    value: any=1;
     constructor(public router: Router) {}
     toggleValue = true;
     toggleValueDashboard=true;
@@ -17,6 +18,11 @@ export class SidebarComponent implements OnInit {
         this.showMenu = '';
         this.menuList=JSON.parse(localStorage.getItem('menu'))
         console.log(this.menuList,'menu List')
+    }
+
+    getIndex(i){
+        console.log(i)
+        this.value= i;
     }
 
     addExpandClass(element: any) {

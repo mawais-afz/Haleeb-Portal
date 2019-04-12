@@ -4,15 +4,16 @@ import { environment } from 'src/environments/environment';
 import { Subject, of } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { timeout, catchError } from 'rxjs/operators';
-
+import * as moment from 'moment';
+import { Router } from '@angular/router';
 @Injectable({
   providedIn: 'root'
 })
 export class DashboardService {
-  ip: any ='http://192.168.3.94:8080/audit/';  
+  ip: any = environment.ip;
   user_id:any=0;
 
-  //environment.ip; 
+  // 'http://192.168.3.94:8080/audit/';
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -21,7 +22,7 @@ export class DashboardService {
     withCredentials: true
   };
 
-  constructor(private http: HttpClient, private toastr: ToastrService) { 
+  constructor(private http: HttpClient, private toastr: ToastrService,private router:Router) { 
 
     this.user_id=localStorage.getItem('user_id')
   }
@@ -63,6 +64,16 @@ export class DashboardService {
     //   })
     // );
 
+  }
+
+  checkDate(){
+    let date=new Date()
+    let today=localStorage.getItem('today');
+    if(today && moment(date).format('YYYY-MM-DD')!==today){
+      localStorage.clear();
+      alert('Your session is expired ,please login again.');
+      this.router.navigate(['/login']);
+    }
   }
 
   getLineChartData() {
@@ -119,6 +130,8 @@ export class DashboardService {
   }
 
   getRegion(zoneId) {
+    this.user_id=localStorage.getItem('user_id')
+
     const filter = JSON.stringify({ act: 1, zoneId: zoneId,userId:this.user_id });
     const url = this.ip + 'loadFilters';
     return this.http.post(url, filter);
@@ -132,6 +145,8 @@ export class DashboardService {
   }
 
   getCities(regionId) {
+    this.user_id=localStorage.getItem('user_id')
+
     const filter = JSON.stringify({ act: 2, regionId: regionId ,userId:this.user_id});
     const url = this.ip + 'loadFilters';
     return this.http.post(url, filter);
@@ -145,6 +160,8 @@ export class DashboardService {
   }
 
   getProducts(categoryId) {
+    this.user_id=localStorage.getItem('user_id')
+
     const filter = JSON.stringify({ act: 5, category: categoryId,userId:this.user_id });
     const url = this.ip + 'loadFilters';
     return this.http.post(url, filter);
@@ -158,6 +175,8 @@ export class DashboardService {
   }
 
   getAreas(channelId) {
+    this.user_id=localStorage.getItem('user_id')
+
     const filter = JSON.stringify({ act: 3, channelId: channelId,userId:this.user_id });
     const url = this.ip + 'loadFilters';
     return this.http.post(url, filter);
@@ -170,6 +189,8 @@ export class DashboardService {
     // );
   }
   getMerchandiserList(obj) {
+    this.user_id=localStorage.getItem('user_id')
+
     const filter = JSON.stringify({ act: 4, regionId: obj.regionId, zoneId: obj.zoneId, date: obj.startDate ,userId:this.user_id});
     const url = this.ip + 'loadFilters';
 

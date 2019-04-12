@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DashboardService } from '../layout/dashboard/dashboard.service';
 import { ToastrService } from 'ngx-toastr';
-
+import * as moment from 'moment';
 @Component({
     selector: 'app-login',
     templateUrl: './login.component.html',
@@ -32,7 +32,8 @@ export class LoginComponent implements OnInit {
             // console.log('data', data.headers);
             // this.toastr.success(res, 'Login Status');
             localStorage.setItem('isLoggedin', 'true');
-            localStorage.setItem('user_id', res.user.id);
+            localStorage.setItem('today',moment(new Date).format('YYYY-MM-DD'))
+            localStorage.setItem('user_id', res.user.user_id);
             localStorage.setItem('user_name', res.user.userName);
             localStorage.setItem('menu', JSON.stringify(res.list));
 
@@ -44,6 +45,9 @@ export class LoginComponent implements OnInit {
         }, error => {
             this.toastr.error(error.error.description, 'Login Status');
             console.log('error', error);
+            this.loading=false;
+
+            
 
 
         });

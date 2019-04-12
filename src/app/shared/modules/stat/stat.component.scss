@@ -1,7 +1,7 @@
 @import '~@angular/material/theming';
 :host /deep/ .mat-card-header-text {
     width: 100%;
-    text-align: right;
+    text-align: left;
 }
 
 .icon-lg {
@@ -14,10 +14,12 @@
         width: 100%;
     }
     .mat-card-title {
-        font-size: 35px !important;
+        font-size: 25px !important;
+        margin-right: 35px !important;
     }
     .mat-card-subtitle {
         color: #fff;
+        margin-right: 35px !important;
     }
     .mat-card-actions {
         a {
@@ -54,4 +56,14 @@
 
 mat-card {
     height: 100px !important;
+}
+
+.mat-card-title {
+    font-size: 25px !important;
+    margin-right: 35px !important;
+}
+
+.mat-card-subtitle {
+    color: #fff;
+    margin-right: 35px !important;
 }

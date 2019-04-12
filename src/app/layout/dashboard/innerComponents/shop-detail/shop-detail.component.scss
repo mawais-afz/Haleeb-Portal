@@ -25,6 +25,18 @@ mat-card-title {
     justify-content: center !important;
 }
 
+img.small:hover {
+    border: 2px lightblue dashed;
+    cursor: pointer;
+}
+
+table:hover {
+    border: 2px lightblue dashed;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+}
+
 // .js:last-child {
 //     justify-content: start;
 // }

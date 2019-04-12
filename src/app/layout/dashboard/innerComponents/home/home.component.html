@@ -1,65 +1,69 @@
-<div *ngIf="!loading" class="mb-20 animated  slideInLeft" fxLayout="row" fxLayout.lt-md="column" fxFlex fxLayoutGap="10px">
-    <mat-card>
-        <mat-card-header style="justify-content: flex-end;">
-            <mat-card-title>
-                <i class="material-icons refresh-btn" matTooltip="Refresh Stats" (click)="getData()">
-                    cached
-                    </i>
-            </mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-            <div class="row">
-                <div class="col-md-2">
-                    <div fxFlex>
-                        <app-stat [bgClass]="'info'" [icon]="'assignment'" [count]="tabsData?.planned" [label]="'PLANNED'">
-                        </app-stat>
-                    </div>
-                </div>
-                <div class="col-md-2">
-                    <div fxFlex>
-                        <app-stat [bgClass]="'warn'" [icon]="'check_circle'" [count]="tabsData?.completed" [label]="'COMPLETED'">
-                        </app-stat>
-                    </div>
-                </div>
-                <div class="col-md-2">
-                    <div fxFlex>
-                        <app-stat [bgClass]="'success'" [icon]="'thumb_up'" [count]="tabsData?.successful" [label]="'SUCCESSFUL'"></app-stat>
-                    </div>
-                </div>
+<div class="container-fluid">
+    <div *ngIf="!loading" class="mb-20 animated  slideInLeft" fxLayout="row" fxLayout.lt-md="column" fxFlex fxLayoutGap="10px">
+        <div class="row">
+            <div class="col-md-12">
+                <mat-card>
+                    <mat-card-header style="justify-content: flex-end;">
+                        <mat-card-title>
+                            <i class="material-icons refresh-btn" matTooltip="Refresh Stats" (click)="getData()">
+                                            cached
+                                            </i>
+                        </mat-card-title>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <div class="row">
+                            <div class="col-md-2">
+                                <div fxFlex>
+                                    <app-stat [bgClass]="'info'" [icon]="'assignment'" [count]="tabsData?.planned" [label]="'Planned'">
+                                    </app-stat>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div fxFlex>
+                                    <app-stat [bgClass]="'warn'" [icon]="'check_circle'" [count]="tabsData?.completed" [label]="'Completed Visits'">
+                                    </app-stat>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div fxFlex>
+                                    <app-stat [bgClass]="'success'" [icon]="'thumb_up'" [count]="tabsData?.successful" [label]="'Successful Visits'"></app-stat>
+                                </div>
+                            </div>
 
-                <div class="col-md-2">
-                    <div fxFlex>
-                        <app-stat [bgClass]="'danger'" [icon]="'contact_support'" [count]="tabsData?.unvisited" [label]="'UNVISITED'">
-                        </app-stat>
-                    </div>
-                </div>
+                            <div class="col-md-2">
+                                <div fxFlex>
+                                    <app-stat [bgClass]="'danger'" [icon]="'contact_support'" [count]="tabsData?.unvisited" [label]="'Unvisited'">
+                                    </app-stat>
+                                </div>
+                            </div>
 
-                <div class="col-md-2">
-                    <div fxFlex>
-                        <app-stat [bgClass]="'purple'" [icon]="'check_circle'" [count]="tabsData?.completedPercent" [label]="'Completion'"></app-stat>
-                    </div>
-                </div>
+                            <div class="col-md-2">
+                                <div fxFlex>
+                                    <app-stat [bgClass]="'purple'" [icon]="'check_circle'" [count]="tabsData?.completedPercent" [label]="'Completion'"></app-stat>
+                                </div>
+                            </div>
 
-                <div class="col-md-2">
+                            <div class="col-md-2">
 
-                    <div fxFlex>
-                        <app-stat [bgClass]="'primary'" [icon]="'thumb_up'" [count]="tabsData?.successfulPercent" [label]="'Successful'"></app-stat>
-                    </div>
-                </div>
+                                <div fxFlex>
+                                    <app-stat [bgClass]="'primary'" [icon]="'thumb_up'" [count]="tabsData?.successfulPercent" [label]="'Successful'"></app-stat>
+                                </div>
+                            </div>
 
 
 
+                        </div>
+                    </mat-card-content>
+                </mat-card>
             </div>
-        </mat-card-content>
-    </mat-card>
-</div>
+        </div>
+    </div>
 
 
 
-<div class="row" *ngIf="!loading">
-    <div class="col-md-4">
+    <div class="row" *ngIf="!loading">
+        <div class="col-md-4">
 
-        <div class="col-md-12">
             <mat-card>
                 <mat-card-header>
                     <mat-card-title>MSL & OOS</mat-card-title>
@@ -67,47 +71,48 @@
                 <mat-card-content>
                     <div class="chart">
                         <canvas baseChart [data]="pieChartData" [labels]="pieChartLabels" [chartType]="pieChartType" [options]="pieChartOptions" [colors]="pieChartColors" [legend]="pieChartLegend" (chartClick)="chartClicked($event)">
-                                </canvas>
+                                            </canvas>
                     </div>
                 </mat-card-content>
             </mat-card>
-        </div>
-        <div class="col-md-12">
 
-            <mat-card>
+
+
+            <mat-card style="margin-top:15px">
                 <mat-card-header>
                     <mat-card-title>SOS</mat-card-title>
                 </mat-card-header>
 
                 <mat-card-content>
                     <!-- <div class="chart">
-                            <canvas baseChart [data]="pieChartData2" [labels]="pieChartLabels2" [chartType]="pieChartType" [options]="pieChartOptions" [colors]="pieChartColors2" [legend]="pieChartLegend">
-                                                        </canvas>
-                        </div> -->
+                                        <canvas baseChart [data]="pieChartData2" [labels]="pieChartLabels2" [chartType]="pieChartType" [options]="pieChartOptions" [colors]="pieChartColors2" [legend]="pieChartLegend">
+                                                                    </canvas>
+                                    </div> -->
 
                     <div style="display: block">
                         <canvas baseChart [data]="doughnutChartData" [labels]="doughnutChartLabels" [chartType]="doughnutChartType" [options]="doughnutChartOptions" [colors]="pieChartColors2 ">
-                                </canvas>
+                                            </canvas>
                     </div>
                 </mat-card-content>
             </mat-card>
 
+
         </div>
+
+        <div class="col-md-8">
+            <line-chart></line-chart>
+        </div>
+
+
     </div>
 
-    <div class="col-md-8">
-        <line-chart></line-chart>
+    <div class="row" *ngIf="!loading">
+
     </div>
 
-
-</div>
-
-<div class="row" *ngIf="!loading">
-
-</div>
-
-<div *ngIf="loading " class="mb-20 " flFlex flexLayout="row " flexLayout.lt-md="column ">
-    <div fxFlex class="img-center ">
-        <img src="assets/images/basicloader.gif " alt=" " srcset=" ">
+    <div *ngIf="loading " class="mb-20 " flFlex flexLayout="row " flexLayout.lt-md="column ">
+        <div fxFlex class="img-center ">
+            <img src="assets/images/basicloader.gif " alt=" " srcset=" ">
+        </div>
     </div>
 </div>

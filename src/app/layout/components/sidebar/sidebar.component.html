@@ -11,12 +11,13 @@
 
             <ng-container *ngIf="item.subMenu">
                 <div class="nested-menu">
-                    <a mat-list-item (click)="addExpandClass('pages')" (click)="toggleValueDashboard=!toggleValueDashboard;toggleValue=true">
-                        <mat-icon class="sidenav-icon" *ngIf="toggleValueDashboard">add</mat-icon>
-                        <mat-icon class="sidenav-icon" *ngIf="!toggleValueDashboard">remove</mat-icon>
+                    <a mat-list-item (click)="addExpandClass(i)" (click)="getIndex(i)">
+                        <mat-icon class="sidenav-icon" *ngIf="item.header=='Dashboard' ">add</mat-icon>
+                        <mat-icon class="sidenav-icon" *ngIf="item.header=='Reports' ">add</mat-icon>
                         {{ item.header | translate }}
                     </a>
-                    <ul class="nested submenu" [class.expand]="showMenu === 'pages'">
+
+                    <ul class="nested submenu" [class.expand]="showMenu == value" *ngIf="value==1 && item.header=='Dashboard' ">
 
                         <li *ngFor="let item2 of item.menuList">
                             <a [routerLinkActive]="'link-active'" routerLink='/dashboard/{{item2.link}}'><span>{{ item2.lable | translate }}</span></a>
@@ -27,8 +28,25 @@
                         </li>
 
                         <!-- <li>
-                            <a [routerLinkActive]="'link-active'" [routerLink]="['/dashboard/productivity_dashboard']"><span>{{ 'Productivity Dashboard' | translate }}</span></a>
-                        </li> -->
+                                <a [routerLinkActive]="'link-active'" [routerLink]="['/dashboard/productivity_dashboard']"><span>{{ 'Productivity Dashboard' | translate }}</span></a>
+                            </li> -->
+                    </ul>
+                    <ul class="nested submenu" [class.expand]="showMenu == value" *ngIf="value==2 && item.header=='Reports'">
+
+                        <li *ngFor="let item2 of item.menuList">
+
+
+                            <a [routerLinkActive]="'link-active'" routerLink='/dashboard/{{item2.link}}'><span>
+                                    {{ item2.lable | translate }}</span></a>
+
+                        </li>
+
+                        <li>
+                        </li>
+
+                        <!-- <li>
+                                <a [routerLinkActive]="'link-active'" [routerLink]="['/dashboard/productivity_dashboard']"><span>{{ 'Productivity Dashboard' | translate }}</span></a>
+                            </li> -->
                     </ul>
                 </div>
             </ng-container>
@@ -39,5 +57,5 @@
 
     </mat-nav-list>
 
-    <img class="bottom-fixed" src="assets/images/tt-logo.png">
+    <img class="bottom-fixed" src="assets/images/tt2logo.png">
 </div>

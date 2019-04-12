@@ -98,6 +98,7 @@ export class FilterBarComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.httpService.checkDate();
     console.log('router', this.router.url);
     this.lastVisit = this.dataService.getLastVisit();
     this.mustHave = this.dataService.getYesNo();
