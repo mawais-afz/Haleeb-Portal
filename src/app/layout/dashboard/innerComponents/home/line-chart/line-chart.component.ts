@@ -27,19 +27,21 @@ export class LineChartComponent implements OnInit {
   }
   public lineChartData: ChartDataSets[] = [
     { data: [65, 59, 80, 81, 56, 55, 40], label: 'Completion' },
-    { data: [28, 48, 40, 19, 86, 27, 90], label: 'Successful' },
+    { data: [8, 48, 40, 19, 86, 27, 90], label: 'Successful' },
     // { data: [180, 480, 90, 270, 400], label: 'Series C', yAxisID: 'y-axis-1' }
   ];
   public lineChartLabels: any[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-  public lineChartOptions: (ChartOptions & { annotation: any }) = {
+  public lineChartOptions: ChartOptions = {
     responsive: true,
+    lineTension:0,
+  
     scales: {
       // We use this empty structure as a placeholder for dynamic theming.
       xAxes: [{}],
       yAxes: [
         {
           id: 'y-axis-0',
-          position: 'left',
+          // position: 'left',
         },
         // {
         //   id: 'y-axis-1',
