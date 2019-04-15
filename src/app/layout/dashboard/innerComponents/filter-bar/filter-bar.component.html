@@ -814,7 +814,7 @@
                         </td>
 
                         <td class="a-link" *ngIf="item.unsuccessful!=0" title="Un-Successful">
-                            <a class="a-link" target="_blank" title="view shop details" [routerLink]="['/dashboard/shop_detail',item.id]" [queryParams]="{'id':item.id,'remark_id':1}" queryParamsHandling="merge"> {{item.unsuccessful}}</a>
+                            <a class="a-link" target="_blank" title="view shop details" [routerLink]="['/dashboard/shop_detail',item.id]" [queryParams]="{'id':item.id,'remark_id':0}" queryParamsHandling="merge"> {{item.unsuccessful}}</a>
 
                         </td>
                         <td *ngIf="item.unsuccessful==0">
