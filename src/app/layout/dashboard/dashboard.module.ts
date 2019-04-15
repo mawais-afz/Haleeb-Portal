@@ -26,6 +26,7 @@ import { ChartsModule as Ng2Charts } from 'ng2-charts';
 import { TposmDeploymentReportComponent } from './innerComponents/tposm-deployment-report/tposm-deployment-report.component';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { LineChartComponent } from './innerComponents/home/line-chart/line-chart.component';
+import { UpdatePasswordComponent } from './user/update-password/update-password.component';
 @NgModule({
     imports: [
         FormsModule,
@@ -50,6 +51,6 @@ import { LineChartComponent } from './innerComponents/home/line-chart/line-chart
         Ng2Charts
 
     ],
-    declarations: [DashboardComponent, HomeComponent, ShopListComponent, SummaryComponent, ProductivityComponent, FilterBarComponent, DetailsComponent, DailyVisitReportComponent, ShopDetailComponent, MslDashboardComponent, ProductivityDashboardComponent, TposmDeploymentReportComponent, LineChartComponent]
+    declarations: [DashboardComponent, HomeComponent, ShopListComponent, SummaryComponent, ProductivityComponent, FilterBarComponent, DetailsComponent, DailyVisitReportComponent, ShopDetailComponent, MslDashboardComponent, ProductivityDashboardComponent, TposmDeploymentReportComponent, LineChartComponent, UpdatePasswordComponent]
 })
 export class DashboardModule {}

@@ -14,6 +14,7 @@ import { ShopDetailComponent } from './innerComponents/shop-detail/shop-detail.c
 import { MslDashboardComponent } from './innerComponents/msl-dashboard/msl-dashboard.component';
 import { ProductivityDashboardComponent } from './innerComponents/productivity-dashboard/productivity-dashboard.component';
 import { TposmDeploymentReportComponent } from './innerComponents/tposm-deployment-report/tposm-deployment-report.component';
+import { UpdatePasswordComponent } from './user/update-password/update-password.component';
 
 const routes: Routes = [
     {
@@ -31,10 +32,13 @@ const routes: Routes = [
             { path: 'msl_dashboard', component: MslDashboardComponent },
             { path: 'productivity_dashboard', component: ProductivityDashboardComponent },            
             { path: 'tposm_deployment_report', component: TposmDeploymentReportComponent },
+            { path: 'update_password', component: UpdatePasswordComponent },
+
 
 
         ]
     },
+    // { path: 'shop_detail/:id', component: ShopDetailComponent },
     { path: 'shop_detail/:id', component: ShopDetailComponent },
 
 ];

@@ -10,13 +10,15 @@ import { ModalDirective } from 'ngx-bootstrap';
   styleUrls: ['./shop-detail.component.scss']
 })
 export class ShopDetailComponent implements OnInit {
-  title='completed shop list'
+  title='shop list'
   tableData: any = [];
   loading: boolean = false;
   ip= environment.ip
+  remarksId:any=0;
 
   @ViewChild('childModal') childModal: ModalDirective;
   selectedItem: any={};
+  tableTitle: string='';
  
   showChildModal(): void {
     this.childModal.show();
@@ -26,7 +28,10 @@ export class ShopDetailComponent implements OnInit {
     this.childModal.hide();
   }
 
-  constructor(private httpService: DashboardService, public activatedRoute: ActivatedRoute) { }
+  constructor(private httpService: DashboardService, public activatedRoute: ActivatedRoute) {
+
+    
+   }
 
 
   setSelectedItem(item){
@@ -37,7 +42,8 @@ export class ShopDetailComponent implements OnInit {
     let id = 0
     let o: any = JSON.parse(localStorage.getItem('obj'));
     console.log(o)
-    this.activatedRoute.params.subscribe(p => {
+    this.activatedRoute.queryParams.subscribe(p=>{
+      this.remarksId=p.remark_id;
       id = p.id
       let obj = {
         zoneId: o.zoneId,
@@ -45,12 +51,20 @@ export class ShopDetailComponent implements OnInit {
         startDate: o.startDate,
         endDate: o.endDate,
         merchandiserId: id,
+        remarksId:this.remarksId
         // cityId: o.cityId || -1,
         // distributionId:o.selectedDitribution.id ||-1,
         // storeType:o.selectedStoreType || null,
       }
+      
       this.getTableData(obj);
     })
+    if(this.remarksId==1)
+    this.tableTitle='Successful';
+    else if(this.remarksId==-1)
+    this.tableTitle='Completed';
+    else if(this.remarksId==0)
+    this.tableTitle='Un-Successful';
 
   }
   getTableData(obj) {

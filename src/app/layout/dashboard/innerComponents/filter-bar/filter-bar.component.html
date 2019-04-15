@@ -764,9 +764,9 @@
 <!-- <mat-form-field class="mat-form-field1" *ngIf="router.url==='/dashboard/productivity_report'">
     <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
 </mat-form-field> -->
-<mat-card>
+<mat-card *ngIf="tableData.length>0 && router.url==='/dashboard/productivity_report'">
     <mat-card-content>
-        <table class="table animated slideInLeft" *ngIf="tableData.length>0 && router.url==='/dashboard/productivity_report'">
+        <table class="table animated slideInLeft">
             <thead>
                 <tr>
 
@@ -776,6 +776,7 @@
                     <th scope="col">Completed</th>
 
                     <th scope="col">Successfull</th>
+                    <th scope="col">Un-Successfull</th>
 
                     <th scope="col" style="background:#F12E2B;color: white">Unvisited</th>
 
@@ -790,15 +791,39 @@
                 <ng-container *ngFor="let item of tableData">
                     <tr>
                         <td scope="row">{{item.merchandiser_code}}</td>
-                        <td *ngIf="item.completed!=0">
-                            <a class="a-link" target="_blank" title="view shop details" [routerLink]="['/dashboard/shop_detail',item.id]">{{item.merchandiser_name}}</a>
-                        </td>
-                        <td *ngIf="item.completed==0">
+                        <td>
                             {{item.merchandiser_name}}
                         </td>
+
                         <td>{{item.planned}}</td>
-                        <td>{{item.completed}}</td>
-                        <td>{{item.successfull}}</td>
+                        <td class="a-link" *ngIf="item.completed!=0" title="Completed">
+                            <a class="a-link" target="_blank" title="view shop details" [routerLink]="['/dashboard/shop_detail',item.id]" [queryParams]="{'id':item.id,'remark_id':-1}" queryParamsHandling="merge">{{item.completed}}</a>
+
+                        </td>
+                        <td *ngIf="item.completed==0">
+                            {{item.completed}}
+
+                        </td>
+                        <td class="a-link" *ngIf="item.successfull!=0" title="Successful">
+                            <a class="a-link" target="_blank" title="view shop details" [routerLink]="['/dashboard/shop_detail',item.id]" [queryParams]="{'id':item.id,'remark_id':1}" queryParamsHandling="merge"> {{item.successfull}}</a>
+
+                        </td>
+                        <td *ngIf="item.successfull==0">
+                            {{item.successfull}}
+
+                        </td>
+
+                        <td class="a-link" *ngIf="item.unsuccessful!=0" title="Un-Successful">
+                            <a class="a-link" target="_blank" title="view shop details" [routerLink]="['/dashboard/shop_detail',item.id]" [queryParams]="{'id':item.id,'remark_id':1}" queryParamsHandling="merge"> {{item.unsuccessful}}</a>
+
+                        </td>
+                        <td *ngIf="item.unsuccessful==0">
+                            {{item.unsuccessful}}
+
+                        </td>
+
+
+
                         <td>{{item.unvisited}}</td>
                         <td>{{getPercentage(item.completed_percent)}}</td>
                         <td>{{getPercentage(item.successful_percent)}}</td>

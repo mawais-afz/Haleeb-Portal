@@ -89,7 +89,8 @@ export class DashboardService {
   }
 
   getTableList(obj) {
-    const body = `zoneId=${obj.zoneId}&regionId=${obj.regionId}&endDate=${obj.endDate}&startDate=${obj.startDate}&merchandiserId=${obj.merchandiserId}`;
+    const body = this.UrlEncodeMaker(obj);
+    // `zoneId=${obj.zoneId}&regionId=${obj.regionId}&endDate=${obj.endDate}&startDate=${obj.startDate}&merchandiserId=${obj.merchandiserId}`;
     const url = this.ip + 'completedShopListCBL';
     return this.http.post(url, body, this.httpOptions);
     // .pipe(

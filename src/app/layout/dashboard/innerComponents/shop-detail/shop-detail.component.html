@@ -18,7 +18,7 @@
 
     <mat-card-content>
         <mat-card-title>
-            {{title| uppercase}} <i color="warn" [ngClass]="{'fa fa-cog fa-spin':loading}"></i>
+            {{tableTitle | uppercase}} {{title| uppercase}} <i color="warn" [ngClass]="{'fa fa-cog fa-spin':loading}"></i>
             <p *ngIf="!loading && tableData==0">No data available</p>
             <!-- <button type="button" class="btn btn-primary" >Open child modal</button> -->
 
@@ -69,13 +69,16 @@
 </mat-card>
 
 <div class="container-fluid" *ngIf="tableData.length>0">
+    <div class="row">
+
+    </div>
     <div class="row js">
         <ng-container *ngFor="let item of tableData;let i=index">
             <mat-card class=" col-md-3 example-card card2 ml-3 mt-3">
                 <!-- <mat-card-header>
                     <div mat-card-avatar class="example-header-image"></div>
-                    <mat-card-title>Shiba Inu</mat-card-title>
-                    <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+                    <mat-card-title></mat-card-title>
+
                 </mat-card-header> -->
                 <!-- {{tableData.itemList |json}} -->
                 <!-- <img mat-card-image src="assets/images/LU-logo.png" height="300" alt=""  style="cursor:pointer"> -->
