@@ -27,6 +27,7 @@ import { TposmDeploymentReportComponent } from './innerComponents/tposm-deployme
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { LineChartComponent } from './innerComponents/home/line-chart/line-chart.component';
 import { UpdatePasswordComponent } from './user/update-password/update-password.component';
+import { RawDataComponent } from './raw-data/raw-data.component';
 @NgModule({
     imports: [
         FormsModule,
@@ -51,6 +52,10 @@ import { UpdatePasswordComponent } from './user/update-password/update-password.
         Ng2Charts
 
     ],
-    declarations: [DashboardComponent, HomeComponent, ShopListComponent, SummaryComponent, ProductivityComponent, FilterBarComponent, DetailsComponent, DailyVisitReportComponent, ShopDetailComponent, MslDashboardComponent, ProductivityDashboardComponent, TposmDeploymentReportComponent, LineChartComponent, UpdatePasswordComponent]
+    declarations: [DashboardComponent, HomeComponent, ShopListComponent, 
+        SummaryComponent, ProductivityComponent, FilterBarComponent, 
+        DetailsComponent, DailyVisitReportComponent, ShopDetailComponent,
+         MslDashboardComponent, ProductivityDashboardComponent,
+          TposmDeploymentReportComponent, LineChartComponent, UpdatePasswordComponent, RawDataComponent]
 })
 export class DashboardModule {}

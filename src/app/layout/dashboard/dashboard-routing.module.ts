@@ -15,6 +15,7 @@ import { MslDashboardComponent } from './innerComponents/msl-dashboard/msl-dashb
 import { ProductivityDashboardComponent } from './innerComponents/productivity-dashboard/productivity-dashboard.component';
 import { TposmDeploymentReportComponent } from './innerComponents/tposm-deployment-report/tposm-deployment-report.component';
 import { UpdatePasswordComponent } from './user/update-password/update-password.component';
+import { RawDataComponent } from './raw-data/raw-data.component';
 
 const routes: Routes = [
     {
@@ -33,6 +34,7 @@ const routes: Routes = [
             { path: 'productivity_dashboard', component: ProductivityDashboardComponent },            
             { path: 'tposm_deployment_report', component: TposmDeploymentReportComponent },
             { path: 'update_password', component: UpdatePasswordComponent },
+            { path: 'raw_data', component: RawDataComponent },
 
 
 
