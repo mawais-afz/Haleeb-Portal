@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 export class StatComponent implements OnInit {
     @Input() bgClass: string;
     @Input() icon: string;
-    @Input() count: any;
+    @Input() count: string;
     @Input() label: string;
     @Input() data: number;
 

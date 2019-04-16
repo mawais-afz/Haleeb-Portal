@@ -13,40 +13,46 @@
                     <mat-card-content>
                         <div class="row">
                             <div class="col-md-2">
-                                <div fxFlex>
+                                <div>
                                     <app-stat [bgClass]="'info'" [icon]="'assignment'" [count]="tabsData?.planned" [label]="'Planned'">
                                     </app-stat>
                                 </div>
                             </div>
                             <div class="col-md-2">
-                                <div fxFlex>
-                                    <app-stat [bgClass]="'warn'" [icon]="'check_circle'" [count]="tabsData?.completed" [label]="'Completed Visits'">
+                                <div>
+                                    <app-stat [bgClass]="'warn'" [icon]="'check_circle'" [count]="tabsData?.completed" [label]="'Completed '">
                                     </app-stat>
                                 </div>
                             </div>
                             <div class="col-md-2">
-                                <div fxFlex>
-                                    <app-stat [bgClass]="'success'" [icon]="'thumb_up'" [count]="tabsData?.successful" [label]="'Successful Visits'"></app-stat>
+                                <div>
+                                    <app-stat [bgClass]="'success'" [icon]="'thumb_up'" [count]="tabsData?.successful" [label]="'Successful'"></app-stat>
                                 </div>
                             </div>
 
                             <div class="col-md-2">
-                                <div fxFlex>
+                                <div>
                                     <app-stat [bgClass]="'danger'" [icon]="'contact_support'" [count]="tabsData?.unvisited" [label]="'Unvisited'">
                                     </app-stat>
                                 </div>
                             </div>
 
                             <div class="col-md-2">
-                                <div fxFlex>
-                                    <app-stat [bgClass]="'purple'" [icon]="'check_circle'" [count]="tabsData?.completedPercent" [label]="'Completion'"></app-stat>
+                                <div>
+                                    <app-stat [bgClass]="'purple'" [icon]="'check_circle'" [count]="tabsData?.completedPercent" [label]="'Completion %'"></app-stat>
                                 </div>
                             </div>
 
                             <div class="col-md-2">
 
-                                <div fxFlex>
-                                    <app-stat [bgClass]="'primary'" [icon]="'thumb_up'" [count]="tabsData?.successfulPercent" [label]="'Successful'"></app-stat>
+                                <div>
+                                    <app-stat [bgClass]="'primary'" [icon]="'thumb_up'" [count]="tabsData?.successfulPercent" [label]="'Successful %'"></app-stat>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+
+                                <div>
+                                    <app-stat [bgClass]="'danger'" [icon]="'thumb_down'" [count]="tabsData?.unsuccessful" [label]="'Un-Successful'"></app-stat>
                                 </div>
                             </div>
 
