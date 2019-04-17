@@ -27,6 +27,7 @@ export class FilterBarComponent implements OnInit {
     'Silver',
     'Others']
   selectedStoreType = null;
+ 
   applyFilter(filterValue: string) {
     this.tableData = this.tableData.filter(f => f.shop_title)
     console.log(this.tableData, 'table data filter')
@@ -62,6 +63,10 @@ export class FilterBarComponent implements OnInit {
   selectedProduct: any = [];
   selectedImpactType: any = {};
   impactTypeList: any = [];
+
+  queryList: any=[];
+  selectedQuery:any={};
+
   loadingReportMessage: boolean = false;
   tabsData: any = [];
   loading = true;
@@ -79,7 +84,6 @@ export class FilterBarComponent implements OnInit {
 
     console.log(this.categoryList);
 
-    this.getZone();
 
   }
 
@@ -102,11 +106,80 @@ export class FilterBarComponent implements OnInit {
     console.log('router', this.router.url);
     this.lastVisit = this.dataService.getLastVisit();
     this.mustHave = this.dataService.getYesNo();
-    this.httpService.getZone();
+    // this.httpService.getZone();
     this.impactTypeList = this.dataService.getImpactType();
+    if (this.router.url !== '/dashboard/raw_data')
+    this.getZone();
+
+
     if (this.router.url == '/dashboard/productivity_report')
       this.getTabsData()
+
+      if (this.router.url == '/dashboard/raw_data')
+      this.getQueryTypeList();
   }
+
+
+  getQueryTypeList(){
+
+    this.httpService.getQueryTypeList().subscribe(data=>{
+      console.log('qurry list',data)
+      if(data)
+      this.queryList=data;
+
+    },error=>{
+      (error.status === 0) ?
+                this.toastr.error('Please check Internet Connection', 'Error') :
+                this.toastr.error(error.description, 'Error');
+
+
+    })
+
+  }
+
+  getDashboardData(){
+
+    if (this.endDate >= this.startDate){
+      this.loadingData=true;
+    this.loadingReportMessage=true;
+    let obj={
+      typeId:this.selectedQuery.id,
+      startDate:this.startDate,
+      endDate:this.endDate
+    }
+
+    let url = 'dashboard-data';
+      let body =this.httpService.UrlEncodeMaker(obj);
+      this.httpService.getKeyForProductivityReport(body, url).subscribe(data => {
+        console.log(data, 'query list');
+        let res: any = data
+
+        if(res){
+          let obj2 = {
+            key: res.key,
+            fileType: res.fileType
+          }
+          let url = 'downloadcsvReport'
+          this.getproductivityDownload(obj2, url)
+        }
+        else{
+          this.clearLoading()
+
+          this.toastr.info('Something went wrong,Please retry','Connectivity Message')
+        }
+
+
+      }, error => {
+        this.clearLoading()
+
+      })
+    }else {
+      this.clearLoading();
+      this.toastr.info('End date must be greater than start date', 'Date Selection');
+    }
+    
+  }
+
   //#region filters logic
 
   getZone() {
@@ -286,8 +359,7 @@ export class FilterBarComponent implements OnInit {
       })
     }
     else {
-      this.clearLoading()
-
+      this.clearLoading();
       this.toastr.info('End date must be greater than start date', 'Date Selection');
     }
 
@@ -384,7 +456,7 @@ export class FilterBarComponent implements OnInit {
       this.loadingData = false;
       this.loadingReportMessage = false;
       // this.clearAllSections()  
-    }, 20000);
+    }, 10000);
   }
 
   arrayMaker(arr) {
@@ -710,11 +782,10 @@ export class FilterBarComponent implements OnInit {
 
     setTimeout(() => {
       this.loadingData = false;
-
       this.loadingReportMessage = false;
       // this.clearAllSections();
 
-    }, 1000);
+    },1000);
   }
 
   getPercentage(n) {
