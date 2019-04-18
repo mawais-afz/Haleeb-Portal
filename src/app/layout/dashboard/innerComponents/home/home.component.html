@@ -29,6 +29,12 @@
                                     <app-stat [bgClass]="'success'" [icon]="'thumb_up'" [count]="tabsData?.successful" [label]="'Successful'"></app-stat>
                                 </div>
                             </div>
+                            <div class="col-md-2">
+
+                                <div>
+                                    <app-stat [bgClass]="'danger'" [icon]="'thumb_down'" [count]="tabsData?.unsuccessful" [label]="'Un-Successful'"></app-stat>
+                                </div>
+                            </div>
 
                             <div class="col-md-2">
                                 <div>
@@ -49,12 +55,7 @@
                                     <app-stat [bgClass]="'primary'" [icon]="'thumb_up'" [count]="tabsData?.successfulPercent" [label]="'Successful %'"></app-stat>
                                 </div>
                             </div>
-                            <div class="col-md-2">
 
-                                <div>
-                                    <app-stat [bgClass]="'danger'" [icon]="'thumb_down'" [count]="tabsData?.unsuccessful" [label]="'Un-Successful'"></app-stat>
-                                </div>
-                            </div>
 
 
 

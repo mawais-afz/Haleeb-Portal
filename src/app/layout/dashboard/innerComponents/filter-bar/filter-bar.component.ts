@@ -144,8 +144,8 @@ export class FilterBarComponent implements OnInit {
     this.loadingReportMessage=true;
     let obj={
       typeId:this.selectedQuery.id,
-      startDate:this.startDate,
-      endDate:this.endDate
+      startDate: moment(this.startDate).format('YYYY-MM-DD'),
+      endDate: moment(this.endDate).format('YYYY-MM-DD'),
     }
 
     let url = 'dashboard-data';
@@ -254,8 +254,7 @@ export class FilterBarComponent implements OnInit {
             this.distributionList = res.distributionList
           }
           else{
-            this.clearLoading()
-
+            this.clearLoading();
             this.toastr.info('Something went wrong,Please retry','Connectivity Message')
           }
          
@@ -456,7 +455,7 @@ export class FilterBarComponent implements OnInit {
       this.loadingData = false;
       this.loadingReportMessage = false;
       // this.clearAllSections()  
-    }, 10000);
+    }, 1000);
   }
 
   arrayMaker(arr) {
@@ -779,13 +778,11 @@ export class FilterBarComponent implements OnInit {
   getproductivityDownload(obj, url) {
     const u = url
     this.httpService.DownloadResource(obj, u);
+  setTimeout(() => {
+    this.loadingData = false;
+    this.loadingReportMessage = false;
+  }, 1000);
 
-    setTimeout(() => {
-      this.loadingData = false;
-      this.loadingReportMessage = false;
-      // this.clearAllSections();
-
-    },1000);
   }
 
   getPercentage(n) {

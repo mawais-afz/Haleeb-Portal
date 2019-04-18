@@ -11,13 +11,13 @@
 
             <ng-container *ngIf="item.subMenu">
                 <div class="nested-menu">
-                    <a mat-list-item (click)="addExpandClass(i)" (click)="getIndex(i)">
+                    <a mat-list-item (click)="addExpandClass(item.header)" (click)="getIndex(i)">
                         <mat-icon class="sidenav-icon" *ngIf="item.header=='Dashboard' ">add</mat-icon>
                         <mat-icon class="sidenav-icon" *ngIf="item.header=='Reports' ">add</mat-icon>
                         {{ item.header | translate }}
                     </a>
 
-                    <ul class="nested submenu" [class.expand]="showMenu == value" *ngIf="value==1 && item.header=='Dashboard' ">
+                    <ul class="nested submenu" [class.expand]="showMenu == item.header">
 
                         <li *ngFor="let item2 of item.menuList">
                             <a [routerLinkActive]="'link-active'" routerLink='/dashboard/{{item2.link}}'><span>{{ item2.lable | translate }}</span></a>
@@ -27,11 +27,9 @@
                         <li>
                         </li>
 
-                        <!-- <li>
-                                <a [routerLinkActive]="'link-active'" [routerLink]="['/dashboard/productivity_dashboard']"><span>{{ 'Productivity Dashboard' | translate }}</span></a>
-                            </li> -->
+
                     </ul>
-                    <ul class="nested submenu" [class.expand]="showMenu == value" *ngIf="value==2 && item.header=='Reports'">
+                    <!-- <ul class="nested submenu" [class.expand]="showMenu == value" *ngIf="value==2 && item.header=='Reports'">
 
                         <li *ngFor="let item2 of item.menuList">
 
@@ -44,10 +42,8 @@
                         <li>
                         </li>
 
-                        <!-- <li>
-                                <a [routerLinkActive]="'link-active'" [routerLink]="['/dashboard/productivity_dashboard']"><span>{{ 'Productivity Dashboard' | translate }}</span></a>
-                            </li> -->
-                    </ul>
+                  
+                    </ul> -->
                 </div>
             </ng-container>
 

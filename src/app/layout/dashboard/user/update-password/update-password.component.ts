@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { DashboardService } from '../../dashboard.service';
 import { ToastrService } from 'ngx-toastr';
 import * as moment from 'moment';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-update-password',
@@ -17,8 +18,14 @@ export class UpdatePasswordComponent implements OnInit {
     confirmPassword:'',
     // cbl:'Y'
 };
+
+@ViewChild('f') form:NgForm;
 loading=false;
-constructor(private router: Router, private httpService: DashboardService, private toastr: ToastrService) { }
+    user_id: string;
+constructor(private router: Router, private httpService: DashboardService, private toastr: ToastrService) {
+    this.user_id=localStorage.getItem('user_id')
+
+ }
 
 ngOnInit() {
 
@@ -27,25 +34,30 @@ ngOnInit() {
 onLogin(loginForm: any) {
     this.loading=true;
     console.log(loginForm);
+    let obj={
+        oldPassword:loginForm.oldPassword,
+        newPassword:loginForm.password,
+        userId:this.user_id
+    }
+let encodeObj=this.httpService.UrlEncodeMaker(obj);
 
-
-    this.httpService.login(loginForm).subscribe((data:Response) => {
+    this.httpService.updatePassword(encodeObj).subscribe((data:Response) => {
         const res: any = data;
-        // console.log('data', data.headers);
-        // this.toastr.success(res, 'Login Status');
-        localStorage.setItem('isLoggedin', 'true');
-        localStorage.setItem('today',moment(new Date).format('YYYY-MM-DD'))
-        localStorage.setItem('user_id', res.user.user_id);
-        localStorage.setItem('user_name', res.user.userName);
-        localStorage.setItem('menu', JSON.stringify(res.list));
-
-        this.router.navigate(['/dashboard']);
+        // alert(res.message)
+        let alrtType=res.title;
+        this.toastr.info(res.description,'Update Password')
+        console.log(res);
+        this.loading=false;
+        this.form.reset();
+        
         setTimeout(() => {
-            this.loading=false;
-        }, 30000);
+            alert('Please login again with new password')
+        this.router.navigate(['/login']);
+        }, 3000);
+       
 
     }, error => {
-        this.toastr.error(error.error.description, 'Login Status');
+        this.toastr.error(error.error.text, 'Update Password');
         console.log('error', error);
         this.loading=false;
 

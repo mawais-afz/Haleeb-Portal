@@ -40,6 +40,11 @@ export class DashboardService {
     // );
   }
 
+  updatePassword(obj){
+    const url = this.ip + 'change-password';
+    return this.http.post(url, obj,this.httpOptions);
+  }
+
   UrlEncodeMaker(obj) {
     let url = '';
       for (const key in obj) {

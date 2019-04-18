@@ -45,10 +45,10 @@
             <mat-icon>inbox</mat-icon>
             <span>{{ 'Inbox' | translate }}</span>
         </button> -->
-        <!-- <button mat-menu-item [routerLink]="['/dashboard/update_password']" routerLinkActive="router-link-active">
+        <button mat-menu-item [routerLink]="['/dashboard/update_password']" routerLinkActive="router-link-active">
             <mat-icon>lock</mat-icon>
         <span>Update Password</span>
-    </button> -->
+    </button>
         <button *ngIf="showButton" (click)="onLoggedout()" mat-menu-item>
                 <mat-icon>exit_to_app</mat-icon>
             <span>Logout</span>
