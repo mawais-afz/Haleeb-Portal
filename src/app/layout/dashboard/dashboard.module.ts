@@ -28,6 +28,8 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import { LineChartComponent } from './innerComponents/home/line-chart/line-chart.component';
 import { UpdatePasswordComponent } from './user/update-password/update-password.component';
 import { RawDataComponent } from './raw-data/raw-data.component';
+import { MatTableComponent } from './innerComponents/mat-table/mat-table.component';
+import { Ng2OrderModule } from 'ng2-order-pipe';
 @NgModule({
     imports: [
         FormsModule,
@@ -49,13 +51,14 @@ import { RawDataComponent } from './raw-data/raw-data.component';
         MatIconModule,
         FlexLayoutModule.withConfig({addFlexToParent: false}),
         ModalModule.forRoot(),
-        Ng2Charts
+        Ng2Charts,
+        Ng2OrderModule
 
     ],
     declarations: [DashboardComponent, HomeComponent, ShopListComponent, 
         SummaryComponent, ProductivityComponent, FilterBarComponent, 
         DetailsComponent, DailyVisitReportComponent, ShopDetailComponent,
          MslDashboardComponent, ProductivityDashboardComponent,
-          TposmDeploymentReportComponent, LineChartComponent, UpdatePasswordComponent, RawDataComponent]
+          TposmDeploymentReportComponent, LineChartComponent, UpdatePasswordComponent, RawDataComponent, MatTableComponent]
 })
 export class DashboardModule {}

@@ -766,7 +766,7 @@
                         </div>
                         <div class="col-md-2">
                             <div>
-                                <app-stat [bgClass]="'warn'" [icon]="'check_circle'" [count]="tabsData?.completed" [label]="'Completed '">
+                                <app-stat [bgClass]="'warn'" [icon]="'check_circle'" [count]="tabsData?.completed" [label]="'Productive'">
                                 </app-stat>
                             </div>
                         </div>
@@ -791,7 +791,7 @@
 
                         <div class="col-md-2">
                             <div>
-                                <app-stat [bgClass]="'purple'" [icon]="'check_circle'" [count]="tabsData?.completedPercent" [label]="'Completion %'"></app-stat>
+                                <app-stat [bgClass]="'purple'" [icon]="'check_circle'" [count]="tabsData?.completedPercent" [label]="'Productivity %'"></app-stat>
                             </div>
                         </div>
 
@@ -823,31 +823,75 @@
 <!-- <mat-form-field class="mat-form-field1" *ngIf="router.url==='/dashboard/productivity_report'">
     <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
 </mat-form-field> -->
+
+<!-- <app-mat-table [tableData]="tableData"></app-mat-table> -->
+
 <mat-card *ngIf="tableData.length>0 && router.url==='/dashboard/productivity_report'">
     <mat-card-content>
+
         <table class="table animated slideInLeft">
             <thead>
                 <tr>
 
-                    <th scope="col">Merchandiser Code</th>
-                    <th scope="col">Merchandiser Name</th>
-                    <th scope="col">Planned</th>
-                    <th scope="col">Completed</th>
+                    <th scope="col" (click)="sortIt('merchandiser_code')">Merchandiser Code
+                        <br>
+                        <i class="material-icons arrow">
+                            {{getArrowType('merchandiser_code')}}
+                            </i>
 
-                    <th scope="col">Successful</th>
-                    <th scope="col">Un-Successful</th>
-
-                    <th scope="col" style="background:#F12E2B;color: white">Unvisited</th>
-
-                    <th scope="col">Completed <strong>%</strong></th>
-                    <th scope="col">Successful <strong>%</strong></th>
+                    </th>
+                    <th scope="col" (click)="sortIt('merchandiser_name')">Merchandiser Name
+                        <br>
+                        <i class="material-icons arrow">
+                            {{getArrowType('merchandiser_name')}}
+                            </i>
+                    </th>
+                    <th scope="col" (click)="sortIt('planned')">Planned
+                        <br>
+                        <i class="material-icons arrow">
+                            {{getArrowType('planned')}}
+                            </i>
+                    </th>
+                    <th scope="col" (click)="sortIt('completed')">Productive
+                        <br>
+                        <i class="material-icons arrow">
+                            {{getArrowType('completed')}}
+                            </i>
+                    </th>
+                    <th scope="col" (click)="sortIt('successfull')">Successful
+                        <br>
+                        <i class="material-icons arrow">
+                            {{getArrowType('successfull')}}
+                            </i>
+                    </th>
+                    <th scope="col" (click)="sortIt('unsuccessful')">Un-Successful
+                        <br>
+                        <i class="material-icons arrow">
+                            {{getArrowType('unsuccessful')}}
+                            </i>
+                    </th>
+                    <th scope="col" (click)="sortIt('unvisited')" style="background:#F12E2B;color: white">Unvisited
+                        <br>
+                        <i class="material-icons arrow" style="color:white !important">
+                            {{getArrowType('unvisited')}}
+                            </i></th>
+                    <th scope="col" (click)="sortIt('completed_percent')">Productivity <strong>%</strong>
+                        <br>
+                        <i class="material-icons arrow">
+                            {{getArrowType('completed_percent')}}
+                            </i></th>
+                    <th scope="col" (click)="sortIt('successful_percent')">Successful <strong>%</strong>
+                        <br>
+                        <i class="material-icons arrow">
+                            {{getArrowType('successful_percent')}}
+                            </i></th>
 
 
 
                 </tr>
             </thead>
             <tbody>
-                <ng-container *ngFor="let item of tableData">
+                <ng-container *ngFor="let item of tableData | orderBy: sortBy : sortOrder">
                     <tr>
                         <td scope="row">{{item.merchandiser_code}}</td>
                         <td>
@@ -895,7 +939,8 @@
             </tbody>
 
 
-        </table>
+        </table> -->
+
     </mat-card-content>
 </mat-card>
 

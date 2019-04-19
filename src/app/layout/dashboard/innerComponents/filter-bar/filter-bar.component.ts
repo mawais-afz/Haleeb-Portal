@@ -70,6 +70,8 @@ export class FilterBarComponent implements OnInit {
   loadingReportMessage: boolean = false;
   tabsData: any = [];
   loading = true;
+  sortOrder=true;
+  sortBy:'completed'
   //#endregion
 
   constructor(
@@ -83,8 +85,13 @@ export class FilterBarComponent implements OnInit {
     this.channels = JSON.parse(localStorage.getItem('channelList'));
 
     console.log(this.categoryList);
+    this.sortIt('completed');
 
+  }
 
+  sortIt(key){
+    this.sortBy=key;
+    this.sortOrder=!this.sortOrder;
   }
 
   clearAllSections() {
@@ -99,6 +106,13 @@ export class FilterBarComponent implements OnInit {
     this.distributionList = [];
     this.startDate = new Date();
     this.endDate = new Date();
+  }
+
+  getArrowType(key){
+    if(key==this.sortBy){
+      return (this.sortOrder)?'arrow_upward':'arrow_downward';
+    }else
+    return ''
   }
 
   ngOnInit() {
