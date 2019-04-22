@@ -74,7 +74,7 @@ public pieChartOptions: ChartOptions = {
       // },
       afterLabel: function(tooltipItem, data) {
         var dataset = data['datasets'][0];
-        var percent = Math.round((dataset['data'][tooltipItem['index']] / dataset["_meta"][0]['total']) * 100)
+        var percent = Math.round((dataset['data'][tooltipItem['index']]))
         return '(' + percent + '%)';
       }
     }
@@ -134,6 +134,7 @@ public chartClicked( e: any ): void {
       typeId:1,
       startDate: moment(d).format('YYYY-MM-DD'),
       endDate: moment(d).format('YYYY-MM-DD'),
+    userId:localStorage.getItem('user_id'),
     }
     this.httpService.getDashboardData(obj).subscribe(data => {
       console.log(data, 'home data');
