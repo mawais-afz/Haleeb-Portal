@@ -74,13 +74,13 @@ export class DashboardService {
   }
 
   checkDate(){
-    let date=new Date()
-    let today=localStorage.getItem('today');
-    if(today && moment(date).format('YYYY-MM-DD')!==today){
-      localStorage.clear();
-      alert('Your session is expired ,please login again.');
-      this.router.navigate(['/login']);
-    }
+    // let date=new Date()
+    // let today=localStorage.getItem('today');
+    // if(today && moment(date).format('YYYY-MM-DD')!==today){
+    //   localStorage.clear();
+    //   alert('Your session is expired ,please login again.');
+    //   this.router.navigate(['/login']);
+    // }
   }
 
   getLineChartData() {

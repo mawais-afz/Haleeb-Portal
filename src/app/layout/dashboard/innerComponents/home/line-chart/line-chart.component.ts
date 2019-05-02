@@ -26,7 +26,7 @@ export class LineChartComponent implements OnInit {
       },error=>{})
   }
   public lineChartData: ChartDataSets[] = [
-    { data: [65, 59, 80, 81, 56, 55, 40], label: 'Completion'   },
+    { data: [65, 59, 80, 81, 56, 55, 40], label: 'Productive'   },
     { data: [8, 48, 40, 19, 86, 27, 90], label: 'Successful'  },
     // { data: [180, 480, 90, 270, 400], label: 'Series C', yAxisID: 'y-axis-1' }
   ];
