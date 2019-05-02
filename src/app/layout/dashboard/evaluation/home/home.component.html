@@ -18,7 +18,7 @@
                     <ng-container *ngFor="let img of sec.imageList ;let i=index">
 
                         <div class="col-md-6">
-                            <img src="{{ip}}{{img.url}}" width="400" height="400" alt="">
+                            <img src="{{ip}}{{img.url}}" width="400" height="400" alt="" (click)="showChildModal(img)">
                         </div>
                     </ng-container>
 
@@ -28,7 +28,7 @@
                             <table class="table table-bordered">
                                 <tr *ngFor="let tab of sec.tagsList;let j= index">
                                     <th style="width:50%">{{tab.heading}}</th>
-                                    <td style="width:50%">{{tab.value}}</td>
+                                    <td style="width:50%;word-break: break-all">{{tab.value}}</td>
                                 </tr>
 
                             </table>
@@ -62,4 +62,21 @@
         </div>
     </div>
 
+</div>
+
+
+<div bsModal #childModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-child-name">
+    <div class="modal-dialog ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 id="dialog-child-name" class="modal-title pull-left">Shop Facia</h4>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="hideChildModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+            </div>
+            <div class="modal-body" style="padding:10px">
+                <img src="{{ip}}{{selectedShop.url}}" alt="" srcset="">
+            </div>
+        </div>
+    </div>
 </div>

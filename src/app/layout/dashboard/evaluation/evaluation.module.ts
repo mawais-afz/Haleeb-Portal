@@ -5,12 +5,13 @@ import { EvaluationRoutingModule } from './evaluation-routing.module';
 import { HomeComponent } from './home/home.component';
 import { DetailsPageComponent } from './details-page/details-page.component';
 import { MainPageComponent } from './main-page/main-page.component';
-
+import { ModalModule } from 'ngx-bootstrap'
 @NgModule({
   declarations: [HomeComponent, DetailsPageComponent, MainPageComponent],
   imports: [
     CommonModule,
-    EvaluationRoutingModule
+    EvaluationRoutingModule,
+    ModalModule.forRoot()
   ]
 })
 export class EvaluationModule { }
