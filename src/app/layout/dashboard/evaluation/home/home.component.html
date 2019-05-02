@@ -1,3 +1,65 @@
-<p>
-  home works!
-</p>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12" style="margin:20% 36%" *ngIf="!data.section">
+            <img src="assets/images/basicloader.gif" alt="" srcset="">
+        </div>
+    </div>
+
+    <div class="row animated slideInLeft" *ngIf="data.section">
+        <div class="col-md-10" style="overflow:scroll !important;height:99vh;padding:5px">
+            <div class="row justify-content-center mt-5">
+
+
+                <ng-container *ngFor="let sec of data.section">
+                    <h4>{{sec.sectionTitle}}</h4>
+
+                    <div style="border-bottom:2px solid black;width: 100%;margin: 5px 0"></div>
+
+                    <ng-container *ngFor="let img of sec.imageList ;let i=index">
+
+                        <div class="col-md-6">
+                            <img src="{{ip}}{{img.url}}" width="400" height="400" alt="">
+                        </div>
+                    </ng-container>
+
+
+                    <ng-container class="mt-5 justify-content-center" *ngIf="sec?.tagsList">
+                        <div class="col-md-12 mt-5">
+                            <table class="table table-bordered">
+                                <tr *ngFor="let tab of sec.tagsList;let j= index">
+                                    <th style="width:50%">{{tab.heading}}</th>
+                                    <td style="width:50%">{{tab.value}}</td>
+                                </tr>
+
+                            </table>
+
+                        </div>
+                    </ng-container>
+                    <div style="border-bottom:2px solid black;width: 100%;margin: 5px 0">
+
+                    </div>
+
+                </ng-container>
+
+
+
+            </div>
+        </div>
+        <div class="col-md-2">
+            <!-- ;right:15px;position:fixed;top:20px -->
+            <div class="card" style="height:600px;width: 100%;margin: 10px auto">
+                <div class="row" *ngFor="let item of data.criteria">
+                    <div class="col-md-12">
+                        <label class="container">{{item?.title}}
+                                  <input type="checkbox" checked="checked" name="{{item?.title}}">
+                                  <span class="checkmark"></span>
+                                </label>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>

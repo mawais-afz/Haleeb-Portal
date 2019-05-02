@@ -13,8 +13,9 @@ export class LayoutComponent implements OnInit {
     ngOnInit() {
         let url: any = new Array();
         url = this.router.url.split('/');
-        let t: any = url.find(d => d === 'shop_detail')
-        if (t) {
+        let t: any = url.find(d => d === 'shop_detail');
+        let r:any=url.find(d => d === 'details');
+        if (t || r) {
             this.hideSideBar = true
         }
 
