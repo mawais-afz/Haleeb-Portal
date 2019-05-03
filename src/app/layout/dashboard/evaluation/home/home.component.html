@@ -6,11 +6,14 @@
     </div>
 
     <div class="row animated slideInLeft" *ngIf="data.section">
-        <div class="col-md-10" style="overflow:scroll !important;height:99vh;padding:5px">
+        <div class="col-md-9" style="overflow:scroll !important;height:99vh;padding:5px">
             <div class="row justify-content-center mt-5">
 
 
-                <ng-container *ngFor="let sec of data.section">
+                <!-- <section-one-view [data]="data"></section-one-view> -->
+                <section-two-view [data]="data"></section-two-view>
+
+                <!-- <ng-container *ngFor="let sec of data.section">
                     <h4>{{sec.sectionTitle}}</h4>
 
                     <div style="border-bottom:2px solid black;width: 100%;margin: 5px 0"></div>
@@ -39,15 +42,16 @@
 
                     </div>
 
-                </ng-container>
+                </ng-container> -->
 
 
 
             </div>
         </div>
-        <div class="col-md-2">
+        <div class="col-md-3">
             <!-- ;right:15px;position:fixed;top:20px -->
-            <div class="card" style="height:600px;width: 100%;margin: 10px auto">
+            <!-- style="height:600px;width: 100%;margin: 10px auto" -->
+            <div class="card">
                 <div class="row" *ngFor="let item of data.criteria">
                     <div class="col-md-12">
                         <label class="container">{{item?.title}}
@@ -65,7 +69,7 @@
 </div>
 
 
-<div bsModal #childModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-child-name">
+<!-- <div bsModal #childModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-child-name">
     <div class="modal-dialog ">
         <div class="modal-content">
             <div class="modal-header">
@@ -79,4 +83,4 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->

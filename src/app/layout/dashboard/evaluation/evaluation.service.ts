@@ -6,9 +6,9 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class EvaluationService {
-  ip:any=environment.ip;
+  // ip:any=environment.ip;
 
-  // ip:any='http://192.168.3.94:8080/audit/';
+  ip:any='http://192.168.3.94:8080/audit/';
 
   constructor(private http: HttpClient) { }
   httpOptions = {

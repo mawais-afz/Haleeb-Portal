@@ -16,16 +16,16 @@ export class HomeComponent implements OnInit {
 
   selectedShop:any={}
 
-  @ViewChild('childModal') childModal: ModalDirective;
+  // @ViewChild('childModal') childModal: ModalDirective;
  
-  showChildModal(shop): void {
-    this.selectedShop=shop;
-    this.childModal.show();
-  }
+  // showChildModal(shop): void {
+  //   this.selectedShop=shop;
+  //   this.childModal.show();
+  // }
  
-  hideChildModal(): void {
-    this.childModal.hide();
-  }
+  // hideChildModal(): void {
+  //   this.childModal.hide();
+  // }
   
  
   constructor(private activatedRoutes:ActivatedRoute,private httpService:EvaluationService) { 
