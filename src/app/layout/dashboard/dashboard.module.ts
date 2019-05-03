@@ -30,6 +30,7 @@ import { UpdatePasswordComponent } from './user/update-password/update-password.
 import { RawDataComponent } from './raw-data/raw-data.component';
 import { MatTableComponent } from './innerComponents/mat-table/mat-table.component';
 import { Ng2OrderModule } from 'ng2-order-pipe';
+import { DataAvailabilityComponent } from './data-availability/data-availability.component';
 @NgModule({
     imports: [
         FormsModule,
@@ -59,6 +60,7 @@ import { Ng2OrderModule } from 'ng2-order-pipe';
         SummaryComponent, ProductivityComponent, FilterBarComponent, 
         DetailsComponent, DailyVisitReportComponent, ShopDetailComponent,
          MslDashboardComponent, ProductivityDashboardComponent,
-          TposmDeploymentReportComponent, LineChartComponent, UpdatePasswordComponent, RawDataComponent, MatTableComponent]
+          TposmDeploymentReportComponent,
+           LineChartComponent, UpdatePasswordComponent, RawDataComponent, MatTableComponent, DataAvailabilityComponent]
 })
 export class DashboardModule {}

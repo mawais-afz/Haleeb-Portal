@@ -16,6 +16,7 @@ import { ProductivityDashboardComponent } from './innerComponents/productivity-d
 import { TposmDeploymentReportComponent } from './innerComponents/tposm-deployment-report/tposm-deployment-report.component';
 import { UpdatePasswordComponent } from './user/update-password/update-password.component';
 import { RawDataComponent } from './raw-data/raw-data.component';
+import { DataAvailabilityComponent } from './data-availability/data-availability.component';
 
 const routes: Routes = [
     {
@@ -35,6 +36,8 @@ const routes: Routes = [
             { path: 'tposm_deployment_report', component: TposmDeploymentReportComponent },
             { path: 'update_password', component: UpdatePasswordComponent },
             { path: 'raw_data', component: RawDataComponent },
+            { path: 'data_availability_report', component: DataAvailabilityComponent },
+
 
 
 
