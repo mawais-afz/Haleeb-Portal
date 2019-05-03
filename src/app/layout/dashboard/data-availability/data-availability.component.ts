@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./data-availability.component.scss']
 })
 export class DataAvailabilityComponent implements OnInit {
-title="Dashboard Data Availability report"
+title="Brand-SKU OOS"
   constructor() { }
 
   ngOnInit() {

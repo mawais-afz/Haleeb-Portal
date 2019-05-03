@@ -16,16 +16,26 @@ export class HomeComponent implements OnInit {
 
   selectedShop:any={}
 
-  // @ViewChild('childModal') childModal: ModalDirective;
+  @ViewChild('childModal') childModal: ModalDirective;
+  score: any=0;
  
-  // showChildModal(shop): void {
-  //   this.selectedShop=shop;
-  //   this.childModal.show();
-  // }
+  showChildModal(shop): void {
+    this.selectedShop=shop;
+    this.childModal.show();
+  }
  
-  // hideChildModal(): void {
-  //   this.childModal.hide();
-  // }
+  hideChildModal(): void {
+    this.childModal.hide();
+  }
+
+  counter(event,score){
+    console.dir(event.checked)
+    if(event.checked)
+    this.score=this.score+score;
+    else{
+      this.score=this.score-score;
+    }
+  }
   
  
   constructor(private activatedRoutes:ActivatedRoute,private httpService:EvaluationService) { 

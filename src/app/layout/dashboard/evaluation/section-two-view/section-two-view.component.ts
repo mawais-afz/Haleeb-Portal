@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, SimpleChanges, Output, EventEmitter } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap';
 import { environment } from 'src/environments/environment';
 
@@ -11,6 +11,8 @@ export class SectionTwoViewComponent implements OnInit {
 
   @Input('data') data;
   @ViewChild('childModal') childModal: ModalDirective;
+  @Output('showModal') showModal:any=new EventEmitter<any>()
+
   selectedShop: any={};
   selectedImage:any={};
   ip=environment.ip;
@@ -29,14 +31,17 @@ export class SectionTwoViewComponent implements OnInit {
   }
 
   setSelectedImage(img){
-    this.selectedImage=img
+    this.selectedImage=img;
+
   }
   showChildModal(shop): void {
     this.selectedShop=shop;
-    this.childModal.show();
+    this.showModal.emit(this.selectedImage)
+
+    // this.childModal.show();
   }
  
   hideChildModal(): void {
-    this.childModal.hide();
+    // this.childModal.hide();
   }
 }
