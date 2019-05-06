@@ -55,10 +55,10 @@
                 <div class="row">
                     <div class="col-md-12">
                         <table>
-                            <tr *ngFor="let item of data.criteria">
+                            <tr *ngFor="let item of data.criteria;let i=index">
                                 <td>
                                     <label class="container">{{item?.title}} 
-                                                <input type="checkbox"  name="{{item?.title}}" (click)="counter(checked,item.score)" #checked>
+                                                <input type="checkbox"  name="{{item?.title}}" (click)="counter(checked,item.score,i)" #checked>
                                                 <span class="checkmark"></span>
                                               </label>
                                 </td>
@@ -75,6 +75,16 @@
                                 <td>
                                     {{score}}
                                 </td>
+                            </tr>
+                            <hr>
+                            <tr>
+
+                                <td style="text-align:end;padding-bottom: 10px !important;">
+                                    <button [disabled]="loading || score==0" class="btn btn-primary" (click)="evaluateShop()">
+                                        <i [ngClass]="{'fa fa-spinner fa-spin': loading}"></i>
+                                        Evaluate</button>
+                                </td>
+
                             </tr>
                         </table>
 

@@ -44,4 +44,10 @@ export class EvaluationService {
     let url=this.ip+'evaluationShop';
     return this.http.post(url,urlencoded,this.httpOptions);
   }
+
+  evaluateShop(obj){
+    let urlencoded=this.UrlEncodeMaker(obj)
+    let url=this.ip+'evaluateSingleShop';
+    return this.http.post(url,urlencoded,this.httpOptions);
+  }
 }
