@@ -6,12 +6,12 @@
     </div>
 
     <div class="row animated slideInLeft" *ngIf="data.section">
-        <div class="col-md" style="overflow:scroll !important;height:99vh;padding:5px">
+        <div id="style-2" class="col-md" style="overflow:scroll !important;height:99vh;padding:5px">
             <div class="row justify-content-center mt-5">
 
 
-                <section-one-view [data]="data" (showModal)="showChildModal($event)"></section-one-view>
-                <!-- <section-two-view [data]="data" (showModal)="showChildModal($event)"></section-two-view> -->
+                <!-- <section-one-view [data]="data" (showModal)="showChildModal($event)"></section-one-view> -->
+                <section-two-view [data]="data" (showModal)="showChildModal($event)"></section-two-view>
 
                 <!-- <ng-container *ngFor="let sec of data.section">
                     <h4>{{sec.sectionTitle}}</h4>

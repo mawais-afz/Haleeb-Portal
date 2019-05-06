@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { DashboardService } from '../dashboard.service';
 
 @Injectable({
   providedIn: 'root'
@@ -8,9 +9,13 @@ import { environment } from 'src/environments/environment';
 export class EvaluationService {
   // ip:any=environment.ip;
 
-  ip:any='http://192.168.3.94:8080/audit/';
+  ip:any=''
+  // 'http://192.168.3.94:8080/audit/';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,private dashboardService:DashboardService) { 
+
+    this.ip=dashboardService.ip;
+  }
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/x-www-form-urlencoded'
