@@ -26,7 +26,7 @@ export class SectionTwoViewComponent implements OnInit {
   ngOnChanges(changes: SimpleChanges): void {
     
     this.data=changes.data.currentValue;
-    this.selectedImage=this.data.section[0].imageList[0];
+    this.selectedImage=this.data.imageList[0];
     
   }
 

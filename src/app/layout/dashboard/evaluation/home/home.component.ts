@@ -44,7 +44,7 @@ loading=false;
 
     this.httpService.getShopDetails(obj).subscribe(data=>{
       this.data=data;
-      console.log(this.data)
+      // console.log(this.data)
     },error=>{})
 
   }
@@ -58,18 +58,18 @@ loading=false;
   }
   counter(event,score,index){
     
-    console.dir(event.checked)
+    // console.dir(event.checked)
     if(event.checked){
       this.score=this.score+score;
       this.indexList.push(index);
-      console.log('checked',this.indexList)
+      // console.log('checked',this.indexList)
 
     }
     else{
       this.score=this.score-score;
       let i=this.indexList.findIndex(i=>i==index)
       this.indexList.splice(i,1);
-      console.log('unchecked',this.indexList)
+      // console.log('unchecked',this.indexList)
     }
   }
   evaluateShop(){
@@ -81,7 +81,7 @@ loading=false;
       evaluatorId:user_id
     }
 this.evaluationService.evaluateShop(obj).subscribe((data:any)=>{
-  console.log('evaluated shop data',data);
+  // console.log('evaluated shop data',data);
   this.loading=false;
 
   if(data.success){
@@ -95,7 +95,7 @@ this.evaluationService.evaluateShop(obj).subscribe((data:any)=>{
     this.toastr.info(data.errorMessage,'Info')
   }
 },error=>{
-  console.log('evaluated shop error',error)
+  // console.log('evaluated shop error',error)
   // window.close()
   this.loading=false;
   this.toastr.error(error.message,'Error');

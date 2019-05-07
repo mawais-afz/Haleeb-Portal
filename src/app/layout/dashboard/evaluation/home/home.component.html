@@ -8,10 +8,21 @@
     <div class="row animated slideInLeft" *ngIf="data.section">
         <div id="style-2" class="col-md" style="overflow:scroll !important;height:99vh;padding:5px">
             <div class="row justify-content-center mt-5">
+                <ng-container *ngFor="let sec of data.section">
+                    <ng-container *ngIf="sec.imageViewType===1">
+                        <section-two-view [data]="sec" (showModal)="showChildModal($event)"></section-two-view>
+
+                    </ng-container>
+                    <ng-container *ngIf="sec.imageViewType===2">
+                        <section-one-view [data]="sec" (showModal)="showChildModal($event)"></section-one-view>
+                    </ng-container>
+
+                </ng-container>
 
 
-                <!-- <section-one-view [data]="data" (showModal)="showChildModal($event)"></section-one-view> -->
-                <section-two-view [data]="data" (showModal)="showChildModal($event)"></section-two-view>
+
+
+
 
                 <!-- <ng-container *ngFor="let sec of data.section">
                     <h4>{{sec.sectionTitle}}</h4>
