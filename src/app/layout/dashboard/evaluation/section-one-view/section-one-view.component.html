@@ -9,8 +9,8 @@
 <div class="row">
     <ng-container *ngFor="let img of data?.imageList ;let i=index">
 
-        <div class="col-md-6 mb-2">
-            <!--  -->
+        <div class="col-md-6 mb-2 text-center">
+            <label class="title" for="title">{{img.title}}</label>
             <img src="{{ip}}{{img.url}}" width="400" height="400" (click)="showChildModal(img)" class="img-thumbnail img-item">
         </div>
     </ng-container>
