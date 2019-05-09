@@ -18,7 +18,7 @@
 </div>
 <ng-container class="mt-5 justify-content-center" *ngIf="data?.tagsList">
     <div class="col-md-12 mt-5">
-        <table class="table table-bordered">
+        <table class="table table-bordered" style="min-width:820px !important">
             <tr *ngFor="let tab of data?.tagsList;let j= index">
                 <th style="width:50%;background: lightgray;">{{tab.heading}}</th>
                 <td style="width:50%;word-break: break-all">{{tab.value}}</td>

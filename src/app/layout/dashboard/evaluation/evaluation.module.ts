@@ -8,12 +8,16 @@ import { MainPageComponent } from './main-page/main-page.component';
 import { ModalModule } from 'ngx-bootstrap';
 import { SectionOneViewComponent } from './section-one-view/section-one-view.component';
 import { SectionTwoViewComponent } from './section-two-view/section-two-view.component'
+import { FormsModule } from '@angular/forms';
+import {MatRadioModule} from '@angular/material/radio';
 @NgModule({
   declarations: [HomeComponent, DetailsPageComponent, MainPageComponent, SectionOneViewComponent, SectionTwoViewComponent],
   imports: [
     CommonModule,
     EvaluationRoutingModule,
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    FormsModule,
+    MatRadioModule
   ]
 })
 export class EvaluationModule { }

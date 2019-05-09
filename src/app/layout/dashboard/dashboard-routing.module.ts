@@ -17,6 +17,7 @@ import { TposmDeploymentReportComponent } from './innerComponents/tposm-deployme
 import { UpdatePasswordComponent } from './user/update-password/update-password.component';
 import { RawDataComponent } from './raw-data/raw-data.component';
 import { DataAvailabilityComponent } from './data-availability/data-availability.component';
+import { MerchandiserListComponent } from './innerComponents/merchandiser-list/merchandiser-list.component';
 
 const routes: Routes = [
     {
@@ -38,6 +39,7 @@ const routes: Routes = [
             { path: 'raw_data', component: RawDataComponent },
             { path: 'data_availability_report', component: DataAvailabilityComponent },
 
+            { path: 'merchandiser_List', component: MerchandiserListComponent },
 
 
 

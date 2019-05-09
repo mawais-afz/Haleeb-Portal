@@ -109,6 +109,13 @@ export class DashboardService {
     // );
   }
 
+  getMerchandiserListForEvaluation(obj){
+
+    let urlEncode=this.UrlEncodeMaker(obj)
+    const url = this.ip + 'merchandiserList';
+    return this.http.post(url, urlEncode,this.httpOptions);
+  }
+
   merchandiserShopListCBL(obj) {
     const body = `zoneId=${obj.zoneId}&regionId=${obj.regionId}&endDate=${obj.endDate}&startDate=${obj.startDate}&distributionId=${obj.distributionId}&cityId=${obj.cityId}&storeType=${obj.storeType}&channelId=${obj.channelId}`;
     const url = this.ip + 'merchandiserShopListCBL';

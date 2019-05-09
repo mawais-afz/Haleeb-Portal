@@ -31,6 +31,9 @@ import { RawDataComponent } from './raw-data/raw-data.component';
 import { MatTableComponent } from './innerComponents/mat-table/mat-table.component';
 import { Ng2OrderModule } from 'ng2-order-pipe';
 import { DataAvailabilityComponent } from './data-availability/data-availability.component';
+import { ButtonsModule } from 'ngx-bootstrap';
+import { MerchandiserListComponent } from './innerComponents/merchandiser-list/merchandiser-list.component';
+
 @NgModule({
     imports: [
         FormsModule,
@@ -53,7 +56,8 @@ import { DataAvailabilityComponent } from './data-availability/data-availability
         FlexLayoutModule.withConfig({addFlexToParent: false}),
         ModalModule.forRoot(),
         Ng2Charts,
-        Ng2OrderModule
+        Ng2OrderModule,
+        ButtonsModule.forRoot(),
 
     ],
     declarations: [DashboardComponent, HomeComponent, ShopListComponent, 
@@ -61,6 +65,6 @@ import { DataAvailabilityComponent } from './data-availability/data-availability
         DetailsComponent, DailyVisitReportComponent, ShopDetailComponent,
          MslDashboardComponent, ProductivityDashboardComponent,
           TposmDeploymentReportComponent,
-           LineChartComponent, UpdatePasswordComponent, RawDataComponent, MatTableComponent, DataAvailabilityComponent]
+           LineChartComponent, UpdatePasswordComponent, RawDataComponent, MatTableComponent, DataAvailabilityComponent, MerchandiserListComponent]
 })
 export class DashboardModule {}

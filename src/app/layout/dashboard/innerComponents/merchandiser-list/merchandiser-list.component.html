@@ -1,0 +1,72 @@
+<ng-container *ngIf="merchandiserList.length>0">
+    <div class="animated slideInLeft">
+        <mat-card class="mb-20">
+
+            <mat-card-content>
+                <mat-card-title>
+                    {{title| uppercase}} <i color="warn" [ngClass]="{'fa fa-cog fa-spin':loadingData}"></i>
+                    <small style="color:lightseagreen !important" class="mtb-5-IMP" *ngIf="loadingReportMessage">Your file is being prepared for download</small>
+
+                </mat-card-title>
+                <section class="example-section">
+
+
+                    <mat-form-field class="example-full-width mr-10-IMP">
+                        <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker0" [(ngModel)]="startDate" placeholder="Choose a start date" readonly>
+                        <mat-datepicker-toggle matSuffix [for]="picker0"></mat-datepicker-toggle>
+                        <mat-datepicker #picker0></mat-datepicker>
+                    </mat-form-field>
+                    <mat-form-field class="example-full-width mr-10-IMP">
+                        <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker1" [(ngModel)]="endDate" placeholder="Choose a end date" readonly>
+                        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                        <mat-datepicker #picker1></mat-datepicker>
+                    </mat-form-field>
+
+                </section>
+
+
+            </mat-card-content>
+        </mat-card>
+    </div>
+
+    <div class="animated slideInLeft">
+        <mat-card class="mb-20">
+
+            <mat-card-content>
+
+                <section class="example-section">
+
+                    <table class="table table-bordered">
+                        <thead style="background:lightgray">
+                            <tr>
+                                <th>VO Code</th>
+                                <th>VO Name</th>
+
+                            </tr>
+                        </thead>
+
+                        <tbody *ngIf="merchandiserList.length>0">
+                            <tr *ngFor="let item of merchandiserList">
+                                <td>{{item.m_code}}</td>
+                                <td style="color:blue;cursor:pointer" [routerLink]="['/dashboard/evaluation/list']" [queryParams]="{ surveyorId: item.id,startDate: modifyDate(startDate),endDate: modifyDate(endDate)}">{{item.full_name}}</td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+
+
+                </section>
+
+
+
+            </mat-card-content>
+        </mat-card>
+    </div>
+</ng-container>
+<div class="row " *ngIf="merchandiserList.length==0">
+    <div class="col-md-12 text-center">
+        <div class="img-center">
+            <img src="assets/images/basicloader.gif" alt="" srcset="">
+        </div>
+    </div>
+</div>
