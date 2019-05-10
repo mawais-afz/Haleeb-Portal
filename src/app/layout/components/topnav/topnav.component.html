@@ -33,14 +33,17 @@
         </button>
     </mat-menu> -->
     <!--  -->
+    <span>{{userName}}</span>
+
     <button *ngIf="userName && showButton" class="hidden-sm" mat-icon-button [matMenuTriggerFor]="profile">
-        <mat-icon>account_circle</mat-icon>
+
+        <mat-icon>account_circle</mat-icon><br>
     </button>
     <mat-menu #profile="matMenu">
-        <button mat-menu-item>
+        <!-- <button mat-menu-item>
             <mat-icon>person</mat-icon>
             <span>{{ userName }}</span>
-        </button>
+        </button> -->
         <!-- <button mat-menu-item>
             <mat-icon>inbox</mat-icon>
             <span>{{ 'Inbox' | translate }}</span>

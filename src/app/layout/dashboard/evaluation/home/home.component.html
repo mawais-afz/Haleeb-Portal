@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container-fluid">
     <div class="row">
         <div class="col-md-12" style="margin:20% 36%" *ngIf="!data.section">
             <img src="assets/images/basicloader.gif" alt="" srcset="">
@@ -14,7 +14,7 @@
 
                     </ng-container>
                     <ng-container *ngIf="sec.imageViewType===2">
-                        <section-one-view [data]="sec" (showModal)="showChildModal($event)"></section-one-view>
+                        <section-one-view [data]="sec" [productList]="data?.productList" (showModal)="showChildModal($event)"></section-one-view>
                     </ng-container>
 
                 </ng-container>
@@ -139,7 +139,7 @@
     <div class="modal-dialog ">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 id="dialog-child-name" class="modal-title pull-left">Remarks Modal</h4>
+                <h4 id="dialog-child-name" class="modal-title pull-left">Remarks</h4>
                 <button type="button" class="close pull-right" aria-label="Close" (click)="hideRemarksModal()">
               <span aria-hidden="true">&times;</span>
             </button>

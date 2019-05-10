@@ -40,7 +40,9 @@ loading=false;
       }
 
       this.getData(obj)
-    })
+    });
+
+    document.title="I Love Pakistan"
   }
 
   ngOnInit() {

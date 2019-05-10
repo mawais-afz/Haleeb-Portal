@@ -10,11 +10,13 @@ import { environment } from 'src/environments/environment';
 export class SectionOneViewComponent implements OnInit,OnChanges {
 
   @Input('data') data;
+  @Input('data') productList;
   @ViewChild('childModal') childModal: ModalDirective;
   @Output('showModal') showModal:any=new EventEmitter<any>()
   selectedShop: any={};
  
   ip=environment.ip;
+  products: any=[];
   
 
   constructor() { }
@@ -25,6 +27,7 @@ export class SectionOneViewComponent implements OnInit,OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     
     this.data=changes.data.currentValue;
+    this.products=changes.productList.currentValue;
     
   }
   showChildModal(shop): void {
