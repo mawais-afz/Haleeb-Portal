@@ -48,6 +48,6 @@ export class EvaluationService {
   evaluateShop(obj){
     let urlencoded=this.UrlEncodeMaker(obj)
     let url=this.ip+'evaluateSingleShop';
-    return this.http.post(url,urlencoded,this.httpOptions);
+    return this.http.post(url,obj);
   }
 }

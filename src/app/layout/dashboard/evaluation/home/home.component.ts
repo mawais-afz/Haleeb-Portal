@@ -106,8 +106,16 @@ loading=false;
   evaluateShop(){
     let user_id=localStorage.getItem('user_id')
     this.loading=true;
+     // criteria:this.evalutaionArray.map(e=>{
+      //   var tObj={};
+      //   tObj['criteriaId']=e.criteria.id;
+      //   tObj['remarksId']=e.remarksId
+
+      //  return tObj;
+      
+      // }),
     let obj={
-      criteriaId:this.evalutaionArray,
+      criteria:this.evalutaionArray,     
       surveyId:this.surveyId,
       evaluatorId:user_id
     }
@@ -116,7 +124,9 @@ this.evaluationService.evaluateShop(obj).subscribe((data:any)=>{
   this.loading=false;
 
   if(data.success){
-  this.toastr.success('shop evaluated successfully ')
+  this.toastr.success('shop evaluated successfully ');
+  this .evalutaionArray=[];
+  this.indexList=[];
   setTimeout(() => {
   // window.close();
     
