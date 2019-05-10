@@ -10,7 +10,7 @@ import { environment } from 'src/environments/environment';
 export class SectionOneViewComponent implements OnInit,OnChanges {
 
   @Input('data') data;
-  @Input('data') productList;
+  @Input('productList') productList;
   @ViewChild('childModal') childModal: ModalDirective;
   @Output('showModal') showModal:any=new EventEmitter<any>()
   selectedShop: any={};

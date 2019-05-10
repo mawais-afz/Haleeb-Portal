@@ -28,6 +28,7 @@ loading=false;
   selectedRemarks:any=false;
   selectedCriteria: any={};
   evalutaionArray: any=[];
+  productList: any=[];
  
   constructor(private toastr:ToastrService,private activatedRoutes:ActivatedRoute,private httpService:EvaluationService,private evaluationService:EvaluationService) { 
     this.surveyId
@@ -42,7 +43,6 @@ loading=false;
       this.getData(obj)
     });
 
-    document.title="I Love Pakistan"
   }
 
   ngOnInit() {
@@ -53,9 +53,13 @@ loading=false;
     this.httpService.getShopDetails(obj).subscribe(data=>{
       if(data){
         this.data=data;
+
+    document.title=this.data.section[0].sectionTitle
+
         // console.log(this.data)
         this.calculateScore();
-        this.remarksList=this.data.remarks
+        this.remarksList=this.data.remarks;
+        this.productList=this.data.productList
       }
    
     },error=>{})
