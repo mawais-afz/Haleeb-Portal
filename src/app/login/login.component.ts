@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { DashboardService } from '../layout/dashboard/dashboard.service';
 import { ToastrService } from 'ngx-toastr';
 import * as moment from 'moment';
+import { HttpErrorResponse } from '@angular/common/http';
 @Component({
     selector: 'app-login',
     templateUrl: './login.component.html',
@@ -42,8 +43,8 @@ export class LoginComponent implements OnInit {
                 this.loading=false;
             }, 30000);
 
-        }, error => {
-            this.toastr.error(error.error.description, 'Login Status');
+        }, (error:HttpErrorResponse) => {
+            this.toastr.error(error.message, 'Login Status');
             console.log('error', error);
             this.loading=false;
 

@@ -1,6 +1,9 @@
 import { Component, OnInit, Input, ViewChild, OnChanges, SimpleChanges, Output, EventEmitter } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap';
 import { environment } from 'src/environments/environment';
+import { Router } from '@angular/router';
+import { EvaluationService } from '../evaluation.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'section-one-view',
@@ -17,9 +20,15 @@ export class SectionOneViewComponent implements OnInit,OnChanges {
  
   ip=environment.ip;
   products: any=[];
+  surveyId: number=0;
+  updatingMSL=false;
   
 
-  constructor() { }
+  constructor(private router:Router,private httpService:EvaluationService,private toastr:ToastrService) {
+    var arr=router.url.split('/');
+    this.surveyId=+arr[arr.length-1]
+    console.log(this.surveyId)
+   }
 
   ngOnInit() {
   }
@@ -38,5 +47,35 @@ export class SectionOneViewComponent implements OnInit,OnChanges {
  
   hideChildModal(): void {
     // this.childModal.hide();
+  }
+
+  updateString(value){
+    return value?'Yes':'No';
+  }
+
+  toggleValue(value){
+    this.updatingMSL=true
+    console.log(value)
+
+    let obj={
+      msdId:value.id,
+      unitAvailable:!!value.available_sku? 0:1,
+      surveyId:this.surveyId
+    }
+    // return value?'YES':'NO';
+
+this.httpService.updateMSLStatus(obj).subscribe((data:any)=>{
+  if(data.success){
+    this.products=data.productList;
+    // this.toastr.success('Status updated successfully.','Update MSL');
+    this.updatingMSL=false;
+
+
+  }
+  else{
+    this.toastr.error(data.message,'Update MSL')
+  }
+})
+
   }
 }
