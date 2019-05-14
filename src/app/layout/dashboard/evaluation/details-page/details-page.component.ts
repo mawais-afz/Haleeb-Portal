@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment'
 import { EvaluationService } from '../evaluation.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-details-page',
@@ -12,7 +13,8 @@ export class DetailsPageComponent implements OnInit {
 
   tableData:any=[];      
   headingsList:any =[]; 
-  constructor(private httpService:EvaluationService,private activeRoute:ActivatedRoute) {
+  loading=true;
+  constructor(private router:Router,private toastr:ToastrService,private httpService:EvaluationService,private activeRoute:ActivatedRoute) {
     this.activeRoute.queryParams.subscribe(p=>{
       console.log('active params',p);
       if(p.surveyorId && p.startDate && p.endDate){
@@ -38,6 +40,14 @@ export class DetailsPageComponent implements OnInit {
     this.httpService.getData(obj).subscribe(data=>{
       // console.log(data);
       this.tableData=data;
+      if(this.tableData.length==0){
+        this.loading=false;
+        this.toastr.info('No record found.');
+        setTimeout(() => {
+        this.router.navigate(['/dashboard/merchandiser_List'])
+          
+        }, 3000);
+      }
     this.headingsList=Object.keys(data);
 
     },error=>{})

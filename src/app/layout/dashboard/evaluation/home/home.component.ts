@@ -29,6 +29,8 @@ loading=false;
   selectedCriteria: any={};
   evalutaionArray: any=[];
   productList: any=[];
+  msl: any;
+  availabilityCount: number;
  
   constructor(private toastr:ToastrService,private activatedRoutes:ActivatedRoute,private httpService:EvaluationService,private evaluationService:EvaluationService) { 
     this.surveyId
@@ -57,13 +59,28 @@ loading=false;
     document.title=this.data.section[0].sectionTitle
 
         // console.log(this.data)
-        this.calculateScore();
         this.remarksList=this.data.remarks;
-        this.productList=this.data.productList
+        this.productList=this.data.productList;
+        this.msl=this.data.msl;
+        this.availabilityCount=this. getAvailabilityCount(this.productList);
+        this.calculateScore();
+
       }
    
     },error=>{})
 
+  }
+
+  calculateMSLAgain(products){
+    this.availabilityCount=this. getAvailabilityCount(products);
+    
+  }
+
+  getAvailabilityCount(products)
+  {
+    let pro=products.map(p=>p.available_sku)
+    let sum=pro.reduce((a,v)=>a+v);
+    return (sum/pro.length)*(this.msl);
   }
   
   getCriteriaWithRemarks(remarks,criteria){
@@ -106,6 +123,7 @@ loading=false;
   calculateScore(){
     this.score
     this.data.criteria.map(c=>{this.score+=c.score});
+    // this.score=this.score-(this.msl);
 
     console.log('total score is',this.score)
   }
@@ -123,7 +141,8 @@ loading=false;
     let obj={
       criteria:this.evalutaionArray,     
       surveyId:this.surveyId,
-      evaluatorId:user_id
+      evaluatorId:user_id,
+      msl:Math.ceil(this.availabilityCount)
     }
 this.evaluationService.evaluateShop(obj).subscribe((data:any)=>{
   // console.log('evaluated shop data',data);

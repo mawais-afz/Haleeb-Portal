@@ -15,9 +15,9 @@ export class SectionOneViewComponent implements OnInit,OnChanges {
   @Input('data') data;
   @Input('productList') productList;
   @ViewChild('childModal') childModal: ModalDirective;
-  @Output('showModal') showModal:any=new EventEmitter<any>()
-  selectedShop: any={};
- 
+  @Output('showModal') showModal:any=new EventEmitter<any>();
+  @Output('productList') productForEmit:any=new EventEmitter<any>();
+  selectedShop: any={}; 
   ip=environment.ip;
   products: any=[];
   surveyId: number=0;
@@ -67,6 +67,7 @@ export class SectionOneViewComponent implements OnInit,OnChanges {
 this.httpService.updateMSLStatus(obj).subscribe((data:any)=>{
   if(data.success){
     this.products=data.productList;
+    this.productForEmit.emit(data.productList);
     // this.toastr.success('Status updated successfully.','Update MSL');
     this.updatingMSL=false;
 

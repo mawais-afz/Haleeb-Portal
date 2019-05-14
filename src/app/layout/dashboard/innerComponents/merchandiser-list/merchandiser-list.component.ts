@@ -9,7 +9,7 @@ import * as moment from 'moment';
 export class MerchandiserListComponent implements OnInit {
 title="merchandiser List"
 minDate = new Date(2000, 0, 1);
-maxDate = new Date(2020, 0, 1);
+maxDate = new Date();
 startDate=new Date();
 endDate=new Date();
 loadingReportMessage=false;
