@@ -153,7 +153,8 @@ this.evaluationService.evaluateShop(obj).subscribe((data:any)=>{
   this .evalutaionArray=[];
   this.indexList=[];
   setTimeout(() => {
-  // window.close();
+    
+  window.close();
     
   }, 3000);
 }

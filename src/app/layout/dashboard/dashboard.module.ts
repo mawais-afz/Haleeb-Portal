@@ -33,6 +33,7 @@ import { Ng2OrderModule } from 'ng2-order-pipe';
 import { DataAvailabilityComponent } from './data-availability/data-availability.component';
 import { ButtonsModule } from 'ngx-bootstrap';
 import { MerchandiserListComponent } from './innerComponents/merchandiser-list/merchandiser-list.component';
+import { AbnormalityComponent } from './innerComponents/abnormality/abnormality.component';
 
 @NgModule({
     imports: [
@@ -65,6 +66,6 @@ import { MerchandiserListComponent } from './innerComponents/merchandiser-list/m
         DetailsComponent, DailyVisitReportComponent, ShopDetailComponent,
          MslDashboardComponent, ProductivityDashboardComponent,
           TposmDeploymentReportComponent,
-           LineChartComponent, UpdatePasswordComponent, RawDataComponent, MatTableComponent, DataAvailabilityComponent, MerchandiserListComponent]
+           LineChartComponent, UpdatePasswordComponent, RawDataComponent, MatTableComponent, DataAvailabilityComponent, MerchandiserListComponent, AbnormalityComponent]
 })
 export class DashboardModule {}

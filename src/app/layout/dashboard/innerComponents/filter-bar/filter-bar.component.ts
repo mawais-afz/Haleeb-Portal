@@ -151,6 +151,53 @@ export class FilterBarComponent implements OnInit {
 
   }
 
+  getAbnormalityReport(){
+    if (this.endDate >= this.startDate){
+      this.loadingData=true;
+      this.loadingReportMessage=true;
+      let obj={
+        zoneId: this.selectedZone.id || -1,
+        regionId: this.selectedRegion.id || -1,
+        startDate: moment(this.startDate).format('YYYY-MM-DD'),
+        endDate: moment(this.endDate).format('YYYY-MM-DD'),
+        channelId: this.arrayMaker(this.selectedChannel),
+        cityId: this.selectedCity.id || -1,
+        areaId: this.selectedArea.id || -1,
+      }
+
+      let url = 'abnormalityShopList';
+      let body =this.httpService.UrlEncodeMaker(obj);
+      this.httpService.getKeyForProductivityReport(body, url).subscribe(data => {
+        console.log(data, 'query list');
+        let res: any = data
+
+        if(res){
+          let obj2 = {
+            key: res.key,
+            fileType: res.fileType
+          }
+          let url = 'downloadReport'
+          this.getproductivityDownload(obj2, url)
+        }
+        else{
+          this.clearLoading()
+
+          this.toastr.info('Something went wrong,Please retry','AbnormalityReport Message')
+        }
+
+
+      }, error => {
+        this.clearLoading()
+
+      })
+    }
+    else{
+      this.clearLoading();
+      this.toastr.info('Something went wrong,Please retry','dashboard Data Availability Message')
+    }
+    
+  }
+
   getDashboardDataAvailability(){
     if (this.endDate >= this.startDate){
       this.loadingData=true;

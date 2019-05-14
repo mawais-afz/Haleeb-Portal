@@ -18,6 +18,7 @@ import { UpdatePasswordComponent } from './user/update-password/update-password.
 import { RawDataComponent } from './raw-data/raw-data.component';
 import { DataAvailabilityComponent } from './data-availability/data-availability.component';
 import { MerchandiserListComponent } from './innerComponents/merchandiser-list/merchandiser-list.component';
+import { AbnormalityComponent } from './innerComponents/abnormality/abnormality.component';
 
 const routes: Routes = [
     {
@@ -38,6 +39,7 @@ const routes: Routes = [
             { path: 'update_password', component: UpdatePasswordComponent },
             { path: 'raw_data', component: RawDataComponent },
             { path: 'data_availability_report', component: DataAvailabilityComponent },
+            { path: 'data_abnormality_report', component: AbnormalityComponent },
 
             { path: 'merchandiser_List', component: MerchandiserListComponent },
 
