@@ -27,10 +27,11 @@ loading=false;
   remarksList: any=[];
   selectedRemarks:any=false;
   selectedCriteria: any={};
-  evalutaionArray: any=[];
+  evaluationArray: any=[];
   productList: any=[];
   msl: any;
   availabilityCount: number;
+  cloneArray: any=[];
  
   constructor(private toastr:ToastrService,private activatedRoutes:ActivatedRoute,private httpService:EvaluationService,private evaluationService:EvaluationService) { 
     this.surveyId
@@ -56,7 +57,9 @@ loading=false;
       if(data){
         this.data=data;
 
-    document.title=this.data.section[0].sectionTitle
+    document.title=this.data.section[0].sectionTitle;
+    this.evaluationArray=this.data.criteria;
+    this.cloneArray=this.evaluationArray.slice();
 
         // console.log(this.data)
         this.remarksList=this.data.remarks;
@@ -85,13 +88,23 @@ loading=false;
   
   getCriteriaWithRemarks(remarks,criteria){
     let obj={
-      remarksId:remarks,
-      criteria:criteria
+      remarkId:remarks,
+      id:criteria.id,
+      title:criteria.title,
+      score:0
     }
+    this.cloneArray.forEach(element => {
 
-    this.evalutaionArray.push(obj);
-    console.log('evaluation array',this.evalutaionArray);
+      var i=this.cloneArray.findIndex(e=>e.id==criteria.id);
+      this.cloneArray.splice(i,1,obj);
+      
+    });
+
+    // this.evaluationArray.push(obj);
+    console.log('evaluation array clone',this.cloneArray);
+    this.hideRemarksModal();
     this.selectedRemarks=''
+
 
   }
   counter(event,criteria,index){
@@ -110,10 +123,16 @@ loading=false;
       let i=this.indexList.findIndex(i=>i==index)
       this.indexList.splice(i,1);
 
-      if(this.evalutaionArray.length>0){
-        let e=this.evalutaionArray.findIndex(i=>i.criteria.id==criteria.id)
-        this.evalutaionArray.splice(e,1);
-      console.log('unchecked evaluation array',this.evalutaionArray)
+      if(this.evaluationArray.length>0){
+        let obj={
+          id:criteria.id,
+          title:criteria.title,
+          score:criteria.score,
+          remarkId:0
+        }
+        let e=this.evaluationArray.findIndex(i=>i.id==criteria.id)
+        this.cloneArray.splice(e,1,obj);
+      console.log('unchecked evaluation array',this.cloneArray)
         
       }
       
@@ -130,44 +149,67 @@ loading=false;
   evaluateShop(){
     let user_id=localStorage.getItem('user_id')
     this.loading=true;
-     // criteria:this.evalutaionArray.map(e=>{
-      //   var tObj={};
-      //   tObj['criteriaId']=e.criteria.id;
-      //   tObj['remarksId']=e.remarksId
-
-      //  return tObj;
+    let req=true;
+    // if(this.selectedRemarks==0 || this.selectedRemarks==false || this.selectedRemarks==''){
+    //   this.toastr.info(`please select remarks for ALL selected criteria`);
+    //   this.loading=false;
+    //   req=false;
+    // }
+    this.cloneArray.forEach(element => {
       
-      // }),
-    let obj={
-      criteria:this.evalutaionArray,     
-      surveyId:this.surveyId,
-      evaluatorId:user_id,
-      msl:Math.ceil(this.availabilityCount)
-    }
-this.evaluationService.evaluateShop(obj).subscribe((data:any)=>{
-  // console.log('evaluated shop data',data);
-  this.loading=false;
-
-  if(data.success){
-  this.toastr.success('shop evaluated successfully ');
-  this .evalutaionArray=[];
-  this.indexList=[];
-  setTimeout(() => {
-    
-  window.close();
-    
-  }, 3000);
-}
-  else{
-    this.toastr.info(data.errorMessage,'Info')
+        if (element.remarkId=='' || element.remarkId==false) {
+          this.toastr.info(`please select remarks for "${element.title}"`);
+          req=false;
+          this.loading=false;
+        }
+        
+      });
+      // this.evaluationArray.forEach(element => {
+      //   if(this.selectedRemarks==0 || this.selectedRemarks==false || this.selectedRemarks==''){
+      //     if (element.remarkId=='' || element.remarkId==false) {
+      //       this.toastr.info(`please select remarks for "${element.title}"`);
+      //       req=false;
+      //       this.loading=false;
+      //     }
+          
+      //   }});
+      
+ 
+     
+ if(req){
+  let obj={
+    criteria:this.cloneArray,    
+  
+    surveyId:this.surveyId,
+    evaluatorId:user_id,
+    msl:Math.ceil(this.availabilityCount)
   }
+this.evaluationService.evaluateShop(obj).subscribe((data:any)=>{
+// console.log('evaluated shop data',data);
+this.loading=false;
+
+if(data.success){
+this.toastr.success('shop evaluated successfully ');
+this .evaluationArray=[];
+this.cloneArray=[]
+this.indexList=[];
+setTimeout(() => {
+  
+window.close();
+  
+}, 3000);
+}
+else{
+  this.toastr.info(data.errorMessage,'Info')
+}
 },error=>{
-  // console.log('evaluated shop error',error)
-  // window.close()
-  this.loading=false;
-  this.toastr.error(error.message,'Error');
+// console.log('evaluated shop error',error)
+// window.close()
+this.loading=false;
+this.toastr.error(error.message,'Error');
 
 })
+ }
 
     
   }
@@ -179,13 +221,18 @@ this.evaluationService.evaluateShop(obj).subscribe((data:any)=>{
  
   hideChildModal(): void {
     this.childModal.hide();
+   
   }
 
   showRemarksModal(){
     this.remarksModal.show()
   }
   hideRemarksModal(){
+    if(!!this.selectedRemarks)
     this.remarksModal.hide()
+    else{
+      this.toastr.info(`please select remarks for "${this.selectedCriteria.title}"`)
+    }
   }
 
 }
