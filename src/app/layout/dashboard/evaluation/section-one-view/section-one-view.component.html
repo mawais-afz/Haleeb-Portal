@@ -32,7 +32,7 @@
                 <td>{{product?.category_title}}</td>
                 <td>{{product?.product_title}}</td>
                 <td>{{product?.MSL}}</td>
-                <td style="cursor:pointer" (click)="toggleValue(product)">{{updateString(product?.available_sku)}}
+                <td [ngStyle]="{'background-color':product.color}" (click)="toggleValue(product)">{{updateString(product?.available_sku)}}
 
                 </td>
 

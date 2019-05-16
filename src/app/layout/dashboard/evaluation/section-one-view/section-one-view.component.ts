@@ -22,6 +22,8 @@ export class SectionOneViewComponent implements OnInit,OnChanges {
   products: any=[];
   surveyId: number=0;
   updatingMSL=false;
+  changeColor: boolean=false;
+  colorUpdateList:any=[];
   
 
   constructor(private router:Router,private httpService:EvaluationService,private toastr:ToastrService) {
@@ -54,9 +56,22 @@ export class SectionOneViewComponent implements OnInit,OnChanges {
   }
 
   toggleValue(value){
+    this.changeColor=true;
     this.updatingMSL=true
     console.log(value)
+    let colorObj={
+      id:value.id
+    };
+    // const g=this.colorUpdateList;
+    this.colorUpdateList.push(colorObj)
 
+    // // this.colorUpdateList=[...new Set(g.map(p=>p.id))];
+    // if(this.colorUpdateList.length>1){
+    //   this.colorUpdateList = this.colorUpdateList.filter(function(item, pos) {
+    //     return this.colorUpdateList.indexOf(item) == pos;
+    // })
+    // }
+console.trace(this.colorUpdateList)
     let obj={
       msdId:value.id,
       unitAvailable:!!value.available_sku? 0:1,
@@ -67,6 +82,24 @@ export class SectionOneViewComponent implements OnInit,OnChanges {
 this.httpService.updateMSLStatus(obj).subscribe((data:any)=>{
   if(data.success){
     this.products=data.productList;
+
+    this.colorUpdateList.forEach(e => {
+
+    
+        var i=this.products.findIndex(p=>p.id==e.id);
+        let obj={
+          id:e.id,
+          available_sku:e.available_sku,
+          MSL:e.MSL,
+          product_title:e.product_title,
+          category_title:e.category_title,
+          color:'red'
+        }
+        this.products.splice(i,1,obj)
+      
+      
+    });
+
     this.productForEmit.emit(data.productList);
     // this.toastr.success('Status updated successfully.','Update MSL');
     this.updatingMSL=false;
