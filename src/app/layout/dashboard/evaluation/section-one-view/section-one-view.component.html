@@ -32,12 +32,20 @@
                 <td>{{product?.category_title}}</td>
                 <td>{{product?.product_title}}</td>
                 <td>{{product?.MSL}}</td>
-                <td [ngStyle]="{'background-color':product.color}" (click)="toggleValue(product)">{{updateString(product?.available_sku)}}
+                <td style="cursor:pointer" [ngStyle]="{'background-color':product.color}" (click)="toggleValue(product)">{{updateString(product?.available_sku)}}
 
                 </td>
 
                 <!-- <td (click)="product.available_sku = (!product.available_sku)">{{toggleValue(product?.available_sku)}}</td> -->
 
+            </tr>
+            <tr>
+                <td></td>
+                <th>Availability / Total</th>
+                <td></td>
+                <th>
+                    {{availability}} / {{products.length}}
+                </th>
             </tr>
 
         </table>

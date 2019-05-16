@@ -24,12 +24,20 @@ export class SectionOneViewComponent implements OnInit,OnChanges {
   updatingMSL=false;
   changeColor: boolean=false;
   colorUpdateList:any=[];
+  availability: any;
   
 
   constructor(private router:Router,private httpService:EvaluationService,private toastr:ToastrService) {
     var arr=router.url.split('/');
     this.surveyId=+arr[arr.length-1]
     // console.log(this.surveyId)
+   }
+
+   getAvailabilityCount(products)
+   {
+     let pro=products.map(p=>p.available_sku)
+     let sum=pro.reduce((a,v)=>a+v);
+     return sum;
    }
 
   ngOnInit() {
@@ -39,6 +47,7 @@ export class SectionOneViewComponent implements OnInit,OnChanges {
     
     this.data=changes.data.currentValue;
     this.products=changes.productList.currentValue;
+    this.availability=this.getAvailabilityCount(this.products)
     
   }
   showChildModal(shop): void {
@@ -92,6 +101,9 @@ this.httpService.updateMSLStatus(obj).subscribe((data:any)=>{
       
     
     }
+
+    this.availability=this.getAvailabilityCount(this.products)
+
            
     });
 
