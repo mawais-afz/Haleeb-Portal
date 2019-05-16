@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { DashboardService } from '../../dashboard.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { ModalDirective } from 'ngx-bootstrap';
 
@@ -20,19 +20,21 @@ export class ShopDetailComponent implements OnInit {
   selectedItem: any={};
   tableTitle: string='';
  
-  showChildModal(): void {
-    this.childModal.show();
-  }
- 
-  hideChildModal(): void {
-    this.childModal.hide();
-  }
 
-  constructor(private httpService: DashboardService, public activatedRoute: ActivatedRoute) {
+
+  constructor(private router:Router,private httpService: DashboardService, public activatedRoute: ActivatedRoute) {
 
     
    }
-
+   showChildModal(): void {
+    this.childModal.show();
+  }
+  goToEvaluation(id) {
+  window.open(`/#/dashboard/evaluation/list/details/${id}?location=shop`,'_blank')
+  }
+  hideChildModal(): void {
+    this.childModal.hide();
+  }
 
   setSelectedItem(item){
     this.selectedItem=item

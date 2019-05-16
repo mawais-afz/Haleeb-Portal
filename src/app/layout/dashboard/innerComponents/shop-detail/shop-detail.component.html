@@ -85,17 +85,14 @@
 
                 <img mat-card-image class="small" src="{{ip}}{{item.shopFullImg}}" width="250" height="300" alt="" (click)="setSelectedItem(item);showChildModal()">
                 <mat-card-content>
-                    <table class="table" (click)="getPdf(item);" style="cursor:pointer">
-                        <tr *ngFor="let item2 of tableData[i].itemList">
+                    <!-- <table class="table" (click)="getPdf(item);" style="cursor:pointer"> -->
+                    <table class="table" style="cursor:pointer">
+
+                        <tr *ngFor="let item2 of tableData[i].itemList" (click)="goToEvaluation(item.surveyId)">
                             <!-- test -->
                             <th>{{item2.heading}}</th>
                             <td>{{item2.value}}</td>
-                            <!-- <td>
-                                <hr>
-                            </td>
-                            <td>
-                                <hr>
-                            </td> -->
+
 
                         </tr>
                         <!-- <hr> -->

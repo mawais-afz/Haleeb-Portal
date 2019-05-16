@@ -32,10 +32,18 @@ loading=false;
   msl: any;
   availabilityCount: number;
   cloneArray: any=[];
+  isFromShop: boolean=true;
  
   constructor(private toastr:ToastrService,private activatedRoutes:ActivatedRoute,private httpService:EvaluationService,private evaluationService:EvaluationService) { 
     this.surveyId
+
+    this.activatedRoutes.queryParams.subscribe(q=>{
+      debugger
+      if(q.location)
+      this.isFromShop=false;
+    })
     this.activatedRoutes.params.subscribe(params=>{
+
 
       this.surveyId=params.id;
 
