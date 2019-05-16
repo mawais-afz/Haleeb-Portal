@@ -212,7 +212,7 @@ export class FilterBarComponent implements OnInit {
         areaId: this.selectedArea.id || -1,
       }
 
-      let url = 'dashboardDataAvailability';
+      let url = 'brandSKUOOS';
       let body =this.httpService.UrlEncodeMaker(obj);
       this.httpService.getKeyForProductivityReport(body, url).subscribe(data => {
         console.log(data, 'query list');

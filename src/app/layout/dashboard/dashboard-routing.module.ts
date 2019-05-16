@@ -38,7 +38,7 @@ const routes: Routes = [
             { path: 'tposm_deployment_report', component: TposmDeploymentReportComponent },
             { path: 'update_password', component: UpdatePasswordComponent },
             { path: 'raw_data', component: RawDataComponent },
-            { path: 'data_availability_report', component: DataAvailabilityComponent },
+            { path: 'brand_sku_oos', component: DataAvailabilityComponent },
             { path: 'data_abnormality_report', component: AbnormalityComponent },
 
             { path: 'merchandiser_List', component: MerchandiserListComponent },

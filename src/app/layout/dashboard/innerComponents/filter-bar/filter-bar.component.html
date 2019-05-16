@@ -32,8 +32,8 @@
     </mat-card-content>
 </mat-card>
 <!-- /merchandiser list for evaluation -->
-<!-- data availability  -->
-<mat-card class="mb-20" *ngIf="router.url==='/dashboard/data_availability_report' ">
+<!-- data availability  / brand_sku_oos  -->
+<mat-card class="mb-20" *ngIf="router.url==='/dashboard/brand_sku_oos' ">
 
     <mat-card-content>
         <mat-card-title>
@@ -121,14 +121,14 @@
         </section>
 
         <section class="example-section">
-            <button *ngIf="router.url==='/dashboard/data_availability_report'" [disabled]="selectedChannel.length<1" mat-raised-button color="warn" (click)="getDashboardDataAvailability()">Download</button>
+            <button *ngIf="router.url==='/dashboard/brand_sku_oos'" [disabled]="selectedChannel.length<1" mat-raised-button color="warn" (click)="getDashboardDataAvailability()">Download</button>
             <span *ngIf="selectedChannel.length<1" class="channel-message"><small>(channel selection is mandatory)</small></span>
 
         </section>
 
     </mat-card-content>
 </mat-card>
-<!-- /data availability -->
+<!-- /data availability  / brand_sku_oos -->
 
 <!-- data abnormality  -->
 <mat-card class="mb-20" *ngIf="router.url==='/dashboard/data_abnormality_report' ">
