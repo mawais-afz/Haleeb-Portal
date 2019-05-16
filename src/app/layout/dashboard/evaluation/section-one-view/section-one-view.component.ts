@@ -29,7 +29,7 @@ export class SectionOneViewComponent implements OnInit,OnChanges {
   constructor(private router:Router,private httpService:EvaluationService,private toastr:ToastrService) {
     var arr=router.url.split('/');
     this.surveyId=+arr[arr.length-1]
-    console.log(this.surveyId)
+    // console.log(this.surveyId)
    }
 
   ngOnInit() {
@@ -58,20 +58,8 @@ export class SectionOneViewComponent implements OnInit,OnChanges {
   toggleValue(value){
     this.changeColor=true;
     this.updatingMSL=true
-    console.log(value)
-    let colorObj={
-      id:value.id
-    };
-    // const g=this.colorUpdateList;
-    this.colorUpdateList.push(colorObj)
-
-    // // this.colorUpdateList=[...new Set(g.map(p=>p.id))];
-    // if(this.colorUpdateList.length>1){
-    //   this.colorUpdateList = this.colorUpdateList.filter(function(item, pos) {
-    //     return this.colorUpdateList.indexOf(item) == pos;
-    // })
-    // }
-console.trace(this.colorUpdateList)
+   
+    this.colorUpdateList.push(value.id)
     let obj={
       msdId:value.id,
       unitAvailable:!!value.available_sku? 0:1,
@@ -83,10 +71,11 @@ this.httpService.updateMSLStatus(obj).subscribe((data:any)=>{
   if(data.success){
     this.products=data.productList;
 
-    this.colorUpdateList.forEach(e => {
+    data.productList.forEach(e => {
 
-    
-        var i=this.products.findIndex(p=>p.id==e.id);
+    for (const key of this.colorUpdateList) {
+      if(key==e.id){
+        var i=this.products.findIndex(p=>p.id==key);
         let obj={
           id:e.id,
           available_sku:e.available_sku,
@@ -94,13 +83,19 @@ this.httpService.updateMSLStatus(obj).subscribe((data:any)=>{
           product_title:e.product_title,
           category_title:e.category_title,
           color:'red'
-        }
-        this.products.splice(i,1,obj)
+        };
+  
+        this.products.splice(i,1,obj);
+        // console.log(this.products[i])
+      }
+   
       
-      
+    
+    }
+           
     });
 
-    this.productForEmit.emit(data.productList);
+    this.productForEmit.emit(this.products);
     // this.toastr.success('Status updated successfully.','Update MSL');
     this.updatingMSL=false;
 
