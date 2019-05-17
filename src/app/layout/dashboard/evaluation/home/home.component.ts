@@ -33,12 +33,13 @@ loading=false;
   availabilityCount: number;
   cloneArray: any=[];
   isFromShop: boolean=true;
+  rotationDegree: number=0;
  
   constructor(private toastr:ToastrService,private activatedRoutes:ActivatedRoute,private httpService:EvaluationService,private evaluationService:EvaluationService) { 
     this.surveyId
 
     this.activatedRoutes.queryParams.subscribe(q=>{
-      debugger
+
       if(q.location)
       this.isFromShop=false;
     })
@@ -59,6 +60,17 @@ loading=false;
   ngOnInit() {
   }
 
+
+  rotateImage(){
+    if(this.rotationDegree==360){
+      this.rotationDegree=90;
+    }
+    else{
+    this.rotationDegree+=90;
+    }
+    
+
+  }
   getData(obj){
 
     this.httpService.getShopDetails(obj).subscribe(data=>{
@@ -224,10 +236,12 @@ this.toastr.error(error.message,'Error');
  
   showChildModal(shop): void {
     this.selectedShop=shop;
+    this.rotationDegree=0;
     this.childModal.show();
   }
  
   hideChildModal(): void {
+  
     this.childModal.hide();
    
   }
