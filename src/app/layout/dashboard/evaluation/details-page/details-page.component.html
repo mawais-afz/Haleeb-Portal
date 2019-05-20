@@ -17,6 +17,7 @@
                                 <th>Address</th>
                                 <th>VO Code</th>
                                 <th>VO Name</th>
+                                <th>Status</th>
                             </thead>
                             <tbody *ngIf="headingsList">
 
@@ -24,11 +25,11 @@
                                     <!-- <td>{{item?.shop_id}}</td> -->
                                     <td>{{item?.shop_code}}</td>
                                     <td style="color:blue;font-weight:500;cursor: pointer;" (click)="gotoNewPage(item.survey_id)">{{item?.shop_title}}</td>
-                                    <td>{{item?.channel_title}}</td>
+                                    <td>{{item?.shop_title}}</td>
                                     <td style="word-break:break-all;width:350px">{{item?.address}}</td>
                                     <td style="width:100px">{{item?.vo_code}}</td>
                                     <td>{{item?.vo_name}}</td>
-
+                                    <td>{{item?.evaluation_status}}</td>
                                 </tr>
 
                             </tbody>

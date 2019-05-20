@@ -24,15 +24,17 @@
                     <th>Brand Title</th>
                     <th>Product Title</th>
                     <th>MSL</th>
-                    <th>Availability <i [ngClass]="{'fa fa-spinner fa-spin': updatingMSL}"></i></th>
+                    <th>Availability
+                        <!-- <i [ngClass]="{'fa fa-spinner fa-spin': true}"></i> -->
+                    </th>
 
                 </tr>
             </thead>
             <tr *ngFor="let product of products;let j= index">
                 <td>{{product?.category_title}}</td>
                 <td>{{product?.product_title}}</td>
-                <td>{{product?.MSL}}</td>
-                <td style="cursor:pointer" [ngStyle]="{'background-color':product.color}" (click)="toggleValue(product)">{{updateString(product?.available_sku)}}
+                <td style="width:150px !important">{{product?.MSL}}</td>
+                <td style="width:150px !important" style="cursor:pointer" [ngStyle]="{'background-color':product.color}" (click)="toggleValue(product)">{{updateString(product?.available_sku)}}
 
                 </td>
 
