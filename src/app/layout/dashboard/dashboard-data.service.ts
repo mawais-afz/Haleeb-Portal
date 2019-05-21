@@ -8,6 +8,7 @@ export class DashboardDataService {
 
   lastVisit = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   YesNo = [{ key: 'n', value: 'No' }, { key: 'y', value: 'YES' }];
+  YesNoAll = [{ key: '', value: 'All' }, { key: 'Y', value: 'YES' }, { key: 'N', value: 'No' } ];
   impactType = [{ key: '1', value: 'Manual Impact' }, { key: '2', value: 'Absentee Impact' }];
 
   getLastVisit() {
@@ -15,6 +16,9 @@ export class DashboardDataService {
   }
   getYesNo() {
     return this.YesNo;
+  }
+  getYesNoAll() {
+    return this.YesNoAll;
   }
 
   getImpactType() {

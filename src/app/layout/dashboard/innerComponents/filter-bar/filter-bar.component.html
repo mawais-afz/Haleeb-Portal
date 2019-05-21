@@ -32,7 +32,7 @@
     </mat-card-content>
 </mat-card>
 <!-- /merchandiser list for evaluation -->
-<!-- data availability  / brand_sku_oos  -->
+<!--  /brand_sku_oos  -->
 <mat-card class="mb-20" *ngIf="router.url==='/dashboard/brand_sku_oos' ">
 
     <mat-card-content>
@@ -101,11 +101,11 @@
                     <mat-option [value]="lv" *ngFor="let lv of lastVisit">{{lv}}</mat-option>
                 </mat-select>
             </mat-form-field> -->
-            <!-- <mat-form-field *ngIf="mustHave.length>0" class="example-margin mr-5-IMP">
-                <mat-select placeholder="Must Have" name='mustHave' [(ngModel)]="selectedMustHave">
-                    <mat-option [value]="m.key" *ngFor="let m of mustHave">{{m.value}}</mat-option>
+            <mat-form-field *ngIf="mustHaveAll.length>0" class="example-margin mr-5-IMP">
+                <mat-select placeholder="Must Have" name='mustHave' [(ngModel)]="selectedMustHaveAll">
+                    <mat-option [value]="m.key" *ngFor="let m of mustHaveAll">{{m.value}}</mat-option>
                 </mat-select>
-            </mat-form-field> -->
+            </mat-form-field>
 
             <mat-form-field class="example-full-width mr-10-IMP">
                 <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker0" [(ngModel)]="startDate" placeholder="Choose a start date" readonly>
@@ -121,14 +121,14 @@
         </section>
 
         <section class="example-section">
-            <button *ngIf="router.url==='/dashboard/brand_sku_oos'" [disabled]="selectedChannel.length<1" mat-raised-button color="warn" (click)="getDashboardDataAvailability()">Download</button>
+            <button *ngIf="router.url==='/dashboard/brand_sku_oos'" [disabled]="selectedChannel.length<1" mat-raised-button color="warn" (click)="getBrandSKUOOS()">Download</button>
             <span *ngIf="selectedChannel.length<1" class="channel-message"><small>(channel selection is mandatory)</small></span>
 
         </section>
 
     </mat-card-content>
 </mat-card>
-<!-- /data availability  / brand_sku_oos -->
+<!--  / brand_sku_oos -->
 
 <!-- data abnormality  -->
 <mat-card class="mb-20" *ngIf="router.url==='/dashboard/data_abnormality_report' ">

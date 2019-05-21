@@ -198,8 +198,7 @@ loading=false;
      
  if(req){
   let obj={
-    criteria:this.cloneArray,    
-  
+    criteria:this.cloneArray,      
     surveyId:this.surveyId,
     evaluatorId:user_id,
     msl:Math.ceil(this.availabilityCount)

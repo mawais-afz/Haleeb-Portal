@@ -51,7 +51,9 @@ export class FilterBarComponent implements OnInit {
   lastVisit: any = [];
   selectedLastVisit = 1;
   mustHave: any = [];
+  mustHaveAll: any = [];
   selectedMustHave = false;
+  selectedMustHaveAll = '';
   merchandiserList: any = [];
   selectedMerchandiser: any = {};
   clickedOnce = 1;
@@ -120,6 +122,7 @@ export class FilterBarComponent implements OnInit {
     console.log('router', this.router.url);
     this.lastVisit = this.dataService.getLastVisit();
     this.mustHave = this.dataService.getYesNo();
+    this.mustHaveAll = this.dataService.getYesNoAll();
     // this.httpService.getZone();
     this.impactTypeList = this.dataService.getImpactType();
     if (this.router.url !== '/dashboard/raw_data')
@@ -198,7 +201,7 @@ export class FilterBarComponent implements OnInit {
     
   }
 
-  getDashboardDataAvailability(){
+  getBrandSKUOOS(){
     if (this.endDate >= this.startDate){
       this.loadingData=true;
       this.loadingReportMessage=true;
@@ -210,6 +213,7 @@ export class FilterBarComponent implements OnInit {
         channelId: this.arrayMaker(this.selectedChannel),
         cityId: this.selectedCity.id || -1,
         areaId: this.selectedArea.id || -1,
+        mustHaveAll: this.selectedMustHaveAll || '',
       }
 
       let url = 'brandSKUOOS';

@@ -99,7 +99,7 @@
                         </table>
                         <div class="row">
                             <div class="col-md-12" style="text-align: end; padding: 0 20px 5px 0; ">
-                                <button [disabled]="loading || score==0" class="btn btn-primary" (click)="evaluateShop()">
+                                <button [disabled]="loading || indexList.length==0" class="btn btn-primary" (click)="evaluateShop()">
                     <i [ngClass]="{'fa fa-spinner fa-spin': loading}"></i>
                     Evaluate</button>
                             </div>
@@ -137,7 +137,7 @@
 </div>
 
 <!-- remarks modal -->
-<div bsModal #remarksModal="bs-modal" [config]="{backdrop: 'static'}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-child-name">
+<div bsModal #remarksModal="bs-modal" [config]="{backdrop: 'static',keyboard:false}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-child-name">
     <div class="modal-dialog ">
         <div class="modal-content">
             <!-- <div class="modal-header">
