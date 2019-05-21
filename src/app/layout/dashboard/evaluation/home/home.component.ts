@@ -34,6 +34,7 @@ loading=false;
   cloneArray: any=[];
   isFromShop: boolean=true;
   rotationDegree: number=0;
+  isEditable: any=false;
  
   constructor(private toastr:ToastrService,private activatedRoutes:ActivatedRoute,private httpService:EvaluationService,private evaluationService:EvaluationService) { 
     this.surveyId
@@ -49,7 +50,8 @@ loading=false;
       this.surveyId=params.id;
 
       let obj={
-        surveyId:this.surveyId
+        surveyId:this.surveyId,
+    // userId:localStorage.getItem('user_id')
       }
 
       this.getData(obj)
@@ -78,14 +80,20 @@ loading=false;
         this.data=data;
 
     document.title=this.data.section[0].sectionTitle;
-    this.evaluationArray=this.data.criteria;
-    this.cloneArray=this.evaluationArray.slice();
+    if(this.data.criteria){
+      this.evaluationArray=this.data.criteria;
+      this.cloneArray=this.evaluationArray.slice();
+    }
+   
 
         // console.log(this.data)
         this.remarksList=this.data.remarks;
         this.productList=this.data.productList;
         this.msl=this.data.msl;
+        this.isEditable=this.data.isEditable || this.isEditable;
+        if(this.productList.length>0)
         this.availabilityCount=this. getAvailabilityCount(this.productList);
+        if(this.data.criteria)
         this.calculateScore();
 
       }

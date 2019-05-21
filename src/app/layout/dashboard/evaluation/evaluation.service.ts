@@ -10,11 +10,13 @@ export class EvaluationService {
   // ip:any=environment.ip;
 
   ip:any=''
+  user_id: string;
   // 'http://192.168.3.94:8080/audit/';
 
   constructor(private http: HttpClient,private dashboardService:DashboardService) { 
 
     this.ip=dashboardService.ip;
+    this.user_id=localStorage.getItem('user_id')
   }
   httpOptions = {
     headers: new HttpHeaders({

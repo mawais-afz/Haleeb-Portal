@@ -17,6 +17,7 @@ export class SectionOneViewComponent implements OnInit,OnChanges {
   @ViewChild('childModal') childModal: ModalDirective;
   @Output('showModal') showModal:any=new EventEmitter<any>();
   @Output('productList') productForEmit:any=new EventEmitter<any>();
+  @Input('isEditable') isEditable :any;
   selectedShop: any={}; 
   ip=environment.ip;
   products: any=[];
@@ -47,7 +48,9 @@ export class SectionOneViewComponent implements OnInit,OnChanges {
     
     this.data=changes.data.currentValue;
     this.products=changes.productList.currentValue;
-    this.availability=this.getAvailabilityCount(this.products)
+    if(this.products.length>0)
+    this.availability=this.getAvailabilityCount(this.products);
+    console.log('is editable',this.isEditable)
     
   }
   showChildModal(shop): void {
@@ -65,58 +68,61 @@ export class SectionOneViewComponent implements OnInit,OnChanges {
   }
 
   toggleValue(value){
-    this.changeColor=true;
-    this.updatingMSL=true
-   
-    this.colorUpdateList.push(value.id)
-    let obj={
-      msdId:value.id,
-      unitAvailable:!!value.available_sku? 0:1,
-      surveyId:this.surveyId
-    }
-    // return value?'YES':'NO';
-
-this.httpService.updateMSLStatus(obj).subscribe((data:any)=>{
-  if(data.success){
-    this.products=data.productList;
-
-    data.productList.forEach(e => {
-
-    for (const key of this.colorUpdateList) {
-      if(key==e.id){
-        var i=this.products.findIndex(p=>p.id==key);
-        let obj={
-          id:e.id,
-          available_sku:e.available_sku,
-          MSL:e.MSL,
-          product_title:e.product_title,
-          category_title:e.category_title,
-          color:'red'
-        };
-  
-        this.products.splice(i,1,obj);
-        // console.log(this.products[i])
+    if(this.isEditable){
+      this.changeColor=true;
+      this.updatingMSL=true
+     
+      this.colorUpdateList.push(value.id)
+      let obj={
+        msdId:value.id,
+        unitAvailable:!!value.available_sku? 0:1,
+        surveyId:this.surveyId
       }
-   
-      
+      // return value?'YES':'NO';
+  
+  this.httpService.updateMSLStatus(obj).subscribe((data:any)=>{
+    if(data.success){
+      this.products=data.productList;
+  
+      data.productList.forEach(e => {
+  
+      for (const key of this.colorUpdateList) {
+        if(key==e.id){
+          var i=this.products.findIndex(p=>p.id==key);
+          let obj={
+            id:e.id,
+            available_sku:e.available_sku,
+            MSL:e.MSL,
+            product_title:e.product_title,
+            category_title:e.category_title,
+            color:'red'
+          };
     
+          this.products.splice(i,1,obj);
+          // console.log(this.products[i])
+        }
+     
+        
+      
+      }
+  
+      this.availability=this.getAvailabilityCount(this.products)
+  
+             
+      });
+  
+      this.productForEmit.emit(this.products);
+      // this.toastr.success('Status updated successfully.','Update MSL');
+      this.updatingMSL=false;
+  
+  
     }
-
-    this.availability=this.getAvailabilityCount(this.products)
-
-           
-    });
-
-    this.productForEmit.emit(this.products);
-    // this.toastr.success('Status updated successfully.','Update MSL');
-    this.updatingMSL=false;
-
-
-  }
-  else{
-    this.toastr.error(data.message,'Update MSL')
-  }
-})
-
+    else{
+      this.toastr.error(data.message,'Update MSL')
+    }
+  })
+  
+    }
+   
   }
 }
