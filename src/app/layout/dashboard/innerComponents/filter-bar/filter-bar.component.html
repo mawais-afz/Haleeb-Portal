@@ -102,7 +102,7 @@
                 </mat-select>
             </mat-form-field> -->
             <mat-form-field *ngIf="mustHaveAll.length>0" class="example-margin mr-5-IMP">
-                <mat-select placeholder="Must Have" name='mustHave' [(ngModel)]="selectedMustHaveAll">
+                <mat-select placeholder="MSL" name='mustHave' [(ngModel)]="selectedMustHaveAll">
                     <mat-option [value]="m.key" *ngFor="let m of mustHaveAll">{{m.value}}</mat-option>
                 </mat-select>
             </mat-form-field>
