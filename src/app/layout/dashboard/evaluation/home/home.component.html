@@ -5,15 +5,15 @@
         </div>
     </div>
 
-    <div class="row animated slideInLeft" *ngIf="data.section">
+    <div class="row animated slideInLeft" *ngIf="data?.section">
         <div id="style-2" class="col-md" style="overflow-y:scroll !important;overflow-x:hidden !important;height:90vh ;width:100% !important">
             <div class="row justify-content-center">
-                <ng-container *ngFor="let sec of data.section">
-                    <ng-container *ngIf="sec.imageViewType===1">
+                <ng-container *ngFor="let sec of data?.section">
+                    <ng-container *ngIf="sec?.imageViewType===1">
                         <section-two-view class="width-100" [data]="sec" (showModal)="showChildModal($event)"></section-two-view>
 
                     </ng-container>
-                    <ng-container *ngIf="sec.imageViewType===2">
+                    <ng-container *ngIf="sec?.imageViewType===2">
                         <section-one-view class="width-100" [data]="sec" [productList]="productList" [isEditable]="isEditable" (productList)="calculateMSLAgain($event)" (showModal)="showChildModal($event)"></section-one-view>
                     </ng-container>
 

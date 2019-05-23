@@ -40,6 +40,22 @@ export class SectionOneViewComponent implements OnInit,OnChanges {
      let sum=pro.reduce((a,v)=>a+v);
      return sum;
    }
+   getMSLCount(products)
+   {
+     let pro=products.map(p=>{
+let obj={};
+      if(p.available_sku==1 && p.MSL=='Yes'){
+        obj={
+          available_sku:p.available_sku,
+          MSL:p.MSL
+        }
+
+      }
+       
+    })
+     let sum=pro.reduce((a,v)=>a+v);
+     return sum;
+   }
 
   ngOnInit() {
   }
@@ -51,6 +67,7 @@ export class SectionOneViewComponent implements OnInit,OnChanges {
     if(this.products.length>0)
     this.availability=this.getAvailabilityCount(this.products);
     console.log('is editable',this.isEditable)
+    this.getMSLCount(this.products)
     
   }
   showChildModal(shop): void {

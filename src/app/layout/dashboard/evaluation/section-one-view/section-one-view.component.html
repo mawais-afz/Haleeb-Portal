@@ -17,6 +17,7 @@
 
 </div>
 <ng-container class="mt-5 justify-content-center" *ngIf="data?.tagsList && data?.sectionTitle==='Primary Shelf'">
+    <h3>{{data?.sectionTitle}}</h3>
     <div class="col-md-12 mt-5">
         <table class="table table-bordered table-hover" style="min-width:820px !important">
             <thead>
@@ -37,7 +38,7 @@
 
                 </td>
                 <td style="width:150px !important">{{product?.MSL}}</td>
-                
+
 
                 <!-- <td (click)="product.available_sku = (!product.available_sku)">{{toggleValue(product?.available_sku)}}</td> -->
 
