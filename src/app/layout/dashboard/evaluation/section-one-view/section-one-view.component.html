@@ -9,7 +9,7 @@
 <div class="row">
     <ng-container *ngFor="let img of data?.imageList ;let i=index">
 
-        <div class="col-md-6 mb-2 text-center">
+        <div class="col-md-4 mb-2 text-center">
             <label class="title" for="title">{{img.title}}</label>
             <img src="{{ip}}{{img.url}}" width="400" height="400" (click)="showChildModal(img)" class="img-thumbnail img-item">
         </div>
@@ -17,7 +17,7 @@
 
 </div>
 <ng-container class="mt-5 justify-content-center" *ngIf="data?.tagsList && data?.sectionTitle==='Primary Shelf'">
-    <h3>{{data?.sectionTitle}}</h3>
+    <!-- <h3>{{data?.sectionTitle}}</h3> -->
     <div class="col-md-12 mt-5">
         <table class="table table-bordered table-hover" style="min-width:820px !important">
             <thead>
