@@ -38,7 +38,13 @@ export class LoginComponent implements OnInit {
             localStorage.setItem('user_name', res.user.userName);
             localStorage.setItem('menu', JSON.stringify(res.list));
 
+            if(res.user.typeID==16)
+            this.router.navigate(['/dashboard/merchandiser_List']);
+            else
             this.router.navigate(['/dashboard']);
+
+            
+
             setTimeout(() => {
                 this.loading=false;
             }, 30000);
