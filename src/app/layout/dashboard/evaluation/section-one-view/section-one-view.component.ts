@@ -34,28 +34,7 @@ export class SectionOneViewComponent implements OnInit,OnChanges {
     // console.log(this.surveyId)
    }
 
-//    getAvailabilityCount(products)
-//    {
-//      let pro=products.map(p=>p.available_sku)
-//      let sum=pro.reduce((a,v)=>a+v);
-//      return sum;
-//    }
-//    getMSLCount(products)
-//    {
-//      let pro=products.map(p=>{
-// let obj={};
-//       if(p.available_sku==1 && p.MSL=='Yes'){
-//         obj={
-//           available_sku:p.available_sku,
-//           MSL:p.MSL
-//         }
 
-//       }
-       
-//     })
-//      let sum=pro.reduce((a,v)=>a+v);
-//      return sum;
-//    }
 
   ngOnInit() {
   }

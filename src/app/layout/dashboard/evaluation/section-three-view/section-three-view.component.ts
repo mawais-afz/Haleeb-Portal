@@ -18,45 +18,60 @@ export class SectionThreeViewComponent implements OnInit {
   availability: any;
   changeColor: boolean;
   updatingMSL: boolean;
-  colorUpdateList: any;
+  colorUpdateList: any=[];
   surveyId: any;
+  MSLCount: number=0;
+  MSLNAvailabilityCount: number;
 
   constructor(private router:Router,private toastr:ToastrService,private httpService:EvaluationService,) { }
 
   ngOnInit() {
+        var arr=this.router.url.split('/');
+    this.surveyId=+arr[arr.length-1]
   }
   ngOnChanges(changes: SimpleChanges): void {
     
     this.data=changes.data.currentValue;
     this.products=this.data.mslTable;
     if(this.products.length>0)
-    // this.availability=this.getAvailabilityCount(this.products);
+    this.availability=this.getAvailabilityCount(this.products);
     console.log('is editable',this.isEditable)
-    // this.getMSLCount(this.products)
+    this.MSLNAvailabilityCount=this.getMSLNAvailbilityCount(this.products)
     
   }
 
   getAvailabilityCount(products)
   {
-    let pro=products.map(p=>p.available_sku)
-    let sum=pro.reduce((a,v)=>a+v);
-    return sum;
+    let sum=[]
+    products.forEach(element => {
+      if(element.available_sku==1)
+      sum.push(element)
+      
+    });
+    return sum.length;
   }
-  getMSLCount(products)
+  getMSLNAvailbilityCount(products)
   {
-    let pro=products.map(p=>{
-let obj={};
-     if(p.available_sku==1 && p.MSL=='Yes'){
+    let pro=[];
+    let msl=[];
+    products.forEach(p=>{
+      let obj={};
+     if(p.MSL=='Yes'  && p.available_sku==1 ){
        obj={
          available_sku:p.available_sku,
          MSL:p.MSL
        }
+       pro.push(obj)
 
+     }
+
+     if(p.MSL=='Yes'){
+       msl.push(p)
      }
       
    })
-    let sum=pro.reduce((a,v)=>a+v);
-    return sum;
+  this.MSLCount=msl.length;
+    return  pro.length;
   }
 
   updateString(value){
@@ -102,7 +117,8 @@ let obj={};
       
       }
   
-      // this.availability=this.getAvailabilityCount(this.products)
+      this.availability=this.getAvailabilityCount(this.products)
+      this.MSLNAvailabilityCount=this.getMSLNAvailbilityCount(this.products)
   
              
       });
