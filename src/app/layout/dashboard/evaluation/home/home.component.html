@@ -1,6 +1,6 @@
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-12" style="margin:20% 36%" *ngIf="!data.section">
+        <div class="col-md-12" style="margin:20% 40%" *ngIf="!data.section">
             <img src="assets/images/basicloader.gif" alt="" srcset="">
         </div>
     </div>
@@ -10,13 +10,17 @@
             <div class="row justify-content-center">
                 <ng-container *ngFor="let sec of data?.section">
                     <ng-container *ngIf="sec?.imageViewType===1">
-                        <section-two-view class="width-100" [data]="sec" (showModal)="showChildModal($event)"></section-two-view>
+                        <section-two-view class="width-100" [data]="sec" [isEditable]="isEditable" (showModal)="showChildModal($event)"></section-two-view>
 
                     </ng-container>
                     <ng-container *ngIf="sec?.imageViewType===2">
-                        <section-one-view class="width-100" [data]="sec" [productList]="productList" [isEditable]="isEditable" (productList)="calculateMSLAgain($event)" (showModal)="showChildModal($event)"></section-one-view>
+                        <section-one-view class="width-100" [data]="sec" (showModal)="showChildModal($event)"></section-one-view>
                     </ng-container>
 
+                    <!-- [productList]="productList" [isEditable]="isEditable" (productList)="calculateMSLAgain($event)" -->
+                    <ng-container *ngIf="sec?.imageViewType===3">
+                        <section-three-view class="width-100" [data]="sec" [isEditable]="isEditable" (productList)="calculateMSLAgain($event)" (showModal)="showChildModal($event)"></section-three-view>
+                    </ng-container>
                 </ng-container>
 
 

@@ -10,8 +10,9 @@ import { SectionOneViewComponent } from './section-one-view/section-one-view.com
 import { SectionTwoViewComponent } from './section-two-view/section-two-view.component'
 import { FormsModule } from '@angular/forms';
 import {MatRadioModule} from '@angular/material/radio';
+import { SectionThreeViewComponent } from './section-three-view/section-three-view.component';
 @NgModule({
-  declarations: [HomeComponent, DetailsPageComponent, MainPageComponent, SectionOneViewComponent, SectionTwoViewComponent],
+  declarations: [HomeComponent, DetailsPageComponent, MainPageComponent, SectionOneViewComponent, SectionTwoViewComponent, SectionThreeViewComponent],
   imports: [
     CommonModule,
     EvaluationRoutingModule,

@@ -88,11 +88,11 @@ loading=false;
 
         // console.log(this.data)
         this.remarksList=this.data.remarks;
-        this.productList=this.data.productList;
+        // this.productList=this.data.productList;
         this.msl=this.data.msl;
         this.isEditable=this.data.isEditable || this.isEditable;
-        if(this.productList.length>0)
-        this.availabilityCount=this. getAvailabilityCount(this.productList);
+        // if(this.productList.length>0)
+        // this.availabilityCount=this. getAvailabilityCount(this.productList);
         if(this.data.criteria)
         this.calculateScore();
 

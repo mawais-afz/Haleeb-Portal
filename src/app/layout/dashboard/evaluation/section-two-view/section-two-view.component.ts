@@ -12,7 +12,7 @@ export class SectionTwoViewComponent implements OnInit {
   @Input('data') data;
   @ViewChild('childModal') childModal: ModalDirective;
   @Output('showModal') showModal:any=new EventEmitter<any>()
-
+  @Input('isEditable') isEditable :any;
   selectedShop: any={};
   selectedImage:any={};
   ip=environment.ip;

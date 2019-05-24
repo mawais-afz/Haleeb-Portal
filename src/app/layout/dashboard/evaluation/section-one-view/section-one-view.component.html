@@ -1,11 +1,14 @@
 <!-- <ng-container *ngFor="let sec of data.section"> -->
+<div class="row" style="border-bottom:2px solid black;width: 100%;margin: 5px 0"></div>
+
 <div class="row">
     <div class="col-md-12 text-center">
-        <h4>{{data?.sectionTitle}}</h4>
+        <h3><u>{{data.sectionTitle}}</u></h3>
+
     </div>
 </div>
 
-<div class="row" style="border-bottom:2px solid black;width: 100%;margin: 5px 0"></div>
+<!-- <div class="row" style="border-bottom:2px solid black;width: 100%;margin: 5px 0"></div> -->
 <div class="row justify-content-center">
     <ng-container *ngFor="let img of data?.imageList ;let i=index">
 
@@ -16,8 +19,8 @@
     </ng-container>
 
 </div>
-<ng-container class="mt-5 justify-content-center" *ngIf="data?.tagsList && data?.sectionTitle==='Primary Shelf'">
-    <!-- <h3>{{data?.sectionTitle}}</h3> -->
+<!-- <ng-container class="mt-5 justify-content-center" *ngIf="data?.tagsList && data?.sectionTitle==='Primary Shelf'">
+    <h3>{{data?.sectionTitle}}</h3>
     <div class="col-md-12 mt-5">
         <table class="table table-bordered table-hover" style="min-width:820px !important">
             <thead>
@@ -25,7 +28,7 @@
                     <th>Brand Title</th>
                     <th>Product Title</th>
                     <th>Availability
-                        <!-- <i [ngClass]="{'fa fa-spinner fa-spin': true}"></i> -->
+                        <i [ngClass]="{'fa fa-spinner fa-spin': true}"></i>
                     </th>
                     <th>MSL</th>
 
@@ -40,7 +43,7 @@
                 <td style="width:150px !important">{{product?.MSL}}</td>
 
 
-                <!-- <td (click)="product.available_sku = (!product.available_sku)">{{toggleValue(product?.available_sku)}}</td> -->
+                <td (click)="product.available_sku = (!product.available_sku)">{{toggleValue(product?.available_sku)}}</td>
 
             </tr>
             <tr>
@@ -55,7 +58,7 @@
         </table>
 
     </div>
-</ng-container>
+</ng-container> -->
 
 <ng-container class="mt-5 justify-content-center" *ngIf="data?.tagsList && data?.sectionTitle!=='Primary Shelf'">
     <div class="col-md-12 mt-5">
@@ -69,9 +72,9 @@
 
     </div>
 </ng-container>
-<div style="border-bottom:2px solid black;width: 100%;margin: 5px 0">
+<!-- <div style="border-bottom:2px solid black;width: 100%;margin: 5px 0">
 
-</div>
+</div> -->
 
 <!-- </ng-container> -->
 

@@ -1,11 +1,12 @@
 <!-- <ng-container *ngFor="let sec of data"> -->
+<div class="row" style="border-bottom:2px solid black;width: 100%;margin: 5px 0"></div>
+
 <div class="row">
     <div class="col-md-12 text-center">
-        <h4>{{data.sectionTitle}}</h4>
+        <h3><u>{{data.sectionTitle}}</u></h3>
     </div>
 </div>
 
-<div class="row" style="border-bottom:2px solid black;width: 100%;margin: 5px 0"></div>
 <div class="row">
 
     <div class="col-md-6">
@@ -39,22 +40,40 @@
 
             </ng-container>
         </div>
+        <div class="row justify-content-center">
+            <ng-container class="mt-5 justify-content-center " *ngIf="data?.tagsList ">
+                <div class="col-md-11 mt-5 ">
+                    <table class="table table-bordered ">
+                        <tr *ngFor="let tab of data.tagsList;let j=index ">
+                            <th style="width:50%;background: lightgray; ">{{tab.heading}}</th>
+                            <td style="width:50%;word-break: break-all ">{{tab.value}}</td>
+                        </tr>
+
+                    </table>
+
+                </div>
+            </ng-container>
+        </div>
     </div>
 
 
 </div>
-<ng-container class="mt-5 justify-content-center " *ngIf="data?.tagsList ">
-    <div class="col-md-12 mt-5 ">
-        <table class="table table-bordered ">
-            <tr *ngFor="let tab of data.tagsList;let j=index ">
-                <th style="width:50%;background: lightgray; ">{{tab.heading}}</th>
-                <td style="width:50%;word-break: break-all ">{{tab.value}}</td>
-            </tr>
 
-        </table>
+<!-- <div class="row justify-content-center" *ngIf="isEditable">
+    <ng-container class="mt-5 justify-content-center " *ngIf="data?.tagsList ">
+        <div class="col-md-12 mt-5 ">
+            <table class="table table-bordered ">
+                <tr *ngFor="let tab of data.tagsList;let j=index ">
+                    <th style="width:50%;background: lightgray; ">{{tab.heading}}</th>
+                    <td style="width:50%;word-break: break-all ">{{tab.value}}</td>
+                </tr>
 
-    </div>
-</ng-container>
+            </table>
+
+        </div>
+    </ng-container>
+</div> -->
+
 
 <div bsModal #childModal="bs-modal" class="modal fade " tabindex="-1 " role="dialog " aria-labelledby="dialog-child-name ">
     <div class="modal-dialog ">
