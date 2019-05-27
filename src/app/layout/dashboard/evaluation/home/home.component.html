@@ -103,7 +103,7 @@
                         </table>
                         <div class="row">
                             <div class="col-md-12" style="text-align: end; padding: 0 20px 5px 0; ">
-                                <button [disabled]="loading || indexList.length==0" class="btn btn-primary" (click)="evaluateShop()">
+                                <button [disabled]="loading" class="btn btn-primary" (click)="evaluateShop()">
                     <i [ngClass]="{'fa fa-spinner fa-spin': loading}"></i>
                     Evaluate</button>
                             </div>

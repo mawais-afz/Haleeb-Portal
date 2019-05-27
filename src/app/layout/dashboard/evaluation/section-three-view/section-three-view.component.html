@@ -24,7 +24,7 @@
                 <td style="width:150px !important" style="cursor:pointer" [ngStyle]="{'background-color':product.color}" (click)="toggleValue(product)">{{updateString(product?.available_sku)}}
 
                 </td>
-                <td style="width:150px !important">{{product?.MSL}}</td>
+                <td style="width:150px !important" [ngClass]="{'background-color': product?.MSL=='Yes'}">{{product?.MSL}}</td>
 
 
                 <!-- <td (click)="product.available_sku = (!product.available_sku)">{{toggleValue(product?.available_sku)}}</td> -->

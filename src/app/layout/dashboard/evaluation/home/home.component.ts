@@ -91,8 +91,8 @@ loading=false;
         // this.productList=this.data.productList;
         this.msl=this.data.msl;
         this.isEditable=this.data.isEditable || this.isEditable;
-        // if(this.productList.length>0)
-        // this.availabilityCount=this. getAvailabilityCount(this.productList);
+        if(this.productList.length>0)
+        this.availabilityCount=this.getAvailabilityCount(this.productList);
         if(this.data.criteria)
         this.calculateScore();
 
@@ -103,7 +103,8 @@ loading=false;
   }
 
   calculateMSLAgain(products){
-    this.availabilityCount=this. getAvailabilityCount(products);
+   this.msl=this.data.msl
+    this.availabilityCount=this.getAvailabilityCount(products);
     
   }
 
@@ -209,7 +210,7 @@ loading=false;
     criteria:this.cloneArray,      
     surveyId:this.surveyId,
     evaluatorId:user_id,
-    msl:Math.ceil(this.availabilityCount)
+    msl:Math.ceil(this.availabilityCount || this.getAvailabilityCount(this.productList))
   }
 this.evaluationService.evaluateShop(obj).subscribe((data:any)=>{
 // console.log('evaluated shop data',data);
