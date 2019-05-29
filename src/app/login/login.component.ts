@@ -49,8 +49,13 @@ export class LoginComponent implements OnInit {
                 this.loading=false;
             }, 30000);
 
-        }, (error:HttpErrorResponse) => {
+        }, (error:any) => {
+            debugger
+            if(!error.error.description)
             this.toastr.error(error.message, 'Login Status');
+            else 
+            this.toastr.error(error.error.description, 'Login Status');
+
             console.log('error', error);
             this.loading=false;
 

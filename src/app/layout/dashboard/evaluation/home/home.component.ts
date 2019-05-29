@@ -88,7 +88,9 @@ loading=false;
 
         // console.log(this.data)
         this.remarksList=this.data.remarks;
-        // this.productList=this.data.productList;
+        this.productList=this.data.productList;
+
+        localStorage.setItem('productList',JSON.stringify(this.productList))
         this.msl=this.data.msl;
         this.isEditable=this.data.isEditable || this.isEditable;
         if(this.productList.length>0)
@@ -104,12 +106,17 @@ loading=false;
 
   calculateMSLAgain(products){
    this.msl=this.data.msl
+   localStorage.setItem('productList',JSON.stringify(products));
+   this.productList=localStorage.getItem('productList');
+
     this.availabilityCount=this.getAvailabilityCount(products);
     
   }
 
   getAvailabilityCount(products)
-  {
+  { if(!products){
+    products=localStorage.getItem('productList')
+  }
     let pro=products.map(p=>p.available_sku)
     let sum=pro.reduce((a,v)=>a+v);
     return (sum/pro.length)*(this.msl);
@@ -206,11 +213,12 @@ loading=false;
  
      
  if(req){
+   let pl=localStorage.getItem('productList')
   let obj={
     criteria:this.cloneArray,      
     surveyId:this.surveyId,
     evaluatorId:user_id,
-    msl:Math.ceil(this.availabilityCount || this.getAvailabilityCount(this.productList))
+    msl:Math.ceil(this.availabilityCount || this.getAvailabilityCount(pl))
   }
 this.evaluationService.evaluateShop(obj).subscribe((data:any)=>{
 // console.log('evaluated shop data',data);
@@ -223,7 +231,7 @@ this.cloneArray=[]
 this.indexList=[];
 setTimeout(() => {
   
-window.close();
+// window.close();
   
 }, 3000);
 }
@@ -265,4 +273,18 @@ this.toastr.error(error.message,'Error');
     }
   }
 
+   zoomIn(event) {
+    var element = document.getElementById("overlay");
+    element.style.display = "inline-block";
+    var img = document.getElementById("imgZoom");
+    var posX = event.offsetX ? (event.offsetX) : event.pageX - img.offsetLeft;
+    var posY = event.offsetY ? (event.offsetY) : event.pageY - img.offsetTop;
+    element.style.backgroundPosition=(-posX*2)+"px "+(-posY*4)+"px";
+  
+  }
+  
+   zoomOut() {
+    var element = document.getElementById("overlay");
+    element.style.display = "none";
+  }
 }
