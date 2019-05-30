@@ -94,11 +94,11 @@ export class SectionThreeViewComponent implements OnInit {
   this.httpService.updateMSLStatus(obj).subscribe((data:any)=>{
     if(data.success){
       // this.products=data.productList;
-      let res=data.msdId;
+      let key=data.msdId;
   
       this.products.forEach(e => {
   
-      for (const key of this.colorUpdateList) {
+      // for (const key of this.colorUpdateList) {
         if(key==e.id){
           var i=this.products.findIndex(p=>p.id==key);
           let obj={
@@ -116,7 +116,7 @@ export class SectionThreeViewComponent implements OnInit {
      
         
       
-      }
+      // }
    
       this.availability=this.getAvailabilityCount(this.products)
       this.MSLNAvailabilityCount=this.getMSLNAvailbilityCount(this.products)
