@@ -3,6 +3,7 @@ import * as moment from 'moment'
 import { EvaluationService } from '../evaluation.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-details-page',
@@ -10,7 +11,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./details-page.component.scss']
 })
 export class DetailsPageComponent implements OnInit {
-
+ip=environment.ip;
   tableData:any=[];      
   headingsList:any =[]; 
   loading=true;
@@ -57,7 +58,7 @@ export class DetailsPageComponent implements OnInit {
   }
 
   gotoNewPage(id){  
-    window.open(`/#/dashboard/evaluation/list/details/${id}`,'_blank')
+    window.open(`${this.ip}/#/dashboard/evaluation/list/details/${id}`,'_blank')
     }
  
 }
