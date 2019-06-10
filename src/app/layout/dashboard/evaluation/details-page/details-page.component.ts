@@ -19,6 +19,7 @@ export class DetailsPageComponent implements OnInit {
       console.log('active params',p);
       if(p.surveyorId && p.startDate && p.endDate){
         // let obj=p;
+        debugger
         this.getTableData(p);
       }
     
