@@ -51,6 +51,7 @@ loading=false;
 
       let obj={
         surveyId:this.surveyId,
+        userTypeId:localStorage.getItem('user_type')
     // userId:localStorage.getItem('user_id')
       }
 

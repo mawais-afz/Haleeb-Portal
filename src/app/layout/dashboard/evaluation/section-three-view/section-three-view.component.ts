@@ -103,7 +103,7 @@ export class SectionThreeViewComponent implements OnInit {
           var i=this.products.findIndex(p=>p.id==key);
           let obj={
             id:e.id,
-            available_sku:e.available_sku,
+            available_sku:(e.available_sku =='Yes')?e.available_sku ='No':e.available_sku ='Yes',
             MSL:e.MSL,
             product_title:e.product_title,
             category_title:e.category_title,

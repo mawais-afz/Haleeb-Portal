@@ -19,8 +19,7 @@ ip=environment.ip;
     this.activeRoute.queryParams.subscribe(p=>{
       console.log('active params',p);
       if(p.surveyorId && p.startDate && p.endDate){
-        // let obj=p;
-        debugger
+ 
         this.getTableData(p);
       }
     
@@ -58,7 +57,7 @@ ip=environment.ip;
   }
 
   gotoNewPage(id){  
-    window.open(`${this.ip}/#/dashboard/evaluation/list/details/${id}`,'_blank')
+    window.open(`/#/dashboard/evaluation/list/details/${id}`,'_blank')
     }
  
 }

@@ -35,6 +35,7 @@ export class LoginComponent implements OnInit {
             localStorage.setItem('isLoggedin', 'true');
             localStorage.setItem('today',moment(new Date).format('YYYY-MM-DD'))
             localStorage.setItem('user_id', res.user.user_id);
+            localStorage.setItem('user_type', res.user.typeID);
             localStorage.setItem('user_name', res.user.userName);
             localStorage.setItem('menu', JSON.stringify(res.list));
 
