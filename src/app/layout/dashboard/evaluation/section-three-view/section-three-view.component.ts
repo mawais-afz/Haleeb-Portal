@@ -111,8 +111,11 @@ export class SectionThreeViewComponent implements OnInit {
           };
     
           this.products.splice(i,1,obj);
+
           // console.log(this.products[i])
         }
+        localStorage.setItem('productList',JSON.stringify(this.products))
+
      
         
       
