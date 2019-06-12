@@ -157,7 +157,7 @@ loading=false;
     }
     else{
       this.score=this.score+criteria.score;
-      let i=this.indexList.findIndex(i=>i==index)
+      let i=this.indexList.indexOf(index)
       this.indexList.splice(i,1);
 
       if(this.evaluationArray.length>0){
@@ -232,9 +232,9 @@ this.cloneArray=[]
 this.indexList=[];
 setTimeout(() => {
   
-// window.close();
+window.close();
   
-}, 3000);
+}, 2000);
 }
 else{
   this.toastr.info(data.errorMessage,'Info')

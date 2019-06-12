@@ -56,8 +56,9 @@ ip=environment.ip;
 
   }
 
-  gotoNewPage(id){  
-    window.open(`${environment.hash}dashboard/evaluation/list/details/${id}`,'_blank')
+  gotoNewPage(item){  
+    if(item.flag !==1)
+    window.open(`${environment.hash}dashboard/evaluation/list/details/${item.survey_id}`,'_blank')
     }
  
 }

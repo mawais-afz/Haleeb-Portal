@@ -5,3 +5,9 @@ table {
 table>thead {
     background: lightgray;
 }
+
+.isEvaluated {
+    color: blue;
+    font-weight: 500;
+    cursor: pointer;
+}
