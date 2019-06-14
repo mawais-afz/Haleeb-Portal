@@ -46,7 +46,11 @@ export const createTranslateLoader = (http: HttpClient) => {
                 deps: [HttpClient]
             }
         }),
-        ToastrModule.forRoot()
+        ToastrModule.forRoot({
+            preventDuplicates: true,
+            countDuplicates: true,
+            autoDismiss: true,
+          }),
     ],
 
     exports: [],
