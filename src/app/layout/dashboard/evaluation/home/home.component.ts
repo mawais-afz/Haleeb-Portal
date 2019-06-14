@@ -165,7 +165,7 @@ loading=false;
           id:criteria.id,
           title:criteria.title,
           score:criteria.score,
-          remarkId:0
+          remarkId:-1
         }
         let e=this.evaluationArray.findIndex(i=>i.id==criteria.id)
         this.cloneArray.splice(e,1,obj);

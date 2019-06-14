@@ -63,10 +63,22 @@
         </mat-card>
     </div>
 </ng-container>
-<div class="row " *ngIf="merchandiserList.length==0">
+<div class="row " *ngIf="loading">
     <div class="col-md-12 text-center">
         <div class="img-center">
             <img src="assets/images/basicloader.gif" alt="" srcset="">
         </div>
+    </div>
+</div>
+
+<div class="row " *ngIf="!loading && merchandiserList.length==0">
+    <div class="col-md-12 text-center">
+
+        <div class="alert alert-info">
+            <p>No Data Found</p>
+        </div>
+        <!-- <div class="img-center">
+            <img src="assets/images/basicloader.gif" alt="" srcset="">
+        </div> -->
     </div>
 </div>

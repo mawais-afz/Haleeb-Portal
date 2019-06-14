@@ -14,6 +14,7 @@ startDate:any=new Date();
 endDate=new Date();
 loadingReportMessage=false;
   merchandiserList: any=[];
+  loading: boolean=true;
   constructor(private httpService:DashboardService) { 
 
   this.maxDate.setDate(this.maxDate.getDate()-1);
@@ -34,7 +35,11 @@ loadingReportMessage=false;
 
     this.httpService.getMerchandiserListForEvaluation(obj).subscribe((data:any)=>{
       // console.log('merchandiser list for evaluation',data);
-      this.merchandiserList=data;
+      if(data){
+        this.merchandiserList=data;
+        this.loading=false;
+
+      }
     })
 
   }
