@@ -19,20 +19,29 @@
     </ng-container>
 
 </div>
+
+<!-- this table is moved to home page -->
 <div class="row justify-content-center">
-        <ng-container class="mt-2 justify-content-center " *ngIf="data?.tagsList">
-            <div class="col-md-11 mt-5 ">
-                <table class="table table-bordered ">
-                    <tr *ngFor="let tab of data.tagsList;let j=index ">
-                        <th style="width:50%;background: lightgray; ">{{tab.heading}}</th>
-                        <td style="width:50%;word-break: break-all ">{{tab.value}}</td>
-                    </tr>
+    <ng-container class="mt-2 justify-content-center " *ngIf="data?.tagsList">
+        <div class="col-md-11 mt-5 ">
+            <table class="table table-bordered ">
+                <tr *ngFor="let tab of data.tagsList;let j=index ">
+                    <th style="width:50%;background: lightgray; ">{{tab.heading}}</th>
+                    <td style="width:50%;word-break: break-all ">{{tab.value}}</td>
+                </tr>
 
-                </table>
+            </table>
 
-            </div>
-        </ng-container>
-    </div>
+        </div>
+    </ng-container>
+</div>
+
+
+
+
+
+
+
 <!-- <ng-container class="mt-5 justify-content-center" *ngIf="data?.tagsList && data?.sectionTitle==='Primary Shelf'">
     <h3>{{data?.sectionTitle}}</h3>
     <div class="col-md-12 mt-5">
