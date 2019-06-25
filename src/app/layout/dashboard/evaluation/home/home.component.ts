@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { EvaluationService } from '../evaluation.service';
 import { ActivatedRoute } from '@angular/router';
 import { environment } from 'src/environments/environment';
@@ -35,6 +35,7 @@ loading=false;
   isFromShop: boolean=true;
   rotationDegree: number=0;
   isEditable: any=false;
+  selectedIndex: number=-1;
  
   constructor(private toastr:ToastrService,private activatedRoutes:ActivatedRoute,private httpService:EvaluationService,private evaluationService:EvaluationService) { 
     this.surveyId
@@ -145,6 +146,8 @@ loading=false;
 
   }
   counter(event,criteria,index){
+
+    this.selectedIndex=index;
     
     // console.dir(event.checked)
     if(event.checked){
@@ -174,6 +177,35 @@ loading=false;
       }
       
     }
+  }
+
+  cancelCriteriaSelection(){
+
+    var inputs:any = document.querySelectorAll('.checkbox');
+    for (var j = 0; j < inputs.length; j++) {
+      if(this.selectedCriteria.id==inputs[j].id)
+      inputs[j].checked = false;
+    }
+let criteria=this.selectedCriteria
+    this.score=this.score+criteria.score;
+    let i=this.indexList.indexOf(this.selectedIndex)
+    this.indexList.splice(i,1);
+
+    if(this.evaluationArray.length>0){
+      let obj={
+        id:criteria.id,
+        title:criteria.title,
+        score:criteria.score,
+        remarkId:-1
+      }
+      let e=this.evaluationArray.findIndex(i=>i.id==criteria.id)
+      this.cloneArray.splice(e,1,obj);
+    console.log('unchecked evaluation array,using cancel button',this.cloneArray)
+      
+    }
+    this.hideRemarkModalForCancelOption();
+
+
   }
 
   calculateScore(){
@@ -265,6 +297,11 @@ this.toastr.error(error.message,'Error');
 
   showRemarksModal(){
     this.remarksModal.show()
+  }
+
+  hideRemarkModalForCancelOption(){
+    this.remarksModal.hide()
+
   }
   hideRemarksModal(){
     if(!!this.selectedRemarks)

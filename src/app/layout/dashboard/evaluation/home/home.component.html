@@ -73,7 +73,7 @@
                             <tr *ngFor="let item of data.criteria;let i=index">
                                 <td>
                                     <label class="container">{{item?.title}} 
-                                                <input *ngIf="item?.id!=7" type="checkbox"  name="{{item?.title}}" (click)="counter(checked,item,i)" #checked>
+                                                <input *ngIf="item?.id!=7" class="checkbox" type="checkbox"  name="{{item?.title}}" id="{{item?.id}}" (click)="counter(checked,item,i)" #checked>
                                                 <span *ngIf="item?.id!=7" class="checkmark"></span>
                                               </label>
                                 </td>
@@ -163,6 +163,7 @@
 
                 <div class="row">
                     <div class="col-md-12" style="text-align: end; padding: 0 20px 5px 0; ">
+                        <button class="btn btn-default" (click)="cancelCriteriaSelection()">cancle</button>
                         <button class="btn btn-primary" (click)="getCriteriaWithRemarks(selectedRemarks,selectedCriteria)">Submit</button>
 
                     </div>
