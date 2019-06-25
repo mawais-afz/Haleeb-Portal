@@ -20,7 +20,7 @@ import { AccordionModule } from 'ngx-bootstrap';
     ModalModule.forRoot(),
     FormsModule,
     MatRadioModule,
-    AccordionModule
+    AccordionModule.forRoot()
   ]
 })
 export class EvaluationModule { }
