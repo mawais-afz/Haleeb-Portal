@@ -67,71 +67,71 @@
             <!-- ;right:15px;position:fixed;top:20px -->
             <!-- style="height:600px;width: 100%;margin: 10px auto" -->
             <div class="card">
-                <!-- <accordion [isAnimated]="true"> -->
-                <!-- <accordion-group heading="Evaluation criteria"> -->
-                <div class="row">
-                    <div class="col-md-12">
-                        <table class="table table-bordered" style="line-height:1">
-                            <tr *ngFor="let item of data.criteria;let i=index">
-                                <td>
-                                    <label class="container">{{item?.title}}
+                <accordion>
+                    <accordion-group heading="Evaluation criteria">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <table class="table table-bordered" style="line-height:1">
+                                    <tr *ngFor="let item of data.criteria;let i=index">
+                                        <td>
+                                            <label class="container">{{item?.title}}
                         <input *ngIf="item?.id!=7" class="checkbox" type="checkbox" name="{{item?.title}}"
                           id="{{item?.id}}" (click)="counter(checked,item,i)" #checked>
                         <span *ngIf="item?.id!=7" class="checkmark"></span>
                       </label>
-                                </td>
-                                <td>
-                                    <label class="container" for="score">
+                                        </td>
+                                        <td>
+                                            <label class="container" for="score">
                         {{item?.score}}
                       </label>
-                                </td>
+                                        </td>
 
-                                <!-- <td></td> -->
-                            </tr>
-                            <!-- <hr> -->
-                            <tr style="font-weight:700">
-                                <!-- <td></td> -->
-                                <td>
-                                    <label class="container" for="">Total Score:</label>
-                                </td>
-                                <td>
-                                    <label class="container" for="score">
+                                        <!-- <td></td> -->
+                                    </tr>
+                                    <!-- <hr> -->
+                                    <tr style="font-weight:700">
+                                        <!-- <td></td> -->
+                                        <td>
+                                            <label class="container" for="">Total Score:</label>
+                                        </td>
+                                        <td>
+                                            <label class="container" for="score">
                         {{score}}
                       </label>
 
-                                </td>
-                            </tr>
-                            <!-- <hr> -->
+                                        </td>
+                                    </tr>
+                                    <!-- <hr> -->
 
-                        </table>
-                        <div class="row">
-                            <div class="col-md-12" style="text-align: end; padding: 0 20px 5px 0; ">
-                                <button [disabled]="loading" class="btn btn-primary" (click)="evaluateShop()">
+                                </table>
+                                <div class="row">
+                                    <div class="col-md-12" style="text-align: end; padding: 0 20px 5px 0; ">
+                                        <button [disabled]="loading" class="btn btn-primary" (click)="evaluateShop()">
                       <i [ngClass]="{'fa fa-spinner fa-spin': loading}"></i>
                       Evaluate</button>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
+                    </accordion-group>
+                    <accordion-group heading="Shop details">
+                        <div class="row justify-content-center">
+                            <ng-container class="mt-2 justify-content-center " *ngIf="data?.shopDetails?.tagsList">
+                                <div class="col-md-11 mt-5 ">
+                                    <table class="table table-bordered ">
+                                        <tr *ngFor="let tab of data?.shopDetails?.tagsList;let j=index ">
+                                            <th style="width:50%;background: lightgray; ">{{tab.heading}}</th>
+                                            <td style="width:50%;word-break: break-word ">{{tab.value}}</td>
+                                        </tr>
 
-                    </div>
-                </div>
-                <!-- </accordion-group> -->
-                <!-- <accordion-group heading="Shop details"> -->
-                <div class="row justify-content-center">
-                    <ng-container class="mt-2 justify-content-center " *ngIf="data?.shopDetails?.tagsList">
-                        <div class="col-md-11 mt-5 ">
-                            <table class="table table-bordered ">
-                                <tr *ngFor="let tab of data?.shopDetails?.tagsList;let j=index ">
-                                    <th style="width:50%;background: lightgray; ">{{tab.heading}}</th>
-                                    <td style="width:50%;word-break: break-word ">{{tab.value}}</td>
-                                </tr>
+                                    </table>
 
-                            </table>
-
+                                </div>
+                            </ng-container>
                         </div>
-                    </ng-container>
-                </div>
-                <!-- </accordion-group> -->
-                <!-- </accordion> -->
+                    </accordion-group>
+                </accordion>
 
 
 

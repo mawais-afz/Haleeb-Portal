@@ -11,21 +11,24 @@
 
     <div class="col-md-6">
         <!--  -->
-        <img src="{{ip}}{{selectedImage.url}}" width="400 " height="400" (click)="showChildModal(selectedImage)" class="img-thumbnail img-item">
+        <img src="{{ip}}{{selectedImage?.url}}" width="400 " height="400" (click)="showChildModal(selectedImage)" class="img-thumbnail img-item">
 
     </div>
 
     <div class="col-md-6">
         <div class="row">
 
-            <ng-container *ngFor="let img of data.imageList ;let i=index ">
-                <div class="col-md-3 mb-1 card  ml-4" (click)="setSelectedImage(img)" style="padding: 0% !important;cursor:pointer" [ngClass]="{'bgColor': img.url==selectedImage.url}">
+            <ng-container *ngFor="let img of data?.imageList ;let i=index ">
+                <div class="col-md-3 mb-1 card  ml-4" (click)="setSelectedImage(img)" style="padding: 0% !important;cursor:pointer" [ngClass]="{'bgColor': img?.url==selectedImage.url}">
                     <img src="{{ip}}{{img.url}} " width="50 " height="50 " class="img-thumbnail side-image">
-                    <div class="row justify-content-center">
-                        <label for="date"><strong>Date:</strong>{{img.visitDate}}</label>
+                    <div class="row justify-content-center" style="word-break: break-word">
+                        <label for="date"><strong>Date:</strong>{{img?.visitDate}}</label>
                         <br>
 
-                        <label for="time"><strong>Time Spent:</strong>{{img.time}}</label>
+                        <label for="time"><strong>Time Spent:</strong>{{img?.time}}</label>
+                        <br>
+                        <label for="shop"><strong>remarks:</strong>{{img?.shopRemarks}}</label>
+
 
                     </div>
                     <!--  -->
