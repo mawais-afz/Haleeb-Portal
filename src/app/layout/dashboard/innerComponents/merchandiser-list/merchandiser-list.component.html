@@ -5,7 +5,8 @@
             <mat-card-content>
                 <mat-card-title>
                     {{title| uppercase}} <i color="warn" [ngClass]="{'fa fa-cog fa-spin':loadingData}"></i>
-                    <small style="color:lightseagreen !important" class="mtb-5-IMP" *ngIf="loadingReportMessage">Your file is being prepared for download</small>
+                    <small style="color:lightseagreen !important" class="mtb-5-IMP" *ngIf="loadingReportMessage">Your file is
+            being prepared for download</small>
 
                 </mat-card-title>
                 <section class="example-section">
@@ -41,15 +42,18 @@
                             <tr>
                                 <th>VO Code</th>
                                 <th>VO Name</th>
+                                <th>Supervisor code</th>
+                                <th>Supervisor Name</th>
 
                             </tr>
                         </thead>
 
                         <tbody *ngIf="merchandiserList.length>0">
-                            <tr *ngFor="let item of merchandiserList">
+                            <tr *ngFor="let item of merchandiserList" style="color:blue;cursor:pointer" [routerLink]="['/dashboard/evaluation/list']" [queryParams]="{ surveyorId: item.id,startDate: modifyDate(startDate),endDate: modifyDate(startDate)}">
                                 <td>{{item.m_code}}</td>
-                                <td style="color:blue;cursor:pointer" [routerLink]="['/dashboard/evaluation/list']" [queryParams]="{ surveyorId: item.id,startDate: modifyDate(startDate),endDate: modifyDate(startDate)}">{{item.full_name}}</td>
-
+                                <td> {{item.full_name}}</td>
+                                <td>{{item?.supervisor_code}}</td>
+                                <td>{{item?.supervisor_name}}</td>
                             </tr>
                         </tbody>
                     </table>

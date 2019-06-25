@@ -10,12 +10,12 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class DashboardService {
-  ip: any = environment.ip;
+  // ip: any = environment.ip;
   user_id:any=0;
 
   
   // ip: any='http://192.168.3.209:8080/audit/';
-  // ip: any='http://192.168.3.189:8080/audit/';
+  ip: any='http://192.168.3.189:8080/audit/';
 
   httpOptions = {
     headers: new HttpHeaders({
