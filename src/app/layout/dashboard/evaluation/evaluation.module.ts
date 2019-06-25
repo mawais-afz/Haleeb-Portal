@@ -11,6 +11,7 @@ import { SectionTwoViewComponent } from './section-two-view/section-two-view.com
 import { FormsModule } from '@angular/forms';
 import {MatRadioModule} from '@angular/material/radio';
 import { SectionThreeViewComponent } from './section-three-view/section-three-view.component';
+import { AccordionModule } from 'ngx-bootstrap';
 @NgModule({
   declarations: [HomeComponent, DetailsPageComponent, MainPageComponent, SectionOneViewComponent, SectionTwoViewComponent, SectionThreeViewComponent],
   imports: [
@@ -18,7 +19,8 @@ import { SectionThreeViewComponent } from './section-three-view/section-three-vi
     EvaluationRoutingModule,
     ModalModule.forRoot(),
     FormsModule,
-    MatRadioModule
+    MatRadioModule,
+    AccordionModule
   ]
 })
 export class EvaluationModule { }
