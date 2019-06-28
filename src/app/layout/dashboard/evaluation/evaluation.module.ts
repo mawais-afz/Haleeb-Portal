@@ -13,6 +13,7 @@ import {MatRadioModule} from '@angular/material/radio';
 import { SectionThreeViewComponent } from './section-three-view/section-three-view.component';
 import { AccordionModule } from 'ngx-bootstrap';
 import { SectionFourViewComponent } from './section-four-view/section-four-view.component';
+import { MatCardModule } from '@angular/material';
 @NgModule({
   declarations: [HomeComponent, DetailsPageComponent, MainPageComponent, SectionOneViewComponent, SectionTwoViewComponent, SectionThreeViewComponent, SectionFourViewComponent],
   imports: [
@@ -21,7 +22,8 @@ import { SectionFourViewComponent } from './section-four-view/section-four-view.
     ModalModule.forRoot(),
     FormsModule,
     MatRadioModule,
-    AccordionModule.forRoot()
+    AccordionModule.forRoot(),
+    MatCardModule
   ]
 })
 export class EvaluationModule { }
