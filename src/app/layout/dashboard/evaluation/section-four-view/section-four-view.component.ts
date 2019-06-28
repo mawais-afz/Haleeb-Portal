@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
-
+declare const google: any;
 @Component({
   selector: 'section-four-view',
   templateUrl: './section-four-view.component.html',
@@ -10,9 +10,9 @@ export class SectionFourViewComponent implements OnInit {
   @Input('data') data;
   locations: any = [];
   centerPoint: any = [];
-  constructor() {}
+  constructor() { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   ngOnChanges(changes: SimpleChanges): void {
     this.data = changes.data.currentValue;
@@ -37,7 +37,9 @@ export class SectionFourViewComponent implements OnInit {
 
     var a = this.centerPoint[0];
     var b = this.centerPoint[1];
-    var map = new google.maps.Map(document.getElementById('map'), { zoom: 12, center: new google.maps.LatLng(a, b)});
+    // var t= new google.maps.LatLng(a,b);
+    
+    var map = new google.maps.Map(document.getElementById('map'), { zoom: 15, center: new google.maps.LatLng(a, b) });
     // The marker, positioned at Uluru
     // var marker = new google.maps.Marker({position: marksman, map: map});
     var infowindow = new google.maps.InfoWindow();
@@ -47,9 +49,9 @@ export class SectionFourViewComponent implements OnInit {
       if (i == 0) {
         url = 'http://maps.google.com/mapfiles/ms/icons/green-dot.png';
       }
-    //   var p = locations[i];
-    //   var p1 = p[1];
-    // var p2 = p[2];
+      //   var p = locations[i];
+      //   var p1 = p[1];
+      // var p2 = p[2];
       marker = new google.maps.Marker({
         position: new google.maps.LatLng(locations[i][1], locations[i][2]),
         center: new google.maps.LatLng(a, b),
@@ -77,8 +79,8 @@ export class SectionFourViewComponent implements OnInit {
       google.maps.event.addListener(
         marker,
         'click',
-        (function(marker, i) {
-          return function() {
+        (function (marker, i) {
+          return function () {
             infowindow.setContent(locations[i][0]);
             infowindow.open(map, marker);
           };
@@ -94,5 +96,6 @@ export class SectionFourViewComponent implements OnInit {
     // }
 
     // map.fitBounds(bounds);
+    // map.fitBounds(t);
   }
 }
