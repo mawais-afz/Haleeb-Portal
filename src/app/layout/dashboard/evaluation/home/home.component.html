@@ -81,9 +81,9 @@
                                     <tr *ngFor="let item of data.criteria;let i=index">
                                         <td>
                                             <label class="container">{{item?.title}}
-                        <input *ngIf="item?.mslTag!=1" class="checkbox" type="checkbox" name="{{item?.title}}"
+                        <input *ngIf="item?.id!=5" class="checkbox" type="checkbox" name="{{item?.title}}"
                           id="{{item?.id}}" (click)="counter(checked,item,i)" #checked>
-                        <span *ngIf="item?.mslTag!=1" class="checkmark"></span>
+                        <span *ngIf="item?.id!=5" class="checkmark"></span>
                       </label>
                                         </td>
                                         <td>

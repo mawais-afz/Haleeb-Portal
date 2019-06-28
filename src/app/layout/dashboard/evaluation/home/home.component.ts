@@ -130,7 +130,8 @@ loading=false;
       remarkId:remarks,
       id:criteria.id,
       title:criteria.title,
-      score:0
+      score:0,
+      criteriaMapId:criteria.criteriaMapId
     }
     this.cloneArray.forEach(element => {
 
@@ -225,15 +226,15 @@ let criteria=this.selectedCriteria
     //   this.loading=false;
     //   req=false;
     // }
-    this.cloneArray.forEach(element => {
+    // this.cloneArray.forEach(element => {
       
-        if (element.remarkId=='' || element.remarkId==false) {
-          this.toastr.info(`please select remarks for "${element.title}"`);
-          req=false;
-          this.loading=false;
-        }
+    //     if (element.remarkId=='' || element.remarkId==false) {
+    //       this.toastr.info(`please select remarks for "${element.title}"`);
+    //       req=false;
+    //       this.loading=false;
+    //     }
         
-      });
+    //   });
       // this.evaluationArray.forEach(element => {
       //   if(this.selectedRemarks==0 || this.selectedRemarks==false || this.selectedRemarks==''){
       //     if (element.remarkId=='' || element.remarkId==false) {
