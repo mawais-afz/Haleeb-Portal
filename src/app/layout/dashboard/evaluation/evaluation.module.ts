@@ -12,8 +12,9 @@ import { FormsModule } from '@angular/forms';
 import {MatRadioModule} from '@angular/material/radio';
 import { SectionThreeViewComponent } from './section-three-view/section-three-view.component';
 import { AccordionModule } from 'ngx-bootstrap';
+import { SectionFourViewComponent } from './section-four-view/section-four-view.component';
 @NgModule({
-  declarations: [HomeComponent, DetailsPageComponent, MainPageComponent, SectionOneViewComponent, SectionTwoViewComponent, SectionThreeViewComponent],
+  declarations: [HomeComponent, DetailsPageComponent, MainPageComponent, SectionOneViewComponent, SectionTwoViewComponent, SectionThreeViewComponent, SectionFourViewComponent],
   imports: [
     CommonModule,
     EvaluationRoutingModule,

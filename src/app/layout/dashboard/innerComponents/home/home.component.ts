@@ -34,6 +34,11 @@ export class HomeComponent implements OnInit {
     interval(300000).subscribe(i=>{this.getData()})
     this.httpService.checkDate();
     // this.initMap()
+    let userType=JSON.parse(localStorage.getItem("user_type"))
+
+    if(userType==16){
+      this.router.navigate(['/dashboard/merchandiser_List'])
+    }
   }
 
   

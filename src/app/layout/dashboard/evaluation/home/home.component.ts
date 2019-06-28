@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { EvaluationService } from '../evaluation.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { ModalDirective } from 'ngx-bootstrap';
 import { ToastrService } from 'ngx-toastr';
@@ -37,7 +37,7 @@ loading=false;
   isEditable: any=false;
   selectedIndex: number=-1;
  
-  constructor(private toastr:ToastrService,private activatedRoutes:ActivatedRoute,private httpService:EvaluationService,private evaluationService:EvaluationService) { 
+  constructor(private router:Router,private toastr:ToastrService,private activatedRoutes:ActivatedRoute,private httpService:EvaluationService,private evaluationService:EvaluationService) { 
     this.surveyId
 
     this.activatedRoutes.queryParams.subscribe(q=>{
@@ -62,6 +62,7 @@ loading=false;
   }
 
   ngOnInit() {
+   
   }
 
 

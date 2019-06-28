@@ -21,6 +21,12 @@
                     <ng-container *ngIf="sec?.imageViewType===3">
                         <section-three-view class="width-100" [data]="sec" [isEditable]="isEditable" (productList)="calculateMSLAgain($event)" (showModal)="showChildModal($event)"></section-three-view>
                     </ng-container>
+
+                    <ng-container *ngIf="sec?.imageViewType===4">
+                        <!-- (productList)="calculateMSLAgain($event)" -->
+                        <section-four-view class="width-100" [data]="sec">
+                        </section-four-view>
+                    </ng-container>
                 </ng-container>
 
 
