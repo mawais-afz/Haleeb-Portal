@@ -15,7 +15,8 @@ export class DashboardService {
 
   
   // ip: any='http://192.168.3.209:8080/audit/';
-  ip: any='http://192.168.3.189:8080/audit/';
+  // ip: any='http://192.168.3.189:8080/audit/';
+  ip: any='http://192.168.3.94:8080/audit/';
 
   httpOptions = {
     headers: new HttpHeaders({

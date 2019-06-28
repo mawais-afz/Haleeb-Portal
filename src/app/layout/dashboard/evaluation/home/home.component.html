@@ -75,9 +75,9 @@
                                     <tr *ngFor="let item of data.criteria;let i=index">
                                         <td>
                                             <label class="container">{{item?.title}}
-                        <input *ngIf="item?.id!=7" class="checkbox" type="checkbox" name="{{item?.title}}"
+                        <input *ngIf="item?.mslTag!=1" class="checkbox" type="checkbox" name="{{item?.title}}"
                           id="{{item?.id}}" (click)="counter(checked,item,i)" #checked>
-                        <span *ngIf="item?.id!=7" class="checkmark"></span>
+                        <span *ngIf="item?.mslTag!=1" class="checkmark"></span>
                       </label>
                                         </td>
                                         <td>
@@ -177,9 +177,13 @@
 
                 <label id="example-radio-group-label">Pick your remarks for ({{selectedCriteria?.title}})</label>
                 <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group" [(ngModel)]="selectedRemarks">
-                    <mat-radio-button class="example-radio-button" *ngFor="let remark of remarksList" [value]="remark.id">
-                        {{remark.description}}
-                    </mat-radio-button>
+                    <ng-container *ngFor="let remark of remarksList">
+                        <mat-radio-button *ngIf="remark.criteriaId==selectedCriteria.id" class="example-radio-button" [value]="remark.id">
+                            {{remark.description}}
+                        </mat-radio-button>
+                    </ng-container>
+
+
                 </mat-radio-group>
 
 
