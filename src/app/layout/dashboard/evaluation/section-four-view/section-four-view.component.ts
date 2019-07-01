@@ -39,7 +39,12 @@ export class SectionFourViewComponent implements OnInit {
     var b = this.centerPoint[1];
     // var t= new google.maps.LatLng(a,b);
     
-    var map = new google.maps.Map(document.getElementById('map'), { zoom: 15, center: new google.maps.LatLng(a, b) });
+    var map = new google.maps.Map(document.getElementById('map'), {
+       zoom: 15,
+        center: new google.maps.LatLng(a, b),
+        scrollwheel: false,
+        gestureHandling: 'cooperative'
+       });
     // The marker, positioned at Uluru
     // var marker = new google.maps.Marker({position: marksman, map: map});
     var infowindow = new google.maps.InfoWindow();
@@ -72,7 +77,7 @@ export class SectionFourViewComponent implements OnInit {
           // fillOpacity: 0.35,
           map: map,
           center: marker.center,
-          radius: 100
+          radius: 50
         });
       }
 
