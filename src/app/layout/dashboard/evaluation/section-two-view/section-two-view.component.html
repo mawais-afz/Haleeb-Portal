@@ -21,13 +21,13 @@
             <ng-container *ngFor="let img of data?.imageList ;let i=index ">
                 <div class="col-md-3 mb-1 card  ml-4" (click)="setSelectedImage(img)" style="padding: 0% !important;cursor:pointer" [ngClass]="{'bgColor': img?.url==selectedImage.url}">
                     <img src="{{ip}}{{img.url}} " width="50 " height="50 " class="img-thumbnail side-image">
-                    <div class="row justify-content-center" style="word-break: break-word">
+                    <div class="row justify-content-center" style="word-break: break-word !important">
                         <label for="date"><strong>Date:</strong>{{img?.visitDate}}</label>
                         <br>
 
                         <label for="time"><strong>Time Spent:</strong>{{img?.time}}</label>
                         <br>
-                        <label for="shop"><strong>remarks:</strong>{{img?.shopRemarks}}</label>
+                        <label for="shop"><strong>Remarks:</strong> <br> {{img?.shopRemarks}}</label>
 
 
                     </div>
