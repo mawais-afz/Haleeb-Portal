@@ -43,7 +43,7 @@ export class SectionFourViewComponent implements OnInit {
        zoom: 15,
         center: new google.maps.LatLng(a, b),
         scrollwheel: false,
-        gestureHandling: 'cooperative'
+        // gestureHandling: 'cooperative'
        });
     // The marker, positioned at Uluru
     // var marker = new google.maps.Marker({position: marksman, map: map});
