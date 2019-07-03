@@ -184,12 +184,22 @@
 
                 <label id="example-radio-group-label">Pick your remarks for ({{selectedCriteria?.title}})</label>
                 <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group" [(ngModel)]="selectedRemarks">
-                    <ng-container *ngFor="let remark of remarksList">
-                        <mat-radio-button *ngIf="remark.criteriaId==selectedCriteria.id" class="example-radio-button" [value]="remark.id">
-                            {{remark.description}}
-                        </mat-radio-button>
-                    </ng-container>
 
+                    <ng-container *ngFor="let remark of remarksList">
+
+
+                        <section class="example-section">
+
+                            <mat-checkbox *ngIf="remark.criteriaId==selectedCriteria.id" (click)="checkboxChange(checkStatus,remark.id)" #checkStatus class="example-margin">{{remark.description}}
+                            </mat-checkbox>
+
+                        </section>
+
+
+                        <!-- <mat-radio-button *ngIf="remark.criteriaId==selectedCriteria.id" class="example-radio-button" [value]="remark.id">
+                            {{remark.description}}
+                        </mat-radio-button> -->
+                    </ng-container>
 
                 </mat-radio-group>
 
@@ -197,7 +207,7 @@
                 <div class="row">
                     <div class="col-md-12" style="text-align: end; padding: 0 20px 5px 0; ">
                         <button class="btn btn-default mr-2" (click)="cancelCriteriaSelection()">Cancel</button>
-                        <button class="btn btn-primary" (click)="getCriteriaWithRemarks(selectedRemarks,selectedCriteria)">Submit</button>
+                        <button class="btn btn-primary" (click)="getCriteriaWithRemarks(selectedRemarksList,selectedCriteria)">Submit</button>
 
                     </div>
                 </div>

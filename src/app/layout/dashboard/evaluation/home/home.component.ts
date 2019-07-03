@@ -26,6 +26,7 @@ loading=false;
   surveyId: any=0;
   remarksList: any=[];
   selectedRemarks:any=false;
+  selectedRemarksList:any=[];
   selectedCriteria: any={};
   evaluationArray: any=[];
   productList: any=[];
@@ -143,8 +144,27 @@ loading=false;
     // this.evaluationArray.push(obj);
     console.log('evaluation array clone',this.cloneArray);
     this.hideRemarksModal();
-    this.selectedRemarks=''
+    this.selectedRemarks='';
+    this.selectedRemarksList=[]
 
+
+  }
+
+  checkboxChange(event,id){
+    console.log('checkbox event',!event.checked,id)
+
+    if(!event.checked)
+    this.selectedRemarksList.push(id)
+    else{
+      for( var i = 0; i < this.selectedRemarksList.length; i++){ 
+        if ( this.selectedRemarksList[i] == id) {
+          this.selectedRemarksList.splice(i, 1); 
+        }
+     }
+    }
+    // this.selectedRemarksList.pop(id)
+
+    console.log('remarks list',this.selectedRemarksList)
 
   }
   counter(event,criteria,index){
@@ -248,12 +268,13 @@ let criteria=this.selectedCriteria
  
      
  if(req){
-   let pl=localStorage.getItem('productList')
+   let pl=JSON.parse(localStorage.getItem('productList'))
+   this.getAvailabilityCount(pl)
   let obj={
     criteria:this.cloneArray,      
     surveyId:this.surveyId,
     evaluatorId:user_id,
-    msl:Math.ceil(this.availabilityCount || this.getAvailabilityCount(pl))
+    msl:Math.round(this.availabilityCount  )
   }
 this.evaluationService.evaluateShop(obj).subscribe((data:any)=>{
 // console.log('evaluated shop data',data);
@@ -266,7 +287,7 @@ this.cloneArray=[]
 this.indexList=[];
 setTimeout(() => {
   
-window.close();
+// window.close();
   
 }, 2000);
 }
@@ -306,7 +327,7 @@ this.toastr.error(error.message,'Error');
 
   }
   hideRemarksModal(){
-    if(!!this.selectedRemarks)
+    if(this.selectedRemarksList.length>0)
     this.remarksModal.hide()
     else{
       this.toastr.info(`please select remarks for "${this.selectedCriteria.title}"`)

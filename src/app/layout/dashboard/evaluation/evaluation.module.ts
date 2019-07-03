@@ -14,6 +14,7 @@ import { SectionThreeViewComponent } from './section-three-view/section-three-vi
 import { AccordionModule } from 'ngx-bootstrap';
 import { SectionFourViewComponent } from './section-four-view/section-four-view.component';
 import { MatCardModule } from '@angular/material';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 @NgModule({
   declarations: [HomeComponent, DetailsPageComponent, MainPageComponent, SectionOneViewComponent, SectionTwoViewComponent, SectionThreeViewComponent, SectionFourViewComponent],
   imports: [
@@ -23,7 +24,8 @@ import { MatCardModule } from '@angular/material';
     FormsModule,
     MatRadioModule,
     AccordionModule.forRoot(),
-    MatCardModule
+    MatCardModule,
+    MatCheckboxModule
   ]
 })
 export class EvaluationModule { }
