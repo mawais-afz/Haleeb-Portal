@@ -19,14 +19,9 @@
                             ">Shop Name</th>
                                 <th>Address</th>
 
-<<<<<<< HEAD
                                 <th style="
                                 min-width: 125px;
                             ">Channel Name</th>
-=======
-                                <th>Channel Name</th>
-                                <th>Category</th>
->>>>>>> d9d5bb339090f164889292e90a23b26103bdf88b
                                 <th>Remarks</th>
                                 <!-- <th>VO Code</th> -->
                                 <!-- <th>VO Name</th> -->
@@ -42,7 +37,7 @@
 
                                     <td [ngClass]="{'isEvaluated':item.flag!=1}" (click)="gotoNewPage(item)">{{item?.channel_title}}</td>
                                     <td [ngClass]="{'isEvaluated':item.flag!=1}" (click)="gotoNewPage(item)">{{item?.category}}</td>
-                                    
+
                                     <td [ngClass]="{'isEvaluated':item.flag!=1}" style="word-break:break-all;width:350px;" (click)="gotoNewPage(item)">{{item?.remarks}}</td>
 
                                     <!-- <td [ngClass]="{'isEvaluated':item.flag!=1}" style="width:100px;" (click)="gotoNewPage(item)">{{item?.vo_code}}</td> -->

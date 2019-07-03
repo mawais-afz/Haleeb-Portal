@@ -173,7 +173,7 @@ loading=false;
     
     // console.dir(event.checked)
     if(event.checked){
-      this.score=this.score-criteria.score;
+      this.score=this.score-Math.abs(criteria.score);
       this.indexList.push(index);
       // console.log('checked',this.indexList)
       this.selectedCriteria=criteria
@@ -181,7 +181,7 @@ loading=false;
 
     }
     else{
-      this.score=this.score+criteria.score;
+      this.score=this.score+Math.abs(criteria.score);
       let i=this.indexList.indexOf(index)
       this.indexList.splice(i,1);
 
@@ -209,7 +209,7 @@ loading=false;
       inputs[j].checked = false;
     }
 let criteria=this.selectedCriteria
-    this.score=this.score+criteria.score;
+    this.score=this.score+Math.abs(criteria.score);
     let i=this.indexList.indexOf(this.selectedIndex)
     this.indexList.splice(i,1);
 
@@ -232,7 +232,10 @@ let criteria=this.selectedCriteria
 
   calculateScore(){
     this.score
-    this.data.criteria.map(c=>{this.score+=c.score});
+    this.data.criteria.map(c=>{
+      if(c.score>0)
+      this.score+=c.score
+    });
     // this.score=this.score-(this.msl);
 
     console.log('total score is',this.score)
