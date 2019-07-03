@@ -4,6 +4,7 @@ import { EvaluationService } from '../evaluation.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { environment } from 'src/environments/environment';
+import { Alert } from 'selenium-webdriver';
 
 @Component({
   selector: 'app-details-page',
@@ -29,6 +30,7 @@ ip=environment.ip;
 
   ngOnInit() {
     // this.getTableData();
+   
   }
 
   getTableData(obj){
