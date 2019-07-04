@@ -290,7 +290,7 @@ this.cloneArray=[]
 this.indexList=[];
 setTimeout(() => {
   
-// window.close();
+window.close();
   
 }, 2000);
 }
@@ -337,18 +337,18 @@ this.toastr.error(error.message,'Error');
     }
   }
 
-   zoomIn(event) {
-    var element = document.getElementById("overlay");
-    element.style.display = "inline-block";
-    var img = document.getElementById("imgZoom");
-    var posX = event.offsetX ? (event.offsetX) : event.pageX - img.offsetLeft;
-    var posY = event.offsetY ? (event.offsetY) : event.pageY - img.offsetTop;
-    element.style.backgroundPosition=(-posX*2)+"px "+(-posY*4)+"px";
+  //  zoomIn(event) {
+  //   var element = document.getElementById("overlay");
+  //   element.style.display = "inline-block";
+  //   var img = document.getElementById("imgZoom");
+  //   var posX = event.offsetX ? (event.offsetX) : event.pageX - img.offsetLeft;
+  //   var posY = event.offsetY ? (event.offsetY) : event.pageY - img.offsetTop;
+  //   element.style.backgroundPosition=(-posX*2)+"px "+(-posY*4)+"px";
   
-  }
+  // }
   
-   zoomOut() {
-    var element = document.getElementById("overlay");
-    element.style.display = "none";
-  }
+  //  zoomOut() {
+  //   var element = document.getElementById("overlay");
+  //   element.style.display = "none";
+  // }
 }
