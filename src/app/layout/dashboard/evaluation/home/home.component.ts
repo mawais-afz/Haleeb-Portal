@@ -131,7 +131,7 @@ loading=false;
       remarkId:remarks,
       id:criteria.id,
       title:criteria.title,
-      score:0,
+      score:(criteria.score>0)?0:criteria.score,
       criteriaMapId:criteria.criteriaMapId
     }
     this.cloneArray.forEach(element => {
@@ -190,7 +190,7 @@ loading=false;
           id:criteria.id,
           title:criteria.title,
           score:criteria.score,
-          remarkId:-1
+          // remarkId:-1
         }
         let e=this.evaluationArray.findIndex(i=>i.id==criteria.id)
         this.cloneArray.splice(e,1,obj);
@@ -218,7 +218,7 @@ let criteria=this.selectedCriteria
         id:criteria.id,
         title:criteria.title,
         score:criteria.score,
-        remarkId:-1
+        // remarkId:-1
       }
       let e=this.evaluationArray.findIndex(i=>i.id==criteria.id)
       this.cloneArray.splice(e,1,obj);
@@ -290,7 +290,7 @@ this.cloneArray=[]
 this.indexList=[];
 setTimeout(() => {
   
-// window.close();
+window.close();
   
 }, 2000);
 }
@@ -337,18 +337,18 @@ this.toastr.error(error.message,'Error');
     }
   }
 
-   zoomIn(event) {
-    var element = document.getElementById("overlay");
-    element.style.display = "inline-block";
-    var img = document.getElementById("imgZoom");
-    var posX = event.offsetX ? (event.offsetX) : event.pageX - img.offsetLeft;
-    var posY = event.offsetY ? (event.offsetY) : event.pageY - img.offsetTop;
-    element.style.backgroundPosition=(-posX*2)+"px "+(-posY*4)+"px";
+  //  zoomIn(event) {
+  //   var element = document.getElementById("overlay");
+  //   element.style.display = "inline-block";
+  //   var img = document.getElementById("imgZoom");
+  //   var posX = event.offsetX ? (event.offsetX) : event.pageX - img.offsetLeft;
+  //   var posY = event.offsetY ? (event.offsetY) : event.pageY - img.offsetTop;
+  //   element.style.backgroundPosition=(-posX*2)+"px "+(-posY*4)+"px";
   
-  }
+  // }
   
-   zoomOut() {
-    var element = document.getElementById("overlay");
-    element.style.display = "none";
-  }
+  //  zoomOut() {
+  //   var element = document.getElementById("overlay");
+  //   element.style.display = "none";
+  // }
 }
