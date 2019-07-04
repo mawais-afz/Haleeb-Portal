@@ -19,6 +19,7 @@ import { RawDataComponent } from './raw-data/raw-data.component';
 import { DataAvailabilityComponent } from './data-availability/data-availability.component';
 import { MerchandiserListComponent } from './innerComponents/merchandiser-list/merchandiser-list.component';
 import { AbnormalityComponent } from './innerComponents/abnormality/abnormality.component';
+import { TimeAnalysisReportComponent } from './innerComponents/time-analysis-report/time-analysis-report.component';
 
 const routes: Routes = [
     {
@@ -34,13 +35,13 @@ const routes: Routes = [
             { path: 'summary_report', component: SummaryComponent },
             { path: 'productivity_report', component: ProductivityComponent },
             { path: 'msl_dashboard', component: MslDashboardComponent },
-            { path: 'productivity_dashboard', component: ProductivityDashboardComponent },            
+            { path: 'productivity_dashboard', component: ProductivityDashboardComponent },
             { path: 'tposm_deployment_report', component: TposmDeploymentReportComponent },
             { path: 'update_password', component: UpdatePasswordComponent },
             { path: 'raw_data', component: RawDataComponent },
             { path: 'brand_sku_oos', component: DataAvailabilityComponent },
             { path: 'data_abnormality_report', component: AbnormalityComponent },
-
+            { path: 'time-analysis-report', component: TimeAnalysisReportComponent },
             { path: 'merchandiser_List', component: MerchandiserListComponent },
 
 

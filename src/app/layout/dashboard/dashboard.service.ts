@@ -10,12 +10,12 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class DashboardService {
-  ip: any = environment.ip;
-  user_id:any=0;
+  // ip: any = environment.ip;
+  user_id: any = 0;
 
-  
+
   // ip: any='http://192.168.3.209:8080/audit/';
-  // ip: any='http://192.168.3.189:8080/audit/';
+  ip: any = 'http://192.168.3.189:8080/audit/';
   // ip: any='http://192.168.3.94:8080/audit/';
 
   httpOptions = {
@@ -25,9 +25,9 @@ export class DashboardService {
     withCredentials: true
   };
 
-  constructor(private http: HttpClient, private toastr: ToastrService,private router:Router) { 
+  constructor(private http: HttpClient, private toastr: ToastrService, private router: Router) {
 
-    this.user_id=localStorage.getItem('user_id')
+    this.user_id = localStorage.getItem('user_id');
   }
 
   login(credentials: any) {
@@ -43,9 +43,9 @@ export class DashboardService {
     // );
   }
 
-  updatePassword(obj){
+  updatePassword(obj) {
     const url = this.ip + 'change-password';
-    return this.http.post(url, obj,this.httpOptions);
+    return this.http.post(url, obj, this.httpOptions);
   }
 
   UrlEncodeMaker(obj) {
@@ -59,7 +59,7 @@ export class DashboardService {
   getDashboardData(obj) {
     let body = null;
     if (obj != null) {
-      body = this.UrlEncodeMaker(obj)
+      body = this.UrlEncodeMaker(obj);
       // `zoneId=${obj.zoneId}&regionId=${obj.regionId}&endDate=${obj.endDate}&startDate=${obj.startDate}&distributionId=${obj.distributionId}&cityId=${obj.cityId}&storeType=${obj.storeType}&channelId=${obj.channelId}`;
     }
     const url = this.ip + 'dashboardDataCBL';
@@ -74,7 +74,7 @@ export class DashboardService {
 
   }
 
-  checkDate(){
+  checkDate() {
     // let date=new Date()
     // let today=localStorage.getItem('today');
     // if(today && moment(date).format('YYYY-MM-DD')!==today){
@@ -110,11 +110,11 @@ export class DashboardService {
     // );
   }
 
-  getMerchandiserListForEvaluation(obj){
+  getMerchandiserListForEvaluation(obj) {
 
-    let urlEncode=this.UrlEncodeMaker(obj)
+    const urlEncode = this.UrlEncodeMaker(obj);
     const url = this.ip + 'merchandiserList';
-    return this.http.post(url, urlEncode,this.httpOptions);
+    return this.http.post(url, urlEncode, this.httpOptions);
   }
 
   merchandiserShopListCBL(obj) {
@@ -131,9 +131,9 @@ export class DashboardService {
   }
   //#region FILTER CALL
   getZone() {
-    this.user_id=localStorage.getItem('user_id')
+    this.user_id = localStorage.getItem('user_id');
 
-    const filter = JSON.stringify({ act: 0 ,userId:this.user_id});
+    const filter = JSON.stringify({ act: 0 , userId: this.user_id});
     const url = this.ip + 'loadFilters';
     return this.http.post(url, filter);
     // .pipe(
@@ -145,18 +145,18 @@ export class DashboardService {
     // );
   }
 
-  getQueryTypeList(){
-    this.user_id=localStorage.getItem('user_id')
+  getQueryTypeList() {
+    this.user_id = localStorage.getItem('user_id');
 
-    const filter = JSON.stringify({ act: 6 ,userId:this.user_id});
+    const filter = JSON.stringify({ act: 6 , userId: this.user_id});
     const url = this.ip + 'loadFilters';
     return this.http.post(url, filter);
   }
 
   getRegion(zoneId) {
-    this.user_id=localStorage.getItem('user_id')
+    this.user_id = localStorage.getItem('user_id');
 
-    const filter = JSON.stringify({ act: 1, zoneId: zoneId,userId:this.user_id });
+    const filter = JSON.stringify({ act: 1, zoneId: zoneId, userId: this.user_id });
     const url = this.ip + 'loadFilters';
     return this.http.post(url, filter);
     // .pipe(
@@ -169,9 +169,9 @@ export class DashboardService {
   }
 
   getCities(regionId) {
-    this.user_id=localStorage.getItem('user_id')
+    this.user_id = localStorage.getItem('user_id');
 
-    const filter = JSON.stringify({ act: 2, regionId: regionId ,userId:this.user_id});
+    const filter = JSON.stringify({ act: 2, regionId: regionId , userId: this.user_id});
     const url = this.ip + 'loadFilters';
     return this.http.post(url, filter);
     // .pipe(
@@ -184,9 +184,9 @@ export class DashboardService {
   }
 
   getProducts(categoryId) {
-    this.user_id=localStorage.getItem('user_id')
+    this.user_id = localStorage.getItem('user_id');
 
-    const filter = JSON.stringify({ act: 5, category: categoryId,userId:this.user_id });
+    const filter = JSON.stringify({ act: 5, category: categoryId, userId: this.user_id });
     const url = this.ip + 'loadFilters';
     return this.http.post(url, filter);
     // .pipe(
@@ -199,9 +199,9 @@ export class DashboardService {
   }
 
   getAreas(channelId) {
-    this.user_id=localStorage.getItem('user_id')
+    this.user_id = localStorage.getItem('user_id');
 
-    const filter = JSON.stringify({ act: 3, channelId: channelId,userId:this.user_id });
+    const filter = JSON.stringify({ act: 3, channelId: channelId, userId: this.user_id });
     const url = this.ip + 'loadFilters';
     return this.http.post(url, filter);
     // .pipe(
@@ -213,9 +213,9 @@ export class DashboardService {
     // );
   }
   getMerchandiserList(obj) {
-    this.user_id=localStorage.getItem('user_id')
+    this.user_id = localStorage.getItem('user_id');
 
-    const filter = JSON.stringify({ act: 4, regionId: obj.regionId, zoneId: obj.zoneId, date: obj.startDate ,userId:this.user_id});
+    const filter = JSON.stringify({ act: 4, regionId: obj.regionId, zoneId: obj.zoneId, date: obj.startDate , userId: this.user_id});
     const url = this.ip + 'loadFilters';
 
     // const url = this.ip + 'cbl-pdf';

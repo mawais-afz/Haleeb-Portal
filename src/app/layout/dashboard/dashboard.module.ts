@@ -34,6 +34,7 @@ import { DataAvailabilityComponent } from './data-availability/data-availability
 import { ButtonsModule } from 'ngx-bootstrap';
 import { MerchandiserListComponent } from './innerComponents/merchandiser-list/merchandiser-list.component';
 import { AbnormalityComponent } from './innerComponents/abnormality/abnormality.component';
+import { TimeAnalysisReportComponent } from './innerComponents/time-analysis-report/time-analysis-report.component';
 
 @NgModule({
     imports: [
@@ -61,11 +62,13 @@ import { AbnormalityComponent } from './innerComponents/abnormality/abnormality.
         ButtonsModule.forRoot(),
 
     ],
-    declarations: [DashboardComponent, HomeComponent, ShopListComponent, 
-        SummaryComponent, ProductivityComponent, FilterBarComponent, 
+    declarations: [DashboardComponent, HomeComponent, ShopListComponent,
+        SummaryComponent, ProductivityComponent, FilterBarComponent,
         DetailsComponent, DailyVisitReportComponent, ShopDetailComponent,
          MslDashboardComponent, ProductivityDashboardComponent,
-          TposmDeploymentReportComponent,
-           LineChartComponent, UpdatePasswordComponent, RawDataComponent, MatTableComponent, DataAvailabilityComponent, MerchandiserListComponent, AbnormalityComponent]
+          TposmDeploymentReportComponent, LineChartComponent,
+          UpdatePasswordComponent, RawDataComponent, MatTableComponent,
+          DataAvailabilityComponent, MerchandiserListComponent,
+          AbnormalityComponent, TimeAnalysisReportComponent]
 })
 export class DashboardModule {}
