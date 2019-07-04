@@ -7,23 +7,24 @@
                         <img src="assets/images/basicloader.gif" alt="" srcset="">
                     </div>
                     <div class="col-md-12 animated slideInLeft">
-                        <table class="table table-bordered " *ngIf="tableData?.length>0">
+                        <table class="table table-bordered table-hover " *ngIf="tableData?.length>0">
                             <thead>
                                 <!-- <th *ngFor="let item of headingsList">{{item}}</th> -->
                                 <!-- <th>Shop Id</th> -->
                                 <th style="
-                                min-width: 105px;
+                                min-width: 120px;
                             ">Shop Code</th>
                                 <th style="
-                                min-width: 102px;
+                                min-width: 150px;
                             ">Shop Name</th>
                                 <th>Address</th>
 
                                 <th style="
-                                min-width: 125px;
+                                min-width: 130px;
                             ">Channel Name</th>
-                                <th>Remarks</th>
-                                <!-- <th>VO Code</th> -->
+                                <th>Category</th>
+
+                                <th style="min-width: 130px;">Remarks</th>
                                 <!-- <th>VO Name</th> -->
                                 <th>Status</th>
                             </thead>
@@ -31,14 +32,22 @@
 
                                 <tr *ngFor="let item of tableData">
                                     <!-- <td [ngClass]="{'isEvaluated':item.flag!=1}" (click)="gotoNewPage(item)">{{item?.shop_id}}</td> -->
-                                    <td [ngClass]="{'isEvaluated':item.flag!=1}" (click)="gotoNewPage(item)">{{item?.shop_code}}</td>
-                                    <td [ngClass]="{'isEvaluated':item.flag!=1}" (click)="gotoNewPage(item)">{{item?.shop_title}}</td>
-                                    <td [ngClass]="{'isEvaluated':item.flag!=1}" style="word-break:break-all;width:350px;" (click)="gotoNewPage(item)">{{item?.address}}</td>
+                                    <td [ngClass]="{'isEvaluated':item.flag!=1}" (click)="gotoNewPage(item)">
+                                        {{item?.shop_code}}</td>
+                                    <td [ngClass]="{'isEvaluated':item.flag!=1}" (click)="gotoNewPage(item)">
+                                        {{item?.shop_title}}</td>
+                                    <td [ngClass]="{'isEvaluated':item.flag!=1}"
+                                        style="word-break:break-word;" (click)="gotoNewPage(item)">
+                                        {{item?.address}}</td>
 
-                                    <td [ngClass]="{'isEvaluated':item.flag!=1}" (click)="gotoNewPage(item)">{{item?.channel_title}}</td>
-                                    <td [ngClass]="{'isEvaluated':item.flag!=1}" (click)="gotoNewPage(item)">{{item?.category}}</td>
+                                    <td [ngClass]="{'isEvaluated':item.flag!=1}" (click)="gotoNewPage(item)">
+                                        {{item?.channel_title}}</td>
+                                    <td [ngClass]="{'isEvaluated':item.flag!=1}" (click)="gotoNewPage(item)">
+                                        {{item?.category}}</td>
 
-                                    <td [ngClass]="{'isEvaluated':item.flag!=1}" style="word-break:break-all;width:350px;" (click)="gotoNewPage(item)">{{item?.remarks}}</td>
+                                    <td [ngClass]="{'isEvaluated':item.flag!=1}"
+                                        style="word-break:break-word;" (click)="gotoNewPage(item)">
+                                        {{item?.remarks}}</td>
 
                                     <!-- <td [ngClass]="{'isEvaluated':item.flag!=1}" style="width:100px;" (click)="gotoNewPage(item)">{{item?.vo_code}}</td> -->
                                     <!-- <td [ngClass]="{'isEvaluated':item.flag!=1}" (click)="gotoNewPage(item)">{{item?.vo_name}}</td> -->
