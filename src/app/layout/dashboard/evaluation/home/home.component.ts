@@ -131,7 +131,7 @@ loading=false;
       remarkId:remarks,
       id:criteria.id,
       title:criteria.title,
-      score:0,
+      score:(criteria.score>0)?0:criteria.score,
       criteriaMapId:criteria.criteriaMapId
     }
     this.cloneArray.forEach(element => {
@@ -190,7 +190,7 @@ loading=false;
           id:criteria.id,
           title:criteria.title,
           score:criteria.score,
-          remarkId:-1
+          // remarkId:-1
         }
         let e=this.evaluationArray.findIndex(i=>i.id==criteria.id)
         this.cloneArray.splice(e,1,obj);
@@ -218,7 +218,7 @@ let criteria=this.selectedCriteria
         id:criteria.id,
         title:criteria.title,
         score:criteria.score,
-        remarkId:-1
+        // remarkId:-1
       }
       let e=this.evaluationArray.findIndex(i=>i.id==criteria.id)
       this.cloneArray.splice(e,1,obj);
