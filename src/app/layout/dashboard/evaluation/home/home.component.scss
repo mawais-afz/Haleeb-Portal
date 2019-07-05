@@ -1,7 +1,7 @@
 .container {
     display: block;
     position: relative;
-    padding-left: 35px;
+    // padding-left: 35px;
     margin-bottom: 12px;
     cursor: pointer;
     font-size: 14px;
@@ -173,4 +173,9 @@ div.card-header {
 
 mat-slider {
     width: 300px;
+}
+
+div.panel-heading,
+div.card-header {
+    padding: 1px !important
 }
