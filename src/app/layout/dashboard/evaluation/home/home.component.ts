@@ -146,7 +146,7 @@ loading=false;
       title:criteria.title,
       score:criteria.score,
       criteriaMapId:criteria.criteriaMapId,
-      achievedScore:this.criteriaDesireScore,
+      achievedScore:(this.criteriaDesireScore>0)?this.criteriaDesireScore:0,
       isEditable:criteria.isEditable
     }
     this.cloneArray.forEach(element => {
