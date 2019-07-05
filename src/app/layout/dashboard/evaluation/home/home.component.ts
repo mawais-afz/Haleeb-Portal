@@ -37,6 +37,7 @@ loading=false;
   rotationDegree: number=0;
   isEditable: any=false;
   selectedIndex: number=-1;
+  criteriaDesireScore:any=-1;
  
   constructor(private router:Router,private toastr:ToastrService,private activatedRoutes:ActivatedRoute,private httpService:EvaluationService,private evaluationService:EvaluationService) { 
     this.surveyId
@@ -65,7 +66,17 @@ loading=false;
   ngOnInit() {
    
   }
+  formatLabel(value: number | null) {
+    if (!value) {
+      return 0;
+    }
 
+    if (value >= 1000) {
+      return Math.round(value / 1000);
+    }
+
+    return value;
+  }
 
   rotateImage(){
     if(this.rotationDegree==360){

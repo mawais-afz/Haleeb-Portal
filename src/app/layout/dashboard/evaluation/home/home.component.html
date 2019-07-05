@@ -80,16 +80,23 @@
                                 <table class="table table-bordered sm-table" style="line-height:1">
                                     <tr *ngFor="let item of data.criteria;let i=index">
                                         <td>
-                                            <label class="container">
-                        <p style="padding-top: 5px; ">{{item?.title}}</p>
+                                            <label class="container" style="
+                                            margin-bottom: 8px;
+                                        ">
+                        <p style="padding-top: 5px; margin-bottom: 5px ">{{item?.title}}</p>
                         <input *ngIf="item?.id!=5" class="checkbox" type="checkbox" name="{{item?.title}}"
                           id="{{item?.id}}" (click)="counter(checked,item,i)" #checked>
                         <span *ngIf="item?.id!=5" class="checkmark"></span>
                       </label>
                                         </td>
-                                        <td>
-                                            <label class="container" for="score">
+                                        <td style="max-width: 10px">
+                                            <label class="container" for="score" style=" margin-top: 5px;  margin-bottom: 2px;">
                         {{item?.score}}
+                      </label>
+                                        </td>
+                                        <td style="max-width: 10px">
+                                            <label class="container" for="achievedScore" style=" margin-top: 5px; margin-bottom: 2px; ">
+                        {{item?.achievedScore}}
                       </label>
                                         </td>
 
@@ -97,7 +104,7 @@
                                     </tr>
                                     <!-- <hr> -->
                                     <tr style="font-weight:700">
-                                        <!-- <td></td> -->
+                                        <td></td>
                                         <td>
                                             <label class="container" for="">Total Score:</label>
                                         </td>
@@ -190,7 +197,8 @@
 
                         <section class="example-section">
 
-                            <mat-checkbox *ngIf="remark.criteriaId==selectedCriteria.id" (click)="checkboxChange(checkStatus,remark.id)" #checkStatus class="example-margin">{{remark.description}}
+                            <mat-checkbox *ngIf="remark.criteriaId==selectedCriteria.id" (click)="checkboxChange(checkStatus,remark.id)" #checkStatus class="example-margin">
+                                {{remark.description}}
                             </mat-checkbox>
 
                         </section>
@@ -205,9 +213,14 @@
 
 
                 <div class="row">
-                    <div class="col-md-12" style="text-align: end; padding: 0 20px 5px 0; ">
-                        <button class="btn btn-default mr-2" (click)="cancelCriteriaSelection()">Cancel</button>
-                        <button class="btn btn-primary" (click)="getCriteriaWithRemarks(selectedRemarksList,selectedCriteria)">Submit</button>
+                    <div class="col-md-8" *ngIf="!!selectedCriteria?.isEditable">
+                        <label for="criteriaDesireScore">Desire Score {{criteriaDesireScore}}</label>
+                        <mat-slider [(ngModel)]="criteriaDesireScore" thumbLabel [displayWith]="formatLabel" tickInterval="1000" min="0" max="{{selectedCriteria?.score}}"></mat-slider>
+                        <!-- <input type="text" name="criteriaDesireScore" > -->
+                    </div>
+                    <div class="col-md" style="text-align: end; padding: 0 20px 5px 0; ">
+                        <button class="btn btn-default mr-2 btn-sm" (click)="cancelCriteriaSelection()">Cancel</button>
+                        <button class="btn btn-primary btn-sm" (click)="getCriteriaWithRemarks(selectedRemarksList,selectedCriteria)">Submit</button>
 
                     </div>
                 </div>
