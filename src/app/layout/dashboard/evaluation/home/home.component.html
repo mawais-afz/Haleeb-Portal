@@ -87,7 +87,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let item of data.criteria;let i=index" style="  text-align: center; ">
+                                <tr *ngFor="let item of cloneArray;let i=index" style="  text-align: center; ">
                                     <td>
                                         <label class="container" style="
                                                         margin-bottom: 8px;
@@ -123,8 +123,8 @@
                                                           </label>
                                     </td>
                                     <td>
-                                        <label class="container" for="score">
-                                                            {{score}}
+                                        <label class="container" for="totalAchieveScore">
+                                                            {{totalAchieveScore}}
                                                           </label>
 
                                     </td>

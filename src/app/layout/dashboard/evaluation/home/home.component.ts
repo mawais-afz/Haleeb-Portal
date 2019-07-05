@@ -37,7 +37,8 @@ loading=false;
   rotationDegree: number=0;
   isEditable: any=false;
   selectedIndex: number=-1;
-  criteriaDesireScore:any=-1;
+  criteriaDesireScore:any=0;
+  totalAchieveScore: number=0;
  
   constructor(private router:Router,private toastr:ToastrService,private activatedRoutes:ActivatedRoute,private httpService:EvaluationService,private evaluationService:EvaluationService) { 
     this.surveyId
@@ -97,6 +98,7 @@ loading=false;
     document.title=this.data.section[0].sectionTitle;
     if(this.data.criteria){
       this.evaluationArray=this.data.criteria;
+      this.getTotalAchieveScore()
       this.cloneArray=this.evaluationArray.slice();
     }
    
@@ -142,8 +144,10 @@ loading=false;
       remarkId:remarks,
       id:criteria.id,
       title:criteria.title,
-      score:(criteria.score>0)?0:criteria.score,
-      criteriaMapId:criteria.criteriaMapId
+      score:criteria.score,
+      criteriaMapId:criteria.criteriaMapId,
+      achievedScore:this.criteriaDesireScore,
+      isEditable:criteria.isEditable
     }
     this.cloneArray.forEach(element => {
 
@@ -154,9 +158,11 @@ loading=false;
 
     // this.evaluationArray.push(obj);
     console.log('evaluation array clone',this.cloneArray);
+    this.updateAchieveScore(criteria.id);
     this.hideRemarksModal();
     this.selectedRemarks='';
-    this.selectedRemarksList=[]
+    this.selectedRemarksList=[];
+    this.criteriaDesireScore=0;
 
 
   }
@@ -178,17 +184,46 @@ loading=false;
     console.log('remarks list',this.selectedRemarksList)
 
   }
+
+  updateAchieveScore(id){
+
+   for (let index = 0; index < this.cloneArray.length; index++) {
+     const element = this.cloneArray[index];
+
+     if(element.id==id){
+       this.cloneArray[index].achievedScore=this.criteriaDesireScore;
+     }
+     
+   }
+   this.totalAchieveScore=this.getTotalAchieveScore();
+
+  }
+
+
+  getTotalAchieveScore(){
+    let score=0;
+    this.cloneArray.forEach(element => {
+      score=score+element.achievedScore
+      
+    });
+
+    return score;
+  }
   counter(event,criteria,index){
+
 
     this.selectedIndex=index;
     
     // console.dir(event.checked)
     if(event.checked){
-      this.score=this.score-Math.abs(criteria.score);
+      // this.score=this.score-Math.abs(criteria.score);
+      this.totalAchieveScore=(this.criteriaDesireScore>0)?this.totalAchieveScore+Math.abs(this.criteriaDesireScore):this.totalAchieveScore+Math.abs(criteria.score);
       this.indexList.push(index);
       // console.log('checked',this.indexList)
-      this.selectedCriteria=criteria
+      this.selectedCriteria=criteria;
+      // 
       this.showRemarksModal();
+      
 
     }
     else{
