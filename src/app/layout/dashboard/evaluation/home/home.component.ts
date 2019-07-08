@@ -104,7 +104,7 @@ export class HomeComponent implements OnInit {
           localStorage.setItem('productList', JSON.stringify(this.productList));
           this.msl = this.data.msl;
           this.isEditable = this.data.isEditable || this.isEditable;
-          if (this.productList.length > 0) this.availabilityCount = this.getAvailabilityCount(this.productList);
+          if (this.productList.length > 0) this.availabilityCount = Math.round(this.getAvailabilityCount(this.productList));
           if (this.data.criteria) this.calculateScore();
         }
       },
@@ -117,7 +117,7 @@ export class HomeComponent implements OnInit {
     localStorage.setItem('productList', JSON.stringify(products));
     this.productList = localStorage.getItem('productList');
 
-    this.availabilityCount = this.getAvailabilityCount(products);
+    this.availabilityCount = Math.round(this.getAvailabilityCount(products));
   }
 
   getAvailabilityCount(products) {

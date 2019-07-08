@@ -98,13 +98,17 @@
                                     {{item?.score}}
                                   </label>
                                     </td>
-                                    <td>
+                                    <td *ngIf="item?.id!=5">
                                         <label class="container" for="achievedScore" style=" margin-top: 5px; margin-bottom: 2px; ">
                                     {{item?.achievedScore}}
                                   </label>
                                     </td>
 
-                                    <!-- <td></td> -->
+
+                                    <!-- msl count -->
+                                    <td *ngIf="item?.id==5">
+                                        {{availabilityCount}}
+                                    </td>
                                 </tr>
                                 <!-- <hr> -->
                                 <tr style="font-weight:700;text-align:center">
