@@ -20,6 +20,7 @@ export class SectionThreeViewComponent implements OnInit {
   updatingMSL: boolean;
   colorUpdateList: any=[];
   surveyId: any;
+  evaluatorId:any;
   MSLCount: number=0;
   MSLNAvailabilityCount: number;
 
@@ -27,7 +28,9 @@ export class SectionThreeViewComponent implements OnInit {
 
   ngOnInit() {
         var arr=this.router.url.split('/');
-    this.surveyId=+arr[arr.length-1]
+      this.surveyId=+arr[arr.length-1];
+      this.evaluatorId = localStorage.getItem("user_id");
+      debugger;
   }
   ngOnChanges(changes: SimpleChanges): void {
     
@@ -87,7 +90,8 @@ export class SectionThreeViewComponent implements OnInit {
       let obj={
         msdId:value.id,
         unitAvailable:!!value.available_sku? 0:1,
-        surveyId:this.surveyId
+        surveyId:this.surveyId,
+        evaluatorId:this.evaluatorId
       }
       // return value?'YES':'NO';
   
@@ -95,7 +99,7 @@ export class SectionThreeViewComponent implements OnInit {
     if(data.success){
       // this.products=data.productList;
       let key=data.msdId;
-  
+  debugger
       this.products.forEach(e => {
   
       // for (const key of this.colorUpdateList) {
