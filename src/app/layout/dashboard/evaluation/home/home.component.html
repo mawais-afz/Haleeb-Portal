@@ -70,12 +70,7 @@
             </div>
         </div>
         <div class="col-md-3" *ngIf="data?.criteria && isFromShop">
-            <!-- ;right:15px;position:fixed;top:20px -->
-            <!-- style="height:600px;width: 100%;margin: 10px auto" -->
             <div class="card">
-                <!-- <accordion>
-                    <accordion-group [isOpen]="true" heading="Evaluation Criteria"> -->
-
                 <div class="row">
                     <div class="col-md-12">
                         <table class="table table-bordered sm-table" style="line-height:1">
@@ -93,7 +88,7 @@
                                                         margin-bottom: 8px;
                                                     ">
                                     <p style="padding-top: 5px; margin-bottom: 5px ">{{item?.title}}</p>
-                                    <input *ngIf="item?.id!=5" class="checkbox" type="checkbox" name="{{item?.title}}"
+                                    <input *ngIf="item?.id!=5" class="checkbox" type="checkbox" name="{{item?.title}}" [checked]=item?.isChecked
                                       id="{{item?.id}}" (click)="counter(checked,item,i)" #checked>
                                     <span *ngIf="item?.id!=5" class="checkmark"></span>
                                   </label>
@@ -144,8 +139,7 @@
                     </div>
                 </div>
                 <hr>
-                <!-- </accordion-group>
-                    <accordion-group heading="Shop Details" style="padding:1px"> -->
+
                 <div class="row justify-content-center">
                     <ng-container class="mt-2 justify-content-center " *ngIf="data?.shopDetails?.tagsList">
                         <div class="col-md-11 mt-1 ">
@@ -160,12 +154,6 @@
                         </div>
                     </ng-container>
                 </div>
-                <!-- </accordion-group>
-                </accordion> -->
-
-
-
-
 
             </div>
         </div>
@@ -230,7 +218,7 @@
 
                 <div class="row">
                     <div class="col-md-8" *ngIf="!!selectedCriteria?.isEditable">
-                        <label for="criteriaDesireScore">Desire Score {{criteriaDesireScore}}</label>
+                        <label for="criteriaDesireScore">Min Score:0,Max Score: {{selectedCriteria?.score}}</label>
                         <mat-slider [(ngModel)]="criteriaDesireScore" thumbLabel [displayWith]="formatLabel" tickInterval="1000" min="0" max="{{selectedCriteria?.score}}"></mat-slider>
                         <!-- <input type="text" name="criteriaDesireScore" > -->
                     </div>
