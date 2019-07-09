@@ -136,7 +136,7 @@ export class HomeComponent implements OnInit {
       title: criteria.title,
       score: criteria.score,
       criteriaMapId: criteria.criteriaMapId,
-      achievedScore: this.criteriaDesireScore > 0 ? this.criteriaDesireScore : criteria.achievedScore,
+      achievedScore: (criteria.isEditable)? (this.criteriaDesireScore==criteria.score)?0:this.criteriaDesireScore : 0,
       isEditable: criteria.isEditable,
       isChecked: 1
     };
@@ -365,7 +365,7 @@ export class HomeComponent implements OnInit {
   }
 
   showRemarksModal() {
-    this.criteriaDesireScore=this.selectedCriteria.achievedScore;
+    this.criteriaDesireScore=0;//this.selectedCriteria.achievedScore;
     this.remarksModal.show();
   }
 

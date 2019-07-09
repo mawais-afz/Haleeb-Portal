@@ -81,6 +81,7 @@
                                     <th>Achieved</th>
                                 </tr>
                             </thead>
+                            <!-- {{cloneArray[0] | json }} -->
                             <tbody>
                                 <tr *ngFor="let item of cloneArray;let i=index" style="  text-align: center; ">
                                     <td>
@@ -98,9 +99,21 @@
                                     {{item?.score}}
                                   </label>
                                     </td>
+
                                     <td *ngIf="item?.id!=5">
                                         <label class="container" for="achievedScore" style=" margin-top: 5px; margin-bottom: 2px; ">
-                                    {{item?.achievedScore}}
+                                            <span >
+                                                {{item?.achievedScore}}
+                                            </span>
+                                            <!-- <span *ngIf="item?.isEditable">
+                                                0
+                                            </span>
+
+                                            <span *ngIf="!item?.isEditable && !item?.remarkId">
+                                                {{item?.achievedScore}}
+                                            </span> -->
+
+                                    
                                   </label>
                                     </td>
 
