@@ -144,7 +144,7 @@ export class HomeComponent implements OnInit {
       var i = this.cloneArray.findIndex(e => e.id == criteria.id);
       this.cloneArray.splice(i, 1, obj);
     });
-    this.subtractScore(this.selectedCriteria);
+    // this.subtractScore(this.selectedCriteria);
     // this.evaluationArray.push(obj);
     console.log('evaluation array clone', this.cloneArray);
     // this.updateAchieveScore(criteria.id);
@@ -211,13 +211,16 @@ export class HomeComponent implements OnInit {
       //     ? this.totalAchieveScore - Math.abs(this.criteriaDesireScore)
       //     : this.totalAchieveScore - Math.abs(criteria.achievedScore);
       this.indexList.push(index);
-      // this.updateAchieveScore(criteria.id)
+      this.updateAchieveScore(criteria.id)
 
       this.selectedCriteria = criteria;
-      // this.subtractScore(this.selectedCriteria);
+      if(!criteria.isEditable)
+      this.subtractScore(this.selectedCriteria);
       this.showRemarksModal();
     } else {
-      this.score = this.score + Math.abs(criteria.score);
+
+      this.totalAchieveScore = this.totalAchieveScore + Math.abs(criteria.score);
+
       let i = this.indexList.indexOf(index);
       this.indexList.splice(i, 1);
 
@@ -228,13 +231,14 @@ export class HomeComponent implements OnInit {
           title: criteria.title,
           score: criteria.score,
           criteriaMapId: criteria.criteriaMapId,
-          achievedScore: criteria.criteriaMapId,
+          achievedScore: (criteria.score>criteria.achievedScore)?criteria.score:criteria.achievedScore,
           isEditable: criteria.isEditable,
           isChecked: 0
         };
         let e = this.evaluationArray.findIndex(i => i.id == criteria.id);
         this.cloneArray.splice(e, 1, obj);
         console.log('unchecked evaluation array', this.cloneArray);
+        this.selectedRemarksList = [];
         this.updateAchieveScore(criteria.id);
       }
     }
@@ -246,7 +250,7 @@ export class HomeComponent implements OnInit {
       if (this.selectedCriteria.id == inputs[j].id) inputs[j].checked = false;
     }
     let criteria = this.selectedCriteria;
-    // this.score=this.score+Math.abs(criteria.score);
+    this.totalAchieveScore = this.totalAchieveScore + Math.abs(criteria.score);
     let i = this.indexList.indexOf(this.selectedIndex);
     this.indexList.splice(i, 1);
 
@@ -257,7 +261,7 @@ export class HomeComponent implements OnInit {
         title: criteria.title,
         score: criteria.score,
         criteriaMapId: criteria.criteriaMapId,
-        achievedScore: criteria.criteriaMapId,
+        achievedScore: (criteria.score>criteria.achievedScore)?criteria.score:criteria.achievedScore,
         isEditable: criteria.isEditable,
         isChecked: 0
       };
@@ -361,13 +365,22 @@ export class HomeComponent implements OnInit {
   }
 
   showRemarksModal() {
+    this.criteriaDesireScore=this.selectedCriteria.achievedScore;
     this.remarksModal.show();
   }
 
   hideRemarkModalForCancelOption() {
+    if(this.selectedCriteria.isEditable)
+    this.subtractScore(this.selectedCriteria);
+
+    // this.updateAchieveScore(this.selectedCriteria.id)
     this.remarksModal.hide();
   }
   hideRemarksModal() {
+    if(this.selectedCriteria.isEditable)
+    this.subtractScore(this.selectedCriteria);
+
+    // this.updateAchieveScore(this.selectedCriteria.id)
     // if(this.selectedRemarksList.length>0)
     this.remarksModal.hide();
     // else{

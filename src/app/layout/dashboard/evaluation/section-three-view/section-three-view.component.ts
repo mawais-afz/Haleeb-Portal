@@ -30,7 +30,6 @@ export class SectionThreeViewComponent implements OnInit {
         var arr=this.router.url.split('/');
       this.surveyId=+arr[arr.length-1];
       this.evaluatorId = localStorage.getItem("user_id");
-      debugger;
   }
   ngOnChanges(changes: SimpleChanges): void {
     
@@ -99,7 +98,6 @@ export class SectionThreeViewComponent implements OnInit {
     if(data.success){
       // this.products=data.productList;
       let key=data.msdId;
-  debugger
       this.products.forEach(e => {
   
       // for (const key of this.colorUpdateList) {
