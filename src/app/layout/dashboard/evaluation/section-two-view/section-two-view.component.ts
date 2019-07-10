@@ -16,6 +16,11 @@ export class SectionTwoViewComponent implements OnInit {
   selectedShop: any={};
   selectedImage:any={};
   ip=environment.ip;
+  hover="hover";
+  zoomOptions={
+    Mode:"hover"
+  }
+  zoomedImage="https://image.shutterstock.com/image-photo/micro-peacock-feather-hd-imagebest-260nw-1127238569.jpg"
   
 
   constructor() { }

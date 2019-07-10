@@ -191,7 +191,9 @@
         </button>
             </div> -->
             <div class="modal-body" style="padding:10px">
-                <img src="{{ip}}{{selectedShop?.url}}" alt="" srcset="">
+                <ngx-image-zoom [zoomMode]="'hover'" [magnification]="5" [thumbImage]=ip+selectedShop?.url [fullImage]=ip+selectedShop?.url></ngx-image-zoom>
+
+                <!-- <img src="{{ip}}{{selectedShop?.url}}" alt="" srcset=""> -->
             </div>
         </div>
     </div>

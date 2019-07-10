@@ -16,6 +16,7 @@ import { SectionFourViewComponent } from './section-four-view/section-four-view.
 import { MatCardModule } from '@angular/material';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatSliderModule} from '@angular/material/slider';
+import { NgxImageZoomModule } from 'ngx-image-zoom';
 @NgModule({
   declarations: [HomeComponent, DetailsPageComponent, MainPageComponent, SectionOneViewComponent, SectionTwoViewComponent, SectionThreeViewComponent, SectionFourViewComponent],
   imports: [
@@ -27,7 +28,8 @@ import {MatSliderModule} from '@angular/material/slider';
     AccordionModule.forRoot(),
     MatCardModule,
     MatCheckboxModule,
-    MatSliderModule
+    MatSliderModule,
+    NgxImageZoomModule.forRoot()
   ]
 })
 export class EvaluationModule { }
