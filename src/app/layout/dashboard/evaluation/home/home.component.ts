@@ -38,6 +38,7 @@ export class HomeComponent implements OnInit {
   selectedIndex: number = -1;
   criteriaDesireScore: any = 0;
   totalAchieveScore: number = 0;
+  MSLCount: number;
 
   constructor(
     private router: Router,
@@ -104,7 +105,7 @@ export class HomeComponent implements OnInit {
           localStorage.setItem('productList', JSON.stringify(this.productList));
           this.msl = this.data.msl;
           this.isEditable = this.data.isEditable || this.isEditable;
-          if (this.productList.length > 0) this.availabilityCount = Math.round(this.getAvailabilityCount(this.productList));
+          if (this.productList.length > 0) this.availabilityCount =Math.round(this.getMSLNAvailbilityCount(this.productList));// Math.round(this.getAvailabilityCount(this.productList));
           if (this.data.criteria) this.calculateScore();
         }
       },
@@ -117,9 +118,35 @@ export class HomeComponent implements OnInit {
     localStorage.setItem('productList', JSON.stringify(products));
     this.productList = localStorage.getItem('productList');
 
-    this.availabilityCount = Math.round(this.getAvailabilityCount(products));
+    this.availabilityCount =Math.round(this.getMSLNAvailbilityCount(products)); //Math.round(this.getAvailabilityCount(products));
   }
 
+
+  getMSLNAvailbilityCount(products)
+  {
+    let pro=[];
+    let msl=[];
+    products.forEach(p=>{
+      let obj={};
+     if(p.MSL=='Yes'  && p.available_sku==1 ){
+       obj={
+         available_sku:p.available_sku,
+         MSL:p.MSL
+       }
+       pro.push(obj)
+
+     }
+
+     if(p.MSL=='Yes'){
+       msl.push(p)
+     }
+      
+   })
+  this.MSLCount=msl.length;
+
+  let MSLScore=pro.length/this.MSLCount *10;
+    return  MSLScore;
+  }
   getAvailabilityCount(products) {
     if (!products) {
       products = localStorage.getItem('productList');
