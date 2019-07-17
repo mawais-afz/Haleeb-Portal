@@ -92,9 +92,17 @@
                                                         margin-bottom: 8px;
                                                     ">
                                     <p style="padding-top: 5px; margin-bottom: 5px ">{{item?.title}}</p>
-                                    <input *ngIf="item?.id!=5" class="checkbox" type="checkbox" name="{{item?.title}}" [checked]=item?.isChecked
-                                      id="{{item?.id}}" (click)="counter(checked,item,i)" #checked>
-                                    <span *ngIf="item?.id!=5" class="checkmark"></span>
+                                    <ng-container *ngIf=" item?.id!=14 && isCritical">
+                                            <input *ngIf="item?.id!=5" class="checkbox" type="checkbox" name="{{item?.title}}" [checked]=item?.isChecked
+                                            id="{{item?.id}}" (click)="counter(checked,item,i)" #checked>
+                                          <span *ngIf="item?.id!=5" class="checkmark"></span>
+                                    </ng-container>
+                                    <ng-container  *ngIf=" item?.id==14 && !isNoNCritical">
+                                            <input *ngIf="item?.id!=5" class="checkbox" type="checkbox" name="{{item?.title}}" [checked]=item?.isChecked
+                                            id="{{item?.id}}" (click)="counter(checked,item,i)" #checked>
+                                          <span *ngIf="item?.id!=5 " class="checkmark"></span>
+                                    </ng-container>
+                                   
                                   </label>
                                     </td>
                                     <td>

@@ -39,7 +39,8 @@ export class HomeComponent implements OnInit {
   criteriaDesireScore: any = 0;
   totalAchieveScore: number = 0;
   MSLCount: number;
-
+  isCritical = true;
+  isNoNCritical: boolean = false;
   constructor(
     private router: Router,
     private toastr: ToastrService,
@@ -105,7 +106,7 @@ export class HomeComponent implements OnInit {
           localStorage.setItem('productList', JSON.stringify(this.productList));
           this.msl = this.data.msl;
           this.isEditable = this.data.isEditable || this.isEditable;
-          if (this.productList.length > 0) this.availabilityCount =Math.round(this.getMSLNAvailbilityCount(this.productList));// Math.round(this.getAvailabilityCount(this.productList));
+          if (this.productList.length > 0) this.availabilityCount = Math.round(this.getMSLNAvailbilityCount(this.productList)); // Math.round(this.getAvailabilityCount(this.productList));
           if (this.data.criteria) this.calculateScore();
         }
       },
@@ -118,34 +119,30 @@ export class HomeComponent implements OnInit {
     localStorage.setItem('productList', JSON.stringify(products));
     this.productList = localStorage.getItem('productList');
 
-    this.availabilityCount =Math.round(this.getMSLNAvailbilityCount(products)); //Math.round(this.getAvailabilityCount(products));
+    this.availabilityCount = Math.round(this.getMSLNAvailbilityCount(products)); //Math.round(this.getAvailabilityCount(products));
   }
 
+  getMSLNAvailbilityCount(products) {
+    let pro = [];
+    let msl = [];
+    products.forEach(p => {
+      let obj = {};
+      if (p.MSL == 'Yes' && p.available_sku == 1) {
+        obj = {
+          available_sku: p.available_sku,
+          MSL: p.MSL
+        };
+        pro.push(obj);
+      }
 
-  getMSLNAvailbilityCount(products)
-  {
-    let pro=[];
-    let msl=[];
-    products.forEach(p=>{
-      let obj={};
-     if(p.MSL=='Yes'  && p.available_sku==1 ){
-       obj={
-         available_sku:p.available_sku,
-         MSL:p.MSL
-       }
-       pro.push(obj)
+      if (p.MSL == 'Yes') {
+        msl.push(p);
+      }
+    });
+    this.MSLCount = msl.length;
 
-     }
-
-     if(p.MSL=='Yes'){
-       msl.push(p)
-     }
-      
-   })
-  this.MSLCount=msl.length;
-
-  let MSLScore=pro.length/this.MSLCount *10;
-    return  MSLScore;
+    let MSLScore = (pro.length / this.MSLCount) * 10;
+    return MSLScore;
   }
   getAvailabilityCount(products) {
     if (!products) {
@@ -165,7 +162,7 @@ export class HomeComponent implements OnInit {
       criteriaMapId: criteria.criteriaMapId,
       // achievedScore: (criteria.isEditable)? (this.criteriaDesireScore==criteria.score)?0:this.criteriaDesireScore : 0,
 
-      achievedScore: (criteria.isEditable)?this.criteriaDesireScore : 0,
+      achievedScore: criteria.isEditable ? this.criteriaDesireScore : 0,
       isEditable: criteria.isEditable,
       isChecked: 1
     };
@@ -223,14 +220,28 @@ export class HomeComponent implements OnInit {
   subtractScore(criteria) {
     this.totalAchieveScore =
       this.criteriaDesireScore > 0
-        ? this.totalAchieveScore - Math.abs(criteria.score-this.criteriaDesireScore)
+        ? this.totalAchieveScore - Math.abs(criteria.score - this.criteriaDesireScore)
         : this.totalAchieveScore - Math.abs(criteria.achievedScore);
+  }
+
+  isAnyCriteriaCheck() {
+    let result = false;
+    this.cloneArray.forEach(element => {
+      if (element.isChecked) result = true;
+    });
+
+    return result;
   }
 
   counter(event, criteria, index) {
     this.selectedIndex = index;
     // console.dir(event.checked)
     if (event.checked) {
+      if (criteria.id == 14) this.isCritical = false;
+      else {
+        this.isNoNCritical = true;
+        this.isCritical = true;
+      }
       // this.score=this.score-Math.abs(criteria.score);
       // this.updateAchieveScore(criteria.id);
       // this.totalAchieveScore=this.getTotalAchieveScore()
@@ -240,14 +251,12 @@ export class HomeComponent implements OnInit {
       //     ? this.totalAchieveScore - Math.abs(this.criteriaDesireScore)
       //     : this.totalAchieveScore - Math.abs(criteria.achievedScore);
       this.indexList.push(index);
-      this.updateAchieveScore(criteria.id)
+      this.updateAchieveScore(criteria.id);
 
       this.selectedCriteria = criteria;
-      if(!criteria.isEditable)
-      this.subtractScore(this.selectedCriteria);
+      if (!criteria.isEditable) this.subtractScore(this.selectedCriteria);
       this.showRemarksModal();
     } else {
-
       this.totalAchieveScore = this.totalAchieveScore + Math.abs(criteria.score);
 
       let i = this.indexList.indexOf(index);
@@ -260,7 +269,7 @@ export class HomeComponent implements OnInit {
           title: criteria.title,
           score: criteria.score,
           criteriaMapId: criteria.criteriaMapId,
-          achievedScore: (criteria.score>criteria.achievedScore || (criteria.score<0))?criteria.score:criteria.achievedScore,
+          achievedScore: criteria.score > criteria.achievedScore || criteria.score < 0 ? criteria.score : criteria.achievedScore,
           isEditable: criteria.isEditable,
           isChecked: 0
         };
@@ -269,6 +278,7 @@ export class HomeComponent implements OnInit {
         console.log('unchecked evaluation array', this.cloneArray);
         this.selectedRemarksList = [];
         this.updateAchieveScore(criteria.id);
+        this.checkForCritical(criteria);
       }
     }
   }
@@ -290,7 +300,7 @@ export class HomeComponent implements OnInit {
         title: criteria.title,
         score: criteria.score,
         criteriaMapId: criteria.criteriaMapId,
-        achievedScore: (criteria.score>criteria.achievedScore)?criteria.score:criteria.achievedScore,
+        achievedScore: criteria.score > criteria.achievedScore ? criteria.score : criteria.achievedScore,
         isEditable: criteria.isEditable,
         isChecked: 0
       };
@@ -298,9 +308,21 @@ export class HomeComponent implements OnInit {
       this.cloneArray.splice(e, 1, obj);
       console.log('unchecked evaluation array,using cancel button', this.cloneArray);
     }
+
+    this.checkForCritical(criteria);
+
     this.hideRemarkModalForCancelOption();
   }
-
+  checkForCritical(criteria) {
+    if (criteria.id == 14) {
+      this.isCritical = true;
+      this.isNoNCritical = false;
+    } else {
+      var result = this.isAnyCriteriaCheck();
+      if (!result) this.isNoNCritical = false;
+      this.isCritical = true;
+    }
+  }
   calculateScore() {
     this.score;
     this.data.criteria.map(c => {
@@ -394,20 +416,18 @@ export class HomeComponent implements OnInit {
   }
 
   showRemarksModal() {
-    this.criteriaDesireScore=0;//this.selectedCriteria.achievedScore;
+    this.criteriaDesireScore = 0; //this.selectedCriteria.achievedScore;
     this.remarksModal.show();
   }
 
   hideRemarkModalForCancelOption() {
-    if(this.selectedCriteria.isEditable)
-    this.subtractScore(this.selectedCriteria);
+    if (this.selectedCriteria.isEditable) this.subtractScore(this.selectedCriteria);
 
     // this.updateAchieveScore(this.selectedCriteria.id)
     this.remarksModal.hide();
   }
   hideRemarksModal() {
-    if(this.selectedCriteria.isEditable)
-    this.subtractScore(this.selectedCriteria);
+    if (this.selectedCriteria.isEditable) this.subtractScore(this.selectedCriteria);
 
     // this.updateAchieveScore(this.selectedCriteria.id)
     // if(this.selectedRemarksList.length>0)
