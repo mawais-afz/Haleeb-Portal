@@ -260,7 +260,7 @@ export class HomeComponent implements OnInit {
           title: criteria.title,
           score: criteria.score,
           criteriaMapId: criteria.criteriaMapId,
-          achievedScore: (criteria.score>criteria.achievedScore)?criteria.score:criteria.achievedScore,
+          achievedScore: (criteria.score>criteria.achievedScore || (criteria.score<0))?criteria.score:criteria.achievedScore,
           isEditable: criteria.isEditable,
           isChecked: 0
         };
