@@ -7,6 +7,12 @@
                         <img src="assets/images/basicloader.gif" alt="" srcset="">
                     </div>
                     <div class="col-md-12 animated slideInLeft">
+                        <div class="row text-center">
+                            <div class="col-md-12">
+                                <pagination-controls (pageChange)="p = $event"></pagination-controls>
+
+                            </div>
+                        </div>
                         <table class="table table-bordered table-hover " *ngIf="tableData?.length>0">
                             <thead>
                                 <!-- <th *ngFor="let item of headingsList">{{item}}</th> -->
@@ -30,7 +36,7 @@
                             </thead>
                             <tbody *ngIf="headingsList">
 
-                                <tr *ngFor="let item of tableData">
+                                <tr *ngFor="let item of tableData | paginate: { itemsPerPage: 10, currentPage: p }">
                                     <!-- <td [ngClass]="{'isEvaluated':item.flag!=1}" (click)="gotoNewPage(item)">{{item?.shop_id}}</td> -->
                                     <td [ngClass]="{'isEvaluated':item.flag!=1}" (click)="gotoNewPage(item)">
                                         {{item?.shop_code}}</td>

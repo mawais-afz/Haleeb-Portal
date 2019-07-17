@@ -223,7 +223,7 @@ export class HomeComponent implements OnInit {
   subtractScore(criteria) {
     this.totalAchieveScore =
       this.criteriaDesireScore > 0
-        ? this.totalAchieveScore - Math.abs(this.criteriaDesireScore)
+        ? this.totalAchieveScore - Math.abs(criteria.score-this.criteriaDesireScore)
         : this.totalAchieveScore - Math.abs(criteria.achievedScore);
   }
 

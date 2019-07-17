@@ -16,6 +16,7 @@ ip=environment.ip;
   tableData:any=[];      
   headingsList:any =[]; 
   loading=true;
+  p:number=0;
   constructor(private router:Router,private toastr:ToastrService,private httpService:EvaluationService,private activeRoute:ActivatedRoute) {
     this.activeRoute.queryParams.subscribe(p=>{
       console.log('active params',p);

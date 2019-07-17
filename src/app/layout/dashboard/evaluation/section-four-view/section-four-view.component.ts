@@ -40,7 +40,7 @@ export class SectionFourViewComponent implements OnInit {
     // var t= new google.maps.LatLng(a,b);
     
     var map = new google.maps.Map(document.getElementById('map'), {
-       zoom: 15,
+       zoom: 19,
         center: new google.maps.LatLng(a, b),
         scrollwheel: false,
         // gestureHandling: 'cooperative'

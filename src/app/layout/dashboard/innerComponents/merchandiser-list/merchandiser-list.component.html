@@ -36,20 +36,26 @@
             <mat-card-content>
 
                 <section class="example-section">
+                    <div class="row text-center">
+                        <div class="col-md-12">
+                            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+
+                        </div>
+                    </div>
 
                     <table class="table table-bordered">
+
                         <thead style="background:lightgray">
                             <tr>
                                 <th>VO Code</th>
                                 <th>VO Name</th>
                                 <th>Supervisor code</th>
                                 <th>Supervisor Name</th>
-
                             </tr>
                         </thead>
 
                         <tbody *ngIf="merchandiserList.length>0">
-                            <tr *ngFor="let item of merchandiserList" style="color:blue;cursor:pointer" [routerLink]="['/dashboard/evaluation/list']" [queryParams]="{ surveyorId: item.id,startDate: modifyDate(startDate),endDate: modifyDate(startDate)}">
+                            <tr *ngFor="let item of merchandiserList | paginate: { itemsPerPage: 7, currentPage: p }" style="color:blue;cursor:pointer" [routerLink]="['/dashboard/evaluation/list']" [queryParams]="{ surveyorId: item.id,startDate: modifyDate(startDate),endDate: modifyDate(startDate)}">
                                 <td>{{item.m_code}}</td>
                                 <td> {{item.full_name}}</td>
                                 <td>{{item?.supervisor_code}}</td>
@@ -57,7 +63,6 @@
                             </tr>
                         </tbody>
                     </table>
-
 
                 </section>
 

@@ -15,6 +15,7 @@ endDate=new Date();
 loadingReportMessage=false;
   merchandiserList: any=[];
   loading: boolean=true;
+  p: number = 1;
   constructor(private httpService:DashboardService) { 
 
   this.maxDate.setDate(this.maxDate.getDate()-1);

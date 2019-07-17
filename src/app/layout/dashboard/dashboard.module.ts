@@ -35,7 +35,7 @@ import { ButtonsModule } from 'ngx-bootstrap';
 import { MerchandiserListComponent } from './innerComponents/merchandiser-list/merchandiser-list.component';
 import { AbnormalityComponent } from './innerComponents/abnormality/abnormality.component';
 import { TimeAnalysisReportComponent } from './innerComponents/time-analysis-report/time-analysis-report.component';
-
+import {NgxPaginationModule} from 'ngx-pagination';
 @NgModule({
     imports: [
         FormsModule,
@@ -60,6 +60,7 @@ import { TimeAnalysisReportComponent } from './innerComponents/time-analysis-rep
         Ng2Charts,
         Ng2OrderModule,
         ButtonsModule.forRoot(),
+        NgxPaginationModule
 
     ],
     declarations: [DashboardComponent, HomeComponent, ShopListComponent,
