@@ -12,3 +12,8 @@ table>thead {
     cursor: pointer;
     word-break: break-word;
 }
+
+.table td,
+.table th {
+    padding: 0 !important
+}
