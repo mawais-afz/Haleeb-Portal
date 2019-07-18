@@ -252,9 +252,10 @@
                         <mat-slider [(ngModel)]="criteriaDesireScore" thumbLabel [displayWith]="formatLabel" tickInterval="1000" min="0" max="{{selectedCriteria?.score}}"></mat-slider>
                         <!-- <input type="text" name="criteriaDesireScore" > -->
                     </div>
+                    <!-- {{selectedRemarksList |json}} -->
                     <div class="col-md" style="text-align: end; padding: 0 20px 5px 0; ">
                         <button class="btn btn-default mr-2 btn-sm" (click)="cancelCriteriaSelection()">Cancel</button>
-                        <button class="btn btn-primary btn-sm" (click)="getCriteriaWithRemarks(selectedRemarksList,selectedCriteria)">Submit</button>
+                        <button [disabled]="selectedRemarksList?.length==0" class="btn btn-primary btn-sm" (click)="getCriteriaWithRemarks(selectedRemarksList,selectedCriteria)">Submit</button>
 
                     </div>
                 </div>
