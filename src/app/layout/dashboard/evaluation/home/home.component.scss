@@ -179,3 +179,7 @@ div.panel-heading,
 div.card-header {
     padding: 1px !important
 }
+
+mwlResizable {
+    box-sizing: border-box; // required for the enableGhostResize option to work
+}

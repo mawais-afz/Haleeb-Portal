@@ -19,6 +19,7 @@ import {MatSliderModule} from '@angular/material/slider';
 import { NgxImageZoomModule } from 'ngx-image-zoom';
 import { SectionFiveComponent } from './section-five/section-five.component';
 import {NgxPaginationModule} from 'ngx-pagination';
+import { ResizableModule } from 'angular-resizable-element';
 @NgModule({
   declarations: [HomeComponent, DetailsPageComponent, MainPageComponent, SectionOneViewComponent, SectionTwoViewComponent, SectionThreeViewComponent, SectionFourViewComponent, SectionFiveComponent],
   imports: [
@@ -32,7 +33,8 @@ import {NgxPaginationModule} from 'ngx-pagination';
     MatCheckboxModule,
     MatSliderModule,
     NgxImageZoomModule.forRoot(),
-    NgxPaginationModule
+    NgxPaginationModule,
+    ResizableModule
   ]
 })
 export class EvaluationModule { }

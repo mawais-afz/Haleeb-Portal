@@ -12,12 +12,10 @@ import * as moment from "moment";
 })
 export class DashboardComponent implements OnInit {
   constructor(private httpService: DashboardService, private toastr: ToastrService, private router: Router) {
-    console.log(router.url);
+    // console.log(router.url);
   }
 
   ngOnInit() {
-    // console.log('dashboard init');
-    debugger
     var t = moment(new Date).format('YYYY-MM-DD');
     var st = localStorage.getItem('today');
     if (t > st) this.router.navigate(['/login']);

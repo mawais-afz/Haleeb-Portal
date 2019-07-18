@@ -26,6 +26,7 @@
         "@angular/router": "7.1.0",
         "@ngx-translate/core": "11.0.1",
         "@ngx-translate/http-loader": "4.0.0",
+        "angular-resizable-element": "^3.2.4",
         "animate.css": "^3.7.0",
         "chart.js": "2.7.3",
         "core-js": "2.5.7",

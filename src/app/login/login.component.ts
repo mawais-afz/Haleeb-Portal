@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
 
     onLogin(loginForm: any) {
         this.loading=true;
-        console.log(loginForm);
+        // console.log(loginForm);
 
 
         this.httpService.login(loginForm).subscribe((data:Response) => {

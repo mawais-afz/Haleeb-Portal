@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { ModalDirective } from 'ngx-bootstrap';
 import { ToastrService } from 'ngx-toastr';
+import { ResizeEvent } from 'angular-resizable-element';
 
 @Component({
   selector: 'app-home',
@@ -41,6 +42,7 @@ export class HomeComponent implements OnInit {
   MSLCount: number;
   isCritical = true;
   isNoNCritical: boolean = false;
+  isDragging=false;
   constructor(
     private router: Router,
     private toastr: ToastrService,
@@ -77,6 +79,11 @@ export class HomeComponent implements OnInit {
     }
 
     return value;
+  }
+
+  onResizeEnd(event: ResizeEvent): void {
+    // console.log('Element was resized', event);
+    this.isDragging=!this.isDragging;
   }
 
   rotateImage() {
