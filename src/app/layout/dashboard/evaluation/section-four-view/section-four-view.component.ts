@@ -19,9 +19,12 @@ export class SectionFourViewComponent implements OnInit {
     this.locations = [];
     this.centerPoint = [];
     let i = 0;
+    console.log(this.data.mslTable)
+
     this.data.mslTable.forEach(e => {
-      let locationElement = [e.shop_title, parseFloat(e.latitude), parseFloat(e.longitude), i];
+      let locationElement = [e.visit_datetime, parseFloat(e.latitude), parseFloat(e.longitude), i];
       this.locations.push(locationElement);
+      // console.log(this.locations)
 
       if (i == 0) this.centerPoint = [parseFloat(e.latitude), parseFloat(e.longitude)];
 
@@ -33,6 +36,7 @@ export class SectionFourViewComponent implements OnInit {
     // The location of Uluru
     // var marksman = {lat: 31.502102, lng: 74.335109};
     var locations = this.locations;
+
     // The map, centered at Uluru
 
     var a = this.centerPoint[0];
