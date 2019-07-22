@@ -42,8 +42,12 @@ export class MerchandiserListComponent implements OnInit {
   }
 
   getMerchandiserList() {
-    let obj = {
-      evaluatorId: localStorage.getItem('user_id')
+    let tDate=new Date();
+        let obj = {
+      evaluatorId: localStorage.getItem('user_id'),
+      startDate:moment(tDate).subtract('day',1).format('YYYY-MM-DD')
+
+
     };
 
     this.httpService.getMerchandiserListForEvaluation(obj).subscribe((data: any) => {
