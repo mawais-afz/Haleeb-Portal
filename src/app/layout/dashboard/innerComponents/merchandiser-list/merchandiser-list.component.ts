@@ -22,32 +22,29 @@ export class MerchandiserListComponent implements OnInit {
     this.maxDate.setDate(this.maxDate.getDate() - 1);
     this.startDate.setDate(this.startDate.getDate() - 1);
 
-    // this.startDate=moment(this.startDate).subtract('day',1).format('YYYY/MM/DD')
+    this.startDate = moment(this.startDate).format('YYYY-MM-DD');
   }
 
   ngOnInit() {
-    this.getMerchandiserList();
+    this.getMerchandiserList(this.startDate);
     this.sortIt('m_code');
   }
 
-  getArrowType(key){
-    if(key==this.sortBy){
-      return (this.sortOrder)?'arrow_upward':'arrow_downward';
-    }else
-    return ''
+  getArrowType(key) {
+    if (key == this.sortBy) {
+      return this.sortOrder ? 'arrow_upward' : 'arrow_downward';
+    } else return '';
   }
-  sortIt(key){
-    this.sortBy=key;
-    this.sortOrder=!this.sortOrder;
+  sortIt(key) {
+    this.sortBy = key;
+    this.sortOrder = !this.sortOrder;
   }
 
-  getMerchandiserList() {
-    let tDate=new Date();
-        let obj = {
+  getMerchandiserList(date) {
+    date = moment(date).format('YYYY-MM-DD');
+    let obj = {
       evaluatorId: localStorage.getItem('user_id'),
-      startDate:moment(tDate).subtract('day',1).format('YYYY-MM-DD')
-
-
+      startDate: date
     };
 
     this.httpService.getMerchandiserListForEvaluation(obj).subscribe((data: any) => {

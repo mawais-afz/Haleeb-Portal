@@ -13,7 +13,7 @@
 
 
                     <mat-form-field class="example-full-width mr-10-IMP">
-                        <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker0" [(ngModel)]="startDate" placeholder="Choose a start date" readonly>
+                        <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker0" [(ngModel)]="startDate" placeholder="Choose a start date" (ngModelChange)="getMerchandiserList(startDate)" readonly>
                         <mat-datepicker-toggle matSuffix [for]="picker0"></mat-datepicker-toggle>
                         <mat-datepicker #picker0></mat-datepicker>
                     </mat-form-field>
