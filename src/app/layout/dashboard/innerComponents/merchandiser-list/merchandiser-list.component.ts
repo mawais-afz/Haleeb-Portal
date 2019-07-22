@@ -7,46 +7,55 @@ import * as moment from 'moment';
   styleUrls: ['./merchandiser-list.component.scss']
 })
 export class MerchandiserListComponent implements OnInit {
-title="merchandiser List"
-minDate = new Date(2000, 0, 1);
-maxDate:any = new Date();
-startDate:any=new Date();
-endDate=new Date();
-loadingReportMessage=false;
-  merchandiserList: any=[];
-  loading: boolean=true;
+  title = 'merchandiser List';
+  minDate = new Date(2000, 0, 1);
+  maxDate: any = new Date();
+  startDate: any = new Date();
+  endDate = new Date();
+  loadingReportMessage = false;
+  merchandiserList: any = [];
+  loading: boolean = true;
   p: number = 1;
-  constructor(private httpService:DashboardService) { 
+  sortOrder = true;
+  sortBy: 'm_code';
+  constructor(private httpService: DashboardService) {
+    this.maxDate.setDate(this.maxDate.getDate() - 1);
+    this.startDate.setDate(this.startDate.getDate() - 1);
 
-  this.maxDate.setDate(this.maxDate.getDate()-1);
-  this.startDate.setDate(this.startDate.getDate()-1)
-
-// this.startDate=moment(this.startDate).subtract('day',1).format('YYYY/MM/DD')
-
+    // this.startDate=moment(this.startDate).subtract('day',1).format('YYYY/MM/DD')
   }
 
   ngOnInit() {
     this.getMerchandiserList();
+    this.sortIt('m_code');
   }
 
-  getMerchandiserList(){
-    let obj={
-      evaluatorId:localStorage.getItem('user_id'),
+  getArrowType(key){
+    if(key==this.sortBy){
+      return (this.sortOrder)?'arrow_upward':'arrow_downward';
+    }else
+    return ''
+  }
+  sortIt(key){
+    this.sortBy=key;
+    this.sortOrder=!this.sortOrder;
+  }
+
+  getMerchandiserList() {
+    let obj = {
+      evaluatorId: localStorage.getItem('user_id')
     };
 
-    this.httpService.getMerchandiserListForEvaluation(obj).subscribe((data:any)=>{
+    this.httpService.getMerchandiserListForEvaluation(obj).subscribe((data: any) => {
       // console.log('merchandiser list for evaluation',data);
-      if(data){
-        this.merchandiserList=data;
-        this.loading=false;
-
+      if (data) {
+        this.merchandiserList = data;
+        this.loading = false;
       }
-    })
-
+    });
   }
 
-  modifyDate(date){
+  modifyDate(date) {
     return moment(date).format('YYYY-MM-DD');
   }
-
 }
