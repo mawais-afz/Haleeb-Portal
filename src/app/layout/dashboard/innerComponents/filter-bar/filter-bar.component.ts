@@ -34,7 +34,7 @@ export class FilterBarComponent implements OnInit {
   }
   //#region veriables
   minDate = new Date(2000, 0, 1);
-  maxDate = new Date(2020, 0, 1);
+  maxDate = new Date();
   @Input() title;
   zones: any = [];
   loadingData: boolean;
@@ -738,7 +738,6 @@ export class FilterBarComponent implements OnInit {
       });
     } else {
       this.clearLoading();
-
       this.toastr.info('End date must be greater than start date', 'Date Selection');
 
     }
@@ -941,13 +940,21 @@ export class FilterBarComponent implements OnInit {
 
   }
   getTabsData(data?: any, dateType?: string) {
+    let startDate=(dateType === 'start') ? moment(data).format('YYYY-MM-DD') : moment(this.startDate).format('YYYY-MM-DD');
+    let endDate=(dateType === 'end') ? moment(data).format('YYYY-MM-DD') : moment(this.endDate).format('YYYY-MM-DD');
+//for merchandiser attendance only
+    if(this.router.url==='/dashboard/merchandiser_attendance'){
+      startDate= moment(this.startDate).format('YYYY-MM-DD');
+      endDate= moment(this.startDate).format('YYYY-MM-DD');
+    }
+  
 
     this.loading = true;
     const obj: any = {
       zoneId: (this.selectedZone.id) ? this.selectedZone.id : -1,
       regionId: (this.selectedRegion.id) ? this.selectedRegion.id : -1,
-      startDate: (dateType === 'start') ? moment(data).format('YYYY-MM-DD') : moment(this.startDate).format('YYYY-MM-DD'),
-      endDate: (dateType === 'end') ? moment(data).format('YYYY-MM-DD') : moment(this.endDate).format('YYYY-MM-DD'),
+      startDate: startDate, 
+      endDate: endDate,
       cityId: this.selectedCity.id || -1,
       distributionId: this.selectedDistribution.id || -1,
       storeType: this.selectedStoreType || null,
