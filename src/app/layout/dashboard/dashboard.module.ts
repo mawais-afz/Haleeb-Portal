@@ -36,6 +36,7 @@ import { MerchandiserListComponent } from './innerComponents/merchandiser-list/m
 import { AbnormalityComponent } from './innerComponents/abnormality/abnormality.component';
 import { TimeAnalysisReportComponent } from './innerComponents/time-analysis-report/time-analysis-report.component';
 import {NgxPaginationModule} from 'ngx-pagination';
+import { MerchandiserAttendanceComponent } from './innerComponents/merchandiser-attendance/merchandiser-attendance.component';
 @NgModule({
     imports: [
         FormsModule,
@@ -70,6 +71,6 @@ import {NgxPaginationModule} from 'ngx-pagination';
           TposmDeploymentReportComponent, LineChartComponent,
           UpdatePasswordComponent, RawDataComponent, MatTableComponent,
           DataAvailabilityComponent, MerchandiserListComponent,
-          AbnormalityComponent, TimeAnalysisReportComponent]
+          AbnormalityComponent, TimeAnalysisReportComponent, MerchandiserAttendanceComponent]
 })
 export class DashboardModule {}

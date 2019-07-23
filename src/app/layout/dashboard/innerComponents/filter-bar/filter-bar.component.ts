@@ -129,7 +129,7 @@ export class FilterBarComponent implements OnInit {
     this.getZone();
 
 
-    if (this.router.url == '/dashboard/productivity_report')
+    if (this.router.url == '/dashboard/productivity_report' || this.router.url==='/dashboard/merchandiser_attendance')
       this.getTabsData()
 
       if (this.router.url == '/dashboard/raw_data')
@@ -316,7 +316,7 @@ export class FilterBarComponent implements OnInit {
     this.loadingData = true;
     // this.regions = [];
     // this.channels = [];
-    if (this.router.url === '/dashboard/productivity_report') {
+    if (this.router.url === '/dashboard/productivity_report' || this.router.url==='/dashboard/merchandiser_attendance') {
       this.getTabsData()
     }
 
@@ -351,7 +351,7 @@ export class FilterBarComponent implements OnInit {
       this.getMerchandiserList(this.startDate);
     }
 
-    if (this.router.url === '/dashboard/productivity_report') {
+    if (this.router.url === '/dashboard/productivity_report' || this.router.url==='/dashboard/merchandiser_attendance') {
       this.getTabsData()
     }
     if ((this.router.url !== '/dashboard/daily_visit_report')) {

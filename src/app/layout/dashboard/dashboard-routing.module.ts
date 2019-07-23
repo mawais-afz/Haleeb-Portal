@@ -20,6 +20,7 @@ import { DataAvailabilityComponent } from './data-availability/data-availability
 import { MerchandiserListComponent } from './innerComponents/merchandiser-list/merchandiser-list.component';
 import { AbnormalityComponent } from './innerComponents/abnormality/abnormality.component';
 import { TimeAnalysisReportComponent } from './innerComponents/time-analysis-report/time-analysis-report.component';
+import { MerchandiserAttendanceComponent } from './innerComponents/merchandiser-attendance/merchandiser-attendance.component';
 
 const routes: Routes = [
     {
@@ -43,6 +44,7 @@ const routes: Routes = [
             { path: 'data_abnormality_report', component: AbnormalityComponent },
             { path: 'time-analysis-report', component: TimeAnalysisReportComponent },
             { path: 'merchandiser_List', component: MerchandiserListComponent },
+            { path: 'merchandiser_attendance', component: MerchandiserAttendanceComponent }
 
 
 
