@@ -1,6 +1,6 @@
 <ng-container *ngIf="merchandiserList.length>0">
     <div class="animated slideInLeft">
-        <mat-card class="mb-20">
+        <mat-card class="mb-20" style="padding-top: 1px; padding-bottom: 1px;">
 
             <mat-card-content>
                 <mat-card-title>
@@ -31,7 +31,7 @@
     </div>
 
     <div class="animated slideInLeft">
-        <mat-card class="mb-20">
+        <mat-card class="mb-20" style="border-top: 1px solid #AFAFAF;">
 
             <mat-card-content>
 
@@ -43,9 +43,9 @@
                         </div>
                     </div>
 
-                    <table class="table table-bordered">
+                    <table class="table">
 
-                        <thead style="background:lightgray">
+                        <thead>
                             <tr>
                                 <th (click)="sortIt('m_code')" style="cursor: pointer">VO Code
                                     <i class="material-icons arrow material-icons-arrow">
