@@ -134,26 +134,26 @@ export class FilterBarComponent implements OnInit {
         startDate: moment(this.startDate).format('YYYY-MM-DD'),
         surveyorId: item.merchandiser_id
       };
-      
-    
 
-          this.httpService.removePlanedCall(obj).subscribe((data:any)=>{
-      console.log('remove palnned call',data)
-      if(data.success){
-        // this.tableData=_.remove(this.tableData,(e)=>{e.merchandiser_id==data.surveyorId})
+      this.httpService.removePlanedCall(obj).subscribe(
+        (data: any) => {
+          console.log('remove palnned call', data);
+          if (data.success) {
+            // this.tableData=_.remove(this.tableData,(e)=>{e.merchandiser_id==data.surveyorId})
 
-        let tempArray: any = this.tableData;
-      this.tableData.forEach(element => {
-        if (item.merchandiser_id == data.surveyorId) {
-          let index = this.tableData.indexOf(element);
-          tempArray.splice(index, 1);
-         
-        }
-      });
-    
-      this.tableData = tempArray;
-      }
-          },error=>{})
+            let tempArray: any = this.tableData;
+            this.tableData.forEach(element => {
+              if (item.merchandiser_id == data.surveyorId) {
+                let index = this.tableData.indexOf(element);
+                tempArray.splice(index, 1);
+              }
+            });
+
+            this.tableData = tempArray;
+          }
+        },
+        error => {}
+      );
     }
   }
 
