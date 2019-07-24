@@ -9,6 +9,7 @@ import { MatTableDataSource } from '@angular/material';
 import { environment } from 'src/environments/environment';
 import { NgModel } from '@angular/forms';
 import { ModalDirective } from 'ngx-bootstrap';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'filter-bar',
@@ -20,17 +21,13 @@ export class FilterBarComponent implements OnInit {
   ip = environment.ip;
 
   distributionList: any = [];
-  selectedDistribution: any = {}
-  storeType: any = ['Elite',
-    'Platinum',
-    'Gold',
-    'Silver',
-    'Others']
+  selectedDistribution: any = {};
+  storeType: any = ['Elite', 'Platinum', 'Gold', 'Silver', 'Others'];
   selectedStoreType = null;
- 
+
   applyFilter(filterValue: string) {
-    this.tableData = this.tableData.filter(f => f.shop_title)
-    console.log(this.tableData, 'table data filter')
+    this.tableData = this.tableData.filter(f => f.shop_title);
+    console.log(this.tableData, 'table data filter');
   }
   //#region veriables
   minDate = new Date(2000, 0, 1);
@@ -66,14 +63,14 @@ export class FilterBarComponent implements OnInit {
   selectedImpactType: any = {};
   impactTypeList: any = [];
 
-  queryList: any=[];
-  selectedQuery:any={};
+  queryList: any = [];
+  selectedQuery: any = {};
 
   loadingReportMessage: boolean = false;
   tabsData: any = [];
   loading = true;
-  sortOrder=true;
-  sortBy:'completed'
+  sortOrder = true;
+  sortBy: 'completed';
   //#endregion
 
   constructor(
@@ -88,12 +85,11 @@ export class FilterBarComponent implements OnInit {
 
     console.log(this.categoryList);
     this.sortIt('completed');
-
   }
 
-  sortIt(key){
-    this.sortBy=key;
-    this.sortOrder=!this.sortOrder;
+  sortIt(key) {
+    this.sortBy = key;
+    this.sortOrder = !this.sortOrder;
   }
 
   clearAllSections() {
@@ -110,11 +106,10 @@ export class FilterBarComponent implements OnInit {
     this.endDate = new Date();
   }
 
-  getArrowType(key){
-    if(key==this.sortBy){
-      return (this.sortOrder)?'arrow_upward':'arrow_downward';
-    }else
-    return ''
+  getArrowType(key) {
+    if (key == this.sortBy) {
+      return this.sortOrder ? 'arrow_upward' : 'arrow_downward';
+    } else return '';
   }
 
   ngOnInit() {
@@ -125,87 +120,104 @@ export class FilterBarComponent implements OnInit {
     this.mustHaveAll = this.dataService.getYesNoAll();
     // this.httpService.getZone();
     this.impactTypeList = this.dataService.getImpactType();
-    if (this.router.url !== '/dashboard/raw_data')
-    this.getZone();
+    if (this.router.url !== '/dashboard/raw_data') this.getZone();
 
+    if (this.router.url == '/dashboard/productivity_report' || this.router.url === '/dashboard/merchandiser_attendance') this.getTabsData();
 
-    if (this.router.url == '/dashboard/productivity_report' || this.router.url==='/dashboard/merchandiser_attendance')
-      this.getTabsData()
-
-      if (this.router.url == '/dashboard/raw_data')
-      this.getQueryTypeList();
+    if (this.router.url == '/dashboard/raw_data') this.getQueryTypeList();
   }
 
+  removePlanedCall(item) {
+    if (confirm('Are you sure to delete this merchandiser from list')) {
+      let obj: any = {
+        userId: JSON.parse(localStorage.getItem('user_id')),
+        startDate: moment(this.startDate).format('YYYY-MM-DD'),
+        surveyorId: item.merchandiser_id
+      };
+      
+    
 
-  getQueryTypeList(){
+          this.httpService.removePlanedCall(obj).subscribe((data:any)=>{
+      console.log('remove palnned call',data)
+      if(data.success){
+        // this.tableData=_.remove(this.tableData,(e)=>{e.merchandiser_id==data.surveyorId})
 
-    this.httpService.getQueryTypeList().subscribe(data=>{
-      console.log('qurry list',data)
-      if(data)
-      this.queryList=data;
-
-    },error=>{
-      (error.status === 0) ?
-                this.toastr.error('Please check Internet Connection', 'Error') :
-                this.toastr.error(error.description, 'Error');
-
-
-    })
-
+        let tempArray: any = this.tableData;
+      this.tableData.forEach(element => {
+        if (item.merchandiser_id == data.surveyorId) {
+          let index = this.tableData.indexOf(element);
+          tempArray.splice(index, 1);
+         
+        }
+      });
+    
+      this.tableData = tempArray;
+      }
+          },error=>{})
+    }
   }
 
-  getAbnormalityReport(){
-    if (this.endDate >= this.startDate){
-      this.loadingData=true;
-      this.loadingReportMessage=true;
-      let obj={
+  getQueryTypeList() {
+    this.httpService.getQueryTypeList().subscribe(
+      data => {
+        console.log('qurry list', data);
+        if (data) this.queryList = data;
+      },
+      error => {
+        error.status === 0 ? this.toastr.error('Please check Internet Connection', 'Error') : this.toastr.error(error.description, 'Error');
+      }
+    );
+  }
+
+  getAbnormalityReport() {
+    if (this.endDate >= this.startDate) {
+      this.loadingData = true;
+      this.loadingReportMessage = true;
+      let obj = {
         zoneId: this.selectedZone.id || -1,
         regionId: this.selectedRegion.id || -1,
         startDate: moment(this.startDate).format('YYYY-MM-DD'),
         endDate: moment(this.endDate).format('YYYY-MM-DD'),
         channelId: this.arrayMaker(this.selectedChannel),
         cityId: this.selectedCity.id || -1,
-        areaId: this.selectedArea.id || -1,
-      }
+        areaId: this.selectedArea.id || -1
+      };
 
       let url = 'abnormalityShopList';
-      let body =this.httpService.UrlEncodeMaker(obj);
-      this.httpService.getKeyForProductivityReport(body, url).subscribe(data => {
-        console.log(data, 'query list');
-        let res: any = data
+      let body = this.httpService.UrlEncodeMaker(obj);
+      this.httpService.getKeyForProductivityReport(body, url).subscribe(
+        data => {
+          console.log(data, 'query list');
+          let res: any = data;
 
-        if(res){
-          let obj2 = {
-            key: res.key,
-            fileType: res.fileType
+          if (res) {
+            let obj2 = {
+              key: res.key,
+              fileType: res.fileType
+            };
+            let url = 'downloadReport';
+            this.getproductivityDownload(obj2, url);
+          } else {
+            this.clearLoading();
+
+            this.toastr.info('Something went wrong,Please retry', 'AbnormalityReport Message');
           }
-          let url = 'downloadReport'
-          this.getproductivityDownload(obj2, url)
+        },
+        error => {
+          this.clearLoading();
         }
-        else{
-          this.clearLoading()
-
-          this.toastr.info('Something went wrong,Please retry','AbnormalityReport Message')
-        }
-
-
-      }, error => {
-        this.clearLoading()
-
-      })
-    }
-    else{
+      );
+    } else {
       this.clearLoading();
-      this.toastr.info('Something went wrong,Please retry','dashboard Data Availability Message')
+      this.toastr.info('Something went wrong,Please retry', 'dashboard Data Availability Message');
     }
-    
   }
 
-  getBrandSKUOOS(){
-    if (this.endDate >= this.startDate){
-      this.loadingData=true;
-      this.loadingReportMessage=true;
-      let obj={
+  getBrandSKUOOS() {
+    if (this.endDate >= this.startDate) {
+      this.loadingData = true;
+      this.loadingReportMessage = true;
+      let obj = {
         zoneId: this.selectedZone.id || -1,
         regionId: this.selectedRegion.id || -1,
         startDate: moment(this.startDate).format('YYYY-MM-DD'),
@@ -213,83 +225,77 @@ export class FilterBarComponent implements OnInit {
         channelId: this.arrayMaker(this.selectedChannel),
         cityId: this.selectedCity.id || -1,
         areaId: this.selectedArea.id || -1,
-        mustHaveAll: this.selectedMustHaveAll || '',
-      }
+        mustHaveAll: this.selectedMustHaveAll || ''
+      };
 
       let url = 'brandSKUOOS';
-      let body =this.httpService.UrlEncodeMaker(obj);
-      this.httpService.getKeyForProductivityReport(body, url).subscribe(data => {
-        console.log(data, 'query list');
-        let res: any = data
+      let body = this.httpService.UrlEncodeMaker(obj);
+      this.httpService.getKeyForProductivityReport(body, url).subscribe(
+        data => {
+          console.log(data, 'query list');
+          let res: any = data;
 
-        if(res){
-          let obj2 = {
-            key: res.key,
-            fileType: res.fileType
+          if (res) {
+            let obj2 = {
+              key: res.key,
+              fileType: res.fileType
+            };
+            let url = 'downloadReport';
+            this.getproductivityDownload(obj2, url);
+          } else {
+            this.clearLoading();
+
+            this.toastr.info('Something went wrong,Please retry', 'dashboard Data Availability Message');
           }
-          let url = 'downloadReport'
-          this.getproductivityDownload(obj2, url)
+        },
+        error => {
+          this.clearLoading();
         }
-        else{
-          this.clearLoading()
-
-          this.toastr.info('Something went wrong,Please retry','dashboard Data Availability Message')
-        }
-
-
-      }, error => {
-        this.clearLoading()
-
-      })
-    }
-    else{
+      );
+    } else {
       this.clearLoading();
-      this.toastr.info('Something went wrong,Please retry','dashboard Data Availability Message')
+      this.toastr.info('Something went wrong,Please retry', 'dashboard Data Availability Message');
     }
-    
   }
 
-  getDashboardData(){
+  getDashboardData() {
+    if (this.endDate >= this.startDate) {
+      this.loadingData = true;
+      this.loadingReportMessage = true;
+      let obj = {
+        typeId: this.selectedQuery.id,
+        startDate: moment(this.startDate).format('YYYY-MM-DD'),
+        endDate: moment(this.endDate).format('YYYY-MM-DD')
+      };
 
-    if (this.endDate >= this.startDate){
-      this.loadingData=true;
-    this.loadingReportMessage=true;
-    let obj={
-      typeId:this.selectedQuery.id,
-      startDate: moment(this.startDate).format('YYYY-MM-DD'),
-      endDate: moment(this.endDate).format('YYYY-MM-DD'),
-    }
+      let url = 'dashboard-data';
+      let body = this.httpService.UrlEncodeMaker(obj);
+      this.httpService.getKeyForProductivityReport(body, url).subscribe(
+        data => {
+          console.log(data, 'query list');
+          let res: any = data;
 
-    let url = 'dashboard-data';
-      let body =this.httpService.UrlEncodeMaker(obj);
-      this.httpService.getKeyForProductivityReport(body, url).subscribe(data => {
-        console.log(data, 'query list');
-        let res: any = data
+          if (res) {
+            let obj2 = {
+              key: res.key,
+              fileType: res.fileType
+            };
+            let url = 'downloadcsvReport';
+            this.getproductivityDownload(obj2, url);
+          } else {
+            this.clearLoading();
 
-        if(res){
-          let obj2 = {
-            key: res.key,
-            fileType: res.fileType
+            this.toastr.info('Something went wrong,Please retry', 'Connectivity Message');
           }
-          let url = 'downloadcsvReport'
-          this.getproductivityDownload(obj2, url)
+        },
+        error => {
+          this.clearLoading();
         }
-        else{
-          this.clearLoading()
-
-          this.toastr.info('Something went wrong,Please retry','Connectivity Message');
-        }
-
-
-      }, error => {
-        this.clearLoading();
-
-      })
-    }else {
+      );
+    } else {
       this.clearLoading();
       this.toastr.info('End date must be greater than start date', 'Date Selection');
     }
-
   }
 
   //#region filters logic
@@ -305,7 +311,7 @@ export class FilterBarComponent implements OnInit {
         }
       },
       error => {
-        this.clearLoading()
+        this.clearLoading();
 
         error.status === 0 ? this.toastr.error('Please check Internet Connection', 'Error') : this.toastr.error(error.description, 'Error');
       }
@@ -316,19 +322,19 @@ export class FilterBarComponent implements OnInit {
     this.loadingData = true;
     // this.regions = [];
     // this.channels = [];
-    if (this.router.url === '/dashboard/productivity_report' || this.router.url==='/dashboard/merchandiser_attendance') {
-      this.getTabsData()
+    if (this.router.url === '/dashboard/productivity_report' || this.router.url === '/dashboard/merchandiser_attendance') {
+      this.getTabsData();
     }
 
     this.httpService.getRegion(this.selectedZone.id).subscribe(
       data => {
         let res: any = data;
-        if(res){
+        if (res) {
           this.regions = res;
         } else {
-          this.clearLoading()
+          this.clearLoading();
 
-          this.toastr.info('Something went wrong,Please retry','Connectivity Message')
+          this.toastr.info('Something went wrong,Please retry', 'Connectivity Message');
         }
 
         setTimeout(() => {
@@ -337,24 +343,22 @@ export class FilterBarComponent implements OnInit {
       },
       error => {
         this.clearLoading();
-
       }
     );
   }
 
   regionChange() {
-
-    this.selectedArea = {}
-    this.selectedCity = {}
+    this.selectedArea = {};
+    this.selectedCity = {};
     this.selectedDistribution = {};
     if (this.router.url == '/dashboard/daily_visit_report') {
       this.getMerchandiserList(this.startDate);
     }
 
-    if (this.router.url === '/dashboard/productivity_report' || this.router.url==='/dashboard/merchandiser_attendance') {
-      this.getTabsData()
+    if (this.router.url === '/dashboard/productivity_report' || this.router.url === '/dashboard/merchandiser_attendance') {
+      this.getTabsData();
     }
-    if ((this.router.url !== '/dashboard/daily_visit_report')) {
+    if (this.router.url !== '/dashboard/daily_visit_report') {
       this.loadingData = true;
 
       console.log('regions id', this.selectedRegion);
@@ -362,15 +366,14 @@ export class FilterBarComponent implements OnInit {
         data => {
           // this.channels = data[0];
           const res: any = data;
-          if(res) {
+          if (res) {
             this.areas = res.areaList;
             this.cities = res.cityList;
             this.distributionList = res.distributionList;
           } else {
             this.clearLoading();
-            this.toastr.info('Something went wrong,Please retry','Connectivity Message');
+            this.toastr.info('Something went wrong,Please retry', 'Connectivity Message');
           }
-
 
           setTimeout(() => {
             this.loadingData = false;
@@ -378,7 +381,6 @@ export class FilterBarComponent implements OnInit {
         },
         error => {
           this.clearLoading();
-
         }
       );
     }
@@ -389,18 +391,15 @@ export class FilterBarComponent implements OnInit {
 
   categoryChange() {
     // this.loadingData = true;
-
     // this.httpService.getProducts(this.selectedCategory.id).subscribe(
     //   data => {
     //     this.productsList = data;
-
     //     setTimeout(() => {
     //       this.loadingData = false;
     //     }, 500);
     //   },
     //   error => {
-      // this.clearLoading()
-
+    // this.clearLoading()
     //  }
     // );
   }
@@ -412,8 +411,7 @@ export class FilterBarComponent implements OnInit {
     //     // this.filterAllData();
     //   },
     //   error => {
-      // this.clearLoading()
-
+    // this.clearLoading()
     // }
     // );
   }
@@ -426,53 +424,51 @@ export class FilterBarComponent implements OnInit {
     //     // this.filterAllData();
     //   },
     //   error => {
-      // this.clearLoading()
-
+    // this.clearLoading()
     // }
     // );
   }
   //#endregion
   tposmDeploymentReport() {
     if (this.endDate >= this.startDate) {
-      this.loadingData=true;
-      this.loadingReportMessage=true;
+      this.loadingData = true;
+      this.loadingReportMessage = true;
       const obj = {
         startDate: moment(this.startDate).format('YYYY-MM-DD'),
         endDate: moment(this.endDate).format('YYYY-MM-DD'),
         zoneId: this.selectedZone.id || -1,
-        regionId: this.selectedRegion.id || -1,
+        regionId: this.selectedRegion.id || -1
         // channelId: this.arrayMaker(this.selectedChannel),
       };
 
       const url = 'tposmDeploymentTracker';
-      const body =this.httpService.UrlEncodeMaker(obj);
-      this.httpService.getKeyForProductivityReport(body, url).subscribe(data => {
-        console.log(data, 'oos shoplist');
-        const res: any = data;
+      const body = this.httpService.UrlEncodeMaker(obj);
+      this.httpService.getKeyForProductivityReport(body, url).subscribe(
+        data => {
+          console.log(data, 'oos shoplist');
+          const res: any = data;
 
-        if(res) {
-          const obj2 = {
-            key: res.key,
-            fileType: 'json.fileType'
-          };
-          const url = 'downloadReport';
-          this.getproductivityDownload(obj2, url);
-        } else {
+          if (res) {
+            const obj2 = {
+              key: res.key,
+              fileType: 'json.fileType'
+            };
+            const url = 'downloadReport';
+            this.getproductivityDownload(obj2, url);
+          } else {
+            this.clearLoading();
+
+            this.toastr.info('Something went wrong,Please retry', 'Connectivity Message');
+          }
+        },
+        error => {
           this.clearLoading();
-
-          this.toastr.info('Something went wrong,Please retry','Connectivity Message');
         }
-
-
-      }, error => {
-        this.clearLoading();
-
-      });
+      );
     } else {
       this.clearLoading();
       this.toastr.info('End date must be greater than start date', 'Date Selection');
     }
-
   }
 
   timeAnalysisReport() {
@@ -483,39 +479,38 @@ export class FilterBarComponent implements OnInit {
         startDate: moment(this.startDate).format('YYYY-MM-DD'),
         endDate: moment(this.endDate).format('YYYY-MM-DD'),
         zoneId: this.selectedZone.id || -1,
-        regionId: this.selectedRegion.id || -1,
+        regionId: this.selectedRegion.id || -1
         // channelId: this.arrayMaker(this.selectedChannel),
       };
 
       const url = 'time-analysis';
-      const body =this.httpService.UrlEncodeMaker(obj);
-      this.httpService.getKeyForProductivityReport(body, url).subscribe(data => {
-        console.log(data, 'oos shoplist');
-        const res: any = data;
+      const body = this.httpService.UrlEncodeMaker(obj);
+      this.httpService.getKeyForProductivityReport(body, url).subscribe(
+        data => {
+          console.log(data, 'oos shoplist');
+          const res: any = data;
 
-        if(res) {
-          const obj2 = {
-            key: res.key,
-            fileType: 'json.fileType'
-          };
-          const url = 'downloadReport';
-          this.getproductivityDownload(obj2, url);
-        } else {
+          if (res) {
+            const obj2 = {
+              key: res.key,
+              fileType: 'json.fileType'
+            };
+            const url = 'downloadReport';
+            this.getproductivityDownload(obj2, url);
+          } else {
+            this.clearLoading();
+
+            this.toastr.info('Something went wrong,Please retry', 'Connectivity Message');
+          }
+        },
+        error => {
           this.clearLoading();
-
-          this.toastr.info('Something went wrong,Please retry','Connectivity Message');
         }
-
-
-      }, error => {
-        this.clearLoading();
-
-      });
+      );
     } else {
       this.clearLoading();
       this.toastr.info('End date must be greater than start date', 'Date Selection');
     }
-
   }
   getOOSDetailReport() {
     if (this.endDate >= this.startDate) {
@@ -576,8 +571,7 @@ export class FilterBarComponent implements OnInit {
           }
         },
         error => {
-
-         this.clearLoading();
+          this.clearLoading();
           error.status === 0
             ? this.toastr.error('Please check Internet Connection', 'Error')
             : this.toastr.error(error.description, 'Error');
@@ -602,7 +596,7 @@ export class FilterBarComponent implements OnInit {
       reportLink: ''
     };
     const url = 'cbl-pdf';
-     this.httpService.DownloadResource(obj, url);
+    this.httpService.DownloadResource(obj, url);
 
     setTimeout(() => {
       this.loadingData = false;
@@ -619,7 +613,6 @@ export class FilterBarComponent implements OnInit {
     }
     arr.forEach(e => {
       result.push(e.id);
-
     });
     return result;
   }
@@ -647,42 +640,39 @@ export class FilterBarComponent implements OnInit {
       const body = this.httpService.UrlEncodeMaker(obj);
       //  `pageType=2&zoneId=${obj.zoneId}&regionId=${obj.regionId}&startDate=${obj.startDate}&endDate=${obj.endDate}&cityId=${obj.cityId}&areaId=${obj.areaId}&channelId=${obj.channelId}&category=${obj.category}&lastVisit=${obj.lastVisit}&productId=${obj.productId}&mustHave=${obj.mustHave}`;
 
-      this.httpService.getKeyForProductivityReport(body, url).subscribe(data => {
-        console.log(data, 'oos shoplist');
-        const res: any = data;
+      this.httpService.getKeyForProductivityReport(body, url).subscribe(
+        data => {
+          console.log(data, 'oos shoplist');
+          const res: any = data;
 
-        if (res) {
-          const obj2 = {
-            key: res.key,
-            fileType: 'json.fileType'
-          };
-          const url = 'downloadReport';
-          this.getproductivityDownload(obj2, url);
-        } else {
+          if (res) {
+            const obj2 = {
+              key: res.key,
+              fileType: 'json.fileType'
+            };
+            const url = 'downloadReport';
+            this.getproductivityDownload(obj2, url);
+          } else {
+            this.clearLoading();
+
+            this.toastr.info('Something went wrong,Please retry', 'Connectivity Message');
+          }
+        },
+        error => {
           this.clearLoading();
-
-          this.toastr.info('Something went wrong,Please retry', 'Connectivity Message');
         }
-
-
-      }, error => {
-        this.clearLoading();
-
-      });
+      );
     } else {
       this.clearLoading();
 
       this.toastr.info('End date must be greater than start date', 'Date Selection');
-
     }
-
 
     // let url = 'downloadReport';
     // this.httpService.DownloadResource(obj, url);
   }
 
   getOOSSummary() {
-
     if (this.endDate >= this.startDate) {
       this.loadingData = true;
       this.loadingReportMessage = true;
@@ -702,51 +692,50 @@ export class FilterBarComponent implements OnInit {
         pageType: 3
       };
 
-     const encodeURL: any = this.httpService.UrlEncodeMaker(obj);
+      const encodeURL: any = this.httpService.UrlEncodeMaker(obj);
 
       const url = 'oosSummaryReport';
       const body = encodeURL;
       // `chillerAllocated=${obj.chillerAllocated}&type=2&pageType=1&zoneId=${obj.zoneId}&regionId=${obj.regionId}&startDate=${obj.startDate}&endDate=${obj.endDate}&mustHave=${obj.mustHave}&channelId=${obj.channelId}`;
       // encodeURL      //
 
-      this.httpService.getKeyForProductivityReport(body, url).subscribe(data => {
-        const res: any = data;
-        if (res) {
-          const obj2 = {
-            key: res.key,
-            fileType: 'json.fileType'
-          };
-          const url = 'downloadReport';
-          this.getproductivityDownload(obj2, url);
-        } else {
+      this.httpService.getKeyForProductivityReport(body, url).subscribe(
+        data => {
+          const res: any = data;
+          if (res) {
+            const obj2 = {
+              key: res.key,
+              fileType: 'json.fileType'
+            };
+            const url = 'downloadReport';
+            this.getproductivityDownload(obj2, url);
+          } else {
+            this.clearLoading();
+
+            this.toastr.info('Something went wrong,Please retry', 'Connectivity Message');
+          }
+          // let obj2 = {
+          //   key: res.key,
+          //   fileType: 'json.fileType'
+          // }
+          // let url = 'downloadReport'
+          // this.getproductivityDownload(obj2, url)
+        },
+        error => {
           this.clearLoading();
 
-          this.toastr.info('Something went wrong,Please retry', 'Connectivity Message');
+          console.log(error, 'summary report');
         }
-        // let obj2 = {
-        //   key: res.key,
-        //   fileType: 'json.fileType'
-        // }
-        // let url = 'downloadReport'
-        // this.getproductivityDownload(obj2, url)
-
-      }, error => {
-        this.clearLoading();
-
-        console.log(error, 'summary report');
-
-      });
+      );
     } else {
       this.clearLoading();
       this.toastr.info('End date must be greater than start date', 'Date Selection');
-
     }
 
     // let url = 'oosSummaryReport';
     // this.httpService.DownloadResource(obj, url);
   }
   getMSLReport() {
-
     if (this.endDate >= this.startDate) {
       this.loadingData = true;
       this.loadingReportMessage = true;
@@ -757,7 +746,7 @@ export class FilterBarComponent implements OnInit {
         areaId: this.selectedArea.id || -1,
         channelId: this.arrayMaker(this.selectedChannel),
         startDate: moment(this.startDate).format('YYYY-MM-DD'),
-        endDate: moment(this.endDate).format('YYYY-MM-DD'),
+        endDate: moment(this.endDate).format('YYYY-MM-DD')
         // category: -1,
         // productId: -1,
         // mustHave: 'N',
@@ -766,47 +755,47 @@ export class FilterBarComponent implements OnInit {
         // pageType:1
       };
 
-     const encodeURL: any = this.httpService.UrlEncodeMaker(obj);
+      const encodeURL: any = this.httpService.UrlEncodeMaker(obj);
 
       const url = 'mslDashboard';
-      const body = encodeURL  ;
+      const body = encodeURL;
       // `chillerAllocated=${obj.chillerAllocated}&type=2&pageType=1&zoneId=${obj.zoneId}&regionId=${obj.regionId}&startDate=${obj.startDate}&endDate=${obj.endDate}&mustHave=${obj.mustHave}&channelId=${obj.channelId}`;
       //     //
 
-      this.httpService.getKeyForProductivityReport(body, url).subscribe(data => {
-        const res: any = data;
+      this.httpService.getKeyForProductivityReport(body, url).subscribe(
+        data => {
+          const res: any = data;
 
-        if (res) {
-          const obj2 = {
-            key: res.key,
-            fileType: 'json.fileType'
-          };
-          const url = 'downloadReport';
-          this.getproductivityDownload(obj2, url);
-        } else {
+          if (res) {
+            const obj2 = {
+              key: res.key,
+              fileType: 'json.fileType'
+            };
+            const url = 'downloadReport';
+            this.getproductivityDownload(obj2, url);
+          } else {
+            this.clearLoading();
+
+            this.toastr.info('Something went wrong,Please retry', 'Connectivity Message');
+          }
+
+          // let obj2 = {
+          //   key: res.key,
+          //   fileType: 'json.fileType'
+          // }
+          // let url = 'downloadReport'
+          // this.getproductivityDownload(obj2, url)
+        },
+        error => {
           this.clearLoading();
 
-          this.toastr.info('Something went wrong,Please retry', 'Connectivity Message');
+          console.log(error, 'summary report');
         }
-
-        // let obj2 = {
-        //   key: res.key,
-        //   fileType: 'json.fileType'
-        // }
-        // let url = 'downloadReport'
-        // this.getproductivityDownload(obj2, url)
-
-      }, error => {
-        this.clearLoading();
-
-        console.log(error, 'summary report');
-
-      });
+      );
     } else {
       this.clearLoading();
 
       this.toastr.info('End date must be greater than start date', 'Date Selection');
-
     }
 
     // let url = 'oosSummaryReport';
@@ -814,7 +803,6 @@ export class FilterBarComponent implements OnInit {
   }
 
   getProuctivityDashboardReport() {
-
     if (this.endDate >= this.startDate) {
       this.loadingData = true;
       this.loadingReportMessage = true;
@@ -825,7 +813,7 @@ export class FilterBarComponent implements OnInit {
         areaId: this.selectedArea.id || -1,
         channelId: this.arrayMaker(this.selectedChannel),
         startDate: moment(this.startDate).format('YYYY-MM-DD'),
-        endDate: moment(this.endDate).format('YYYY-MM-DD'),
+        endDate: moment(this.endDate).format('YYYY-MM-DD')
         // category: -1,
         // productId: -1,
         // mustHave: 'N',
@@ -834,41 +822,41 @@ export class FilterBarComponent implements OnInit {
         // pageType:1
       };
 
-     const encodeURL: any = this.httpService.UrlEncodeMaker(obj);
+      const encodeURL: any = this.httpService.UrlEncodeMaker(obj);
 
       const url = 'productivityDashboard';
-      const body = encodeURL  ;
+      const body = encodeURL;
       // `chillerAllocated=${obj.chillerAllocated}&type=2&pageType=1&zoneId=${obj.zoneId}&regionId=${obj.regionId}&startDate=${obj.startDate}&endDate=${obj.endDate}&mustHave=${obj.mustHave}&channelId=${obj.channelId}`;
       //     //
 
-      this.httpService.getKeyForProductivityReport(body, url).subscribe(data => {
-        const res: any = data;
+      this.httpService.getKeyForProductivityReport(body, url).subscribe(
+        data => {
+          const res: any = data;
 
-        if (res) {
-          const obj2 = {
-            key: res.key,
-            fileType: 'json.fileType'
-          };
-          const url = 'downloadReport';
-          this.getproductivityDownload(obj2, url);
-        } else {
+          if (res) {
+            const obj2 = {
+              key: res.key,
+              fileType: 'json.fileType'
+            };
+            const url = 'downloadReport';
+            this.getproductivityDownload(obj2, url);
+          } else {
+            this.clearLoading();
+
+            this.toastr.info('Something went wrong,Please retry', 'Connectivity Message');
+          }
+        },
+        error => {
           this.clearLoading();
 
-          this.toastr.info('Something went wrong,Please retry', 'Connectivity Message');
+          console.log(error, 'summary report');
         }
-
-      }, error => {
-        this.clearLoading();
-
-        console.log(error, 'summary report');
-
-      });
+      );
     } else {
       this.loading = false;
       this.loadingData = false;
       this.loadingReportMessage = false;
       this.toastr.info('End date must be greater than start date', 'Date Selection');
-
     }
 
     // let url = 'oosSummaryReport';
@@ -888,72 +876,69 @@ export class FilterBarComponent implements OnInit {
         endDate: moment(this.endDate).format('YYYY-MM-DD'),
         // totalShops: this.selectedImpactType,
         channelId: -1
-
       };
       const url = 'productivityreport';
-      const body = `type=2&pageType=1&zoneId=${obj.zoneId}&regionId=${obj.regionId}&startDate=${obj.startDate}&endDate=${obj.endDate}&distributionId=${obj.distributionId}&cityId=${obj.cityId}&storeType=${obj.storeType}&channelId=${obj.channelId}`;
+      const body = `type=2&pageType=1&zoneId=${obj.zoneId}&regionId=${obj.regionId}&startDate=${obj.startDate}&endDate=${
+        obj.endDate
+      }&distributionId=${obj.distributionId}&cityId=${obj.cityId}&storeType=${obj.storeType}&channelId=${obj.channelId}`;
 
-      this.httpService.getKeyForProductivityReport(body, url).subscribe(data => {
-        const res: any = data;
+      this.httpService.getKeyForProductivityReport(body, url).subscribe(
+        data => {
+          const res: any = data;
 
-        if (res) {
-          const obj2 = {
-            key: res.key,
-            fileType: 'json.fileType'
-          };
-          const url = 'downloadReport';
-          this.getproductivityDownload(obj2, url);
-        } else {
+          if (res) {
+            const obj2 = {
+              key: res.key,
+              fileType: 'json.fileType'
+            };
+            const url = 'downloadReport';
+            this.getproductivityDownload(obj2, url);
+          } else {
+            this.clearLoading();
+
+            this.toastr.info('Something went wrong,Please retry', 'Connectivity Message');
+          }
+        },
+        error => {
           this.clearLoading();
 
-          this.toastr.info('Something went wrong,Please retry', 'Connectivity Message');
+          console.log(error, 'productivity error');
         }
-
-      }, error => {
-        this.clearLoading();
-
-        console.log(error, 'productivity error');
-
-      });
+      );
     } else {
       this.clearLoading();
 
       this.toastr.info('End date must be greater than start date', 'Date Selection');
-
     }
-
   }
 
   getproductivityDownload(obj, url) {
     const u = url;
     this.httpService.DownloadResource(obj, u);
-  setTimeout(() => {
-    this.loadingData = false;
-    this.loadingReportMessage = false;
-  }, 1000);
-
+    setTimeout(() => {
+      this.loadingData = false;
+      this.loadingReportMessage = false;
+    }, 1000);
   }
 
   getPercentage(n) {
-
     return Math.round(n) + ' %';
-
   }
   getTabsData(data?: any, dateType?: string) {
-    let startDate=(dateType === 'start') ? moment(data).format('YYYY-MM-DD') : moment(this.startDate).format('YYYY-MM-DD');
-    let endDate=(dateType === 'end') ? moment(data).format('YYYY-MM-DD') : moment(this.endDate).format('YYYY-MM-DD');
-//for merchandiser attendance only
-    if(this.router.url==='/dashboard/merchandiser_attendance'){
-      startDate= moment(this.startDate).format('YYYY-MM-DD');
-      endDate= moment(this.startDate).format('YYYY-MM-DD');
+    this.loadingData = true;
+    let startDate = dateType === 'start' ? moment(data).format('YYYY-MM-DD') : moment(this.startDate).format('YYYY-MM-DD');
+    let endDate = dateType === 'end' ? moment(data).format('YYYY-MM-DD') : moment(this.endDate).format('YYYY-MM-DD');
+    //for merchandiser attendance only
+    if (this.router.url === '/dashboard/merchandiser_attendance') {
+      startDate = moment(this.startDate).format('YYYY-MM-DD');
+      endDate = moment(this.startDate).format('YYYY-MM-DD');
     }
-  
 
     this.loading = true;
     const obj: any = {
-      zoneId: (this.selectedZone.id) ? this.selectedZone.id : -1,
-      regionId: (this.selectedRegion.id) ? this.selectedRegion.id : -1,
-      startDate: startDate, 
+      zoneId: this.selectedZone.id ? this.selectedZone.id : -1,
+      regionId: this.selectedRegion.id ? this.selectedRegion.id : -1,
+      startDate: startDate,
       endDate: endDate,
       cityId: this.selectedCity.id || -1,
       distributionId: this.selectedDistribution.id || -1,
@@ -963,43 +948,44 @@ export class FilterBarComponent implements OnInit {
     localStorage.setItem('obj', JSON.stringify(obj));
     this.getTableData(obj);
 
-    this.httpService.getDashboardData(obj).subscribe(data => {
-      // console.log(data, 'home data');
-      const res: any = data;
-      if (res) {
-      this.tabsData = data;
+    this.httpService.getDashboardData(obj).subscribe(
+      data => {
+        // console.log(data, 'home data');
+        this.loadingData = false;
+        const res: any = data;
+        if (res) {
+          this.tabsData = data;
+        }
+        this.loading = false;
+        // if (res.planned == 0)
+        //   this.toastr.info('No data available for current selection', 'Summary')
+      },
+      error => {
+        this.clearLoading();
+
+        console.log(error, 'home error');
       }
-      this.loading = false;
-      // if (res.planned == 0)
-      //   this.toastr.info('No data available for current selection', 'Summary')
-    }, error => {
-      this.clearLoading();
-
-      console.log(error, 'home error');
-
-    });
-
-
-
+    );
   }
   getTableData(obj) {
+    this.httpService.merchandiserShopListCBL(obj).subscribe(
+      data => {
+        console.log(data, 'table data');
+        const res: any = data;
 
-    this.httpService.merchandiserShopListCBL(obj).subscribe(data => {
-      console.log(data, 'table data');
-      const res: any = data;
+        if (res) {
+          this.tableData = res;
+        }
+        this.loading = false;
+        // if (res.planned == 0)
+        //   this.toastr.info('No data available for current selection', 'Summary')
+      },
+      error => {
+        this.clearLoading();
 
-      if (res) {
-      this.tableData = res;
+        console.log(error, 'home error');
       }
-      this.loading = false;
-      // if (res.planned == 0)
-      //   this.toastr.info('No data available for current selection', 'Summary')
-    }, error => {
-      this.clearLoading();
-
-      console.log(error, 'home error');
-
-    });
+    );
   }
 
   // getMerchandiserDetailPage(id){
@@ -1019,7 +1005,4 @@ export class FilterBarComponent implements OnInit {
       return objOne.id === objTwo.id;
     }
   }
-
-
-
 }

@@ -48,6 +48,12 @@ export class DashboardService {
     return this.http.post(url, obj, this.httpOptions);
   }
 
+  removePlanedCall(obj){
+    obj=this.UrlEncodeMaker(obj);
+    const url = this.ip + 'remove-plan-call';
+    return this.http.post(url, obj, this.httpOptions);
+  }
+
   UrlEncodeMaker(obj) {
     let url = '';
       for (const key in obj) {
