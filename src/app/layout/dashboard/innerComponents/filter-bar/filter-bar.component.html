@@ -1466,28 +1466,28 @@
                         </td>
 
                         <td>{{item.planned}}</td>
-                        <td class="a-link" *ngIf="item.completed!=0" title="Completed">
+                        <!-- <td class="a-link" *ngIf="item.completed!=0" title="Completed">
                             <a class="a-link" target="_blank" title="view shop details" [routerLink]="['/dashboard/shop_detail',item.id]" [queryParams]="{'id':item.id,'remark_id':-1}" queryParamsHandling="merge">{{item.completed}}</a>
 
-                        </td>
-                        <td *ngIf="item.completed==0">
+                        </td> -->
+                        <td>
                             {{item.completed}}
 
                         </td>
-                        <td class="a-link" *ngIf="item.successfull!=0" title="Successful">
+                        <!-- <td class="a-link" *ngIf="item.successfull!=0" title="Successful">
                             <a class="a-link" target="_blank" title="view shop details" [routerLink]="['/dashboard/shop_detail',item.id]" [queryParams]="{'id':item.id,'remark_id':1}" queryParamsHandling="merge"> {{item.successfull}}</a>
 
-                        </td>
-                        <td *ngIf="item.successfull==0">
+                        </td> -->
+                        <td>
                             {{item.successfull}}
 
                         </td>
 
-                        <td class="a-link" *ngIf="item.unsuccessful!=0" title="Un-Successful">
+                        <!-- <td class="a-link" *ngIf="item.unsuccessful!=0" title="Un-Successful">
                             <a class="a-link" target="_blank" title="view shop details" [routerLink]="['/dashboard/shop_detail',item.id]" [queryParams]="{'id':item.id,'remark_id':0}" queryParamsHandling="merge"> {{item.unsuccessful}}</a>
 
-                        </td>
-                        <td *ngIf="item.unsuccessful==0">
+                        </td> -->
+                        <td>
                             {{item.unsuccessful}}
 
                         </td>
