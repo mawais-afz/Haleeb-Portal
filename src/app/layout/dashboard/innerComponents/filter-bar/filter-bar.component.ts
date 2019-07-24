@@ -128,7 +128,7 @@ export class FilterBarComponent implements OnInit {
   }
 
   removePlanedCall(item) {
-    if (confirm('Are you sure to delete this merchandiser from list')) {
+    if (confirm('Remove planned call?')) {
       let obj: any = {
         userId: JSON.parse(localStorage.getItem('user_id')),
         startDate: moment(this.startDate).format('YYYY-MM-DD'),
