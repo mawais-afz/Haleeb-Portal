@@ -14,9 +14,7 @@
 
 
                     <mat-form-field class="example-full-width mr-10-IMP">
-                        <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker0"
-                            [(ngModel)]="startDate" placeholder="Choose a start date"
-                            (ngModelChange)="getMerchandiserList(startDate)" readonly>
+                        <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker0" [(ngModel)]="startDate" placeholder="Choose a start date" (ngModelChange)="getMerchandiserList(startDate)" readonly>
                         <mat-datepicker-toggle matSuffix [for]="picker0"></mat-datepicker-toggle>
                         <mat-datepicker #picker0></mat-datepicker>
                     </mat-form-field>
@@ -39,12 +37,12 @@
             <mat-card-content>
 
                 <section class="example-section">
-                    <div class="row text-center">
+                    <!-- <div class="row text-center">
                         <div class="col-md-12">
                             <pagination-controls (pageChange)="p = $event"></pagination-controls>
 
                         </div>
-                    </div>
+                    </div> -->
 
                     <table class="table">
 
@@ -62,9 +60,8 @@
                         </thead>
 
                         <tbody *ngIf="merchandiserList.length>0">
-                            <tr *ngFor="let item of merchandiserList | orderBy: sortBy : sortOrder | paginate: { itemsPerPage: 15, currentPage: p }"
-                                style="color:blue;cursor:pointer" [routerLink]="['/dashboard/evaluation/list']"
-                                [queryParams]="{ surveyorId: item.id,startDate: modifyDate(startDate),endDate: modifyDate(startDate)}">
+                            <!-- | paginate: { itemsPerPage: 15, currentPage: p } -->
+                            <tr *ngFor="let item of merchandiserList | orderBy: sortBy : sortOrder " style="color:blue;cursor:pointer" [routerLink]="['/dashboard/evaluation/list']" [queryParams]="{ surveyorId: item.id,startDate: modifyDate(startDate),endDate: modifyDate(startDate)}">
                                 <td>{{item.m_code}}</td>
                                 <td> {{item.full_name}}</td>
                                 <td>{{item?.supervisor_code}}</td>
