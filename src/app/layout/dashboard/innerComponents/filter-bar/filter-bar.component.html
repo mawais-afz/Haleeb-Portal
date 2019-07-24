@@ -1280,7 +1280,7 @@
                     <mat-option [value]="city" *ngFor="let city of cities">{{city.title}}</mat-option>
                 </mat-select>
             </mat-form-field>
-            <mat-form-field *ngIf="distributionList.length>0" class="example-margin mr-10-IMP">
+            <!-- <mat-form-field *ngIf="distributionList.length>0" class="example-margin mr-10-IMP">
                 <mat-select placeholder="Distribution List" name='distributionList' [(ngModel)]="selectedDistribution" (ngModelChange)="getTabsData()">
                     <mat-option [value]="dist" *ngFor="let dist of distributionList">{{dist.title}}</mat-option>
                 </mat-select>
@@ -1290,7 +1290,7 @@
                 <mat-select placeholder="Store Type" name='storeType' [(ngModel)]="selectedStoreType" (ngModelChange)="getTabsData()">
                     <mat-option [value]="store" *ngFor="let store of storeType">{{store}}</mat-option>
                 </mat-select>
-            </mat-form-field>
+            </mat-form-field> -->
 
             <!-- <mat-form-field *ngIf="impactTypeList.length>0" class="example-margin mr-10-IMP">
                 <mat-select placeholder="Remove Impact" name='removeImpact' [(ngModel)]="selectedImpactType">
