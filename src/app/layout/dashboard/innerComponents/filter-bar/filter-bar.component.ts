@@ -17,6 +17,21 @@ import * as _ from 'lodash';
   styleUrls: ['./filter-bar.component.scss']
 })
 export class FilterBarComponent implements OnInit {
+  //#endregion
+
+  constructor(
+    private toastr: ToastrService,
+    private httpService: DashboardService,
+    public router: Router,
+    private dataService: DashboardDataService
+  ) {
+    this.zones = JSON.parse(localStorage.getItem('zoneList'));
+    this.categoryList = JSON.parse(localStorage.getItem('assetList'));
+    this.channels = JSON.parse(localStorage.getItem('channelList'));
+
+    console.log(this.categoryList);
+    this.sortIt('completed');
+  }
   tableData: any = [];
   ip = environment.ip;
 
@@ -24,11 +39,6 @@ export class FilterBarComponent implements OnInit {
   selectedDistribution: any = {};
   storeType: any = ['Elite', 'Platinum', 'Gold', 'Silver', 'Others'];
   selectedStoreType = null;
-
-  applyFilter(filterValue: string) {
-    this.tableData = this.tableData.filter(f => f.shop_title);
-    console.log(this.tableData, 'table data filter');
-  }
   //#region veriables
   minDate = new Date(2000, 0, 1);
   maxDate = new Date();
@@ -66,25 +76,15 @@ export class FilterBarComponent implements OnInit {
   queryList: any = [];
   selectedQuery: any = {};
 
-  loadingReportMessage: boolean = false;
+  loadingReportMessage = false;
   tabsData: any = [];
   loading = true;
   sortOrder = true;
   sortBy: 'completed';
-  //#endregion
 
-  constructor(
-    private toastr: ToastrService,
-    private httpService: DashboardService,
-    public router: Router,
-    private dataService: DashboardDataService
-  ) {
-    this.zones = JSON.parse(localStorage.getItem('zoneList'));
-    this.categoryList = JSON.parse(localStorage.getItem('assetList'));
-    this.channels = JSON.parse(localStorage.getItem('channelList'));
-
-    console.log(this.categoryList);
-    this.sortIt('completed');
+  applyFilter(filterValue: string) {
+    this.tableData = this.tableData.filter(f => f.shop_title);
+    console.log(this.tableData, 'table data filter');
   }
 
   sortIt(key) {
@@ -107,9 +107,9 @@ export class FilterBarComponent implements OnInit {
   }
 
   getArrowType(key) {
-    if (key == this.sortBy) {
+    if (key === this.sortBy) {
       return this.sortOrder ? 'arrow_upward' : 'arrow_downward';
-    } else return '';
+    } else { return ''; }
   }
 
   ngOnInit() {
@@ -120,19 +120,20 @@ export class FilterBarComponent implements OnInit {
     this.mustHaveAll = this.dataService.getYesNoAll();
     // this.httpService.getZone();
     this.impactTypeList = this.dataService.getImpactType();
-    if (this.router.url !== '/dashboard/raw_data') this.getZone();
+    if (this.router.url !== '/dashboard/raw_data') { this.getZone(); }
 
-    if (this.router.url == '/dashboard/productivity_report' || this.router.url === '/dashboard/merchandiser_attendance') this.getTabsData();
+    if (this.router.url === '/dashboard/productivity_report' || this.router.url === '/dashboard/merchandiser_attendance') { this.getTabsData(); }
 
-    if (this.router.url == '/dashboard/raw_data') this.getQueryTypeList();
+    if (this.router.url === '/dashboard/raw_data') { this.getQueryTypeList(); }
   }
 
   removePlanedCall(item) {
     if (confirm('Remove planned call?')) {
-      let obj: any = {
+      debugger;
+      const obj: any = {
         userId: JSON.parse(localStorage.getItem('user_id')),
         startDate: moment(this.startDate).format('YYYY-MM-DD'),
-        surveyorId: item.merchandiser_id
+        surveyorId: item.id
       };
 
       this.httpService.removePlanedCall(obj).subscribe(
@@ -141,10 +142,10 @@ export class FilterBarComponent implements OnInit {
           if (data.success) {
             // this.tableData=_.remove(this.tableData,(e)=>{e.merchandiser_id==data.surveyorId})
 
-            let tempArray: any = this.tableData;
+            const tempArray: any = this.tableData;
             this.tableData.forEach(element => {
-              if (item.merchandiser_id == data.surveyorId) {
-                let index = this.tableData.indexOf(element);
+              if (element.id == data.surveyorId) {
+                const index = this.tableData.indexOf(element);
                 tempArray.splice(index, 1);
               }
             });
@@ -161,7 +162,7 @@ export class FilterBarComponent implements OnInit {
     this.httpService.getQueryTypeList().subscribe(
       data => {
         console.log('qurry list', data);
-        if (data) this.queryList = data;
+        if (data) { this.queryList = data; }
       },
       error => {
         error.status === 0 ? this.toastr.error('Please check Internet Connection', 'Error') : this.toastr.error(error.description, 'Error');
@@ -173,7 +174,7 @@ export class FilterBarComponent implements OnInit {
     if (this.endDate >= this.startDate) {
       this.loadingData = true;
       this.loadingReportMessage = true;
-      let obj = {
+      const obj = {
         zoneId: this.selectedZone.id || -1,
         regionId: this.selectedRegion.id || -1,
         startDate: moment(this.startDate).format('YYYY-MM-DD'),
@@ -183,19 +184,19 @@ export class FilterBarComponent implements OnInit {
         areaId: this.selectedArea.id || -1
       };
 
-      let url = 'abnormalityShopList';
-      let body = this.httpService.UrlEncodeMaker(obj);
+      const url = 'abnormalityShopList';
+      const body = this.httpService.UrlEncodeMaker(obj);
       this.httpService.getKeyForProductivityReport(body, url).subscribe(
         data => {
           console.log(data, 'query list');
-          let res: any = data;
+          const res: any = data;
 
           if (res) {
-            let obj2 = {
+            const obj2 = {
               key: res.key,
               fileType: res.fileType
             };
-            let url = 'downloadReport';
+            const url = 'downloadReport';
             this.getproductivityDownload(obj2, url);
           } else {
             this.clearLoading();
@@ -217,7 +218,7 @@ export class FilterBarComponent implements OnInit {
     if (this.endDate >= this.startDate) {
       this.loadingData = true;
       this.loadingReportMessage = true;
-      let obj = {
+      const obj = {
         zoneId: this.selectedZone.id || -1,
         regionId: this.selectedRegion.id || -1,
         startDate: moment(this.startDate).format('YYYY-MM-DD'),
@@ -228,19 +229,19 @@ export class FilterBarComponent implements OnInit {
         mustHaveAll: this.selectedMustHaveAll || ''
       };
 
-      let url = 'brandSKUOOS';
-      let body = this.httpService.UrlEncodeMaker(obj);
+      const url = 'brandSKUOOS';
+      const body = this.httpService.UrlEncodeMaker(obj);
       this.httpService.getKeyForProductivityReport(body, url).subscribe(
         data => {
           console.log(data, 'query list');
-          let res: any = data;
+          const res: any = data;
 
           if (res) {
-            let obj2 = {
+            const obj2 = {
               key: res.key,
               fileType: res.fileType
             };
-            let url = 'downloadReport';
+            const url = 'downloadReport';
             this.getproductivityDownload(obj2, url);
           } else {
             this.clearLoading();
@@ -262,25 +263,25 @@ export class FilterBarComponent implements OnInit {
     if (this.endDate >= this.startDate) {
       this.loadingData = true;
       this.loadingReportMessage = true;
-      let obj = {
+      const obj = {
         typeId: this.selectedQuery.id,
         startDate: moment(this.startDate).format('YYYY-MM-DD'),
         endDate: moment(this.endDate).format('YYYY-MM-DD')
       };
 
-      let url = 'dashboard-data';
-      let body = this.httpService.UrlEncodeMaker(obj);
+      const url = 'dashboard-data';
+      const body = this.httpService.UrlEncodeMaker(obj);
       this.httpService.getKeyForProductivityReport(body, url).subscribe(
         data => {
           console.log(data, 'query list');
-          let res: any = data;
+          const res: any = data;
 
           if (res) {
-            let obj2 = {
+            const obj2 = {
               key: res.key,
               fileType: res.fileType
             };
-            let url = 'downloadcsvReport';
+            const url = 'downloadcsvReport';
             this.getproductivityDownload(obj2, url);
           } else {
             this.clearLoading();
@@ -328,7 +329,7 @@ export class FilterBarComponent implements OnInit {
 
     this.httpService.getRegion(this.selectedZone.id).subscribe(
       data => {
-        let res: any = data;
+        const res: any = data;
         if (res) {
           this.regions = res;
         } else {
@@ -351,7 +352,7 @@ export class FilterBarComponent implements OnInit {
     this.selectedArea = {};
     this.selectedCity = {};
     this.selectedDistribution = {};
-    if (this.router.url == '/dashboard/daily_visit_report') {
+    if (this.router.url === '/dashboard/daily_visit_report') {
       this.getMerchandiserList(this.startDate);
     }
 
@@ -928,7 +929,7 @@ export class FilterBarComponent implements OnInit {
     this.loadingData = true;
     let startDate = dateType === 'start' ? moment(data).format('YYYY-MM-DD') : moment(this.startDate).format('YYYY-MM-DD');
     let endDate = dateType === 'end' ? moment(data).format('YYYY-MM-DD') : moment(this.endDate).format('YYYY-MM-DD');
-    //for merchandiser attendance only
+    // for merchandiser attendance only
     if (this.router.url === '/dashboard/merchandiser_attendance') {
       startDate = moment(this.startDate).format('YYYY-MM-DD');
       endDate = moment(this.startDate).format('YYYY-MM-DD');

@@ -14,17 +14,17 @@ export class ShopDetailComponent implements OnInit {
   tableData: any = [];
   loading: boolean = false;
   ip= environment.ip
-  remarksId:any=0;
+  remarksId:any =0;
 
   @ViewChild('childModal') childModal: ModalDirective;
   selectedItem: any={};
   tableTitle: string='';
- 
+
 
 
   constructor(private router:Router,private httpService: DashboardService, public activatedRoute: ActivatedRoute) {
 
-    
+
    }
    showChildModal(): void {
     this.childModal.show();
@@ -36,65 +36,68 @@ export class ShopDetailComponent implements OnInit {
     this.childModal.hide();
   }
 
-  setSelectedItem(item){
-    this.selectedItem=item
+  setSelectedItem(item) {
+    this.selectedItem = item;
 
   }
   ngOnInit() {
-    let id = 0
-    let o: any = JSON.parse(localStorage.getItem('obj'));
-    console.log(o)
-    this.activatedRoute.queryParams.subscribe(p=>{
-      this.remarksId=p.remark_id;
-      id = p.id
-      let obj = {
+    debugger;
+    let id = 0;
+    const o: any = JSON.parse(localStorage.getItem('obj'));
+    console.log(o);
+    this.activatedRoute.queryParams.subscribe(p => {
+      this.remarksId = p.remark_id;
+      id = p.id;
+      const obj = {
         zoneId: o.zoneId,
         regionId: o.regionId,
         startDate: o.startDate,
         endDate: o.endDate,
         merchandiserId: id,
-        remarksId:this.remarksId
+        remarksId: this.remarksId
         // cityId: o.cityId || -1,
         // distributionId:o.selectedDitribution.id ||-1,
         // storeType:o.selectedStoreType || null,
-      }
-      
+      };
+
       this.getTableData(obj);
-    })
-    if(this.remarksId==1)
-    this.tableTitle='Successful';
-    else if(this.remarksId==-1)
-    this.tableTitle='Completed';
-    else if(this.remarksId==0)
-    this.tableTitle='Un-Successful';
+    });
+    if (this.remarksId === 1) {
+    this.tableTitle = 'Successful';
+    } else if (this.remarksId === -1) {
+    this.tableTitle = 'Completed';
+         } else if (this.remarksId === 0) {
+    this.tableTitle = 'Un-Successful';
+         }
 
   }
   getTableData(obj) {
     this.loading = true;
     this.httpService.getTableList(obj).subscribe(data => {
       console.log(data, 'table data');
-      let res: any = data
+      const res: any = data;
       // this.dataSource = res;
-      if(res!=null)
+      if (res != null) {
       this.tableData = res;
+      }
       this.loading = false;
       // if (res.planned == 0)
       //   this.toastr.info('No data available for current selection', 'Summary')
     }, error => {
-      console.log(error, 'home error')
+      console.log(error, 'home error');
 
-    })
+    });
   }
 
-  getPdf(item){
+  getPdf(item) {
     // debugger
-    let obj={
-      surveyId:item.surveyId,
-      type:25,
-      shopName:item.shopName
-    }
-    let url='url-pdf'
-    this.httpService.DownloadResource(obj,url)
+    const obj = {
+      surveyId: item.surveyId,
+      type: 25,
+      shopName: item.shopName
+    };
+    const url = 'url-pdf';
+    this.httpService.DownloadResource(obj, url);
 
   }
 }
