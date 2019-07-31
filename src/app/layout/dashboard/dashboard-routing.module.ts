@@ -21,6 +21,7 @@ import { MerchandiserListComponent } from './innerComponents/merchandiser-list/m
 import { AbnormalityComponent } from './innerComponents/abnormality/abnormality.component';
 import { TimeAnalysisReportComponent } from './innerComponents/time-analysis-report/time-analysis-report.component';
 import { MerchandiserAttendanceComponent } from './innerComponents/merchandiser-attendance/merchandiser-attendance.component';
+import { DailyEvaluationReportComponent } from './innerComponents/daily-evaluation-report/daily-evaluation-report.component';
 
 const routes: Routes = [
     {
@@ -38,6 +39,7 @@ const routes: Routes = [
             { path: 'msl_dashboard', component: MslDashboardComponent },
             { path: 'productivity_dashboard', component: ProductivityDashboardComponent },
             { path: 'tposm_deployment_report', component: TposmDeploymentReportComponent },
+            { path: 'daily_evaluation_report', component: DailyEvaluationReportComponent },
             { path: 'update_password', component: UpdatePasswordComponent },
             { path: 'raw_data', component: RawDataComponent },
             { path: 'brand_sku_oos', component: DataAvailabilityComponent },
