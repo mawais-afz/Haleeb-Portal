@@ -17,9 +17,11 @@ ip=environment.ip;
   headingsList:any =[]; 
   loading=true;
   p:number=0;
+  params: any={};
   constructor(private router:Router,private toastr:ToastrService,private httpService:EvaluationService,private activeRoute:ActivatedRoute) {
     this.activeRoute.queryParams.subscribe(p=>{
       console.log('active params',p);
+      this.params=p
       if(p.surveyorId && p.startDate && p.endDate){
  
         this.getTableData(p);
@@ -31,6 +33,16 @@ ip=environment.ip;
 
   ngOnInit() {
     // this.getTableData();
+
+    let that=this;
+    var flag=false;
+    document.addEventListener('visibilitychange', function(e) {
+      console.log(document.hidden);
+      if(!document.hidden)
+      that.getTableData(that.params);
+      
+
+  });
    
   }
 
