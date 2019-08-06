@@ -84,12 +84,12 @@ export class FilterBarComponent implements OnInit {
   selectedRemark=0;
   remarksList=[]
 
-  @ViewChild('remarksModal') remarksModal: ModalDirective;
-  showRemarksModal(){this.remarksModal.show(); }
-  hideRemarksModal(){ 
-    // removePlanedCall(item)
-    this.remarksModal.hide();
-      }
+  // @ViewChild('remarksModal') remarksModal: ModalDirective;
+  // showRemarksModal(){this.remarksModal.show(); }
+  // hideRemarksModal(){ 
+  //   // removePlanedCall(item)
+  //   this.remarksModal.hide();
+  //     }
 
   applyFilter(filterValue: string) {
     this.tableData = this.tableData.filter(f => f.shop_title);
@@ -136,36 +136,7 @@ export class FilterBarComponent implements OnInit {
     if (this.router.url === '/dashboard/raw_data') { this.getQueryTypeList(); }
   }
 
-  removePlanedCall(item) {
-    if (confirm('Remove planned call?')) {
-      debugger;
-      const obj: any = {
-        userId: JSON.parse(localStorage.getItem('user_id')),
-        startDate: moment(this.startDate).format('YYYY-MM-DD'),
-        surveyorId: item.id
-      };
 
-      this.httpService.removePlanedCall(obj).subscribe(
-        (data: any) => {
-          console.log('remove palnned call', data);
-          if (data.success) {
-            // this.tableData=_.remove(this.tableData,(e)=>{e.merchandiser_id==data.surveyorId})
-
-            const tempArray: any = this.tableData;
-            this.tableData.forEach(element => {
-              if (element.id === data.surveyorId) {
-                const index = this.tableData.indexOf(element);
-                tempArray.splice(index, 1);
-              }
-            });
-
-            this.tableData = tempArray;
-          }
-        },
-        error => {}
-      );
-    }
-  }
 
   getQueryTypeList() {
     this.httpService.getQueryTypeList().subscribe(

@@ -40,6 +40,9 @@ export class MerchandiserAttendanceComponent implements OnInit {
   // selectedArea: any = {};
   sortOrder = true;
   sortBy: 'completed';
+  remarksList = [];
+  selectedRemark = {};
+  selectedUser: any = 0;
 
   constructor(private router: Router, private httpService: DashboardService, private toastr: ToastrService) {
     this.zones = JSON.parse(localStorage.getItem('zoneList'));
@@ -48,15 +51,9 @@ export class MerchandiserAttendanceComponent implements OnInit {
   ngOnInit() {
     this.sortIt('completed');
     this.getTabsData();
+    this.getRemarks();
   }
 
-  showRemarksModal() {
-    this.remarksModal.show();
-  }
-  hideRemarksModal() {
-    // removePlanedCall(item)
-    this.remarksModal.hide();
-  }
   getPercentage(n) {
     return Math.round(n) + ' %';
   }
@@ -172,5 +169,54 @@ export class MerchandiserAttendanceComponent implements OnInit {
     this.selectedDistribution = {};
 
     this.getTabsData();
+  }
+
+  getRemarks() {
+    this.httpService.getRemarksList().subscribe((data: any) => {
+      if (data) this.remarksList = data;
+    });
+  }
+
+  removePlanedCall(item) {
+    var isSelected = Object.keys(this.selectedRemark).length;
+    if (isSelected > 0) {
+      debugger;
+      const obj: any = {
+        userId: JSON.parse(localStorage.getItem('user_id')),
+        startDate: moment(this.startDate).format('YYYY-MM-DD'),
+        surveyorId: item.id
+      };
+
+      this.httpService.removePlanedCall(obj).subscribe(
+        (data: any) => {
+          console.log('remove palnned call', data);
+          if (data.success) {
+            // this.tableData=_.remove(this.tableData,(e)=>{e.merchandiser_id==data.surveyorId})
+
+            // const tempArray: any = this.tableData;
+            // this.tableData.forEach(element => {
+            //   if (element.id === data.surveyorId) {
+            //     const index = this.tableData.indexOf(element);
+            //     tempArray.splice(index, 1);
+            //   }
+            // });
+
+            // this.tableData = tempArray;
+            this.tableData = [];
+            this.getTabsData();
+          }
+        },
+        error => {}
+      );
+    }
+  }
+
+  showRemarksModal(id?) {
+    this.selectedUser = id;
+    this.remarksModal.show();
+  }
+  hideRemarksModal() {
+    this.remarksModal.hide();
+    if (this.selectedUser != 0) this.removePlanedCall(this.selectedUser);
   }
 }

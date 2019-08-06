@@ -123,55 +123,55 @@
                     <th scope="col" (click)="sortIt('merchandiser_code')">Merchandiser Code
                         <br>
                         <i class="material-icons arrow">
-                            {{getArrowType('merchandiser_code')}}
-                            </i>
+              {{getArrowType('merchandiser_code')}}
+            </i>
 
                     </th>
                     <th scope="col" (click)="sortIt('merchandiser_name')">Merchandiser Name
                         <br>
                         <i class="material-icons arrow">
-                            {{getArrowType('merchandiser_name')}}
-                            </i>
+              {{getArrowType('merchandiser_name')}}
+            </i>
                     </th>
                     <th scope="col" (click)="sortIt('planned')">Planned
                         <br>
                         <i class="material-icons arrow">
-                            {{getArrowType('planned')}}
-                            </i>
+              {{getArrowType('planned')}}
+            </i>
                     </th>
                     <th scope="col" (click)="sortIt('completed')">Productive
                         <br>
                         <i class="material-icons arrow">
-                            {{getArrowType('completed')}}
-                            </i>
+              {{getArrowType('completed')}}
+            </i>
                     </th>
                     <th scope="col" (click)="sortIt('successfull')">Successful
                         <br>
                         <i class="material-icons arrow">
-                            {{getArrowType('successfull')}}
-                            </i>
+              {{getArrowType('successfull')}}
+            </i>
                     </th>
                     <th scope="col" (click)="sortIt('unsuccessful')">Un-Successful
                         <br>
                         <i class="material-icons arrow">
-                            {{getArrowType('unsuccessful')}}
-                            </i>
+              {{getArrowType('unsuccessful')}}
+            </i>
                     </th>
                     <th scope="col" (click)="sortIt('unvisited')" style="background:#F12E2B;color: white">Unvisited
                         <br>
                         <i class="material-icons arrow" style="color:white !important">
-                            {{getArrowType('unvisited')}}
-                            </i></th>
+              {{getArrowType('unvisited')}}
+            </i></th>
                     <th scope="col" (click)="sortIt('completed_percent')">Productivity <strong>%</strong>
                         <br>
                         <i class="material-icons arrow">
-                            {{getArrowType('completed_percent')}}
-                            </i></th>
+              {{getArrowType('completed_percent')}}
+            </i></th>
                     <th scope="col" (click)="sortIt('successful_percent')">Successful <strong>%</strong>
                         <br>
                         <i class="material-icons arrow">
-                            {{getArrowType('successful_percent')}}
-                            </i></th>
+              {{getArrowType('successful_percent')}}
+            </i></th>
 
 
 
@@ -209,9 +209,9 @@
                         <td>{{getPercentage(item.completed_percent)}}</td>
                         <td>{{getPercentage(item.successful_percent)}}</td>
                         <td>
-                            <button class="btn btn-danger" *ngIf="item.completed_percent==0" (click)="showRemarksModal()" title="Press to remove item">
-                                <i class="fa fa-trash-o"></i>
-                            </button>
+                            <button class="btn btn-danger" *ngIf="item.completed_percent==0" (click)="showRemarksModal(item?.id)" title="Press to remove item">
+                <i class="fa fa-trash-o"></i>
+              </button>
                         </td>
 
                     </tr>
@@ -241,16 +241,21 @@
 
 
                 <label id="example-radio-group-label">Pick your remarks </label>
-                <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group" [(ngModel)]="selectedRemarks">
+                <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group" [(ngModel)]="selectedRemark">
 
                     <ng-container *ngFor="let remark of remarksList">
 
 
                         <section class="example-section">
                             <!-- *ngIf="remark.criteriaId==selectedCriteria.id" (click)="checkboxChange(checkStatus,remark.id)" -->
-                            <mat-checkbox #checkStatus class="example-margin">
-                                {{remark.description}}
-                            </mat-checkbox>
+                            <!-- <mat-checkbox #checkStatus class="example-margin" name="remark">
+                                {{remark.title}}
+                            </mat-checkbox> -->
+
+                            <mat-radio-button class="example-radio-button" [value]="remark">
+                                {{remark.title}}
+                            </mat-radio-button>
+
 
                         </section>
 
@@ -261,12 +266,12 @@
 
 
                 <div class="row">
+                    <!-- {{selectedRemark |json}} -->
+                    <div class="col-md" style="text-align: end; padding: 0 20px 5px 0; ">
+                        <button class="btn btn-default mr-2 btn-sm" (click)="selectedRemark={};hideRemarksModal() ">Cancel</button>
+                        <button [disabled]="!selectedRemark?.id " class="btn btn-primary btn-sm " (click)="hideRemarksModal() ">Submit</button>
 
-                    <!-- <div class="col-md" style="text-align: end; padding: 0 20px 5px 0; ">
-                        <button class="btn btn-default mr-2 btn-sm" (click)="cancelSelection()">Cancel</button>
-                        <button [disabled]="selectedRemarksList?.length==0" class="btn btn-primary btn-sm" (click)="getCriteriaWithRemarks(selectedRemarksList,selectedCriteria);hideRemarksModal()">Submit</button>
-
-                    </div> -->
+                    </div>
                 </div>
             </div>
         </div>
@@ -274,10 +279,10 @@
 </div>
 
 
-<div class="row " *ngIf="loading">
-    <div class="col-md-12 text-center">
-        <div class="img-center">
-            <img src="assets/images/basicloader.gif" alt="" srcset="">
+<div class="row " *ngIf="loading ">
+    <div class="col-md-12 text-center ">
+        <div class="img-center ">
+            <img src="assets/images/basicloader.gif " alt=" " srcset=" ">
         </div>
     </div>
 
