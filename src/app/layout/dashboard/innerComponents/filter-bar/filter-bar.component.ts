@@ -81,6 +81,15 @@ export class FilterBarComponent implements OnInit {
   loading = true;
   sortOrder = true;
   sortBy: 'completed';
+  selectedRemark=0;
+  remarksList=[]
+
+  @ViewChild('remarksModal') remarksModal: ModalDirective;
+  showRemarksModal(){this.remarksModal.show(); }
+  hideRemarksModal(){ 
+    // removePlanedCall(item)
+    this.remarksModal.hide();
+      }
 
   applyFilter(filterValue: string) {
     this.tableData = this.tableData.filter(f => f.shop_title);
@@ -92,6 +101,13 @@ export class FilterBarComponent implements OnInit {
     this.sortOrder = !this.sortOrder;
   }
 
+ 
+
+  getArrowType(key) {
+    if (key === this.sortBy) {
+      return this.sortOrder ? 'arrow_upward' : 'arrow_downward';
+    } else { return ''; }
+  }
   clearAllSections() {
     this.selectedZone = {};
     this.selectedRegion = {};
@@ -105,13 +121,6 @@ export class FilterBarComponent implements OnInit {
     this.startDate = new Date();
     this.endDate = new Date();
   }
-
-  getArrowType(key) {
-    if (key === this.sortBy) {
-      return this.sortOrder ? 'arrow_upward' : 'arrow_downward';
-    } else { return ''; }
-  }
-
   ngOnInit() {
     this.httpService.checkDate();
     console.log('router', this.router.url);
