@@ -173,18 +173,22 @@ export class MerchandiserAttendanceComponent implements OnInit {
 
   getRemarks() {
     this.httpService.getRemarksList().subscribe((data: any) => {
-      if (data) this.remarksList = data;
+      if (data) { this.remarksList = data; }
     });
   }
 
   removePlanedCall(item) {
-    var isSelected = Object.keys(this.selectedRemark).length;
+    console.log(this.selectedRemark);
+    const isSelected = Object.keys(this.selectedRemark).length;
+    const key = Object.keys(this.selectedRemark)[0];
+    const value = this.selectedRemark[key];
     if (isSelected > 0) {
       debugger;
       const obj: any = {
         userId: JSON.parse(localStorage.getItem('user_id')),
         startDate: moment(this.startDate).format('YYYY-MM-DD'),
-        surveyorId: item.id
+        surveyorId: item,
+        remarkId: value
       };
 
       this.httpService.removePlanedCall(obj).subscribe(
@@ -206,7 +210,7 @@ export class MerchandiserAttendanceComponent implements OnInit {
             this.getTabsData();
           }
         },
-        error => {}
+        error => { }
       );
     }
   }
@@ -217,6 +221,6 @@ export class MerchandiserAttendanceComponent implements OnInit {
   }
   hideRemarksModal() {
     this.remarksModal.hide();
-    if (this.selectedUser != 0) this.removePlanedCall(this.selectedUser);
+    if (this.selectedUser !== 0) { this.removePlanedCall(this.selectedUser); }
   }
 }
