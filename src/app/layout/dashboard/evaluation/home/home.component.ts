@@ -156,7 +156,7 @@ export class HomeComponent implements OnInit {
       products = localStorage.getItem('productList');
     }
     let pro = products.map(p => p.available_sku);
-    let sum = pro.reduce((a, v) => a + v);
+    const sum = pro.reduce((a, v) => a + v);
     return (sum / pro.length) * this.msl;
   }
 
@@ -190,7 +190,7 @@ export class HomeComponent implements OnInit {
   checkboxChange(event, id) {
     console.log('checkbox event', !event.checked, id);
 
-    if (!event.checked) this.selectedRemarksList.push(id);
+    if (!event.checked) { this.selectedRemarksList.push(id); }
     else {
       for (var i = 0; i < this.selectedRemarksList.length; i++) {
         if (this.selectedRemarksList[i] == id) {
@@ -218,7 +218,7 @@ export class HomeComponent implements OnInit {
   getTotalAchieveScore() {
     let score = 0;
     this.cloneArray.forEach(element => {
-      if (element.achievedScore > 0) score = score + element.achievedScore;
+      if (element.achievedScore > 0) { score = score + element.achievedScore; }
     });
 
     return score;
@@ -234,7 +234,7 @@ export class HomeComponent implements OnInit {
   isAnyCriteriaCheck() {
     let result = false;
     this.cloneArray.forEach(element => {
-      if (element.isChecked) result = true;
+      if (element.isChecked) { result = true; }
     });
 
     return result;
@@ -244,7 +244,7 @@ export class HomeComponent implements OnInit {
     this.selectedIndex = index;
     // console.dir(event.checked)
     if (event.checked) {
-      if (criteria.id == 14) this.isCritical = false;
+      if (criteria.id == 14) { this.isCritical = false; }
       else {
         this.isNoNCritical = true;
         this.isCritical = true;
@@ -261,7 +261,7 @@ export class HomeComponent implements OnInit {
       this.updateAchieveScore(criteria.id);
 
       this.selectedCriteria = criteria;
-      if (!criteria.isEditable) this.subtractScore(this.selectedCriteria);
+      if (!criteria.isEditable) { this.subtractScore(this.selectedCriteria); }
       this.showRemarksModal();
     } else {
       this.totalAchieveScore = this.totalAchieveScore + Math.abs(criteria.score);
@@ -280,7 +280,7 @@ export class HomeComponent implements OnInit {
           isEditable: criteria.isEditable,
           isChecked: 0
         };
-        let e = this.evaluationArray.findIndex(i => i.id == criteria.id);
+        const e = this.evaluationArray.findIndex(i => i.id == criteria.id);
         this.cloneArray.splice(e, 1, obj);
         console.log('unchecked evaluation array', this.cloneArray);
         this.selectedRemarksList = [];
@@ -291,9 +291,9 @@ export class HomeComponent implements OnInit {
   }
 
   cancelCriteriaSelection() {
-    var inputs: any = document.querySelectorAll('.checkbox');
-    for (var j = 0; j < inputs.length; j++) {
-      if (this.selectedCriteria.id == inputs[j].id) inputs[j].checked = false;
+    let inputs: any = document.querySelectorAll('.checkbox');
+    for (let j = 0; j < inputs.length; j++) {
+      if (this.selectedCriteria.id == inputs[j].id) { inputs[j].checked = false; }
     }
     let criteria = this.selectedCriteria;
     this.totalAchieveScore = this.totalAchieveScore + Math.abs(criteria.score);
@@ -325,15 +325,15 @@ export class HomeComponent implements OnInit {
       this.isCritical = true;
       this.isNoNCritical = false;
     } else {
-      var result = this.isAnyCriteriaCheck();
-      if (!result) this.isNoNCritical = false;
+      let result = this.isAnyCriteriaCheck();
+      if (!result) { this.isNoNCritical = false; }
       this.isCritical = true;
     }
   }
   calculateScore() {
     this.score;
     this.data.criteria.map(c => {
-      if (c.score > 0) this.score += c.score;
+      if (c.score > 0) { this.score += c.score; }
     });
     // this.score=this.score-(this.msl);
 
@@ -423,18 +423,18 @@ export class HomeComponent implements OnInit {
   }
 
   showRemarksModal() {
-    this.criteriaDesireScore = 0; //this.selectedCriteria.achievedScore;
+    this.criteriaDesireScore = 0; // this.selectedCriteria.achievedScore;
     this.remarksModal.show();
   }
 
   hideRemarkModalForCancelOption() {
-    if (this.selectedCriteria.isEditable) this.subtractScore(this.selectedCriteria);
+    if (this.selectedCriteria.isEditable) { this.subtractScore(this.selectedCriteria); }
 
     // this.updateAchieveScore(this.selectedCriteria.id)
     this.remarksModal.hide();
   }
   hideRemarksModal() {
-    if (this.selectedCriteria.isEditable) this.subtractScore(this.selectedCriteria);
+    if (this.selectedCriteria.isEditable) { this.subtractScore(this.selectedCriteria); }
 
     // this.updateAchieveScore(this.selectedCriteria.id)
     // if(this.selectedRemarksList.length>0)
