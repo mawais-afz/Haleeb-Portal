@@ -18,7 +18,7 @@ export class ShopDetailComponent implements OnInit {
 
   @ViewChild('childModal') childModal: ModalDirective;
   selectedItem: any={};
-  tableTitle: string='';
+  tableTitle: string ='';
 
 
 
@@ -30,7 +30,7 @@ export class ShopDetailComponent implements OnInit {
     this.childModal.show();
   }
   goToEvaluation(id) {
-  window.open(`${environment.hash}dashboard/evaluation/list/details/${id}?location=shop`,'_blank')
+  window.open(`${environment.hash}dashboard/evaluation/list/details/${id}?location=shop`,'_blank');
   }
   hideChildModal(): void {
     this.childModal.hide();
@@ -41,7 +41,7 @@ export class ShopDetailComponent implements OnInit {
 
   }
   ngOnInit() {
-    debugger;
+
     let id = 0;
     const o: any = JSON.parse(localStorage.getItem('obj'));
     console.log(o);

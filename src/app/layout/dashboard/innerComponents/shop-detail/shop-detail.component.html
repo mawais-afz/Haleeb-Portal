@@ -82,8 +82,24 @@
                 </mat-card-header> -->
                 <!-- {{tableData.itemList |json}} -->
                 <!-- <img mat-card-image src="assets/images/LU-logo.png" height="300" alt=""  style="cursor:pointer"> -->
+                
+                <div class="ribbon">
+                        <img mat-card-image class="small" src="{{ip}}{{item.shopFullImg}}" width="250" height="300" alt="" (click)="setSelectedItem(item);showChildModal()">
+                        <span *ngIf="item.evaluationStatus == 1"  class="ribbon-{{item.score>70?'green':'red'}}">
+                            <span>{{item.score}}</span>
+                        </span>
+                </div>
 
-                <img mat-card-image class="small" src="{{ip}}{{item.shopFullImg}}" width="250" height="300" alt="" (click)="setSelectedItem(item);showChildModal()">
+
+
+                <!-- <div class="img-container">
+                    <img mat-card-image class="small" src="{{ip}}{{item.shopFullImg}}" width="250" height="300" alt="" (click)="setSelectedItem(item);showChildModal()">
+                    <div class="top-right-{{item.score>70?'green':'red'}}">Score: {{item?.score}}</div>
+                    
+                </div> -->
+                
+                
+                
                 <mat-card-content>
                     <!-- <table class="table" (click)="getPdf(item);" style="cursor:pointer"> -->
                     <table class="table" style="cursor:pointer">
