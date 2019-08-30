@@ -4,6 +4,8 @@ import * as moment from 'moment';
 import { Router } from '@angular/router';
 import { DashboardService } from '../../dashboard.service';
 import { ToastrService } from 'ngx-toastr';
+import { ExcelService } from '../../excel.service';
+import { ngxCsv } from 'ngx-csv/ngx-csv';
 
 @Component({
   selector: 'app-merchandiser-attendance',
@@ -43,8 +45,9 @@ export class MerchandiserAttendanceComponent implements OnInit {
   remarksList = [];
   selectedRemark = {};
   selectedUser: any = 0;
-
-  constructor(private router: Router, private httpService: DashboardService, private toastr: ToastrService) {
+  downloadList = [{ key: 'csv', title: 'CSV', icon: 'fa fa-file-text-o' }, { key: 'xlsx', title: 'Excel', icon: 'fa fa-file-excel-o' }];
+  selectedFileType: {};
+  constructor(private excelService:ExcelService,private router: Router, private httpService: DashboardService, private toastr: ToastrService) {
     this.zones = JSON.parse(localStorage.getItem('zoneList'));
   }
 
@@ -53,7 +56,24 @@ export class MerchandiserAttendanceComponent implements OnInit {
     this.getTabsData();
     this.getRemarks();
   }
+  downloadFile(file,dataTable) {
+    this.loading=true;
+    console.log(file);
+    let type=file.key;
+    let data:any=dataTable;
+    let fileTitle='Merchandiser Attendance'
+  
 
+    if(type=='csv')
+    new ngxCsv(data, fileTitle);
+    else if(type=='xlsx')
+    this.excelService.exportAsExcelFile(data, fileTitle);
+
+    this.selectedFileType={};  
+    setTimeout(() => {
+      this.loading=false;
+    }, 1000);
+  }
   getPercentage(n) {
     return Math.round(n) + ' %';
   }

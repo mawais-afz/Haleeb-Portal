@@ -41,7 +41,18 @@
                 <mat-datepicker #picker0></mat-datepicker>
             </mat-form-field>
         </section>
+        <div class="example-section" style="text-align: end">
 
+            <mat-form-field class="example-margin mr-10-IMP">
+                <mat-select placeholder="Download File" name='download' [(ngModel)]="selectedFileType" (ngModelChange)="downloadFile(selectedFileType,tableData)">
+                    <mat-option [value]="file" *ngFor="let file of downloadList">
+                        <i class="{{file?.icon}}" aria-hidden="true"></i> {{file?.title}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+
+        </div>
 
 
     </mat-card-content>
