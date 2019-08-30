@@ -237,7 +237,7 @@ export class HomeComponent implements OnInit {
   getTotalAchieveScore() {
     let score = 0;
     this.cloneArray.forEach(element => {
-      if (element.achievedScore > 0) {
+      if (element.achievedScore >= 0 && element.id!=5) {
         score = score + element.achievedScore;
       }
     });
