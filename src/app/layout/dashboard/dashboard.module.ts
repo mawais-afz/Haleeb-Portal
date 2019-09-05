@@ -38,6 +38,7 @@ import { TimeAnalysisReportComponent } from './innerComponents/time-analysis-rep
 import {NgxPaginationModule} from 'ngx-pagination';
 import { MerchandiserAttendanceComponent } from './innerComponents/merchandiser-attendance/merchandiser-attendance.component';
 import { DailyEvaluationReportComponent } from './innerComponents/daily-evaluation-report/daily-evaluation-report.component';
+import { BsDropdownModule } from 'ngx-bootstrap';
 @NgModule({
     imports: [
         FormsModule,
@@ -65,6 +66,7 @@ import { DailyEvaluationReportComponent } from './innerComponents/daily-evaluati
         NgxPaginationModule,
         MatRadioModule,
 MatCheckboxModule,
+BsDropdownModule.forRoot()
 
     ],
     declarations: [DashboardComponent, HomeComponent, ShopListComponent,

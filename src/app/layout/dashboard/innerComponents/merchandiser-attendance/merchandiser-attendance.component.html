@@ -41,15 +41,41 @@
                 <mat-datepicker #picker0></mat-datepicker>
             </mat-form-field>
         </section>
-        <div class="example-section" style="text-align: end">
+        <div class="example-section">
 
-            <mat-form-field class="example-margin mr-10-IMP">
-                <mat-select placeholder="Download File" name='download' [(ngModel)]="selectedFileType" (ngModelChange)="downloadFile(selectedFileType,tableData)">
-                    <mat-option [value]="file" *ngFor="let file of downloadList">
-                        <i class="{{file?.icon}}" aria-hidden="true"></i> {{file?.title}}
+            <div class="btn-group" dropdown>
+                <button id="button-basic" dropdownToggle type="button" class="btn btn-primary" aria-controls="dropdown-basic">
+                        <i class="fa fa-download"></i>
+                  <!-- Button dropdown  -->
+                  <!-- <span class="caret"></span> -->
+                </button>
+                <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+                    <ng-container *ngFor="let file of downloadList">
+                        <li role="menuitem " (click)="downloadFile(file,tableData)">
+
+                            <span class="dropdown-item ">
+                                <i class="{{file?.icon}} " aria-hidden="true "></i> {{file?.title}}
+                            </span>
+                        </li>
+                    </ng-container>
+
+
+                    <!-- <li role="menuitem "><a class="dropdown-item " href="# ">Action</a></li>
+                    <li role="menuitem "><a class="dropdown-item " href="# ">Another action</a></li>
+                    <li role="menuitem "><a class="dropdown-item " href="# ">Something else here</a></li>
+                    <li class="divider dropdown-divider "></li>
+                    <li role="menuitem "><a class="dropdown-item " href="# ">Separated link</a>
+                    </li> -->
+                </ul>
+            </div>
+
+            <!-- <mat-form-field class="example-margin mr-10-IMP ">
+                <mat-select placeholder="Download File " name='download' [(ngModel)]="selectedFileType " (ngModelChange)="downloadFile(selectedFileType,tableData) ">
+                    <mat-option [value]="file " *ngFor="let file of downloadList ">
+                        <i class="{{file?.icon}} " aria-hidden="true "></i> {{file?.title}}
                     </mat-option>
                 </mat-select>
-            </mat-form-field>
+            </mat-form-field> -->
 
 
         </div>
@@ -58,57 +84,57 @@
     </mat-card-content>
 </mat-card>
 
-<div *ngIf="!loading" class="mb-20 animated  slideInLeft" fxLayout="row" fxLayout.lt-md="column" fxFlex fxLayoutGap="10px">
+<div *ngIf="!loading " class="mb-20 animated slideInLeft " fxLayout="row " fxLayout.lt-md="column " fxFlex fxLayoutGap="10px ">
 
-    <div class="row">
-        <div class="col-md-12">
+    <div class="row ">
+        <div class="col-md-12 ">
             <mat-card>
-                <mat-card-header style="justify-content: flex-end;">
+                <mat-card-header style="justify-content: flex-end; ">
 
                 </mat-card-header>
                 <mat-card-content>
-                    <div class="row">
-                        <div class="col-md-2">
+                    <div class="row ">
+                        <div class="col-md-2 ">
                             <div>
-                                <app-stat [bgClass]="'info'" [icon]="'assignment'" [count]="tabsData?.planned" [label]="'Planned'">
+                                <app-stat [bgClass]=" 'info' " [icon]=" 'assignment' " [count]="tabsData?.planned " [label]=" 'Planned' ">
                                 </app-stat>
                             </div>
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-md-2 ">
                             <div>
-                                <app-stat [bgClass]="'warn'" [icon]="'check_circle'" [count]="tabsData?.completed" [label]="'Productive'">
+                                <app-stat [bgClass]=" 'warn' " [icon]=" 'check_circle' " [count]="tabsData?.completed " [label]=" 'Productive' ">
                                 </app-stat>
                             </div>
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-md-2 ">
                             <div>
-                                <app-stat [bgClass]="'success'" [icon]="'thumb_up'" [count]="tabsData?.successful" [label]="'Successful'"></app-stat>
+                                <app-stat [bgClass]=" 'success' " [icon]=" 'thumb_up' " [count]="tabsData?.successful " [label]=" 'Successful' "></app-stat>
                             </div>
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-md-2 ">
 
                             <div>
-                                <app-stat [bgClass]="'danger'" [icon]="'thumb_down'" [count]="tabsData?.unsuccessful" [label]="'Un-Successful'"></app-stat>
+                                <app-stat [bgClass]=" 'danger' " [icon]=" 'thumb_down' " [count]="tabsData?.unsuccessful " [label]=" 'Un-Successful' "></app-stat>
                             </div>
                         </div>
 
-                        <div class="col-md-2">
+                        <div class="col-md-2 ">
                             <div>
-                                <app-stat [bgClass]="'danger'" [icon]="'contact_support'" [count]="tabsData?.unvisited" [label]="'Unvisited'">
+                                <app-stat [bgClass]=" 'danger' " [icon]=" 'contact_support' " [count]="tabsData?.unvisited " [label]=" 'Unvisited' ">
                                 </app-stat>
                             </div>
                         </div>
 
-                        <div class="col-md-2">
+                        <div class="col-md-2 ">
                             <div>
-                                <app-stat [bgClass]="'purple'" [icon]="'check_circle'" [count]="tabsData?.completedPercent" [label]="'Productivity %'"></app-stat>
+                                <app-stat [bgClass]=" 'purple' " [icon]=" 'check_circle' " [count]="tabsData?.completedPercent " [label]=" 'Productivity %' "></app-stat>
                             </div>
                         </div>
 
-                        <div class="col-md-2">
+                        <div class="col-md-2 ">
 
                             <div>
-                                <app-stat [bgClass]="'primary'" [icon]="'thumb_up'" [count]="tabsData?.successfulPercent" [label]="'Successful %'"></app-stat>
+                                <app-stat [bgClass]=" 'primary' " [icon]=" 'thumb_up' " [count]="tabsData?.successfulPercent " [label]=" 'Successful %' "></app-stat>
                             </div>
                         </div>
 

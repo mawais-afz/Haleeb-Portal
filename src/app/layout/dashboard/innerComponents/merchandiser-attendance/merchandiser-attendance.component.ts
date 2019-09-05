@@ -57,8 +57,8 @@ export class MerchandiserAttendanceComponent implements OnInit {
     this.getRemarks();
   }
   downloadFile(file,dataTable) {
-    this.loading=true;
-    console.log(file);
+    // this.loading=true;
+    console.log(file,dataTable);
     let type=file.key;
     let data:any=dataTable;
     let fileTitle='Merchandiser Attendance'
