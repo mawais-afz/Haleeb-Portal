@@ -13,7 +13,7 @@ import {MatRadioModule} from '@angular/material/radio';
 import { SectionThreeViewComponent } from './section-three-view/section-three-view.component';
 import { AccordionModule } from 'ngx-bootstrap';
 import { SectionFourViewComponent } from './section-four-view/section-four-view.component';
-import { MatCardModule } from '@angular/material';
+import { MatCardModule, MatFormFieldModule } from '@angular/material';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatSliderModule} from '@angular/material/slider';
 import { NgxImageZoomModule } from 'ngx-image-zoom';
@@ -21,8 +21,13 @@ import { SectionFiveComponent } from './section-five/section-five.component';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { ResizableModule } from 'angular-resizable-element';
 import { Ng5SliderModule } from 'ng5-slider';
+import { SectionSixComponent } from './section-six/section-six.component';
+import {MatInputModule} from '@angular/material/input';
 @NgModule({
-  declarations: [HomeComponent, DetailsPageComponent, MainPageComponent, SectionOneViewComponent, SectionTwoViewComponent, SectionThreeViewComponent, SectionFourViewComponent, SectionFiveComponent],
+  declarations: [HomeComponent, DetailsPageComponent, MainPageComponent, 
+    SectionOneViewComponent, SectionTwoViewComponent,
+     SectionThreeViewComponent, SectionFourViewComponent, 
+     SectionFiveComponent,SectionSixComponent],
   imports: [
     CommonModule,
     EvaluationRoutingModule,
@@ -36,7 +41,9 @@ import { Ng5SliderModule } from 'ng5-slider';
     NgxImageZoomModule.forRoot(),
     NgxPaginationModule,
     ResizableModule,
-    Ng5SliderModule
+    Ng5SliderModule,
+    MatInputModule,
+    MatFormFieldModule,
   ]
 })
 export class EvaluationModule { }

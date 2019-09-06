@@ -28,6 +28,12 @@
                         </section-five>
                     </ng-container>
 
+                    <!--  -->
+                    <ng-container *ngIf="sec?.imageViewType===6">
+                        <section-six class="width-100" [data]="sec" (showModal)="showSoSModal($event)">
+                        </section-six>
+                    </ng-container>
+
                     <ng-container *ngIf="sec?.imageViewType===4">
                         <!-- (productList)="calculateMSLAgain($event)" -->
                         <section-four-view class="width-100" [data]="sec">
@@ -273,6 +279,32 @@
                     <button [disabled]="(criteriaDesireScore==0  && selectedRemarksList?.length==0)" class="btn btn-primary btn-sm" (click)="getCriteriaWithRemarks(selectedRemarksList,selectedCriteria)">Submit</button>
 
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- sos modal -->
+<div bsModal #sosModal="bs-modal" [config]="{backdrop: 'static',keyboard:false}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-child-name">
+    <div class="modal-dialog ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 id="dialog-child-name" class="modal-title pull-left">Edit SOS Height</h4>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="hideSoSModal()">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="padding:10px">
+                <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Enter height" name="height" [(ngModel)]="selectedSoS.total_com_height">
+                </mat-form-field>
+
+
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" (click)="updateSoS()">
+                    update
+                </button>
             </div>
         </div>
     </div>

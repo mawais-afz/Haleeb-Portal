@@ -9,7 +9,7 @@ import { ResizeEvent } from 'angular-resizable-element';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
   data: any = [];
@@ -19,6 +19,9 @@ export class HomeComponent implements OnInit {
 
   @ViewChild('childModal') childModal: ModalDirective;
   @ViewChild('remarksModal') remarksModal: ModalDirective;
+  @ViewChild('sosModal') sosModal: ModalDirective;
+
+  
 
   score: any = 0;
 
@@ -43,6 +46,7 @@ export class HomeComponent implements OnInit {
   isCritical = true;
   isNoNCritical: boolean = false;
   isDragging = false;
+  selectedSoS: any={};
   constructor(
     private router: Router,
     private toastr: ToastrService,
@@ -444,6 +448,23 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  updateSoS(){
+
+    if(this.selectedSoS.total_com_height<=0)
+    this.toastr.warning('Height must be greater than zero.')
+    else
+    this.hideSoSModal();
+
+
+    let obj={
+      userId:parseInt(localStorage.getItem('user_id')),
+      height:parseInt(this.selectedSoS.total_com_height),
+      merchandiserId:parseInt(this.selectedSoS.merchandiser_survey_id)
+    }
+
+    console.log('final SoS object',obj  );
+  }
+
   showChildModal(shop): void {
     this.selectedShop = shop;
     this.rotationDegree = 0;
@@ -452,6 +473,16 @@ export class HomeComponent implements OnInit {
 
   hideChildModal(): void {
     this.childModal.hide();
+  }
+
+  showSoSModal(item): void {
+  console.log('output item',item);
+  this.selectedSoS=item;
+    this.sosModal.show();
+  }
+
+  hideSoSModal(): void {
+    this.sosModal.hide();
   }
 
   showRemarksModal() {

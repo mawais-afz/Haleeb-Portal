@@ -41,44 +41,36 @@
                 <mat-datepicker #picker0></mat-datepicker>
             </mat-form-field>
         </section>
-        <div class="example-section">
 
-            <div class="btn-group" dropdown>
-                <button id="button-basic" dropdownToggle type="button" class="btn btn-primary" aria-controls="dropdown-basic">
-                        <i class="fa fa-download"></i>
-                  <!-- Button dropdown  -->
-                  <!-- <span class="caret"></span> -->
-                </button>
-                <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
-                    <ng-container *ngFor="let file of downloadList">
-                        <li role="menuitem " (click)="downloadFile(file,tableData)">
+        <div class="example-section" style="text-align: end">
+            <button class="hidden-sm" mat-icon-button [matMenuTriggerFor]="profile">
 
-                            <span class="dropdown-item ">
-                                <i class="{{file?.icon}} " aria-hidden="true "></i> {{file?.title}}
-                            </span>
-                        </li>
-                    </ng-container>
+                    <i class="material-icons">
+                            cloud_download
+                            </i><br>
+                    </button>
+            <mat-menu #profile="matMenu">
 
+                <ng-container *ngFor="let file of downloadList">
 
-                    <!-- <li role="menuitem "><a class="dropdown-item " href="# ">Action</a></li>
-                    <li role="menuitem "><a class="dropdown-item " href="# ">Another action</a></li>
-                    <li role="menuitem "><a class="dropdown-item " href="# ">Something else here</a></li>
-                    <li class="divider dropdown-divider "></li>
-                    <li role="menuitem "><a class="dropdown-item " href="# ">Separated link</a>
-                    </li> -->
-                </ul>
-            </div>
+                    <button mat-menu-item (click)="downloadFile(file,tableData)">
+                                <!-- <mat-icon>lock</mat-icon> -->
+                                <i class="{{file?.icon}} " aria-hidden="true "></i> &nbsp;
+                            <span>{{file?.title}}</span>
+                        </button>
 
-            <!-- <mat-form-field class="example-margin mr-10-IMP ">
-                <mat-select placeholder="Download File " name='download' [(ngModel)]="selectedFileType " (ngModelChange)="downloadFile(selectedFileType,tableData) ">
-                    <mat-option [value]="file " *ngFor="let file of downloadList ">
-                        <i class="{{file?.icon}} " aria-hidden="true "></i> {{file?.title}}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field> -->
+                </ng-container>
 
 
+
+                <!-- <button mat-menu-item [routerLink]="['/dashboard/update_password']" routerLinkActive="router-link-active">
+                        <mat-icon>lock</mat-icon>
+                    <span>Update Password</span>
+                </button> -->
+
+            </mat-menu>
         </div>
+
 
 
     </mat-card-content>

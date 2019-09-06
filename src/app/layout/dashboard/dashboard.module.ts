@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatButtonModule, MatCardModule, MatIconModule, MatTableModule,
-    MatFormFieldModule, MatInputModule, MatSelectModule, MatNativeDateModule, MatRadioModule, MatCheckboxModule } from '@angular/material';
+    MatFormFieldModule, MatInputModule, MatSelectModule, MatNativeDateModule, MatRadioModule, MatCheckboxModule, MatMenuModule } from '@angular/material';
 import { MatGridListModule } from '@angular/material/grid-list';
 import {MatDatepickerModule, MatDatepickerToggle} from '@angular/material/datepicker';
 
@@ -66,7 +66,9 @@ import { BsDropdownModule } from 'ngx-bootstrap';
         NgxPaginationModule,
         MatRadioModule,
 MatCheckboxModule,
-BsDropdownModule.forRoot()
+BsDropdownModule.forRoot(),
+MatMenuModule,
+
 
     ],
     declarations: [DashboardComponent, HomeComponent, ShopListComponent,
