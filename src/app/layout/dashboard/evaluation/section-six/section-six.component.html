@@ -15,18 +15,18 @@
         <table class="table table-bordered" style="min-width:820px !important">
             <thead style="background:lightgray">
                 <tr>
-                    <th>total_com_height</th>
+                    <!-- <th>total_com_height</th> -->
                     <th>total_com_width</th>
-                    <th>total_height</th>
+                    <!-- <th>total_height</th> -->
                     <th>total_width</th>
                     <th>action</th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let item of tableData">
-                    <td>{{item?.total_com_height}}</td>
+                    <!-- <td>{{item?.total_com_height}}</td> -->
                     <td> {{item?.total_com_width}}</td>
-                    <td> {{item?.total_height}}</td>
+                    <!-- <td> {{item?.total_height}}</td> -->
                     <td> {{item?.total_width}}</td>
                     <td>
                         <i style="color:blue;cursor:pointer !important" title="edit height" class="fa fa-pencil" (click)="openModal(item)"></i>
