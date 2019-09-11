@@ -60,4 +60,10 @@ export class EvaluationService {
 
   }
 
+  updateSOS(obj){
+    const urlEncode = this.UrlEncodeMaker(obj);
+    const url = this.ip + 'update-shopsos';
+    return this.http.post(url, urlEncode, this.httpOptions); 
+  }
+
 }

@@ -19,6 +19,8 @@ import { AppComponent } from './app.component';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 
 
+
+
 // AoT requires an exported function for factories
 export const createTranslateLoader = (http: HttpClient) => {
     /* for development
@@ -51,6 +53,8 @@ export const createTranslateLoader = (http: HttpClient) => {
             countDuplicates: true,
             autoDismiss: true,
           }),
+      
+         
     ],
 
     exports: [],

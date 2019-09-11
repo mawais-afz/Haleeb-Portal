@@ -39,6 +39,10 @@ import {NgxPaginationModule} from 'ngx-pagination';
 import { MerchandiserAttendanceComponent } from './innerComponents/merchandiser-attendance/merchandiser-attendance.component';
 import { DailyEvaluationReportComponent } from './innerComponents/daily-evaluation-report/daily-evaluation-report.component';
 import { BsDropdownModule } from 'ngx-bootstrap';
+import { EmailManagerComponent } from './innerComponents/email-manager/email-manager.component';
+import { MessageStatusListComponent } from './innerComponents/email-manager/childComponents/message-status-list/message-status-list.component';
+import { AddNewMessageComponent } from './innerComponents/email-manager/childComponents/add-new-message/add-new-message.component';
+
 @NgModule({
     imports: [
         FormsModule,
@@ -70,6 +74,7 @@ BsDropdownModule.forRoot(),
 MatMenuModule,
 
 
+
     ],
     declarations: [DashboardComponent, HomeComponent, ShopListComponent,
         SummaryComponent, ProductivityComponent, FilterBarComponent,
@@ -78,6 +83,6 @@ MatMenuModule,
           TposmDeploymentReportComponent, LineChartComponent,
           UpdatePasswordComponent, RawDataComponent, MatTableComponent,
           DataAvailabilityComponent, MerchandiserListComponent,
-          AbnormalityComponent, TimeAnalysisReportComponent, MerchandiserAttendanceComponent, DailyEvaluationReportComponent]
+          AbnormalityComponent, TimeAnalysisReportComponent, MerchandiserAttendanceComponent, DailyEvaluationReportComponent, EmailManagerComponent, MessageStatusListComponent, AddNewMessageComponent]
 })
 export class DashboardModule {}

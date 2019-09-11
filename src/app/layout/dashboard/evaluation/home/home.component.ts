@@ -52,7 +52,7 @@ export class HomeComponent implements OnInit {
     private toastr: ToastrService,
     private activatedRoutes: ActivatedRoute,
     private httpService: EvaluationService,
-    private evaluationService: EvaluationService
+    private evaluationService: EvaluationService,
   ) {
     this.surveyId;
 
@@ -458,11 +458,21 @@ export class HomeComponent implements OnInit {
 
     let obj={
       userId:parseInt(localStorage.getItem('user_id')),
-      height:parseInt(this.selectedSoS.total_com_height),
+      width:parseInt(this.selectedSoS.total_width),
       merchandiserId:parseInt(this.selectedSoS.merchandiser_survey_id)
     }
 
     console.log('final SoS object',obj  );
+    this.httpService.updateSOS(obj).subscribe((data:any)=>{
+      if (data.success) {
+        this.toastr.info('SOS width is updated')
+        
+      }
+// alert(data)
+    },error=>{
+      // alert(error)
+    }
+    )
   }
 
   showChildModal(shop): void {
