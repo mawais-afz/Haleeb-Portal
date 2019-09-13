@@ -459,6 +459,7 @@ export class HomeComponent implements OnInit {
     let obj={
       userId:parseInt(localStorage.getItem('user_id')),
       width:parseInt(this.selectedSoS.total_width),
+      com_width:parseInt(this.selectedSoS.total_com_width),
       merchandiserId:parseInt(this.selectedSoS.merchandiser_survey_id)
     }
 
