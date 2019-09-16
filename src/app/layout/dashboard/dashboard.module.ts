@@ -42,6 +42,9 @@ import { BsDropdownModule } from 'ngx-bootstrap';
 import { EmailManagerComponent } from './innerComponents/email-manager/email-manager.component';
 import { MessageStatusListComponent } from './innerComponents/email-manager/childComponents/message-status-list/message-status-list.component';
 import { AddNewMessageComponent } from './innerComponents/email-manager/childComponents/add-new-message/add-new-message.component';
+import { UploadRoutesComponent } from './innerComponents/upload-routes/upload-routes.component';
+import { SingleRouteDetailComponent } from './innerComponents/upload-routes/routes-inner-pages/single-route-detail/single-route-detail.component';
+import { ShopsForSingleRouteComponent } from './innerComponents/upload-routes/routes-inner-pages/shops-for-single-route/shops-for-single-route.component';
 
 @NgModule({
     imports: [
@@ -83,6 +86,6 @@ MatMenuModule,
           TposmDeploymentReportComponent, LineChartComponent,
           UpdatePasswordComponent, RawDataComponent, MatTableComponent,
           DataAvailabilityComponent, MerchandiserListComponent,
-          AbnormalityComponent, TimeAnalysisReportComponent, MerchandiserAttendanceComponent, DailyEvaluationReportComponent, EmailManagerComponent, MessageStatusListComponent, AddNewMessageComponent]
+          AbnormalityComponent, TimeAnalysisReportComponent, MerchandiserAttendanceComponent, DailyEvaluationReportComponent, EmailManagerComponent, MessageStatusListComponent, AddNewMessageComponent, UploadRoutesComponent, SingleRouteDetailComponent, ShopsForSingleRouteComponent]
 })
 export class DashboardModule {}

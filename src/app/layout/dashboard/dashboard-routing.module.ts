@@ -22,6 +22,10 @@ import { AbnormalityComponent } from './innerComponents/abnormality/abnormality.
 import { TimeAnalysisReportComponent } from './innerComponents/time-analysis-report/time-analysis-report.component';
 import { MerchandiserAttendanceComponent } from './innerComponents/merchandiser-attendance/merchandiser-attendance.component';
 import { DailyEvaluationReportComponent } from './innerComponents/daily-evaluation-report/daily-evaluation-report.component';
+import { EmailManagerComponent } from './innerComponents/email-manager/email-manager.component';
+import { UploadRoutesComponent } from './innerComponents/upload-routes/upload-routes.component';
+import { SingleRouteDetailComponent } from './innerComponents/upload-routes/routes-inner-pages/single-route-detail/single-route-detail.component';
+import { ShopsForSingleRouteComponent } from './innerComponents/upload-routes/routes-inner-pages/shops-for-single-route/shops-for-single-route.component';
 
 const routes: Routes = [
     {
@@ -46,7 +50,11 @@ const routes: Routes = [
             { path: 'data_abnormality_report', component: AbnormalityComponent },
             { path: 'time-analysis-report', component: TimeAnalysisReportComponent },
             { path: 'merchandiser_List', component: MerchandiserListComponent },
-            { path: 'merchandiser_attendance', component: MerchandiserAttendanceComponent }
+            { path: 'merchandiser_attendance', component: MerchandiserAttendanceComponent },
+            { path: 'sms_manager', component: EmailManagerComponent },
+            { path: 'upload_routes/route_list', component: UploadRoutesComponent },
+            { path: 'upload_routes/single_route_details', component: SingleRouteDetailComponent },
+            { path: 'upload_routes/shops_for_single_route', component: ShopsForSingleRouteComponent },
 
 
 
