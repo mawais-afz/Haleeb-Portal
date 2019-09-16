@@ -29,10 +29,31 @@
 
     </div>
     <div class="row">
-        <div class="col-md-6">
-            <!-- callender place -->
+        <div class="col-md-9">
+            <ng-container *ngIf="showDatePicker">
+                <section>
+                    <!-- callender place -->
+                    <mat-form-field class="example-full-width mr-10-IMP">
+                        <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker0" [(ngModel)]="startDate" placeholder="Choose a date" readonly>
+                        <mat-datepicker-toggle matSuffix [for]="picker0"></mat-datepicker-toggle>
+                        <mat-datepicker #picker0></mat-datepicker>
+                    </mat-form-field>
+
+                    <!-- tiem slot selection -->
+
+                    <mat-form-field>
+                        <mat-label>Select Time Slot</mat-label>
+                        <mat-select>
+                            <mat-option *ngFor="let ts of timeSlots" [value]="ts.value">
+                                {{ts.viewValue}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </section>
+            </ng-container>
+
         </div>
-        <div class="col-md-6">
+        <div class="col-md-3">
             <div class="example-section" style="text-align: end">
                 <button title="Send Message" mat-raised-button class="hidden-sm" mat-icon-button [matMenuTriggerFor]="profile">
 
@@ -42,13 +63,13 @@
     </button>
                 <mat-menu #profile="matMenu">
 
-                    <button mat-menu-item>
+                    <button mat-menu-item *ngIf="!showDatePicker">
 
         <mat-icon>near_me</mat-icon>
 
         <span>immediately </span>
       </button>
-                    <button mat-menu-item>
+                    <button mat-menu-item (click)="toggleDatePicker()">
 
         <mat-icon>access_time</mat-icon>
 
