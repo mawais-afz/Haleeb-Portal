@@ -14,8 +14,9 @@ export class MerchandiserListComponent implements OnInit {
   endDate = new Date();
   loadingReportMessage = false;
   merchandiserList: any = [];
-  loading: boolean = true;
-  p: number = 1;
+  loading = true;
+  loadingData: boolean;
+  p = 1;
   sortOrder = true;
   sortBy: 'm_code';
   constructor(private httpService: DashboardService) {
@@ -26,14 +27,15 @@ export class MerchandiserListComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.loadingData = false;
     this.getMerchandiserList(this.startDate);
     this.sortIt('m_code');
   }
 
   getArrowType(key) {
-    if (key == this.sortBy) {
+    if (key === this.sortBy) {
       return this.sortOrder ? 'arrow_upward' : 'arrow_downward';
-    } else return '';
+    } else { return ''; }
   }
   sortIt(key) {
     this.sortBy = key;
@@ -42,7 +44,8 @@ export class MerchandiserListComponent implements OnInit {
 
   getMerchandiserList(date) {
     date = moment(date).format('YYYY-MM-DD');
-    let obj = {
+    this.loadingData = true;
+    const obj = {
       evaluatorId: localStorage.getItem('user_id'),
       startDate: date
     };
@@ -52,6 +55,7 @@ export class MerchandiserListComponent implements OnInit {
       if (data) {
         this.merchandiserList = data;
         this.loading = false;
+        this.loadingData = false;
       }
     });
   }
