@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SingleRouteDetailComponent implements OnInit {
 
+  title='single route detail';
+  
   constructor() { }
 
   ngOnInit() {

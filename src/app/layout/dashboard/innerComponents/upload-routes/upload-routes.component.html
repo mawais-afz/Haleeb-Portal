@@ -25,6 +25,11 @@
                 <mat-datepicker #picker0></mat-datepicker>
             </mat-form-field>
 
+            <ng-container class=" mr-10-IMP">
+                <label for="avatar" class="mr-5">OR</label>
+                <input type="file" id="avatar" (change)="onFileChange($event)" #fileInput>
+            </ng-container>
+
 
         </section>
 
