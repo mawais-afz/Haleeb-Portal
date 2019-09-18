@@ -45,6 +45,7 @@ import { AddNewMessageComponent } from './innerComponents/email-manager/childCom
 import { UploadRoutesComponent } from './innerComponents/upload-routes/upload-routes.component';
 import { SingleRouteDetailComponent } from './innerComponents/upload-routes/routes-inner-pages/single-route-detail/single-route-detail.component';
 import { ShopsForSingleRouteComponent } from './innerComponents/upload-routes/routes-inner-pages/shops-for-single-route/shops-for-single-route.component';
+import { AddEditGroupComponent } from './innerComponents/email-manager/childComponents/add-edit-group/add-edit-group.component';
 
 @NgModule({
     imports: [
@@ -86,6 +87,6 @@ MatMenuModule,
           TposmDeploymentReportComponent, LineChartComponent,
           UpdatePasswordComponent, RawDataComponent, MatTableComponent,
           DataAvailabilityComponent, MerchandiserListComponent,
-          AbnormalityComponent, TimeAnalysisReportComponent, MerchandiserAttendanceComponent, DailyEvaluationReportComponent, EmailManagerComponent, MessageStatusListComponent, AddNewMessageComponent, UploadRoutesComponent, SingleRouteDetailComponent, ShopsForSingleRouteComponent]
+          AbnormalityComponent, TimeAnalysisReportComponent, MerchandiserAttendanceComponent, DailyEvaluationReportComponent, EmailManagerComponent, MessageStatusListComponent, AddNewMessageComponent, UploadRoutesComponent, SingleRouteDetailComponent, ShopsForSingleRouteComponent, AddEditGroupComponent]
 })
 export class DashboardModule {}
