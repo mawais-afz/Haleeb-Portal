@@ -8,22 +8,24 @@ import { FormGroup } from '@angular/forms';
 })
 export class UploadRoutesComponent implements OnInit {
 
-  title="upload Routes";
-  regions:any=[];
-  selectedRegion:any={}
-  minDate=new Date();
-  maxDate=new Date(2025,1,1);
+  title = 'upload Routes';
+  regions: any = [];
+  selectedRegion: any = {};
+  minDate = new Date();
+  maxDate = new Date(2025, 1, 1);
   startDate;
+  loadingData: boolean;
   form: FormGroup;
   constructor() { }
 
   ngOnInit() {
+    this.loadingData = false;
   }
-  regionChange(){
+  regionChange() {
 
   }
   onFileChange(event) {
-    if(event.target.files.length > 0) {
+    if (event.target.files.length > 0) {
       const file = event.target.files[0];
       this.form.get('avatar').setValue(file);
     }
