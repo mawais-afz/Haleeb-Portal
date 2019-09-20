@@ -7,11 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SingleRouteDetailComponent implements OnInit {
 
-  title='single route detail';
-  
+  title = 'single route detail';
+  loadingData: boolean;
   constructor() { }
 
   ngOnInit() {
+    this.loadingData = false;
   }
 
 }

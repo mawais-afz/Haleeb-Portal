@@ -22,11 +22,11 @@ export class SectionFourViewComponent implements OnInit {
     console.log(this.data.mslTable)
 
     this.data.mslTable.forEach(e => {
-      let locationElement = [e.visit_datetime, parseFloat(e.latitude), parseFloat(e.longitude), i];
+      const locationElement = [e.visit_datetime, parseFloat(e.latitude), parseFloat(e.longitude), i];
       this.locations.push(locationElement);
       // console.log(this.locations)
 
-      if (i == 0) this.centerPoint = [parseFloat(e.latitude), parseFloat(e.longitude)];
+      if (i == 0) { this.centerPoint = [parseFloat(e.latitude), parseFloat(e.longitude)]; }
 
       ++i;
     });
@@ -35,15 +35,15 @@ export class SectionFourViewComponent implements OnInit {
   initMap() {
     // The location of Uluru
     // var marksman = {lat: 31.502102, lng: 74.335109};
-    var locations = this.locations;
+    const locations = this.locations;
 
     // The map, centered at Uluru
 
-    var a = this.centerPoint[0];
-    var b = this.centerPoint[1];
+    const a = this.centerPoint[0];
+    const b = this.centerPoint[1];
     // var t= new google.maps.LatLng(a,b);
-    
-    var map = new google.maps.Map(document.getElementById('map'), {
+
+    const map = new google.maps.Map(document.getElementById('map'), {
        zoom: 19,
         center: new google.maps.LatLng(a, b),
         scrollwheel: false,
@@ -51,11 +51,11 @@ export class SectionFourViewComponent implements OnInit {
        });
     // The marker, positioned at Uluru
     // var marker = new google.maps.Marker({position: marksman, map: map});
-    var infowindow = new google.maps.InfoWindow();
-    var marker, i, markserList;
+    const infowindow = new google.maps.InfoWindow();
+    let marker, i, markserList;
     for (i = 0; i < locations.length; i++) {
-      var url = 'http://maps.google.com/mapfiles/ms/icons/red-dot.png';
-      if (i == 0) {
+      let url = 'http://maps.google.com/mapfiles/ms/icons/red-dot.png';
+      if (i === 0) {
         url = 'http://maps.google.com/mapfiles/ms/icons/green-dot.png';
       }
       //   var p = locations[i];
@@ -72,8 +72,8 @@ export class SectionFourViewComponent implements OnInit {
       });
       // markserList.push(marker)
 
-      if (i == 0) {
-        var cityCircle = new google.maps.Circle({
+      if (i === 0) {
+        const cityCircle = new google.maps.Circle({
           strokeColor: '#FF0000',
           // strokeOpacity: 0.8,
           strokeWeight: 2,

@@ -7,11 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ShopsForSingleRouteComponent implements OnInit {
 
-  title='single route shop list'
-
+  title = 'single route shop list';
+  loadingData: boolean;
   constructor() { }
 
   ngOnInit() {
+    this.loadingData = false;
   }
 
 }
