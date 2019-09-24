@@ -314,6 +314,10 @@ export class DashboardService {
   }
 
  
-
+  updateImeiStatus(obj) {
+    const body = this.UrlEncodeMaker(obj)
+      const url =  this.ip + 'portal/ndn/updateImei';
+    return this.http.post(url,body,this.httpOptions);
+    }
 
 }

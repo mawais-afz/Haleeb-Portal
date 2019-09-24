@@ -26,6 +26,7 @@ import { EmailManagerComponent } from './innerComponents/email-manager/email-man
 import { UploadRoutesComponent } from './innerComponents/upload-routes/upload-routes.component';
 import { SingleRouteDetailComponent } from './innerComponents/upload-routes/routes-inner-pages/single-route-detail/single-route-detail.component';
 import { ShopsForSingleRouteComponent } from './innerComponents/upload-routes/routes-inner-pages/shops-for-single-route/shops-for-single-route.component';
+import { AddDeviceComponent } from './innerComponents/add-device/add-device.component';
 
 const routes: Routes = [
     {
@@ -55,6 +56,7 @@ const routes: Routes = [
             { path: 'upload_routes/route_list', component: UploadRoutesComponent },
             { path: 'upload_routes/single_route_details', component: SingleRouteDetailComponent },
             { path: 'upload_routes/shops_for_single_route', component: ShopsForSingleRouteComponent },
+            { path: 'add_device', component: AddDeviceComponent },
 
 
 
