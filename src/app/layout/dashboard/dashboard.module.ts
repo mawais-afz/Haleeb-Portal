@@ -15,7 +15,7 @@ import { ShopListComponent } from './innerComponents/shop-list/shop-list.compone
 import { SummaryComponent } from './innerComponents/summary/summary.component';
 import { ProductivityComponent } from './innerComponents/productivity/productivity.component';
 import { FilterBarComponent } from './innerComponents/filter-bar/filter-bar.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DetailsComponent } from './innerComponents/details/details.component';
 import { DailyVisitReportComponent } from './innerComponents/daily-visit-report/daily-visit-report.component';
 import { ShopDetailComponent } from './innerComponents/shop-detail/shop-detail.component';
@@ -77,6 +77,7 @@ import { AddDeviceComponent } from './innerComponents/add-device/add-device.comp
 MatCheckboxModule,
 BsDropdownModule.forRoot(),
 MatMenuModule,
+ReactiveFormsModule
 
 
 
