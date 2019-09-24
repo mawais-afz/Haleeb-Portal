@@ -10,14 +10,14 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class DashboardService {
-  // ip: any = environment.ip;
+  ip: any = environment.ip;
   user_id: any = 0;
 
 
   // ip: any='http://192.168.3.209:8080/audit/';
 
   // ip: any='http://192.168.3.142:8080/audit/';
-  ip: any = 'http://192.168.3.189:8080/audit/';
+  // ip: any = 'http://192.168.3.189:8080/audit/';
   // ip: any = 'http://192.168.3.94:8080/audit/';
   // ip: any = 'http://192.168.3.162:8080/audit/';
 
@@ -319,5 +319,14 @@ export class DashboardService {
       const url =  this.ip + 'portal/ndn/updateImei';
     return this.http.post(url,body,this.httpOptions);
     }
-
+    getImeis() {
+      const url = this.ip + 'portal/ndn/getImeis';
+      return this.http.get(url , this.httpOptions);
+    }
+    uploadImei(obj) {
+      const url  = this.ip + 'portal/ndn/uploadImeisOnPortal';
+      // @ts-ignore
+      return this.http.post(url, obj
+      );
+    }
 }
