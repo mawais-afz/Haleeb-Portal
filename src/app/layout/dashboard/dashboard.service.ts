@@ -6,11 +6,14 @@ import { ToastrService } from 'ngx-toastr';
 import { timeout, catchError } from 'rxjs/operators';
 import * as moment from 'moment';
 import { Router } from '@angular/router';
+import { config } from 'src/assets/config';
 @Injectable({
   providedIn: 'root'
 })
 export class DashboardService {
-  ip: any = environment.ip;
+configFile=config;
+
+  ip: any = this.configFile.ip;//environment.ip;
   user_id: any = 0;
 
 

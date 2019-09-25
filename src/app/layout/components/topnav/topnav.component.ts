@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import { config } from 'src/assets/config';
 
 @Component({
     selector: 'app-topnav',
@@ -10,7 +11,8 @@ import { TranslateService } from '@ngx-translate/core';
 export class TopnavComponent implements OnInit {
     public pushRightClass: string;
     showButton=true;
-    userName
+    userName;
+    main_logo=config.main_logo;
 
     constructor(public router: Router, private translate: TranslateService) {
         this.router.events.subscribe(val => {

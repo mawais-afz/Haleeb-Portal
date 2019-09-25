@@ -4,12 +4,16 @@ import { DashboardService } from '../layout/dashboard/dashboard.service';
 import { ToastrService } from 'ngx-toastr';
 import * as moment from 'moment';
 import { HttpErrorResponse } from '@angular/common/http';
+import { config } from 'src/assets/config';
 @Component({
     selector: 'app-login',
     templateUrl: './login.component.html',
     styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+
+    background_color=config.login_theme_color;
+    login_logo=config.login_logo;
     loginForm: any = {
         userName: '',
         password: '',
