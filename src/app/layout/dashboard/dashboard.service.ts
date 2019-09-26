@@ -11,9 +11,9 @@ import { config } from 'src/assets/config';
   providedIn: 'root'
 })
 export class DashboardService {
-configFile=config;
+// configFile = config;
 
-  ip: any = this.configFile.ip;//environment.ip;
+  // ip: any = this.configFile.ip; // environment.ip;
   user_id: any = 0;
 
 
@@ -22,7 +22,7 @@ configFile=config;
   // ip: any='http://192.168.3.142:8080/audit/';
   // ip: any = 'http://192.168.3.189:8080/audit/';
   // ip: any = 'http://192.168.3.94:8080/audit/';
-  // ip: any = 'http://192.168.3.162:8080/audit/';
+  ip: any = 'http://192.168.3.162:8080/audit/';
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -316,18 +316,18 @@ configFile=config;
     });
   }
 
- 
+
   updateImeiStatus(obj) {
-    const body = this.UrlEncodeMaker(obj)
-      const url =  this.ip + 'portal/ndn/updateImei';
-    return this.http.post(url,body,this.httpOptions);
+    const body = this.UrlEncodeMaker(obj);
+      const url =  this.ip + 'add-imei-update-imei-status';
+    return this.http.post(url, body, this.httpOptions);
     }
     getImeis() {
-      const url = this.ip + 'portal/ndn/getImeis';
+      const url = this.ip + 'add-imei-update-imei-status';
       return this.http.get(url , this.httpOptions);
     }
     uploadImei(obj) {
-      const url  = this.ip + 'portal/ndn/uploadImeisOnPortal';
+      const url  = this.ip + 'add-imei-update-imei-status';
       // @ts-ignore
       return this.http.post(url, obj
       );

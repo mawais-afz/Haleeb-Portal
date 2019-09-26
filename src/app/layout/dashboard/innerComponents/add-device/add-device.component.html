@@ -2,11 +2,8 @@
 
     <mat-card-content>
         <mat-card-title>
-            <!--
-          {{title| uppercase}}
-          <i color="primary" [ngClass]="{'fa fa-cog fa-spin':loading || loadingReportMessage }"> </i>
--->
-
+            {{title| uppercase}} <i color="warn" [ngClass]="{'fa fa-cog fa-spin':loadingData}"></i>
+            
 
         </mat-card-title>
         <section class="example-section">
@@ -15,7 +12,7 @@
                 <div class="row">
                     <div class="col-md-6">
                         <mat-form-field class="example-margin example-full-width mr-10-IMP">
-                            <input [formControl]="number" matInput placeholder="add device's IMEI number here">
+                            <input [formControl]="number" matInput placeholder="IMEI Number Here" maxlength="15">
                         </mat-form-field>
 
 
@@ -31,7 +28,7 @@
                 </div>
 
                 <section class="example-section">
-                    <button color="warn" mat-raised-button type="submit">add</button>
+                    <button color="warn" mat-raised-button type="submit">Save</button>
                 </section>
                 <h4 *ngIf="response">Added Successfully..</h4>
             </form>
@@ -43,38 +40,41 @@
 
 </mat-card>
 <mat-card>
-    <h4>Added Imeis</h4>
+    <h4>IMEI List</h4>
     <mat-card-content>
         <table class="table">
             <thead>
                 <tr>
+                    <th scope="col">#</th>
                     <th scope="col">IMEI</th>
                     <th scope="col">Status</th>
                     <th scope="col">Action</th>
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let imei of imeis">
+                <tr *ngFor="let imei of imeis; let i = index">
+                    <th scope="col">{{i+1}}</th>
                     <td>{{imei.imei}}</td>
                     <td>{{imei.active}}</td>
                     <td>
                         <button title="edit" type="button" class="btn btn-primary" (click)="showChildModal(imei)">
-          <i class="fa fa-pencil"></i>
-        </button>
+                            <i class="fa fa-pencil"></i>
+                        </button>
 
                     </td>
                 </tr>
             </tbody>
         </table>
     </mat-card-content>
-    <div bsModal #childModal="bs-modal" [config]="{backdrop: 'static',keyboard: false}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-child-name">
+    <div bsModal #childModal="bs-modal" [config]="{backdrop: 'static',keyboard: false}" class="modal fade" tabindex="-1"
+        role="dialog" aria-labelledby="dialog-child-name">
         <div class="modal-dialog ">
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 id="dialog-child-name" class="modal-title pull-left">Edit Status of IMEI</h4>
                     <button type="button" class="close pull-right" aria-label="Close" (click)="hideChildModal()">
-          <span aria-hidden="true">&times;</span>
-        </button>
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
                 <div class="modal-body">
                     <mat-form-field class="example-margin example-full-width mr-10-IMP">
@@ -84,8 +84,8 @@
                     <h6>Change Active Status of IMEI</h6>
                     <span>Status : </span>
                     <select class="select" placeholder="Transfer Type" name='Transfer Status' [(ngModel)]="imeiStatus">
-       <option [value]="status.value" *ngFor="let status of statusArray">{{status.title}}</option>
-        </select>
+                        <option [value]="status.value" *ngFor="let status of statusArray">{{status.title}}</option>
+                    </select>
                 </div>
 
                 <!-- <mat-select placeholder="Transfer Type" name='Transfer Status' class="select-text"  >
@@ -97,8 +97,8 @@
 
                 <div class="modal-footer">
                     <button class="btn btn-primary" (click)="updateImei()">
-          Update
-        </button>
+                        Update
+                    </button>
                 </div>
             </div>
         </div>

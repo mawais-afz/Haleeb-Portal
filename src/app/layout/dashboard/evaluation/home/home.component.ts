@@ -53,6 +53,7 @@ export class HomeComponent implements OnInit {
     private activatedRoutes: ActivatedRoute,
     private httpService: EvaluationService,
     private evaluationService: EvaluationService,
+    
   ) {
     this.surveyId;
 
@@ -90,7 +91,9 @@ export class HomeComponent implements OnInit {
     this.options.stepsArray=result;
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.availabilityCount = 0;
+  }
   formatLabel(value: number | null) {
     if (!value) {
       return 0;
@@ -385,7 +388,7 @@ export class HomeComponent implements OnInit {
   //   });
   // }
   evaluateShop() {
-    let user_id = localStorage.getItem('user_id');
+    const user_id = localStorage.getItem('user_id');
     this.loading = true;
     let req = true;
     // if(this.selectedRemarks==0 || this.selectedRemarks==false || this.selectedRemarks==''){
@@ -413,7 +416,7 @@ export class HomeComponent implements OnInit {
     //   }});
 
     if (req) {
-      let pl = JSON.parse(localStorage.getItem('productList'));
+      const pl = JSON.parse(localStorage.getItem('productList'));
       this.getAvailabilityCount(pl);
       let obj = {
         criteria: this.cloneArray,
@@ -448,32 +451,33 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  updateSoS(){
+  updateSoS() {
 
-    if(this.selectedSoS.total_com_height<=0)
-    this.toastr.warning('Height must be greater than zero.')
-    else
+    if(this.selectedSoS.total_com_height<=0) {
+    this.toastr.warning('Height must be greater than zero.');
+    } else {
     this.hideSoSModal();
-
-
-    let obj={
-      userId:parseInt(localStorage.getItem('user_id')),
-      width:parseInt(this.selectedSoS.total_width),
-      com_width:parseInt(this.selectedSoS.total_com_width),
-      merchandiserId:parseInt(this.selectedSoS.merchandiser_survey_id)
     }
 
-    console.log('final SoS object',obj  );
-    this.httpService.updateSOS(obj).subscribe((data:any)=>{
+
+    const obj = {
+      userId: parseInt(localStorage.getItem('user_id')),
+      width: parseInt(this.selectedSoS.total_width),
+      com_width: parseInt(this.selectedSoS.total_com_width),
+      merchandiserId: parseInt(this.selectedSoS.merchandiser_survey_id)
+    };
+
+    console.log('final SoS object', obj  );
+    this.httpService.updateSOS(obj).subscribe((data: any) => {
       if (data.success) {
-        this.toastr.info('SOS width is updated')
-        
+        this.toastr.info('SOS width is updated');
+
       }
 // alert(data)
-    },error=>{
+    }, error => {
       // alert(error)
     }
-    )
+    );
   }
 
   showChildModal(shop): void {
@@ -487,8 +491,8 @@ export class HomeComponent implements OnInit {
   }
 
   showSoSModal(item): void {
-  console.log('output item',item);
-  this.selectedSoS=item;
+  console.log('output item', item);
+  this.selectedSoS = item;
     this.sosModal.show();
   }
 

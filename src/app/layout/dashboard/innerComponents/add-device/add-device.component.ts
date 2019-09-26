@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { DashboardService } from '../../dashboard.service';
-import {ToastrService} from 'ngx-toastr';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-add-device',
@@ -13,31 +13,31 @@ export class AddDeviceComponent implements OnInit {
 
   title = 'add Device';
   @ViewChild('childModal') childModal: ModalDirective;
-form: FormGroup;
-response:  any ;
-success: boolean;
-imeis: any = [];
-selectedItem: any = {};
-selectedImeiNumber: any = '';
-imeiStatus: any;
+  form: FormGroup;
+  response: any;
+  success: boolean;
+  imeis: any = [];
+  selectedItem: any = {};
+  selectedImeiNumber: any = '';
+  imeiStatus: any;
 
-statusArray: any = [{title: 'Activate' , value: 'Y'} , {title: 'De-activate' , value: 'N'}]
+  statusArray: any = [{ title: 'Activate', value: 'Y' }, { title: 'De-activate', value: 'N' }];
 
-number = new FormControl('', [Validators.required]);
-  constructor(public fb: FormBuilder, private httpService: DashboardService , 
+  number = new FormControl('', [Validators.required]);
+  constructor(public fb: FormBuilder, private httpService: DashboardService,
     private toaster: ToastrService) {
     this.form = fb.group({
       number: this.number,
       avatar: null
     });
-   }
+  }
 
   ngOnInit() {
     this.getImeis();
   }
 
   onFileChange(event) {
-    if(event.target.files.length > 0) {
+    if (event.target.files.length > 0) {
       const file = event.target.files[0];
       this.form.get('avatar').setValue(file);
     }
@@ -48,17 +48,18 @@ number = new FormControl('', [Validators.required]);
 
     // tslint:disable-next-line:prefer-const
     let model: any;
-  //  model.Number = post.number;
+    //  model.Number = post.number;
 
 
 
-   // formData.append('model', JSON.stringify(model));
+    // formData.append('model', JSON.stringify(model));
 
-    formData.append('imei_number', post.number);
-    formData.append('avatar', this.form.get('avatar').value);
+    formData.append('imei', post.number);
+    formData.append('filePath', this.form.get('avatar').value);
+
     this.httpService.uploadImei(formData).subscribe(data => {
-    console.log(data);
-    this.response = data;
+      console.log(data);
+      this.response = data;
     });
     if (this.response === 'Imeis Added into System.') {
       this.success = true;
@@ -66,8 +67,8 @@ number = new FormControl('', [Validators.required]);
   }
 
   getImeis() {
-    this.httpService.getImeis().subscribe(data => {
-      this.imeis = data;
+    this.httpService.getImeis().subscribe((data: any) => {
+      this.imeis = data.imeiList;
     });
   }
 
@@ -83,16 +84,16 @@ number = new FormControl('', [Validators.required]);
 
   updateImei() {
     const obj = {
-      imei: this.selectedImeiNumber ,
+      imei: this.selectedImeiNumber,
       imeiStatus: this.imeiStatus
-    }
+    };
 
-    this.httpService.updateImeiStatus(obj).subscribe(( data: any ) => {
-      if(data.status){
+    this.httpService.updateImeiStatus(obj).subscribe((data: any) => {
+      if (data.status) {
         this.toaster.success(data.message);
-       /* this.updateArray(data.surveyorId,data.deName)*/
+        /* this.updateArray(data.surveyorId,data.deName)*/
         this.getImeis();
-      } else{
+      } else {
         this.toaster.warning(data.message);
       }
       this.hideChildModal();
@@ -100,8 +101,7 @@ number = new FormControl('', [Validators.required]);
     }, error => {
       if (error.statusText) {
         this.toaster.error(error.statusText);
-      }
-      else {
+      } else {
         this.toaster.error(error.message);
       }
       this.hideChildModal();
