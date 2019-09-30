@@ -422,8 +422,10 @@ export class HomeComponent implements OnInit {
         criteria: this.cloneArray,
         surveyId: this.surveyId,
         evaluatorId: user_id,
-        msl: Math.round(this.availabilityCount)
+        msl: Math.round(this.availabilityCount);
+        status:this.checkForSlectedRemarks(this.cloneArray)
       };
+
       this.evaluationService.evaluateShop(obj).subscribe(
         (data: any) => {
           // console.log('evaluated shop data',data);
@@ -451,6 +453,20 @@ export class HomeComponent implements OnInit {
     }
   }
 
+
+
+  checkForSlectedRemarks(list){
+    let result=1;
+    list.forEach(element => {
+      if(element.remarkId && element.remarkId.length>0)
+      result=2
+      
+    });
+
+
+    return result;
+
+  }
   updateSoS() {
 
     if(this.selectedSoS.total_com_height<=0) {
