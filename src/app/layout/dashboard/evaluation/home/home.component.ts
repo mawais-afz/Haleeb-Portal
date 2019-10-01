@@ -422,7 +422,7 @@ export class HomeComponent implements OnInit {
         criteria: this.cloneArray,
         surveyId: this.surveyId,
         evaluatorId: user_id,
-        msl: Math.round(this.availabilityCount);
+        msl: Math.round(this.availabilityCount),
         status:this.checkForSlectedRemarks(this.cloneArray)
       };
 

@@ -20,6 +20,7 @@ export class AddDeviceComponent implements OnInit {
   selectedItem: any = {};
   selectedImeiNumber: any = '';
   imeiStatus: any;
+  loadingData: boolean;
 
   statusArray: any = [{ title: 'Activate', value: 'Y' }, { title: 'De-activate', value: 'N' }];
 
@@ -33,6 +34,7 @@ export class AddDeviceComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.loadingData = false;
     this.getImeis();
   }
 
@@ -62,7 +64,7 @@ export class AddDeviceComponent implements OnInit {
       this.response = data;
     });
     if (this.response === 'Imeis Added into System.') {
-      this.success = true;
+
     }
   }
 
