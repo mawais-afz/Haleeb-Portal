@@ -941,6 +941,7 @@ export class FilterBarComponent implements OnInit {
     setTimeout(() => {
       this.loadingData = false;
       this.loadingReportMessage = false;
+      this.httpService.updatedDownloadStatus(false);
     }, 1000);
   }
 

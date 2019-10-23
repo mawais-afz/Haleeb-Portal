@@ -1,7 +1,7 @@
 import { Injectable, Output, EventEmitter } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { Subject, of } from 'rxjs';
+import { Subject, of, BehaviorSubject } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { timeout, catchError } from 'rxjs/operators';
 import * as moment from 'moment';
@@ -15,7 +15,8 @@ configFile = config;
 
   ip: any = this.configFile.ip; // environment.ip;
   user_id: any = 0;
-
+  private dataSource = new Subject();
+  data = this.dataSource.asObservable();
 
   // ip: any='http://192.168.3.209:8080/audit/';
 
@@ -24,6 +25,9 @@ configFile = config;
   // ip: any = 'http://192.168.3.94:8080/audit/';
   // ip: any = 'http://192.168.3.189:8080/audit/';
 
+  updatedDownloadStatus(data){
+    this.dataSource.next(data);
+  }
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/x-www-form-urlencoded'
@@ -271,6 +275,7 @@ configFile = config;
     // );
   }
   getKeyForProductivityReport(body, reportUrl) {
+    this.updatedDownloadStatus(true)
     const url = this.ip + reportUrl;
     return this.http.post(url, body, this.httpOptions);
     // .pipe(
