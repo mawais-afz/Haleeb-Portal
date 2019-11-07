@@ -12,7 +12,7 @@ import { Alert } from 'selenium-webdriver';
   styleUrls: ['./details-page.component.scss']
 })
 export class DetailsPageComponent implements OnInit {
-ip = environment.ip;
+  ip = environment.ip;
   tableData: any = [];
   headingsList: any = [];
   loading = true;

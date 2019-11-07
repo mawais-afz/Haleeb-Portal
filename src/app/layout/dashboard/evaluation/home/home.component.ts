@@ -271,6 +271,7 @@ export class HomeComponent implements OnInit {
   }
 
   counter(event, criteria, index) {
+    
     this.selectedIndex = index;
     // console.dir(event.checked)
     if (event.checked) {
@@ -360,7 +361,7 @@ export class HomeComponent implements OnInit {
       this.isCritical = true;
       this.isNoNCritical = false;
     } else {
-      let result = this.isAnyCriteriaCheck();
+      const result = this.isAnyCriteriaCheck();
       if (!result) {
         this.isNoNCritical = false;
       }
@@ -458,9 +459,10 @@ export class HomeComponent implements OnInit {
   checkForSlectedRemarks(list){
     let result=1;
     list.forEach(element => {
-      if(element.remarkId && element.remarkId.length>0)
+      if(element.remarkId && element.remarkId.length>0) {
       result=2
-      
+      }
+
     });
 
 
@@ -469,7 +471,7 @@ export class HomeComponent implements OnInit {
   }
   updateSoS() {
 
-    if(this.selectedSoS.total_com_height<=0) {
+    if(this.selectedSoS.total_com_height <= 0) {
     this.toastr.warning('Height must be greater than zero.');
     } else {
     this.hideSoSModal();

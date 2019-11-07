@@ -11,6 +11,11 @@ import { config } from 'src/assets/config';
   providedIn: 'root'
 })
 export class DashboardService {
+
+  constructor(private http: HttpClient, private toastr: ToastrService, private router: Router) {
+
+    this.user_id = localStorage.getItem('user_id');
+  }
 configFile = config;
 
   ip: any = this.configFile.ip; // environment.ip;
@@ -23,11 +28,9 @@ configFile = config;
   // ip: any='http://192.168.3.142:8080/audit/';
   // ip: any = 'http://192.168.3.189:8080/audit/';
   // ip: any = 'http://192.168.3.94:8080/audit/';
-  // ip: any = 'http://192.168.3.189:8080/audit/';
+  // ip: any = 'http://192.168.3.162:8080/audit/';
 
-  updatedDownloadStatus(data){
-    this.dataSource.next(data);
-  }
+
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/x-www-form-urlencoded'
@@ -35,9 +38,8 @@ configFile = config;
     withCredentials: true
   };
 
-  constructor(private http: HttpClient, private toastr: ToastrService, private router: Router) {
-
-    this.user_id = localStorage.getItem('user_id');
+  updatedDownloadStatus(data) {
+    this.dataSource.next(data);
   }
 
   login(credentials: any) {
@@ -275,7 +277,7 @@ configFile = config;
     // );
   }
   getKeyForProductivityReport(body, reportUrl) {
-    this.updatedDownloadStatus(true)
+    this.updatedDownloadStatus(true);
     const url = this.ip + reportUrl;
     return this.http.post(url, body, this.httpOptions);
     // .pipe(

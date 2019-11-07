@@ -27,6 +27,7 @@ import { UploadRoutesComponent } from './innerComponents/upload-routes/upload-ro
 import { SingleRouteDetailComponent } from './innerComponents/upload-routes/routes-inner-pages/single-route-detail/single-route-detail.component';
 import { ShopsForSingleRouteComponent } from './innerComponents/upload-routes/routes-inner-pages/shops-for-single-route/shops-for-single-route.component';
 import { AddDeviceComponent } from './innerComponents/add-device/add-device.component';
+import { SupervisorWwwrSummaryComponent } from './innerComponents/supervisor-wwwr-summary/supervisor-wwwr-summary.component';
 
 const routes: Routes = [
     {
@@ -48,6 +49,7 @@ const routes: Routes = [
             { path: 'update_password', component: UpdatePasswordComponent },
             { path: 'raw_data', component: RawDataComponent },
             { path: 'brand_sku_oos', component: DataAvailabilityComponent },
+            { path: 'supervisor_wwwr_summary', component: SupervisorWwwrSummaryComponent },
             { path: 'data_abnormality_report', component: AbnormalityComponent },
             { path: 'time-analysis-report', component: TimeAnalysisReportComponent },
             { path: 'merchandiser_List', component: MerchandiserListComponent },
