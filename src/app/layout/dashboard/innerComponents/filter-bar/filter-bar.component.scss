@@ -85,6 +85,12 @@ tr>th {
     .mobile-mt-3 {
         margin-top: 1rem!important;
     }
+    .isMobileView {
+        display: block !important;
+    }
+    .isWebView {
+        display: none !important;
+    }
 }
 
 @media only screen and (min-width: 420px) {
@@ -93,5 +99,11 @@ tr>th {
     }
     .web-view {
         display: block !important;
+    }
+    .isWebView {
+        display: block !important;
+    }
+    .isMobileView {
+        display: none !important;
     }
 }
