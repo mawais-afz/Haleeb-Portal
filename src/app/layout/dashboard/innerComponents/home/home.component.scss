@@ -46,7 +46,13 @@ canvas {
     .mobile-mt-3 {
         margin-top: 1rem!important;
     }
-    .hidden-sm {
+}
+
+@media only screen and (min-width: 420px) {
+    .mobile-view {
+        display: none !important;
+    }
+    .web-view {
         display: block !important;
     }
 }

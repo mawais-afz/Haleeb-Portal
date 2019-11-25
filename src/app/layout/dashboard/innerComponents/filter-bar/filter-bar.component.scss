@@ -69,3 +69,29 @@ table {
 tr>th {
     cursor: pointer;
 }
+
+@media only screen and (max-width: 420px) {
+    /* styles for browsers larger than 960px; */
+    .mobile-view {
+        display: block !important;
+    }
+    .web-view {
+        display: none !important;
+    }
+    .mobile-view-info-tabs {
+        padding: 4px !important;
+        margin-top: 5px !important;
+    }
+    .mobile-mt-3 {
+        margin-top: 1rem!important;
+    }
+}
+
+@media only screen and (min-width: 420px) {
+    .mobile-view {
+        display: none !important;
+    }
+    .web-view {
+        display: block !important;
+    }
+}
