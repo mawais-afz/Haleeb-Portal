@@ -55,3 +55,9 @@ mat-toolbar {
         display: none;
     }
 }
+
+@media only screen and (max-width: 420px) {
+    .hidden-sm {
+        display: block !important;
+    }
+}
