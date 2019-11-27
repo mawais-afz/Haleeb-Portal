@@ -23,7 +23,7 @@ export class MerchandiserAttendanceComponent implements OnInit {
 
   regions: any = [];
   channels: any = [];
-
+  userTypeId: any = -1;
   selectedZone: any = {};
   selectedRegion: any = {};
   selectedChannel: any = [];
@@ -47,31 +47,33 @@ export class MerchandiserAttendanceComponent implements OnInit {
   selectedUser: any = 0;
   downloadList = [{ key: 'csv', title: 'CSV', icon: 'fa fa-file-text-o' }, { key: 'xlsx', title: 'Excel', icon: 'fa fa-file-excel-o' }];
   selectedFileType: {};
-  constructor(private excelService:ExcelService,private router: Router, private httpService: DashboardService, private toastr: ToastrService) {
+  constructor(private excelService: ExcelService, private router: Router, private httpService: DashboardService, private toastr: ToastrService) {
     this.zones = JSON.parse(localStorage.getItem('zoneList'));
   }
 
   ngOnInit() {
+    this.userTypeId = localStorage.getItem('user_type');
     this.sortIt('completed');
     this.getTabsData();
     this.getRemarks();
   }
-  downloadFile(file,dataTable) {
+  downloadFile(file, dataTable) {
     // this.loading=true;
-    console.log(file,dataTable);
-    let type=file.key;
-    let data:any=dataTable;
-    let fileTitle='Merchandiser Attendance'
-  
+    console.log(file, dataTable);
+    const type = file.key;
+    const data: any = dataTable;
+    const fileTitle = 'Merchandiser Attendance';
 
-    if(type=='csv')
+
+    if (type === 'csv') {
     new ngxCsv(data, fileTitle);
-    else if(type=='xlsx')
+    } else if (type === 'xlsx') {
     this.excelService.exportAsExcelFile(data, fileTitle);
+         }
 
-    this.selectedFileType={};  
+    this.selectedFileType = {};
     setTimeout(() => {
-      this.loading=false;
+      this.loading = false;
     }, 1000);
   }
   getPercentage(n) {
