@@ -23,11 +23,12 @@ import { ResizableModule } from 'angular-resizable-element';
 import { Ng5SliderModule } from 'ng5-slider';
 import { SectionSixComponent } from './section-six/section-six.component';
 import {MatInputModule} from '@angular/material/input';
+import { SectionSevenViewComponent } from './section-seven-view/section-seven-view.component';
 @NgModule({
   declarations: [HomeComponent, DetailsPageComponent, MainPageComponent, 
     SectionOneViewComponent, SectionTwoViewComponent,
      SectionThreeViewComponent, SectionFourViewComponent, 
-     SectionFiveComponent,SectionSixComponent],
+     SectionFiveComponent,SectionSixComponent, SectionSevenViewComponent],
   imports: [
     CommonModule,
     EvaluationRoutingModule,
