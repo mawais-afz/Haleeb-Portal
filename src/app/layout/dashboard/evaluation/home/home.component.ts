@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import { ModalDirective } from 'ngx-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { ResizeEvent } from 'angular-resizable-element';
+import { config } from 'src/assets/config';
 
 @Component({
   selector: 'app-home',
@@ -13,7 +14,10 @@ import { ResizeEvent } from 'angular-resizable-element';
 })
 export class HomeComponent implements OnInit {
   data: any = [];
-  ip = environment.ip;
+  // ip = environment.ip;
+  configFile = config;
+
+  ip: any = this.configFile.ip;
   loading = false;
   selectedShop: any = {};
 
@@ -21,7 +25,7 @@ export class HomeComponent implements OnInit {
   @ViewChild('remarksModal') remarksModal: ModalDirective;
   @ViewChild('sosModal') sosModal: ModalDirective;
 
-  
+
 
   score: any = 0;
 
@@ -36,34 +40,34 @@ export class HomeComponent implements OnInit {
   msl: any;
   availabilityCount: number;
   cloneArray: any = [];
-  isFromShop: boolean = true;
-  rotationDegree: number = 0;
+  isFromShop = true;
+  rotationDegree = 0;
   isEditable: any = false;
-  selectedIndex: number = -1;
+  selectedIndex = -1;
   criteriaDesireScore: any = 0;
-  totalAchieveScore: number = 0;
+  totalAchieveScore = 0;
   MSLCount: number;
   isCritical = true;
-  isNoNCritical: boolean = false;
+  isNoNCritical = false;
   isDragging = false;
-  selectedSoS: any={};
+  selectedSoS: any ={};
   constructor(
     private router: Router,
     private toastr: ToastrService,
     private activatedRoutes: ActivatedRoute,
     private httpService: EvaluationService,
     private evaluationService: EvaluationService,
-    
+
   ) {
     this.surveyId;
 
     this.activatedRoutes.queryParams.subscribe(q => {
-      if (q.location) this.isFromShop = false;
+      if (q.location) { this.isFromShop = false; }
     });
     this.activatedRoutes.params.subscribe(params => {
       this.surveyId = params.id;
 
-      let obj = {
+      const obj = {
         surveyId: this.surveyId,
         userTypeId: localStorage.getItem('user_type')
         // userId:localStorage.getItem('user_id')
@@ -72,23 +76,23 @@ export class HomeComponent implements OnInit {
       this.getData(obj);
     });
   }
-  value: number = 5;
+  value = 5;
   options: any = {
     showTicksValues: true,
     stepsArray: [
       { value: 1 },
-     
+
     ]
   };
 
   createTickForSlider(maxTicks) {
-    let result:any = [];
+    const result:any = [];
 
    for (let index = 0; index < maxTicks.score; index++) {
      result.push({value:index});
-     
+
    }
-    this.options.stepsArray=result;
+    this.options.stepsArray = result;
   }
 
   ngOnInit() {
@@ -112,7 +116,7 @@ export class HomeComponent implements OnInit {
   }
 
   rotateImage() {
-    if (this.rotationDegree == 360) {
+    if (this.rotationDegree === 360) {
       this.rotationDegree = 90;
     } else {
       this.rotationDegree += 90;
@@ -138,8 +142,8 @@ export class HomeComponent implements OnInit {
           localStorage.setItem('productList', JSON.stringify(this.productList));
           this.msl = this.data.msl;
           this.isEditable = this.data.isEditable || this.isEditable;
-          if (this.productList.length > 0) this.availabilityCount = Math.round(this.getMSLNAvailbilityCount(this.productList)); // Math.round(this.getAvailabilityCount(this.productList));
-          if (this.data.criteria) this.calculateScore();
+          if (this.productList.length > 0) { this.availabilityCount = Math.round(this.getMSLNAvailbilityCount(this.productList)); } // Math.round(this.getAvailabilityCount(this.productList));
+          if (this.data.criteria) { this.calculateScore(); }
         }
       },
       error => {}
@@ -151,15 +155,15 @@ export class HomeComponent implements OnInit {
     localStorage.setItem('productList', JSON.stringify(products));
     this.productList = localStorage.getItem('productList');
 
-    this.availabilityCount = Math.round(this.getMSLNAvailbilityCount(products)); //Math.round(this.getAvailabilityCount(products));
+    this.availabilityCount = Math.round(this.getMSLNAvailbilityCount(products)); // Math.round(this.getAvailabilityCount(products));
   }
 
   getMSLNAvailbilityCount(products) {
-    let pro = [];
-    let msl = [];
+    const pro = [];
+    const msl = [];
     products.forEach(p => {
       let obj = {};
-      if (p.MSL == 'Yes' && p.available_sku == 1) {
+      if (p.MSL === 'Yes' && p.available_sku === 1) {
         obj = {
           available_sku: p.available_sku,
           MSL: p.MSL
@@ -167,26 +171,26 @@ export class HomeComponent implements OnInit {
         pro.push(obj);
       }
 
-      if (p.MSL == 'Yes') {
+      if (p.MSL === 'Yes') {
         msl.push(p);
       }
     });
     this.MSLCount = msl.length;
 
-    let MSLScore = (pro.length / this.MSLCount) * 10;
+    const MSLScore = (pro.length / this.MSLCount) * 10;
     return MSLScore;
   }
   getAvailabilityCount(products) {
     if (!products) {
       products = localStorage.getItem('productList');
     }
-    let pro = products.map(p => p.available_sku);
+    const pro = products.map(p => p.available_sku);
     const sum = pro.reduce((a, v) => a + v);
     return (sum / pro.length) * this.msl;
   }
 
   getCriteriaWithRemarks(remarks, criteria) {
-    let obj = {
+    const obj = {
       remarkId: remarks,
       id: criteria.id,
       title: criteria.title,
@@ -199,7 +203,7 @@ export class HomeComponent implements OnInit {
       isChecked: 1
     };
     this.cloneArray.forEach(element => {
-      var i = this.cloneArray.findIndex(e => e.id == criteria.id);
+      const i = this.cloneArray.findIndex(e => e.id === criteria.id);
       this.cloneArray.splice(i, 1, obj);
     });
     // this.subtractScore(this.selectedCriteria);
@@ -218,8 +222,8 @@ export class HomeComponent implements OnInit {
     if (!event.checked) {
       this.selectedRemarksList.push(id);
     } else {
-      for (var i = 0; i < this.selectedRemarksList.length; i++) {
-        if (this.selectedRemarksList[i] == id) {
+      for (let i = 0; i < this.selectedRemarksList.length; i++) {
+        if (this.selectedRemarksList[i] === id) {
           this.selectedRemarksList.splice(i, 1);
         }
       }
@@ -232,9 +236,9 @@ export class HomeComponent implements OnInit {
   updateAchieveScore(id) {
     for (let index = 0; index < this.cloneArray.length; index++) {
       const element = this.cloneArray[index];
-      let aScore = element.achievedScore;
+      const aScore = element.achievedScore;
 
-      if (element.id == id) {
+      if (element.id === id) {
         this.cloneArray[index].achievedScore = this.criteriaDesireScore > 0 ? this.criteriaDesireScore : aScore;
       }
     }
@@ -244,7 +248,7 @@ export class HomeComponent implements OnInit {
   getTotalAchieveScore() {
     let score = 0;
     this.cloneArray.forEach(element => {
-      if (element.achievedScore >= 0 && element.id!=5) {
+      if (element.achievedScore >= 0 && element.id !== 5) {
         score = score + element.achievedScore;
       }
     });
@@ -271,11 +275,11 @@ export class HomeComponent implements OnInit {
   }
 
   counter(event, criteria, index) {
-    
+
     this.selectedIndex = index;
     // console.dir(event.checked)
     if (event.checked) {
-      if (criteria.id == 14) {
+      if (criteria.id === 14) {
         this.isCritical = false;
       } else {
         this.isNoNCritical = true;
@@ -300,11 +304,11 @@ export class HomeComponent implements OnInit {
     } else {
       this.totalAchieveScore = this.totalAchieveScore + Math.abs(criteria.score);
 
-      let i = this.indexList.indexOf(index);
+      const i = this.indexList.indexOf(index);
       this.indexList.splice(i, 1);
 
       if (this.evaluationArray.length > 0) {
-        let obj = {
+        const obj = {
           remarkId: [],
           id: criteria.id,
           title: criteria.title,
@@ -314,7 +318,7 @@ export class HomeComponent implements OnInit {
           isEditable: criteria.isEditable,
           isChecked: 0
         };
-        const e = this.evaluationArray.findIndex(i => i.id == criteria.id);
+        const e = this.evaluationArray.findIndex(i => i.id === criteria.id);
         this.cloneArray.splice(e, 1, obj);
         console.log('unchecked evaluation array', this.cloneArray);
         this.selectedRemarksList = [];
@@ -325,19 +329,19 @@ export class HomeComponent implements OnInit {
   }
 
   cancelCriteriaSelection() {
-    let inputs: any = document.querySelectorAll('.checkbox');
+    const inputs: any = document.querySelectorAll('.checkbox');
     for (let j = 0; j < inputs.length; j++) {
-      if (this.selectedCriteria.id == inputs[j].id) {
+      if (this.selectedCriteria.id === inputs[j].id) {
         inputs[j].checked = false;
       }
     }
-    let criteria = this.selectedCriteria;
+    const criteria = this.selectedCriteria;
     this.totalAchieveScore = this.totalAchieveScore + Math.abs(criteria.score);
-    let i = this.indexList.indexOf(this.selectedIndex);
+    const i = this.indexList.indexOf(this.selectedIndex);
     this.indexList.splice(i, 1);
 
     if (this.evaluationArray.length > 0) {
-      let obj = {
+      const obj = {
         remarkId: [],
         id: criteria.id,
         title: criteria.title,
@@ -347,7 +351,7 @@ export class HomeComponent implements OnInit {
         isEditable: criteria.isEditable,
         isChecked: 0
       };
-      let e = this.evaluationArray.findIndex(i => i.id == criteria.id);
+      const e = this.evaluationArray.findIndex(i => i.id === criteria.id);
       this.cloneArray.splice(e, 1, obj);
       console.log('unchecked evaluation array,using cancel button', this.cloneArray);
     }
@@ -357,7 +361,7 @@ export class HomeComponent implements OnInit {
     this.hideRemarkModalForCancelOption();
   }
   checkForCritical(criteria) {
-    if (criteria.id == 14) {
+    if (criteria.id === 14) {
       this.isCritical = true;
       this.isNoNCritical = false;
     } else {
@@ -391,7 +395,7 @@ export class HomeComponent implements OnInit {
   evaluateShop() {
     const user_id = localStorage.getItem('user_id');
     this.loading = true;
-    let req = true;
+    const req = true;
     // if(this.selectedRemarks==0 || this.selectedRemarks==false || this.selectedRemarks==''){
     //   this.toastr.info(`please select remarks for ALL selected criteria`);
     //   this.loading=false;
@@ -419,12 +423,12 @@ export class HomeComponent implements OnInit {
     if (req) {
       const pl = JSON.parse(localStorage.getItem('productList'));
       this.getAvailabilityCount(pl);
-      let obj = {
+      const obj = {
         criteria: this.cloneArray,
         surveyId: this.surveyId,
         evaluatorId: user_id,
         msl: Math.round(this.availabilityCount),
-        status:this.checkForSlectedRemarks(this.cloneArray)
+        status: this.checkForSlectedRemarks(this.cloneArray)
       };
 
       this.evaluationService.evaluateShop(obj).subscribe(
@@ -456,11 +460,11 @@ export class HomeComponent implements OnInit {
 
 
 
-  checkForSlectedRemarks(list){
-    let result=1;
+  checkForSlectedRemarks(list) {
+    let result = 1;
     list.forEach(element => {
-      if(element.remarkId && element.remarkId.length>0) {
-      result=2
+      if (element.remarkId && element.remarkId.length > 0) {
+      result = 2;
       }
 
     });
@@ -471,7 +475,7 @@ export class HomeComponent implements OnInit {
   }
   updateSoS() {
 
-    if(this.selectedSoS.total_com_height <= 0) {
+    if (this.selectedSoS.total_com_height <= 0) {
     this.toastr.warning('Height must be greater than zero.');
     } else {
     this.hideSoSModal();

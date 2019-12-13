@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./msl-dashboard.component.scss']
 })
 export class MslDashboardComponent implements OnInit {
-title='MSL Dashboard'
+title = 'MSL Dashboard';
   constructor() { }
 
   ngOnInit() {

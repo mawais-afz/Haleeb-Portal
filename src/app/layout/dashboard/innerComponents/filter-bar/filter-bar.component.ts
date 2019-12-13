@@ -10,6 +10,7 @@ import { environment } from 'src/environments/environment';
 import { NgModel } from '@angular/forms';
 import { ModalDirective } from 'ngx-bootstrap';
 import * as _ from 'lodash';
+import { config } from 'src/assets/config';
 
 @Component({
   selector: 'filter-bar',
@@ -33,7 +34,10 @@ export class FilterBarComponent implements OnInit {
     this.sortIt('completed');
   }
   tableData: any = [];
-  ip = environment.ip;
+  // ip = environment.ip;
+  configFile = config;
+
+  ip: any = this.configFile.ip;
 
   distributionList: any = [];
   selectedDistribution: any = {};
@@ -82,11 +86,11 @@ export class FilterBarComponent implements OnInit {
   sortOrder = true;
   sortBy: 'completed';
   selectedRemark=0;
-  remarksList=[]
+  remarksList=[];
 
   // @ViewChild('remarksModal') remarksModal: ModalDirective;
   // showRemarksModal(){this.remarksModal.show(); }
-  // hideRemarksModal(){ 
+  // hideRemarksModal(){
   //   // removePlanedCall(item)
   //   this.remarksModal.hide();
   //     }
@@ -101,7 +105,7 @@ export class FilterBarComponent implements OnInit {
     this.sortOrder = !this.sortOrder;
   }
 
- 
+
 
   getArrowType(key) {
     if (key === this.sortBy) {
@@ -535,6 +539,49 @@ export class FilterBarComponent implements OnInit {
       this.toastr.info('End date must be greater than start date', 'Date Selection');
     }
   }
+
+  shopListReport() {
+    if (this.endDate >= this.startDate) {
+      this.loadingData = true;
+      this.loadingReportMessage = true;
+      const obj = {
+        startDate: moment(this.startDate).format('YYYY-MM-DD'),
+        endDate: moment(this.endDate).format('YYYY-MM-DD'),
+        zoneId: this.selectedZone.id || -1,
+        regionId: this.selectedRegion.id || -1
+        // channelId: this.arrayMaker(this.selectedChannel),
+      };
+
+      const url = 'shop-list-report';
+      const body = this.httpService.UrlEncodeMaker(obj);
+      this.httpService.getKeyForProductivityReport(body, url).subscribe(
+        data => {
+          console.log(data, 'oos shoplist');
+          const res: any = data;
+
+          if (res) {
+            const obj2 = {
+              key: res.key,
+              fileType: 'json.fileType'
+            };
+            const url = 'downloadReport';
+            this.getproductivityDownload(obj2, url);
+          } else {
+            this.clearLoading();
+
+            this.toastr.info('Something went wrong,Please retry', 'Connectivity Message');
+          }
+        },
+        error => {
+          this.clearLoading();
+        }
+      );
+    } else {
+      this.clearLoading();
+      this.toastr.info('End date must be greater than start date', 'Date Selection');
+    }
+  }
+
   getOOSDetailReport() {
     if (this.endDate >= this.startDate) {
       const obj = {

@@ -28,6 +28,7 @@ import { SingleRouteDetailComponent } from './innerComponents/upload-routes/rout
 import { ShopsForSingleRouteComponent } from './innerComponents/upload-routes/routes-inner-pages/shops-for-single-route/shops-for-single-route.component';
 import { AddDeviceComponent } from './innerComponents/add-device/add-device.component';
 import { SupervisorWwwrSummaryComponent } from './innerComponents/supervisor-wwwr-summary/supervisor-wwwr-summary.component';
+import { ShopListReportComponent } from './innerComponents/shop-list-report/shop-list-report.component';
 
 const routes: Routes = [
     {
@@ -52,6 +53,7 @@ const routes: Routes = [
             { path: 'supervisor_wwwr_summary', component: SupervisorWwwrSummaryComponent },
             { path: 'data_abnormality_report', component: AbnormalityComponent },
             { path: 'time-analysis-report', component: TimeAnalysisReportComponent },
+            { path: 'shop-list-report', component: ShopListReportComponent },
             { path: 'merchandiser_List', component: MerchandiserListComponent },
             { path: 'merchandiser_attendance', component: MerchandiserAttendanceComponent },
             { path: 'sms_manager', component: EmailManagerComponent },

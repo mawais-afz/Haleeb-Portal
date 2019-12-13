@@ -3,6 +3,7 @@ import { DashboardService } from '../../dashboard.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { ModalDirective } from 'ngx-bootstrap';
+import { config } from 'src/assets/config';
 
 @Component({
   selector: 'app-shop-detail',
@@ -10,19 +11,22 @@ import { ModalDirective } from 'ngx-bootstrap';
   styleUrls: ['./shop-detail.component.scss']
 })
 export class ShopDetailComponent implements OnInit {
-  title='shop list'
+  title = 'shop list';
   tableData: any = [];
-  loading: boolean = false;
-  ip= environment.ip
-  remarksId:any =0;
+  loading = false;
+  // ip= environment.ip
+  configFile = config;
+
+  ip: any = this.configFile.ip;
+  remarksId: any = 0;
 
   @ViewChild('childModal') childModal: ModalDirective;
-  selectedItem: any={};
-  tableTitle: string ='';
+  selectedItem: any = {};
+  tableTitle = '';
 
 
 
-  constructor(private router:Router,private httpService: DashboardService, public activatedRoute: ActivatedRoute) {
+  constructor(private router: Router, private httpService: DashboardService, public activatedRoute: ActivatedRoute) {
 
 
    }
@@ -30,7 +34,7 @@ export class ShopDetailComponent implements OnInit {
     this.childModal.show();
   }
   goToEvaluation(id) {
-  window.open(`${environment.hash}dashboard/evaluation/list/details/${id}?location=shop`,'_blank');
+  window.open(`${environment.hash}dashboard/evaluation/list/details/${id}?location=shop`, '_blank');
   }
   hideChildModal(): void {
     this.childModal.hide();

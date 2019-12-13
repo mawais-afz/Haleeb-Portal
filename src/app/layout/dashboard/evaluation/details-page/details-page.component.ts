@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { environment } from 'src/environments/environment';
 import { Alert } from 'selenium-webdriver';
+import { config } from 'src/assets/config';
 
 @Component({
   selector: 'app-details-page',
@@ -12,7 +13,10 @@ import { Alert } from 'selenium-webdriver';
   styleUrls: ['./details-page.component.scss']
 })
 export class DetailsPageComponent implements OnInit {
-  ip = environment.ip;
+  // ip = environment.ip;
+  configFile = config;
+
+  ip: any = this.configFile.ip;
   tableData: any = [];
   headingsList: any = [];
   loading = true;
