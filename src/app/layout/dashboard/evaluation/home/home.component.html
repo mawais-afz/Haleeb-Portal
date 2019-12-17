@@ -28,14 +28,14 @@
 
                 <ng-container *ngFor="let sec of data?.section">
 
-                    <ng-container #sectionSeven *ngIf="sec?.imageViewType===1">
+                    <!-- <ng-container #sectionSeven *ngIf="sec?.imageViewType===1">
                         <section-seven-view [data]="sec" class="width-100"></section-seven-view>
 
-                    </ng-container>
-                    <!-- <ng-container *ngIf="sec?.imageViewType===1">
+                    </ng-container> -->
+                    <ng-container *ngIf="sec?.imageViewType===1">
                         <section-two-view class="width-100" [data]="sec" [isEditable]="isEditable" (showModal)="showChildModal($event)"></section-two-view>
 
-                    </ng-container> -->
+                    </ng-container>
                     <ng-container *ngIf="sec?.imageViewType===2">
                         <section-one-view class="width-100" [data]="sec" (showModal)="showChildModal($event)">
                         </section-one-view>
