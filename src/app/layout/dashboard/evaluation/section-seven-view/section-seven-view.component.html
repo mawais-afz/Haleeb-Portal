@@ -4,11 +4,11 @@
 
         <div class="col-6">
 
-            <!-- <div class="row">
+            <div class="row">
                 <div class="col-md-12 text-center">
                     <h4><u>{{data?.sectionTitle}}</u></h4>
                 </div>
-            </div> -->
+            </div>
 
             <div class="row">
 
@@ -19,15 +19,19 @@
                     <!-- <ngx-image-zoom [zoomMode]="'hover'" [magnification]="4" [lensWidth]="300" [lensHeight]="300" [enableLens]="true" [circularLens]="true" [thumbImage]="ip+selectedImage?.url" [fullImage]="ip+selectedImage?.url"></ngx-image-zoom> -->
                     <!-- <ngx-image-zoom [zoomMode]="'hover'" [magnification]="2" [lensWidth]="250" [lensHeight]="250" [enableLens]="true" [circularLens]="true" [thumbImage]=ip+selectedImage?.url [fullImage]=ip+selectedImage?.url>
                     </ngx-image-zoom> -->
-                    <img src="{{ip}}{{selectedImage?.url}}" class="img-thumbnail" style="        height: 525px;  width: 100%;  ">
+                    <img src="{{ip}}{{selectedImage?.url}}" class="img-thumbnail"
+                        style="        height: 525px;  width: 100%;  ">
                 </div>
 
                 <div class="col-12 ml-3 mt-2">
                     <div class="row">
 
                         <ng-container *ngFor="let img of data?.imageList ;let i=index ">
-                            <div class="col-2 mb-1 card  mt-4" (click)="setSelectedImage(img)" style="padding: 0% !important;cursor:pointer" [ngClass]="{'bgColor': img?.url==selectedImage.url}">
-                                <img src="{{ip}}{{img?.url}} " width="100" class="img-thumbnail side-image" style="height: 50px !important;">
+                            <div class="col-2 mb-1 card  mt-4" (click)="setSelectedImage(img)"
+                                style="padding: 0% !important;cursor:pointer"
+                                [ngClass]="{'bgColor': img?.url==selectedImage.url}">
+                                <img src="{{ip}}{{img?.url}} " width="100" class="img-thumbnail side-image"
+                                    style="height: 50px !important;">
                                 <!-- <div class="row justify-content-center" style="word-break: break-word !important">
                                     <div for="date"><strong>Date:</strong>{{img?.visitDate}}</div>
                                     <br/>
@@ -102,10 +106,13 @@
                     <tr class="max-width-150" *ngFor="let product of products;let j= index">
                         <td>{{product?.category_title}}</td>
                         <td>{{product?.product_title}}</td>
-                        <td style="width:150px !important" style="cursor:pointer" [ngStyle]="{'background-color':product.color}" (click)="toggleValue(product)">{{updateString(product?.available_sku)}}
+                        <td style="width:150px !important" style="cursor:pointer"
+                            [ngStyle]="{'background-color':product.color}" (click)="toggleValue(product)">
+                            {{updateString(product?.available_sku)}}
 
                         </td>
-                        <td style="width:150px !important" [ngClass]="{'background-color': product?.MSL=='Yes'}">{{product?.MSL}}</td>
+                        <td style="width:150px !important" [ngClass]="{'background-color': product?.MSL=='Yes'}">
+                            {{product?.MSL}}</td>
 
 
                         <!-- <td (click)="product.available_sku = (!product.available_sku)">{{toggleValue(product?.available_sku)}}</td> -->
