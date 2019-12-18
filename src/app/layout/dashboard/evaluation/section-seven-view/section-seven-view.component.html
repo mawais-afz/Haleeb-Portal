@@ -19,10 +19,10 @@
                     <!-- <ngx-image-zoom [zoomMode]="'hover'" [magnification]="4" [lensWidth]="300" [lensHeight]="300" [enableLens]="true" [circularLens]="true" [thumbImage]="ip+selectedImage?.url" [fullImage]="ip+selectedImage?.url"></ngx-image-zoom> -->
                     <!-- <ngx-image-zoom [zoomMode]="'hover'" [magnification]="2" [lensWidth]="250" [lensHeight]="250" [enableLens]="true" [circularLens]="true" [thumbImage]=ip+selectedImage?.url [fullImage]=ip+selectedImage?.url>
                     </ngx-image-zoom> -->
-                    <img src="{{ip}}{{selectedImage?.url}}" width="600" class="img-thumbnail" style="        height: 525px;    ">
+                    <img src="{{ip}}{{selectedImage?.url}}" class="img-thumbnail" style="        height: 525px;  width: 100%;  ">
                 </div>
 
-                <div class="col-12">
+                <div class="col-12 ml-3 mt-2">
                     <div class="row">
 
                         <ng-container *ngFor="let img of data?.imageList ;let i=index ">
