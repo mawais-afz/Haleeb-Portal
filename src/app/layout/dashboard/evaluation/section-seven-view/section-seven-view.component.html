@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container-fluid">
     <div class="row">
         <div class="row" style="border-bottom:2px solid black;width: 100%;margin: 5px 0"></div>
 
@@ -12,19 +12,17 @@
 
             <div class="row">
 
-                <div class="col-md-12" style="
+                <div class="col-12" style="
                 max-height: 500px !important;
             ">
                     <!--  -->
                     <!-- <ngx-image-zoom [zoomMode]="'hover'" [magnification]="4" [lensWidth]="300" [lensHeight]="300" [enableLens]="true" [circularLens]="true" [thumbImage]="ip+selectedImage?.url" [fullImage]="ip+selectedImage?.url"></ngx-image-zoom> -->
-                    <ngx-image-zoom [zoomMode]="'hover'" [magnification]="2" [lensWidth]="250" [lensHeight]="250" [enableLens]="true" [circularLens]="true" [thumbImage]=ip+selectedImage?.url [fullImage]=ip+selectedImage?.url>
-                    </ngx-image-zoom>
-                    <!-- <img src="{{ip}}{{selectedImage?.url}}" width="600" class="img-thumbnail" style="
-                    height: 525px;
-                "> -->
+                    <!-- <ngx-image-zoom [zoomMode]="'hover'" [magnification]="2" [lensWidth]="250" [lensHeight]="250" [enableLens]="true" [circularLens]="true" [thumbImage]=ip+selectedImage?.url [fullImage]=ip+selectedImage?.url>
+                    </ngx-image-zoom> -->
+                    <img src="{{ip}}{{selectedImage?.url}}" width="600" class="img-thumbnail" style="        height: 525px;    ">
                 </div>
 
-                <div class="col-md-12">
+                <div class="col-12">
                     <div class="row">
 
                         <ng-container *ngFor="let img of data?.imageList ;let i=index ">
@@ -72,34 +70,58 @@
 
             </div>
         </div>
-        <div class="col-6 tableFixHead">
-            <table class="table">
-                <thead>
+
+        <div class="col-6 tableFixHead" *ngIf="products.length>0">
+            <!-- <table class="table">
+                <thead style="background:lightgray">
                     <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">First</th>
-                        <th scope="col">Last</th>
-                        <th scope="col">Handle</th>
+                        <th>Brand Title</th>
+                        <th>Product Title</th>
+                        <th>Availability
+                       
+                        </th>
+                        <th>MSL</th>
+
                     </tr>
                 </thead>
+            </table> -->
+            <table class="table table-bordered table-hover " style="min-width:820px !important">
+
+                <thead style="background:lightgray">
+                    <tr>
+                        <th>Brand Title</th>
+                        <th>Product Title</th>
+                        <th>Availability
+                        </th>
+                        <th>MSL</th>
+
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr class="max-width-150" *ngFor="let product of products;let j= index">
+                        <td>{{product?.category_title}}</td>
+                        <td>{{product?.product_title}}</td>
+                        <td style="width:150px !important" style="cursor:pointer" [ngStyle]="{'background-color':product.color}" (click)="toggleValue(product)">{{updateString(product?.available_sku)}}
+
+                        </td>
+                        <td style="width:150px !important" [ngClass]="{'background-color': product?.MSL=='Yes'}">{{product?.MSL}}</td>
+
+
+                        <!-- <td (click)="product.available_sku = (!product.available_sku)">{{toggleValue(product?.available_sku)}}</td> -->
+
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <th>Availability / Total</th>
+                        <td>{{availability}} / {{products.length}}</td>
+                        <th>
+                            {{MSLNAvailabilityCount}} / {{MSLCount}}
+                        </th>
+                    </tr>
+                </tbody>
+
             </table>
-            <div class="tableBody" style="
-            max-height: 600px;
-            overflow-y: scroll;
-        ">
-                <table class="table">
-
-                    <tbody>
-                        <tr *ngFor="let item of [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]">
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                        </tr>
-
-                    </tbody>
-                </table>
-            </div>
         </div>
     </div>
 </div>
