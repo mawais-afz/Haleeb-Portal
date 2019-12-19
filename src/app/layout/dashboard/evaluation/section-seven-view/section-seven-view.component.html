@@ -27,11 +27,11 @@
                     <div class="row">
 
                         <ng-container *ngFor="let img of data?.imageList ;let i=index ">
-                            <div class="col-2 mb-1 card  mt-4" (click)="setSelectedImage(img)"
+                            <div class="col-2 mb-1 card  mt-4 mr-2" (click)="setSelectedImage(img)"
                                 style="padding: 0% !important;cursor:pointer"
                                 [ngClass]="{'bgColor': img?.url==selectedImage.url}">
                                 <img src="{{ip}}{{img?.url}} " width="100" class="img-thumbnail side-image"
-                                    style="height: 50px !important;">
+                                    style="height: 80px !important;width: 120px !important;">
                                 <!-- <div class="row justify-content-center" style="word-break: break-word !important">
                                     <div for="date"><strong>Date:</strong>{{img?.visitDate}}</div>
                                     <br/>

@@ -19,7 +19,6 @@ export class DashboardService {
 configFile = config;
 
   ip: any = this.configFile.ip;
-  // environment.ip;
   user_id: any = 0;
   private dataSource = new Subject();
   data = this.dataSource.asObservable();
