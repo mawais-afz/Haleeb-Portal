@@ -14,7 +14,7 @@ export class SectionSevenViewComponent implements OnInit {
 
   @Input('data') data;
   // @ViewChild('childModal') childModal: ModalDirective;
-  // @Output('showModal') showModal:any=new EventEmitter<any>()
+  @Output('showModal') showModal:any=new EventEmitter<any>()
   @Input('isEditable') isEditable :any;
   @Output('productList') productForEmit:any=new EventEmitter<any>();
   selectedShop: any = {};
@@ -168,6 +168,12 @@ export class SectionSevenViewComponent implements OnInit {
   
     }
    
+  }
+
+  showChildModal(shop): void {
+    this.selectedShop = shop;
+    this.showModal.emit(this.selectedShop);
+    // this.childModal.show();
   }
 
 }

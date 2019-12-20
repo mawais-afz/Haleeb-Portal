@@ -39,7 +39,7 @@
                     </ng-container>
 
                     <ng-container #sectionSeven *ngIf="sec?.imageViewType===7">
-                        <section-seven-view [data]="sec" class="width-100" [isEditable]="isEditable" (productList)="calculateMSLAgain($event)"></section-seven-view>
+                        <section-seven-view [data]="sec" class="width-100" [isEditable]="isEditable" (productList)="calculateMSLAgain($event)" (showModal)="showChildModal($event)"></section-seven-view>
 
                     </ng-container>
 
