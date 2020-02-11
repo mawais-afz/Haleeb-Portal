@@ -30,7 +30,7 @@
                     <div class="row">
 
                         <ng-container *ngFor="let img of data?.imageList ;let i=index ">
-                            <div class="col-2 mb-1 card  mt-4 mr-2" (click)="setSelectedImage(img)" style="padding: 0% !important;cursor:pointer" [ngClass]="{'bgColor': img?.url==selectedImage.url}">
+                            <div class="col-2 mb-1 card  mt-5 mr-2" (click)="setSelectedImage(img)" style="padding: 0% !important;cursor:pointer" [ngClass]="{'bgColor': img?.url==selectedImage.url}">
                                 <img src="{{ip}}{{img?.url}} " width="100" class="img-thumbnail side-image" style="height: 80px !important;width: 120px !important;">
                                 <!-- <div class="row justify-content-center" style="word-break: break-word !important">
                                     <div for="date"><strong>Date:</strong>{{img?.visitDate}}</div>
@@ -81,19 +81,16 @@
                     <tr>
                         <th>Brand Title</th>
                         <th>Product Title</th>
-                        <th>Availability
-                       
-                        </th>
+                        <th>Availability</th>
                         <th>MSL</th>
 
                     </tr>
                 </thead>
             </table> -->
-            <table class="table table-bordered table-hover " style="min-width:820px !important">
-
+            <table class="table table-bordered table-hover w-100" >
                 <thead style="background:lightgray">
                     <tr>
-                        <th>Brand Title</th>
+                        <!-- <th>Brand Title</th> -->
                         <th>Product Title</th>
                         <th>Availability
                         </th>
@@ -103,14 +100,14 @@
                 </thead>
 
                 <tbody>
-                    <tr class="max-width-150" *ngFor="let product of products;let j= index">
-                        <td>{{product?.category_title}}</td>
-                        <td>{{product?.product_title}}</td>
-                        <td style="width:150px !important" style="cursor:pointer" [ngStyle]="{'background-color':product.color}" (click)="toggleValue(product)">
+                    <tr *ngFor="let product of products;let j= index">
+                         <!-- <td>{{product?.category_title}}</td> -->
+                        <td style="width:200px !important">{{product?.product_title}}</td>
+                        <td style="width:200px !important" style="cursor:pointer" [ngStyle]="{'background-color':product.color}" (click)="toggleValue(product)">
                             {{updateString(product?.available_sku)}}
 
                         </td>
-                        <td style="width:150px !important" [ngClass]="{'background-color': product?.MSL=='Yes'}">
+                        <td style="width:200px !important" [ngClass]="{'background-color': product?.MSL=='Yes'}">
                             {{product?.MSL}}</td>
 
 
@@ -118,7 +115,7 @@
 
                     </tr>
                     <tr>
-                        <td></td>
+                        <!-- <td></td> -->
                         <th>Availability / Total</th>
                         <td>{{availability}} / {{products.length}}</td>
                         <th>

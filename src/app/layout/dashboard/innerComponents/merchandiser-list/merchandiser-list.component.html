@@ -92,8 +92,10 @@
                                 <td>{{item?.full_name}}</td>
                                 <td>{{item?.supervisor_code}}</td>
                                 <td>{{item?.supervisor_name}}</td>
-                                <td style="color:blue;cursor:pointer" [routerLink]="['/dashboard/evaluation/list']" [queryParams]="{ surveyorId: item.id,startDate: modifyDate(startDate),endDate: modifyDate(startDate)}">
-                                    {{item?.captured_shops}}</td>
+                                <!-- <td style="color:blue;cursor:pointer" [routerLink]="['/dashboard/evaluation/list']" [queryParams]="{ surveyorId: item.id,startDate: modifyDate(startDate),endDate: modifyDate(startDate)}">
+                                    {{item?.captured_shops}}</td> -->
+                                <td style="color:blue;cursor:pointer" (click)="gotoNewPage(item)">
+                                        {{item?.captured_shops}}</td>
                                     <td>{{item?.evaluated_shops}}</td>
                                 <td>{{item?.approved_shops}}</td>
                                 <td>

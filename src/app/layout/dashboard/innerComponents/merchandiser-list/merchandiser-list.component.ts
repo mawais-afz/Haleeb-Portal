@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DashboardService } from '../../dashboard.service';
 import * as moment from 'moment';
+import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-merchandiser-list',
   templateUrl: './merchandiser-list.component.html',
@@ -63,4 +64,8 @@ export class MerchandiserListComponent implements OnInit {
   modifyDate(date) {
     return moment(date).format('YYYY-MM-DD');
   }
+
+  gotoNewPage(item) {
+    window.open(`${environment.hash}dashboard/evaluation/list/home?surveyorId=${item.id}&startDate=${this.modifyDate(this.startDate)}&endDate=${this.modifyDate(this.startDate)}`, '_blank');
+    }
 }
