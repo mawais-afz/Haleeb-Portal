@@ -63,9 +63,9 @@
                                     <th style="width:50%;background: lightgray; ">{{tab.heading}}</th>
                                     <td style="width:50%;word-break: break-word ">{{tab.value}}</td>
                                 </tr>
-        
+
                             </table>
-        
+
                         </div>
                     </ng-container>
                 </div> -->
@@ -102,12 +102,12 @@
                 <tbody>
                     <tr *ngFor="let product of products;let j= index">
                          <!-- <td>{{product?.category_title}}</td> -->
-                        <td style="width:200px !important">{{product?.product_title}}</td>
-                        <td style="width:200px !important" style="cursor:pointer" [ngStyle]="{'background-color':product.color}" (click)="toggleValue(product)">
+                        <td>{{product?.product_title}}</td>
+                        <td style="cursor:pointer" [ngStyle]="{'background-color':product.color}" (click)="toggleValue(product)">
                             {{updateString(product?.available_sku)}}
 
                         </td>
-                        <td style="width:200px !important" [ngClass]="{'background-color': product?.MSL=='Yes'}">
+                        <td [ngClass]="{'background-color': product?.MSL=='Yes'}">
                             {{product?.MSL}}</td>
 
 
