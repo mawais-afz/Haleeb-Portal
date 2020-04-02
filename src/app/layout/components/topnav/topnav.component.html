@@ -3,7 +3,7 @@
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
     </button>
     <div class="nav-brand mt10 ">
-        <img src="{{main_logo}}" height="50">
+        <img src="{{main_logo}}" height="80">
     </div>
     <form class="hidden-sm" style="margin-left: 20px; margin-top: 5px">
         <!-- <mat-icon>account_circle </mat-icon> -->
@@ -33,9 +33,9 @@
         </button>
     </mat-menu> -->
     <!--  -->
-    <span style="color:#E3E3E3;">{{userName}}</span>
+    <span style="color:#3f51b5;">{{userName}}</span>
 
-    <button *ngIf="userName && showButton" class="hidden-sm" mat-icon-button [matMenuTriggerFor]="profile">
+    <button *ngIf="userName && showButton" class="hidden-sm" color="primary" mat-icon-button [matMenuTriggerFor]="profile">
 
         <mat-icon>account_circle</mat-icon><br>
     </button>

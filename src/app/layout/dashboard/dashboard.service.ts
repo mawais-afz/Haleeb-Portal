@@ -1,12 +1,13 @@
-import { Injectable, Output, EventEmitter } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
-import { Subject, of, BehaviorSubject } from 'rxjs';
-import { ToastrService } from 'ngx-toastr';
-import { timeout, catchError } from 'rxjs/operators';
+import {Injectable, Output, EventEmitter} from '@angular/core';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
+import {environment} from 'src/environments/environment';
+import {Subject, of, BehaviorSubject} from 'rxjs';
+import {ToastrService} from 'ngx-toastr';
+import {timeout, catchError} from 'rxjs/operators';
 import * as moment from 'moment';
-import { Router } from '@angular/router';
-import { config } from 'src/assets/config';
+import {Router} from '@angular/router';
+import {config} from 'src/assets/config';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -16,7 +17,8 @@ export class DashboardService {
 
     this.user_id = localStorage.getItem('user_id');
   }
-configFile = config;
+
+  configFile = config;
 
   ip: any = this.configFile.ip;
   user_id: any = 0;
@@ -68,12 +70,13 @@ configFile = config;
 
   UrlEncodeMaker(obj) {
     let url = '';
-      for (const key in obj) {
+    for (const key in obj) {
       url += `${key}=${obj[key]}&`;
     }
     const newUrl = url.substring(0, url.length - 1);
     return newUrl;
   }
+
   getDashboardData(obj) {
     let body = null;
     if (obj != null) {
@@ -147,11 +150,12 @@ configFile = config;
     //   })
     // );
   }
+
   //#region FILTER CALL
   getZone() {
     this.user_id = localStorage.getItem('user_id');
 
-    const filter = JSON.stringify({ act: 0 , userId: this.user_id});
+    const filter = JSON.stringify({act: 0, userId: this.user_id});
     const url = this.ip + 'loadFilters';
     return this.http.post(url, filter);
     // .pipe(
@@ -166,13 +170,13 @@ configFile = config;
   getQueryTypeList() {
     this.user_id = localStorage.getItem('user_id');
 
-    const filter = JSON.stringify({ act: 12 , userId: this.user_id});
+    const filter = JSON.stringify({act: 12, userId: this.user_id});
     const url = this.ip + 'loadFilters';
     return this.http.post(url, filter);
   }
 
   getRemarksList() {
-    const filter = JSON.stringify({ act: 11});
+    const filter = JSON.stringify({act: 11});
     const url = this.ip + 'loadFilters';
     return this.http.post(url, filter);
   }
@@ -180,7 +184,7 @@ configFile = config;
   getRegion(zoneId) {
     this.user_id = localStorage.getItem('user_id');
 
-    const filter = JSON.stringify({ act: 1, zoneId: zoneId, userId: this.user_id });
+    const filter = JSON.stringify({act: 1, zoneId: zoneId, userId: this.user_id});
     const url = this.ip + 'loadFilters';
     return this.http.post(url, filter);
     // .pipe(
@@ -195,7 +199,7 @@ configFile = config;
   getCities(regionId) {
     this.user_id = localStorage.getItem('user_id');
 
-    const filter = JSON.stringify({ act: 2, regionId: regionId , userId: this.user_id});
+    const filter = JSON.stringify({act: 2, regionId: regionId, userId: this.user_id});
     const url = this.ip + 'loadFilters';
     return this.http.post(url, filter);
     // .pipe(
@@ -210,7 +214,7 @@ configFile = config;
   getProducts(categoryId) {
     this.user_id = localStorage.getItem('user_id');
 
-    const filter = JSON.stringify({ act: 5, category: categoryId, userId: this.user_id });
+    const filter = JSON.stringify({act: 5, category: categoryId, userId: this.user_id});
     const url = this.ip + 'loadFilters';
     return this.http.post(url, filter);
     // .pipe(
@@ -225,7 +229,7 @@ configFile = config;
   getAreas(channelId) {
     this.user_id = localStorage.getItem('user_id');
 
-    const filter = JSON.stringify({ act: 3, channelId: channelId, userId: this.user_id });
+    const filter = JSON.stringify({act: 3, channelId: channelId, userId: this.user_id});
     const url = this.ip + 'loadFilters';
     return this.http.post(url, filter);
     // .pipe(
@@ -236,10 +240,11 @@ configFile = config;
     //   })
     // );
   }
+
   getMerchandiserList(obj) {
     this.user_id = localStorage.getItem('user_id');
 
-    const filter = JSON.stringify({ act: 4, regionId: obj.regionId, zoneId: obj.zoneId, date: obj.startDate , userId: this.user_id});
+    const filter = JSON.stringify({act: 4, regionId: obj.regionId, zoneId: obj.zoneId, date: obj.startDate, userId: this.user_id});
     const url = this.ip + 'loadFilters';
 
     // const url = this.ip + 'cbl-pdf';
@@ -252,8 +257,8 @@ configFile = config;
     //   })
     // );
   }
-  //#endregion
 
+  //#endregion
 
 
   downloadMerchandiserPDF(obj) {
@@ -276,6 +281,7 @@ configFile = config;
     //   })
     // );
   }
+
   getKeyForProductivityReport(body, reportUrl) {
     this.updatedDownloadStatus(true);
     const url = this.ip + reportUrl;
@@ -288,6 +294,7 @@ configFile = config;
     //   })
     // );
   }
+
   public DownloadResource(obj, url) {
     let path;
 
@@ -311,6 +318,7 @@ configFile = config;
 
 
   }
+
   private appendInputToForm(form, obj) {
     Object.keys(obj).forEach(key => {
       const input = document.createElement('input');
@@ -326,17 +334,19 @@ configFile = config;
 
   updateImeiStatus(obj) {
     const body = this.UrlEncodeMaker(obj);
-      const url =  this.ip + 'add-imei-update-imei-status';
+    const url = this.ip + 'add-imei-update-imei-status';
     return this.http.post(url, body, this.httpOptions);
-    }
-    getImeis() {
-      const url = this.ip + 'add-imei-update-imei-status';
-      return this.http.get(url , this.httpOptions);
-    }
-    uploadImei(obj) {
-      const url  = this.ip + 'add-imei-update-imei-status';
-      // @ts-ignore
-      return this.http.post(url, obj
-      );
-    }
+  }
+
+  getImeis() {
+    const url = this.ip + 'add-imei-update-imei-status';
+    return this.http.get(url, this.httpOptions);
+  }
+
+  uploadImei(obj) {
+    const url = this.ip + 'add-imei-update-imei-status';
+    // @ts-ignore
+    return this.http.post(url, obj
+    );
+  }
 }

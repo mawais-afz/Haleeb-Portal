@@ -1,7 +1,7 @@
 import { environment } from 'src/environments/environment';
 
 export const config = {
-  ip: 'http://cbl.rtdtradetracker.com/',
+  ip: 'http://haleeb.concavetech.com/',
   // ip: 'http://192.168.3.189:8080/audit/',
   hash: environment.hash,
   main_logo: 'assets/images/logo.png',
