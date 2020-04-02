@@ -36,8 +36,8 @@
 
             <div fxFlex fxLayout="row" fxLayout.lt-md="column" style="margin: 20px 0 30px 0">
                 <div fxFlexFill>
-                    <button [disabled]="f.invalid || loading" mat-raised-button color="primary" class="w-100" (click)="onLogin(f.value)">
-                            <i color="primary" [ngClass]="{'fa fa-cog fa-spin':loading}"></i>
+                    <button [disabled]="f.invalid || loading" mat-raised-button color="" class="w-100 primary lightgrey" (click)="onLogin(f.value)">
+                            <i color="warn" [ngClass]="{'fa fa-cog fa-spin':loading}"></i>
                         Login</button>
                 </div>
             </div>
