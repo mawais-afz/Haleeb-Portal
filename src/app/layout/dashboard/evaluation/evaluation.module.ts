@@ -24,11 +24,14 @@ import { Ng5SliderModule } from 'ng5-slider';
 import { SectionSixComponent } from './section-six/section-six.component';
 import {MatInputModule} from '@angular/material/input';
 import { SectionSevenViewComponent } from './section-seven-view/section-seven-view.component';
+import { SectionNineViewComponent } from './section-nine-view/section-nine-view.component';
+import { SectionEightViewComponent } from './section-eight-view/section-eight-view.component';
+import { SectionTenViewComponent } from './section-ten-view/section-ten-view.component';
 @NgModule({
   declarations: [HomeComponent, DetailsPageComponent, MainPageComponent, 
     SectionOneViewComponent, SectionTwoViewComponent,
      SectionThreeViewComponent, SectionFourViewComponent, 
-     SectionFiveComponent,SectionSixComponent, SectionSevenViewComponent],
+     SectionFiveComponent,SectionSixComponent, SectionSevenViewComponent, SectionNineViewComponent, SectionEightViewComponent, SectionTenViewComponent],
   imports: [
     CommonModule,
     EvaluationRoutingModule,

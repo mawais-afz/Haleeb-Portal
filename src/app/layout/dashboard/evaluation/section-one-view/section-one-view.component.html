@@ -12,7 +12,7 @@
 <div class="row justify-content-center">
     <ng-container *ngFor="let img of data?.imageList ;let i=index">
 
-        <div class="col-md-4 mb-2 text-center">
+        <div class="col-md-4 text-center">
             <label class="title" for="title">{{img.title}}</label>
             <img src="{{ip}}{{img.url}}" width="400" height="400" (click)="showChildModal(img)" class="img-thumbnail img-item">
         </div>
@@ -22,8 +22,8 @@
 
 <!-- this table is moved to home page -->
 <div class="row justify-content-center">
-    <ng-container class="mt-2 justify-content-center " *ngIf="data?.tagsList">
-        <div class="col-md-11 mt-5 ">
+    <ng-container class=" justify-content-center " *ngIf="data?.tagsList">
+        <div class="col-md-11 mt-3 ">
             <table class="table table-bordered ">
                 <tr *ngFor="let tab of data.tagsList;let j=index ">
                     <th style="width:50%;background: lightgray; ">{{tab.heading}}</th>

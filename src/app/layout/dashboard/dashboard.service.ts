@@ -153,8 +153,8 @@ export class DashboardService {
 
   //#region FILTER CALL
   getZone() {
-    this.user_id = localStorage.getItem('user_id');
 
+    this.user_id = localStorage.getItem('user_id');
     const filter = JSON.stringify({act: 0, userId: this.user_id});
     const url = this.ip + 'loadFilters';
     return this.http.post(url, filter);
@@ -173,6 +173,32 @@ export class DashboardService {
     const filter = JSON.stringify({act: 12, userId: this.user_id});
     const url = this.ip + 'loadFilters';
     return this.http.post(url, filter);
+  }
+
+  getReportList() {
+    this.user_id = localStorage.getItem('user_id');
+
+    const filter = JSON.stringify({act: 14, userId: this.user_id});
+    const url = this.ip + 'loadFilters';
+    return this.http.post(url, filter);
+  }
+
+  updateRouteStatus(obj) {
+
+    const url = this.ip + 'shopWiseRouteCount';
+    return this.http.post(url, obj);
+  }
+
+  displayRouteStatus(obj) {
+
+    const url = this.ip + 'shopWiseRouteCount';
+    return this.http.post(url, obj);
+  }
+
+  deleteRoutes(obj) {
+
+    const url = this.ip + 'shopWiseRouteCount';
+    return this.http.post(url, obj);
   }
 
   getRemarksList() {
@@ -194,6 +220,14 @@ export class DashboardService {
     //     return of(null);
     //   })
     // );
+  }
+
+
+  getRegions() {
+    const url = this.ip + 'loadFilters';
+    const filter = JSON.stringify({act: 13});
+    return this.http.post(url, filter);
+
   }
 
   getCities(regionId) {
@@ -348,5 +382,11 @@ export class DashboardService {
     // @ts-ignore
     return this.http.post(url, obj
     );
+  }
+
+
+  uploadRoutes(obj) {
+    const url = this.ip + 'UploadRoutesControllerNew';
+    return this.http.post(url, obj);
   }
 }

@@ -9,14 +9,14 @@ import { DashboardService } from '../dashboard.service';
 export class EvaluationService {
   // ip:any=environment.ip;
 
-  ip:any=''
+  ip: any = '';
   user_id: string;
   // 'http://192.168.3.94:8080/audit/';
 
-  constructor(private http: HttpClient,private dashboardService:DashboardService) { 
+  constructor(private http: HttpClient, private dashboardService: DashboardService) {
 
-    this.ip=dashboardService.ip;
-    this.user_id=localStorage.getItem('user_id')
+    this.ip = dashboardService.ip;
+    this.user_id = localStorage.getItem('user_id');
   }
   httpOptions = {
     headers: new HttpHeaders({
@@ -34,36 +34,43 @@ export class EvaluationService {
     return newUrl;
   }
 
-  getData(obj){
-    let urlencoded=this.UrlEncodeMaker(obj)
-    let url=this.ip+'shopList';
-    return this.http.post(url,urlencoded,this.httpOptions);
+  getData(obj) {
+    const urlencoded = this.UrlEncodeMaker(obj);
+    const url = this.ip + 'shopList';
+    return this.http.post(url, urlencoded, this.httpOptions);
   }
 
 
-  getShopDetails(obj){
-    let urlencoded=this.UrlEncodeMaker(obj)
-    let url=this.ip+'evaluationShop';
-    return this.http.post(url,urlencoded,this.httpOptions);
+  getShopDetails(obj) {
+    const urlencoded = this.UrlEncodeMaker(obj);
+    const url = this.ip + 'evaluationShop';
+    return this.http.post(url, urlencoded, this.httpOptions);
   }
 
-  evaluateShop(obj){
-    let urlencoded=this.UrlEncodeMaker(obj)
-    let url=this.ip+'evaluateSingleShop';
-    return this.http.post(url,obj);
+  evaluateShop(obj) {
+    const urlencoded = this.UrlEncodeMaker(obj);
+    const url = this.ip + 'evaluateSingleShop';
+    return this.http.post(url, obj);
   }
-  updateMSLStatus(obj){
-    let urlencoded=this.UrlEncodeMaker(obj)
-    
-    let url=this.ip+'updateMSL';
-    return this.http.post(url,urlencoded,this.httpOptions);
+  updateMSLStatus(obj) {
+    const urlencoded = this.UrlEncodeMaker(obj);
+
+    const url = this.ip + 'updateMSL';
+    return this.http.post(url, urlencoded, this.httpOptions);
 
   }
 
-  updateSOS(obj){
+  updateChillerData(obj) {
+    const urlencoded = this.UrlEncodeMaker(obj);
+    const url = this.ip + 'updateChiller';
+    return this.http.post(url, urlencoded, this.httpOptions);
+
+  }
+
+  updateSOS(obj) {
     const urlEncode = this.UrlEncodeMaker(obj);
     const url = this.ip + 'update-shopsos';
-    return this.http.post(url, urlEncode, this.httpOptions); 
+    return this.http.post(url, urlEncode, this.httpOptions);
   }
 
 }

@@ -29,7 +29,7 @@
                                     <th style="
                                     min-width: 130px;
                                 ">Channel Name</th>
-                                    <th>Category</th>
+                                    <!-- <th>Category</th> -->
 
                                     <th style="min-width: 130px;">Remarks</th>
                                     <!-- <th>VO Name</th> -->
@@ -49,8 +49,8 @@
 
                                         <td [ngClass]="{'isEvaluated':item.flag!=1}" (click)="gotoNewPage(item)">
                                             {{item?.channel_title}}</td>
-                                        <td [ngClass]="{'isEvaluated':item.flag!=1}" (click)="gotoNewPage(item)">
-                                            {{item?.category}}</td>
+                                        <!-- <td [ngClass]="{'isEvaluated':item.flag!=1}" (click)="gotoNewPage(item)">
+                                            {{item?.category}}</td> -->
 
                                         <td [ngClass]="{'isEvaluated':item.flag!=1}" style="word-break:break-word;"
                                             (click)="gotoNewPage(item)">

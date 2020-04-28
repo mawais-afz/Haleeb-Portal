@@ -1572,3 +1572,150 @@
 </mat-card>
 
 <!-- shop list report -->
+
+
+
+<mat-card class="mb-20" *ngIf="router.url==='/dashboard/merchandiser_attendance'">
+
+    <mat-card-content>
+        <mat-card-title>
+            {{title| uppercase}} <i color="warn" [ngClass]="{'fa fa-cog fa-spin':loadingData}"></i>
+        </mat-card-title>
+        <section class="example-section">
+            <mat-form-field class="example-full-width mr-10-IMP">
+                <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker0" [(ngModel)]="startDate" placeholder="Choose a start date" readonly>
+                <mat-datepicker-toggle matSuffix [for]="picker0"></mat-datepicker-toggle>
+                <mat-datepicker #picker0></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field class="example-full-width mr-10-IMP">
+                <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker1" [(ngModel)]="endDate" placeholder="Choose a end date" readonly>
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
+
+        </section>
+
+        <section class="example-section">
+            <button mat-raised-button color="warn" (click)="getAttendanceReport()">Download</button>
+
+        </section>
+    </mat-card-content>
+</mat-card>
+
+
+
+
+
+
+
+<mat-card class="mb-20" *ngIf="router.url==='/dashboard/upload_routes_new'">
+
+    <mat-card-content>
+        <mat-card-title>
+            {{title| uppercase}} <i color="warn" [ngClass]="{'fa fa-cog fa-spin':loadingData}"></i>
+            </mat-card-title>
+        <section class="example-section">
+            <form (ngSubmit)="uploadData(form.value)" [formGroup]="form" enctype="multipart/form-data">
+            <mat-form-field class="example-margin mr-10-IMP">
+                <mat-select placeholder="Region" name='cityId' [formControl]="selectedRegionUp" [(ngModel)]="regionId" (ngModelChange)="showCount('show')" >
+                    <ng-container *ngFor="let region of regions">
+                        <mat-option [value]="region.id">{{region.title}}</mat-option>
+                    </ng-container>
+                    
+
+                </mat-select>
+            </mat-form-field>
+            
+            <mat-form-field class="example-margin mr-10-IMP">
+                <mat-select placeholder="Add Surveyor" name='newSurveyor'  [formControl]="selectedOption">
+                        <mat-option [value]="op" *ngFor="let op of options">{{op}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+
+            <input #fileInput (change)="onFileChange($event)" id="avatar" type="file">
+            <section class="example-section">
+                <button type="submit" mat-raised-button color="warn"> Upload</button>
+            </section>
+
+
+
+        </form>
+
+    </section>
+
+    </mat-card-content>
+
+<mat-card-content>
+    <table class="table" *ngIf="shopWiseCount.length>0">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Surveyor Code</th>
+                <th scope="col">Surveyor Name</th>
+                <th scope="col">Shops on Route</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let count of shopWiseCount; let i = index">
+                <th scope="col">{{i+1}}</th>
+                <td>{{count?.m_code}}</td>
+                <td>{{count?.full_name}}</td>
+                <td>{{count?.shops_on_route}}</td>
+                <td>
+                    <button class="btn btn-danger" title="Click to remove Shops from Routes" (click)="deleteRoutes(count?.surveyor_id, 'delete')">
+                        <i class="fa fa-trash-o"></i>
+                      </button>
+
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</mat-card-content>
+
+</mat-card>
+
+
+<mat-card class="mb-20" *ngIf="router.url==='/dashboard/pivot_based_data'">
+
+    <mat-card-content>
+        <mat-card-title>
+            {{title| uppercase}} <i color="warn" [ngClass]="{'fa fa-cog fa-spin':loadingData}"></i>
+            <small style="color:lightseagreen !important" class="mtb-5-IMP" *ngIf="loadingReportMessage">Your file is being prepared for download</small>
+        </mat-card-title>
+        <section class="example-section">
+
+
+            <mat-form-field class="example-margin mr-10-IMP">
+                <mat-select placeholder="Select Report" name='queryList' [(ngModel)]="selectedQuery">
+                    <ng-container *ngFor="let query of queryList">
+                        <mat-option [value]="query">{{query.title}}</mat-option>
+                    </ng-container>
+
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field class="example-full-width mr-10-IMP">
+                <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker0" [(ngModel)]="startDate" placeholder="Choose a start date" readonly>
+                <mat-datepicker-toggle matSuffix [for]="picker0"></mat-datepicker-toggle>
+                <mat-datepicker #picker0></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field class="example-full-width mr-10-IMP">
+                <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker1" [(ngModel)]="endDate" placeholder="Choose a end date" readonly>
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
+
+        </section>
+
+        <section class="example-section">
+            <!-- [disabled]="selectedChannel.length<1" -->
+            <button [disabled]="!selectedQuery.id" mat-raised-button color="warn" (click)="getReportData()">Download</button>
+            <!-- <span *ngIf="selectedChannel.length<1" class="channel-message"><small>(channel selection is mandatory)</small></span> -->
+
+        </section>
+
+
+    </mat-card-content>
+</mat-card>
