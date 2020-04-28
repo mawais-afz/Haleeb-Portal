@@ -50,8 +50,7 @@ export class HomeComponent implements OnInit {
   isCritical = true;
   isNoNCritical = false;
   isDragging = false;
-  selectedSoS: any = {};
-  productivityCount: any;
+  selectedSoS: any ={};
   constructor(
     private router: Router,
     private toastr: ToastrService,
@@ -87,10 +86,10 @@ export class HomeComponent implements OnInit {
   };
 
   createTickForSlider(maxTicks) {
-    const result: any = [];
+    const result:any = [];
 
    for (let index = 0; index < maxTicks.score; index++) {
-     result.push({value: index});
+     result.push({value:index});
 
    }
     this.options.stepsArray = result;
@@ -138,7 +137,7 @@ export class HomeComponent implements OnInit {
 
           // console.log(this.data)
           this.remarksList = this.data.remarks;
-          this.productList = this.data.productList || [];
+          this.productList = this.data.productList;
 
           localStorage.setItem('productList', JSON.stringify(this.productList));
           this.msl = this.data.msl;
@@ -423,12 +422,12 @@ export class HomeComponent implements OnInit {
 
     if (req) {
       const pl = JSON.parse(localStorage.getItem('productList'));
-      // this.getAvailabilityCount(pl);
+      this.getAvailabilityCount(pl);
       const obj = {
         criteria: this.cloneArray,
         surveyId: this.surveyId,
         evaluatorId: user_id,
-        // msl: Math.round(this.availabilityCount),
+        msl: Math.round(this.availabilityCount),
         status: this.checkForSlectedRemarks(this.cloneArray)
       };
 

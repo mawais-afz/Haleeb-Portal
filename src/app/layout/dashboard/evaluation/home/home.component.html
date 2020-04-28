@@ -35,9 +35,7 @@
                 
               </div>
               <div class="content">
-            <div class="row justify-content-center-between ">
-                
-                <!-- mwlResizable (resizeEnd)="onResizeEnd($event)" [enableGhostResize]="true" [resizeEdges]="{bottom: true, right: true, top: true, left: true}" -->
+            <div class="row justify-content-center-between " mwlResizable (resizeEnd)="onResizeEnd($event)" [enableGhostResize]="true" [resizeEdges]="{bottom: true, right: true, top: true, left: true}">
 
 
 
@@ -68,13 +66,6 @@
                         </section-five>
                     </ng-container>
 
-
-                    <ng-container *ngIf="sec?.imageViewType===9">
-                        <section-nine-view class="width-100" [data]="sec" (showModal)="showChildModal($event)">
-                        </section-nine-view>
-                    </ng-container>
-
-
                     <!--  -->
                     <ng-container *ngIf="sec?.imageViewType===6">
                         <section-six class="width-100" [data]="sec" (showModal)="showSoSModal($event)">
@@ -86,22 +77,47 @@
                         <section-four-view class="width-100" [data]="sec">
                         </section-four-view>
                     </ng-container>
-
-                    <ng-container *ngIf="sec?.imageViewType===8">
-                        <section-eight-view class="width-100" [data]="sec" [isEditable]="isEditable" (showModal)="showChildModal($event)">
-                        </section-eight-view>
-                    </ng-container>
-
-                    <ng-container *ngIf="sec?.imageViewType===10">
-                        <section-ten-view class="width-100" [data]="sec" (showModal)="showChildModal($event)">
-                        </section-ten-view>
-                        
-                    </ng-container>
-
-
                 </ng-container>
+
+
+
+
+
+
+                <!-- <ng-container *ngFor="let sec of data.section">
+                    <h4>{{sec.sectionTitle}}</h4>
+
+                    <div style="border-bottom:2px solid black;width: 100%;margin: 5px 0"></div>
+
+                    <ng-container *ngFor="let img of sec.imageList ;let i=index">
+
+                        <div class="col-md-6">
+                            <img src="{{ip}}{{img.url}}" width="400" height="400" alt="" (click)="showChildModal(img)">
+                        </div>
+                    </ng-container>
+
+
+                    <ng-container class="mt-5 justify-content-center" *ngIf="sec?.tagsList">
+                        <div class="col-md-12 mt-5">
+                            <table class="table table-bordered">
+                                <tr *ngFor="let tab of sec.tagsList;let j= index">
+                                    <th style="width:50%;background: lightgray;">{{tab.heading}}</th>
+                                    <td style="width:50%;word-break: break-all">{{tab.value}}</td>
+                                </tr>
+
+                            </table>
+
+                        </div>
+                    </ng-container>
+                    <div style="border-bottom:2px solid black;width: 100%;margin: 5px 0">
+
+                    </div>
+
+                </ng-container> -->
+
+
+
             </div>
-        
         </div>
         </div>
         <div class="col-md-3 " *ngIf="data?.criteria && isFromShop && !isDragging">
@@ -124,17 +140,17 @@
                                                         margin-bottom: 8px;
                                                     ">
                                             <p style="padding-top: 5px; margin-bottom: 5px ">{{item?.title}}</p>
-                                            <ng-container *ngIf="isCritical">
-                                                <input class="checkbox" type="checkbox"
+                                            <ng-container *ngIf=" item?.id!=14 && isCritical">
+                                                <input *ngIf="item?.id!=5" class="checkbox" type="checkbox"
                                                     name="{{item?.title}}" [checked]=item?.isChecked id="{{item?.id}}"
                                                     (click)="counter(checked,item,i);createTickForSlider(item)" #checked>
-                                                <span class="checkmark"></span>
+                                                <span *ngIf="item?.id!=5" class="checkmark"></span>
                                             </ng-container>
-                                            <ng-container *ngIf="!isNoNCritical">
-                                                <input class="checkbox" type="checkbox"
+                                            <ng-container *ngIf=" item?.id==14 && !isNoNCritical">
+                                                <input *ngIf="item?.id!=5" class="checkbox" type="checkbox"
                                                     name="{{item?.title}}" [checked]=item?.isChecked id="{{item?.id}}"
                                                     (click)="counter(checked,item,i)" #checked>
-                                                <span class="checkmark"></span>
+                                                <span *ngIf="item?.id!=5 " class="checkmark"></span>
                                             </ng-container>
 
                                         </label>
@@ -145,7 +161,7 @@
                                         </label>
                                     </td>
 
-                                    <td>
+                                    <td *ngIf="item?.id!=5">
                                         <label class="container" for="achievedScore" style=" margin-top: 5px; margin-bottom: 2px; ">
                                             <span>
                                                 {{item?.achievedScore}}
@@ -164,9 +180,9 @@
 
 
                                     <!-- msl count -->
-                                    <!-- <td *ngIf="item?.id==5">
+                                    <td *ngIf="item?.id==5">
                                         {{availabilityCount}}
-                                    </td> -->
+                                    </td>
                                 </tr>
                                 <!-- <hr> -->
                                 <tr style="font-weight:700;text-align:center">
@@ -181,7 +197,7 @@
                                     </td>
                                     <td>
                                         <label class="container" for="totalAchieveScore">
-                                            {{totalAchieveScore}}
+                                            {{totalAchieveScore  + availabilityCount}}
                                         </label>
 
                                     </td>
