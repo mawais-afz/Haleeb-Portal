@@ -198,6 +198,7 @@ export class FilterBarComponent implements OnInit {
       data => {
         if (data) {
           this.toastr.success('Routes Deactivated Successfully ');
+          this.showCount('show');
         }
         this.clearLoading();
       },
@@ -405,6 +406,7 @@ export class FilterBarComponent implements OnInit {
         title: this.selectedQuery.title,
         sheetName: this.selectedQuery.sheet_name,
         templatePath : this.selectedQuery.template_url,
+        heading: this.selectedQuery.heading,
         query: this.selectedQuery.query,
         startDate: moment(this.startDate).format('YYYY-MM-DD'),
         endDate: moment(this.endDate).format('YYYY-MM-DD')
