@@ -31,6 +31,8 @@ import { SupervisorWwwrSummaryComponent } from './innerComponents/supervisor-www
 import { ShopListReportComponent } from './innerComponents/shop-list-report/shop-list-report.component';
 import { UploadRoutesNewComponent } from './innerComponents/upload-routes-new/upload-routes-new.component';
 import { PivotBasedDataComponent } from './pivot-based-data/pivot-based-data.component';
+import { MerchandiserPlannedCallsComponent } from './innerComponents/merchandiser-planned-calls/merchandiser-planned-calls.component';
+
 
 const routes: Routes = [
     {
@@ -64,7 +66,8 @@ const routes: Routes = [
             { path: 'upload_routes/shops_for_single_route', component: ShopsForSingleRouteComponent },
             { path: 'add_device', component: AddDeviceComponent },
             {path: 'upload_routes_new', component: UploadRoutesNewComponent},
-            {path: 'pivot_based_data', component: PivotBasedDataComponent}
+            {path: 'pivot_based_data', component: PivotBasedDataComponent},
+            {path: 'merchandiser-planned-calls', component: MerchandiserPlannedCallsComponent}
 
 
 

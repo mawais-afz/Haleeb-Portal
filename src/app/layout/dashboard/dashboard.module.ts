@@ -51,6 +51,7 @@ import { SupervisorWwwrSummaryComponent } from './innerComponents/supervisor-www
 import { ShopListReportComponent } from './innerComponents/shop-list-report/shop-list-report.component';
 import { UploadRoutesNewComponent } from './innerComponents/upload-routes-new/upload-routes-new.component';
 import { PivotBasedDataComponent } from './pivot-based-data/pivot-based-data.component';
+import { MerchandiserPlannedCallsComponent } from './innerComponents/merchandiser-planned-calls/merchandiser-planned-calls.component';
 @NgModule({
     imports: [
         FormsModule,
@@ -92,6 +93,6 @@ ReactiveFormsModule
           TposmDeploymentReportComponent, LineChartComponent,
           UpdatePasswordComponent, RawDataComponent, MatTableComponent,
           DataAvailabilityComponent, MerchandiserListComponent,
-          AbnormalityComponent, TimeAnalysisReportComponent, MerchandiserAttendanceComponent, DailyEvaluationReportComponent, EmailManagerComponent, MessageStatusListComponent, AddNewMessageComponent, UploadRoutesComponent, SingleRouteDetailComponent, ShopsForSingleRouteComponent, AddEditGroupComponent, AddDeviceComponent, SupervisorWwwrSummaryComponent, ShopListReportComponent, UploadRoutesNewComponent, PivotBasedDataComponent]
+          AbnormalityComponent, TimeAnalysisReportComponent, MerchandiserAttendanceComponent, DailyEvaluationReportComponent, EmailManagerComponent, MessageStatusListComponent, AddNewMessageComponent, UploadRoutesComponent, SingleRouteDetailComponent, ShopsForSingleRouteComponent, AddEditGroupComponent, AddDeviceComponent, SupervisorWwwrSummaryComponent, ShopListReportComponent, UploadRoutesNewComponent, PivotBasedDataComponent, MerchandiserPlannedCallsComponent]
 })
 export class DashboardModule {}
