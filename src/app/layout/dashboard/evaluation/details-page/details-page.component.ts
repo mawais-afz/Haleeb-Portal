@@ -26,7 +26,7 @@ export class DetailsPageComponent implements OnInit {
     this.activeRoute.queryParams.subscribe(p => {
       console.log('active params', p);
       this.params = p;
-      if (p.surveyorId && p.startDate && p.endDate) {
+      if (p.surveyorId && p.startDate && p.endDate && p.userType) {
 
         this.getTableData(p);
       }
@@ -77,7 +77,7 @@ export class DetailsPageComponent implements OnInit {
   }
 
   gotoNewPage(item) {
-    if (item.flag !== 1) {
+    if (item.isEditable === 1 || item.flag === -1) {
     window.open(`${environment.hash}dashboard/evaluation/list/details/${item.survey_id}`, '_blank');
     }
     }

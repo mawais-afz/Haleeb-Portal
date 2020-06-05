@@ -24,24 +24,31 @@ export class HomeComponent implements OnInit {
   @ViewChild('childModal') childModal: ModalDirective;
   @ViewChild('remarksModal') remarksModal: ModalDirective;
   @ViewChild('sosModal') sosModal: ModalDirective;
+  @ViewChild('evaluationRemarksModal') evaluationRemarksModal: ModalDirective;
 
 
 
   score: any = 0;
+  isChecked = 0;
 
   indexList: any = [];
   surveyId: any = 0;
   remarksList: any = [];
-  selectedRemarks: any = false;
+  existingRemarks: any = [];
+  selectedRemarks: any = true;
   selectedRemarksList: any = [];
+  evaluationRemarks: any = [];
   selectedCriteria: any = {};
   evaluationArray: any = [];
   productList: any = [];
   msl: any;
   availabilityCount: number;
+  selectedEvaluationRemark = -1;
+  j = -1;
   cloneArray: any = [];
   isFromShop = true;
   rotationDegree = 0;
+  userType: any;
   isEditable: any = false;
   selectedIndex = -1;
   criteriaDesireScore: any = 0;
@@ -98,6 +105,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.availabilityCount = 0;
+    this.userType = localStorage.getItem('user_type');
   }
   formatLabel(value: number | null) {
     if (!value) {
@@ -110,6 +118,13 @@ export class HomeComponent implements OnInit {
 
     return value;
   }
+
+
+  showEvaluationRemarksModal() {
+
+    this.evaluationRemarksModal.show();
+  }
+
 
   onResizeEnd(event: ResizeEvent): void {
     // console.log('Element was resized', event);
@@ -139,8 +154,67 @@ export class HomeComponent implements OnInit {
           // console.log(this.data)
           this.remarksList = this.data.remarks;
           this.productList = this.data.productList || [];
+          this.existingRemarks = this.data.ExistingRemarks || [];
+          this.evaluationRemarks = this.data.EvaluationRemarks || [];
 
           localStorage.setItem('productList', JSON.stringify(this.productList));
+
+           if (this.existingRemarks.length > 0) {
+            this.existingRemarks.forEach(element1 => {
+              if (element1.id > 0) {
+                const obj = {
+                  id: element1.id,
+                  description: element1.description,
+                  criteriaId: element1.criteriaId,
+                  isChecked: element1.isChecked
+                };
+            this.remarksList.forEach(element => {
+              const i = this.remarksList.findIndex(e => e.id === element1.id);
+              if (i !== -1) {
+                this.remarksList.splice(i, 1, obj);
+               }
+
+            });
+          }
+          });
+        }
+
+
+        //   if (this.existingRemarks.length > 0) {
+        //     this.existingRemarks.forEach(element1 => {
+        //       if (element1.id > 0) {
+        //       this.selectedRemarksList.push(element1.id);
+        //     this.cloneArray.forEach(element => {
+        //       const i = this.cloneArray.findIndex(e => e.id === element1.criteriaId);
+        //       this.cloneArray[i].remarkId = this.selectedRemarksList;
+        //     });
+        //   }
+        //   });
+        // }
+
+
+      //   if (this.existingRemarks.length > 0) {
+      //     this.existingRemarks.forEach(element1 => {
+      //       if (element1.id > 0) {
+      //     this.cloneArray.forEach(element => {
+      //       const i = this.cloneArray.findIndex(e => e.id === element1.criteriaId);
+      //       if (this.cloneArray[i].remarkId) {
+      //       this.cloneArray[i].remarkId.push(element1.id);
+
+      //       } else {
+      //         this.selectedRemarksList.push(element1.id);
+      //         this.cloneArray[i].remarkId = this.selectedRemarksList;
+      //         this.selectedRemarksList.length = 0;
+      //       }
+      //     });
+
+      //   }
+      //   });
+      // }
+
+
+
+
           this.msl = this.data.msl;
           this.isEditable = this.data.isEditable || this.isEditable;
           if (this.productList.length > 0) { this.availabilityCount = Math.round(this.getMSLNAvailbilityCount(this.productList)); } // Math.round(this.getAvailabilityCount(this.productList));
@@ -249,9 +323,15 @@ export class HomeComponent implements OnInit {
   getTotalAchieveScore() {
     let score = 0;
     this.cloneArray.forEach(element => {
+      if (element.totalAchievedScore) {
+        score = element.totalAchievedScore;
+        delete element.totalAchievedScore;
+        return score;
+      } else {
       if (element.achievedScore >= 0 && element.id !== 5) {
         score = score + element.achievedScore;
       }
+    }
     });
 
     return score;
@@ -397,66 +477,82 @@ export class HomeComponent implements OnInit {
     const user_id = localStorage.getItem('user_id');
     this.loading = true;
     const req = true;
-    // if(this.selectedRemarks==0 || this.selectedRemarks==false || this.selectedRemarks==''){
-    //   this.toastr.info(`please select remarks for ALL selected criteria`);
-    //   this.loading=false;
-    //   req=false;
-    // }
-    // this.cloneArray.forEach(element => {
-
-    //     if (element.remarkId=='' || element.remarkId==false) {
-    //       this.toastr.info(`please select remarks for "${element.title}"`);
-    //       req=false;
-    //       this.loading=false;
-    //     }
-
-    //   });
-    // this.evaluationArray.forEach(element => {
-    //   if(this.selectedRemarks==0 || this.selectedRemarks==false || this.selectedRemarks==''){
-    //     if (element.remarkId=='' || element.remarkId==false) {
-    //       this.toastr.info(`please select remarks for "${element.title}"`);
-    //       req=false;
-    //       this.loading=false;
-    //     }
-
-    //   }});
 
     if (req) {
-      const pl = JSON.parse(localStorage.getItem('productList'));
-      // this.getAvailabilityCount(pl);
-      const obj = {
-        criteria: this.cloneArray,
-        surveyId: this.surveyId,
-        evaluatorId: user_id,
-        // msl: Math.round(this.availabilityCount),
-        status: this.checkForSlectedRemarks(this.cloneArray)
-      };
 
-      this.evaluationService.evaluateShop(obj).subscribe(
-        (data: any) => {
-          // console.log('evaluated shop data',data);
-          this.loading = false;
+      // tslint:disable-next-line:triple-equals
+      if (this.userType == 28) {
+        const obj = {
+          criteria: this.cloneArray,
+          surveyId: this.surveyId,
+          evaluatorId: user_id,
+          evaluationRemark: this.selectedEvaluationRemark,
+          msl: Math.round(this.availabilityCount),
+          status: this.checkForSlectedRemarks(this.cloneArray)
+        };
 
-          if (data.success) {
-            this.toastr.success('shop evaluated successfully ');
-            this.evaluationArray = [];
-            this.cloneArray = [];
-            this.indexList = [];
-            setTimeout(() => {
-              window.close();
-            }, 2000);
-          } else {
-            this.toastr.info(data.errorMessage, 'Info');
+        this.evaluationService.evaluateShop(obj).subscribe(
+          (data: any) => {
+            // console.log('evaluated shop data',data);
+            this.loading = false;
+
+            if (data.success) {
+              this.hideRemarksModalWithNoChange();
+              this.toastr.success('shop evaluated successfully ');
+              this.evaluationArray = [];
+              this.cloneArray = [];
+              this.indexList = [];
+              setTimeout(() => {
+                window.close();
+              }, 2000);
+            } else {
+              this.toastr.info(data.errorMessage, 'Info');
+            }
+          },
+          error => {
+            // console.log('evaluated shop error',error)
+            // window.close()
+            this.loading = false;
+            this.toastr.error(error.message, 'Error');
           }
-        },
-        error => {
-          // console.log('evaluated shop error',error)
-          // window.close()
-          this.loading = false;
-          this.toastr.error(error.message, 'Error');
-        }
-      );
-    }
+        );
+      } else {
+        const obj = {
+          criteria: this.cloneArray,
+          surveyId: this.surveyId,
+          evaluatorId: user_id,
+          msl: Math.round(this.availabilityCount),
+          status: this.checkForSlectedRemarks(this.cloneArray)
+        };
+
+        this.evaluationService.evaluateShop(obj).subscribe(
+          (data: any) => {
+            // console.log('evaluated shop data',data);
+            this.loading = false;
+
+            if (data.success) {
+              this.toastr.success('shop evaluated successfully ');
+              this.evaluationArray = [];
+              this.cloneArray = [];
+              this.indexList = [];
+              setTimeout(() => {
+                window.close();
+              }, 2000);
+            } else {
+              this.toastr.info(data.errorMessage, 'Info');
+            }
+          },
+          error => {
+            // console.log('evaluated shop error',error)
+            // window.close()
+            this.loading = false;
+            this.toastr.error(error.message, 'Error');
+          }
+        );
+
+      }
+
+      }
   }
 
 
@@ -524,7 +620,16 @@ export class HomeComponent implements OnInit {
   }
 
   showRemarksModal() {
-    this.criteriaDesireScore = 0; // this.selectedCriteria.achievedScore;
+    this.criteriaDesireScore = 0;
+
+    if (this.existingRemarks.length > 0) {
+      this.existingRemarks.forEach(element => {
+              if (element.id > 0 && element.criteriaId === this.selectedCriteria.id) {
+                this.selectedRemarksList.push(element.id);
+              }
+            });
+    }
+
     this.remarksModal.show();
   }
 
@@ -547,5 +652,12 @@ export class HomeComponent implements OnInit {
     // else{
     //   this.toastr.info(`please select remarks for "${this.selectedCriteria.title}"`)
     // }
+  }
+  singleCheckboxChange(id) {
+    this.selectedEvaluationRemark = id;
+  }
+
+  hideRemarksModalWithNoChange() {
+    this.evaluationRemarksModal.hide();
   }
 }

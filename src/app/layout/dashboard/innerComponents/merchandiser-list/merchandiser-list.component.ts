@@ -11,6 +11,7 @@ export class MerchandiserListComponent implements OnInit {
   title = 'merchandiser List';
   minDate = new Date(2000, 0, 1);
   maxDate: any = new Date();
+  userTypeId: any;
   startDate: any = new Date();
   endDate = new Date();
   loadingReportMessage = false;
@@ -30,6 +31,7 @@ export class MerchandiserListComponent implements OnInit {
   ngOnInit() {
     this.loadingData = false;
     this.getMerchandiserList(this.startDate);
+    this.userTypeId = localStorage.getItem('user_type');
     this.sortIt('m_code');
   }
 
@@ -48,6 +50,7 @@ export class MerchandiserListComponent implements OnInit {
     this.loadingData = true;
     const obj = {
       evaluatorId: localStorage.getItem('user_id'),
+      userTypeId: this.userTypeId,
       startDate: date
     };
 
@@ -66,6 +69,6 @@ export class MerchandiserListComponent implements OnInit {
   }
 
   gotoNewPage(item) {
-    window.open(`${environment.hash}dashboard/evaluation/list/home?surveyorId=${item.id}&startDate=${this.modifyDate(this.startDate)}&endDate=${this.modifyDate(this.startDate)}`, '_blank');
+    window.open(`${environment.hash}dashboard/evaluation/list/home?surveyorId=${item.id}&startDate=${this.modifyDate(this.startDate)}&endDate=${this.modifyDate(this.startDate)}&userType=${this.userTypeId}`, '_blank');
     }
 }
