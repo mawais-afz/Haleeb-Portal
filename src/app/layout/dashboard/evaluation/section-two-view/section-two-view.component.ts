@@ -18,6 +18,8 @@ export class SectionTwoViewComponent implements OnInit {
   selectedImage: any = {};
   // ip=environment.ip;
   configFile = config;
+  reevaluatorRole: any;
+  userType: any;
 
   ip: any = this.configFile.ip;
   hover = 'hover';
@@ -30,6 +32,8 @@ export class SectionTwoViewComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    this.reevaluatorRole = localStorage.getItem('Reevaluator');
+    this.userType = localStorage.getItem('user_type');
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -39,10 +43,17 @@ export class SectionTwoViewComponent implements OnInit {
 
   }
 
-  setSelectedImage(img) {
-    this.selectedImage = img;
+  openSurvey(img) {
+    // tslint:disable-next-line:triple-equals
+    window.open(`${environment.hash}dashboard/evaluation/list/details/${img.surveyId}`, '_blank');
 
   }
+
+  setSelectedImage(img) {
+    this.selectedImage = img;
+  }
+
+
   showChildModal(shop): void {
     this.selectedShop = shop;
     this.showModal.emit(this.selectedImage);

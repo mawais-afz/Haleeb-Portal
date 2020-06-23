@@ -190,7 +190,7 @@
                             </tbody>
 
                         </table>
-                        <div class="row" *ngIf="userType!=28">
+                        <div class="row" *ngIf="userType!=reevaluatorRole">
                             <div class="col-md-12" style="text-align: end; padding: 0 20px 5px 0; ">
                                 <button [disabled]="loading" class="btn btn-primary" (click)="evaluateShop()">
                                     <i [ngClass]="{'fa fa-spinner fa-spin': loading}"></i>
@@ -198,7 +198,7 @@
                             </div>
                         </div>
 
-                        <div class="row" *ngIf="userType==28">
+                        <div class="row" *ngIf="userType==reevaluatorRole">
                             <div class="col-md-12" style="text-align: end; padding: 0 20px 5px 0; ">
                                 <button [disabled]="loading" class="btn btn-primary" (click)="showEvaluationRemarksModal()">
                                     <i [ngClass]="{'fa fa-spinner fa-spin': loading}"></i>

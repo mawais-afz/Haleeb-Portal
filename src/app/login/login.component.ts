@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
     loginForm: any = {
         userName: '',
         password: '',
-        cbl: 'Y'
+        angularRequest: 'Y'
     };
     loading = false;
     constructor(private router: Router, private httpService: DashboardService, private toastr: ToastrService) { }
@@ -44,7 +44,9 @@ export class LoginComponent implements OnInit {
             localStorage.setItem('regionId', res.user.regionId);
             localStorage.setItem('zoneId', res.user.zone_id);
             localStorage.setItem('menu', JSON.stringify(res.list));
-            if (res.user.typeID === 16 || res.user.typeID === 28) {
+            localStorage.setItem('Reevaluator', res.ReEvaluator);
+            // tslint:disable-next-line:triple-equals
+            if (res.user.typeID == 16 || res.user.typeID == res.ReEvaluator) {
             this.router.navigate(['/dashboard/merchandiser_List']);
             } else {
             this.router.navigate(['/dashboard']);

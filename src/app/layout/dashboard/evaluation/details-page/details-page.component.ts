@@ -19,6 +19,8 @@ export class DetailsPageComponent implements OnInit {
   ip: any = this.configFile.ip;
   tableData: any = [];
   headingsList: any = [];
+  reevaluatorRole: any;
+  userType: any;
   loading = true;
   p = 0;
   params: any = {};
@@ -40,6 +42,8 @@ export class DetailsPageComponent implements OnInit {
 
     const that = this;
     const flag = false;
+    this.reevaluatorRole = localStorage.getItem('Reevaluator');
+    this.userType = localStorage.getItem('user_type');
     document.addEventListener('visibilitychange', function(e) {
       console.log(document.hidden);
       if (!document.hidden) {
@@ -77,9 +81,8 @@ export class DetailsPageComponent implements OnInit {
   }
 
   gotoNewPage(item) {
-    if (item.isEditable === 1 || item.flag === -1) {
+    // tslint:disable-next-line:triple-equals
     window.open(`${environment.hash}dashboard/evaluation/list/details/${item.survey_id}`, '_blank');
-    }
     }
 
 }

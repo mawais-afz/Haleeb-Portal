@@ -45,6 +45,7 @@ export class HomeComponent implements OnInit {
   availabilityCount: number;
   selectedEvaluationRemark = -1;
   j = -1;
+  i = 0;
   cloneArray: any = [];
   isFromShop = true;
   rotationDegree = 0;
@@ -59,6 +60,8 @@ export class HomeComponent implements OnInit {
   isDragging = false;
   selectedSoS: any = {};
   productivityCount: any;
+  reevaluatorRole: any;
+
   constructor(
     private router: Router,
     private toastr: ToastrService,
@@ -106,6 +109,7 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.availabilityCount = 0;
     this.userType = localStorage.getItem('user_type');
+    this.reevaluatorRole = localStorage.getItem('Reevaluator');
   }
   formatLabel(value: number | null) {
     if (!value) {
@@ -178,6 +182,28 @@ export class HomeComponent implements OnInit {
           }
           });
         }
+
+
+
+        if (this.existingRemarks.length > 0) {
+          for (const element1 of this.existingRemarks) {
+            for (const element of this.cloneArray) {
+              if (element1.criteriaId === element.id) {
+                if (this.cloneArray[this.i].remarkId) {
+                this.cloneArray[this.i].remarkId.push(element1.id);
+                this.i++;
+                } else {
+                  this.cloneArray[this.i].remarkId = [];
+                  this.cloneArray[this.i].remarkId.push(element1.id);
+                  this.i++;
+                }
+            } else {
+            this.i++;
+            }
+          }
+          this.i = 0;
+        }
+      }
 
 
         //   if (this.existingRemarks.length > 0) {
@@ -481,7 +507,7 @@ export class HomeComponent implements OnInit {
     if (req) {
 
       // tslint:disable-next-line:triple-equals
-      if (this.userType == 28) {
+      if (this.userType == this.reevaluatorRole) {
         const obj = {
           criteria: this.cloneArray,
           surveyId: this.surveyId,
@@ -496,7 +522,8 @@ export class HomeComponent implements OnInit {
             // console.log('evaluated shop data',data);
             this.loading = false;
 
-            if (data.success) {
+            // tslint:disable-next-line:triple-equals
+            if (data.success == 'true') {
               this.hideRemarksModalWithNoChange();
               this.toastr.success('shop evaluated successfully ');
               this.evaluationArray = [];
@@ -506,7 +533,7 @@ export class HomeComponent implements OnInit {
                 window.close();
               }, 2000);
             } else {
-              this.toastr.info(data.errorMessage, 'Info');
+              this.toastr.error(data.errorMessage, 'Error');
             }
           },
           error => {
@@ -529,8 +556,8 @@ export class HomeComponent implements OnInit {
           (data: any) => {
             // console.log('evaluated shop data',data);
             this.loading = false;
-
-            if (data.success) {
+            // tslint:disable-next-line:triple-equals
+            if (data.success == 'true') {
               this.toastr.success('shop evaluated successfully ');
               this.evaluationArray = [];
               this.cloneArray = [];
@@ -539,7 +566,7 @@ export class HomeComponent implements OnInit {
                 window.close();
               }, 2000);
             } else {
-              this.toastr.info(data.errorMessage, 'Info');
+              this.toastr.error(data.errorMessage, 'Error');
             }
           },
           error => {
