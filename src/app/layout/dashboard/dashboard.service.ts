@@ -389,4 +389,8 @@ export class DashboardService {
     const url = this.ip + 'UploadRoutesControllerNew';
     return this.http.post(url, obj);
   }
+  getKey(obj) {
+    const body = this.UrlEncodeMaker(obj);
+    return this.http.post(this.ip + 'tableauTicket',  body, this.httpOptions);
+  }
 }

@@ -52,6 +52,9 @@ import { ShopListReportComponent } from './innerComponents/shop-list-report/shop
 import { UploadRoutesNewComponent } from './innerComponents/upload-routes-new/upload-routes-new.component';
 import { PivotBasedDataComponent } from './pivot-based-data/pivot-based-data.component';
 import { MerchandiserPlannedCallsComponent } from './innerComponents/merchandiser-planned-calls/merchandiser-planned-calls.component';
+import { TableauHelperComponent } from './Tableau/tableau-helper/tableau-helper.component';
+import { DashboardTableauComponent } from './Tableau/dashboard-tableau/dashboard-tableau.component';
+import { ProductivityTableauComponent } from './Tableau/productivity-tableau/productivity-tableau.component';
 @NgModule({
     imports: [
         FormsModule,
@@ -93,6 +96,7 @@ ReactiveFormsModule
           TposmDeploymentReportComponent, LineChartComponent,
           UpdatePasswordComponent, RawDataComponent, MatTableComponent,
           DataAvailabilityComponent, MerchandiserListComponent,
-          AbnormalityComponent, TimeAnalysisReportComponent, MerchandiserAttendanceComponent, DailyEvaluationReportComponent, EmailManagerComponent, MessageStatusListComponent, AddNewMessageComponent, UploadRoutesComponent, SingleRouteDetailComponent, ShopsForSingleRouteComponent, AddEditGroupComponent, AddDeviceComponent, SupervisorWwwrSummaryComponent, ShopListReportComponent, UploadRoutesNewComponent, PivotBasedDataComponent, MerchandiserPlannedCallsComponent]
+          AbnormalityComponent, TimeAnalysisReportComponent, MerchandiserAttendanceComponent, DailyEvaluationReportComponent, EmailManagerComponent, MessageStatusListComponent, AddNewMessageComponent, UploadRoutesComponent, SingleRouteDetailComponent, ShopsForSingleRouteComponent, AddEditGroupComponent, AddDeviceComponent, SupervisorWwwrSummaryComponent, ShopListReportComponent, UploadRoutesNewComponent,
+          PivotBasedDataComponent, MerchandiserPlannedCallsComponent, TableauHelperComponent, DashboardTableauComponent, ProductivityTableauComponent]
 })
 export class DashboardModule {}
