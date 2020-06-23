@@ -9,22 +9,10 @@ import { DashboardService } from '../../../dashboard.service';
 })
 export class LineChartComponent implements OnInit {
 
-  chartData:any=[];
+  constructor(private httpService: DashboardService) { }
+
+  chartData: any = [];
   @ViewChild(BaseChartDirective) chart: BaseChartDirective;
-
-  constructor(private httpService:DashboardService) { }
-
-  ngOnInit() {
-    this.httpService.getLineChartData().subscribe(data=>{
-      let res:any=data;
-
-      this.chartClicked=res;
-      this.lineChartData[0].data=res.completion;
-      this.lineChartData[1].data=res.successfull;
-      this.lineChartLabels=res.date
-
-      },error=>{})
-  }
   public lineChartData: ChartDataSets[] = [
     { data: [65, 59, 80, 81, 56, 55, 40], label: 'Productive'   },
     { data: [8, 48, 40, 19, 86, 27, 90], label: 'Successful'  },
@@ -58,23 +46,23 @@ export class LineChartComponent implements OnInit {
         // }
       ]
     },
-    annotation: {
-      annotations: [
-        {
-          type: 'line',
-          mode: 'vertical',
-          scaleID: 'x-axis-0',
-          value: 'March',
-          borderColor: 'orange',
-          borderWidth: 2,
-          label: {
-            enabled: true,
-            fontColor: 'orange',
-            content: 'LineAnno'
-          }
-        },
-      ],
-    },
+    // annotation: {
+    //   annotations: [
+    //     {
+    //       type: 'line',
+    //       mode: 'vertical',
+    //       scaleID: 'x-axis-0',
+    //       value: 'March',
+    //       borderColor: 'orange',
+    //       borderWidth: 2,
+    //       label: {
+    //         enabled: true,
+    //         fontColor: 'orange',
+    //         content: 'LineAnno'
+    //       }
+    //     },
+    //   ],
+    // },
   };
   public lineChartColors: Color[] = [
     // { // grey
@@ -112,9 +100,21 @@ export class LineChartComponent implements OnInit {
   ];
   public lineChartLegend = true;
   public lineChartType = 'line';
+
+  ngOnInit() {
+    this.httpService.getLineChartData().subscribe(data => {
+      const res: any = data;
+
+      this.chartClicked = res;
+      this.lineChartData[0].data = res.completion;
+      this.lineChartData[1].data = res.successfull;
+      this.lineChartLabels = res.date;
+
+      }, error => {});
+  }
   // public lineChartPlugins = [pluginAnnotations];
 
-  
+
 
   // public randomize(): void {
   //   for (let i = 0; i < this.lineChartData.length; i++) {

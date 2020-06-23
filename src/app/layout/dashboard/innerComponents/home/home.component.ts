@@ -70,11 +70,11 @@ public pieChartOptions: ChartOptions = {
       // label: function(tooltipItem, data) {
       //   return data['datasets'][0]['data'][tooltipItem['index']];
       // },
-      afterLabel: function(tooltipItem, data) {
-        const dataset = data['datasets'][0];
-        const percent = Math.round((dataset['data'][tooltipItem['index']]));
-        return '(' + percent + '%)';
-      }
+      // afterLabel: function(tooltipItem, data) {
+      //   const dataset = data['datasets'][0];
+      //   const percent = Math.round((dataset['data'][tooltipItem['index']]));
+      //   return '(' + percent + '%)';
+      // }
     }
   },
   // plugins: {
@@ -141,10 +141,12 @@ public chartClicked( e: any ): void {
     this.loading = true;
     const d = Date();
     const obj: any = {
-      typeId: 1,
+      typeId: localStorage.getItem('user_type'),
       startDate: moment(d).format('YYYY-MM-DD'),
+      regionId: localStorage.getItem('regionId'),
+      zoneId: localStorage.getItem('zoneId'),
       endDate: moment(d).format('YYYY-MM-DD'),
-    userId: localStorage.getItem('user_id'),
+      userId: localStorage.getItem('user_id'),
     };
     this.httpService.getDashboardData(obj).subscribe(data => {
       console.log(data, 'home data');
