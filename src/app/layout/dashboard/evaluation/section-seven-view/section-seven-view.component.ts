@@ -18,7 +18,7 @@ export class SectionSevenViewComponent implements OnInit {
   @ViewChild('childModal') childModal: ModalDirective;
   @Output('showModal') showModal: any = new EventEmitter<any>();
   @Input('isEditable') isEditable: any;
-  @Output('productList') productForEmit: any = new EventEmitter<any>();
+  @Output('assetTypeId') assetTypeForEmit: any = new EventEmitter<any>();
   selectedShop: any = {};
   selectedImage: any = {};
   // ip=environment.ip;
@@ -34,18 +34,18 @@ export class SectionSevenViewComponent implements OnInit {
   availability: any;
   changeColor: boolean;
   updatingMSL: boolean;
-  colorUpdateList: any = [];
-  surveyId: any;
   selectedProduct: any = {};
-  selectedFacing: any;
+  colorUpdateList: any = [];
   selectedSku: any;
+  surveyId: any;
   evaluatorId: any;
   MSLCount = 0;
-  initialFacing = 0;
-  MSLNAvailabilityCount: number;
-  facing: any;
   loadingData: boolean;
   loading = false;
+  MSLNAvailabilityCount: number;
+  facing: any;
+  totalDesiredFacing: any;
+
   statusArray: any = [{ title: 'Yes', value: '1' }, { title: 'No', value: '0' }];
 
   constructor(private router: Router, private toastr: ToastrService, private httpService: EvaluationService) { }
@@ -65,11 +65,9 @@ export class SectionSevenViewComponent implements OnInit {
       if (this.products.length > 0) {
       this.availability = this.getAvailabilityCount(this.products);
       this.facing = this.getFacingCount(this.products);
-      this.MSLNAvailabilityCount = this.getMSLNAvailbilityCount(this.products);
-      this.MSLCount = this.getMSLCount(this.products);
       }
       console.log('is editable', this.isEditable);
-      // this.MSLNAvailabilityCount = this.getMSLNAvailbilityCount(this.products);
+      this.MSLNAvailabilityCount = this.getMSLNAvailbilityCount(this.products);
     }
 
 
@@ -84,7 +82,7 @@ export class SectionSevenViewComponent implements OnInit {
   getAvailabilityCount(products) {
     const sum = [];
     products.forEach(element => {
-      if (element.available_sku >= 1) {
+      if (element.available_sku === 1) {
       sum.push(element);
       }
 
@@ -92,22 +90,11 @@ export class SectionSevenViewComponent implements OnInit {
     return sum.length;
   }
 
-
-  getMSLCount(products) {
-    const sum = [];
-    products.forEach(element => {
-      if (element.MSL === 'Yes') {
-      sum.push(element);
-      }
-
-    });
-    return sum.length;
-  }
 
   getFacingCount(products) {
     let sum = 0;
     products.forEach(el => {
-      sum = +el.face_unit + sum ;
+      sum = +el.face_unit + sum;
     });
     return sum;
 }
@@ -117,7 +104,7 @@ export class SectionSevenViewComponent implements OnInit {
     const msl = [];
     products.forEach(p => {
       let obj = {};
-     if (p.MSL === 'Yes'  && p.available_sku >= 1 ) {
+     if (p.MSL === 'Yes'  && p.available_sku === 1 ) {
        obj = {
          available_sku: p.available_sku,
          MSL: p.MSL
@@ -139,15 +126,7 @@ export class SectionSevenViewComponent implements OnInit {
     return value ? 'Yes' : 'No';
   }
 
-
-  toggleValue(value) {
-    if (this.selectedFacing > '0' && this.selectedSku === '0') {
-      this.toastr.error('Availability and Facing has conflicting values', 'Error');
-      return;
-    } else if (this.selectedFacing === '' || this.selectedSku === '') {
-      this.toastr.error('Add facing and Availability', 'Error');
-      return;
-    }
+  changeSku(value) {
     this.loading = true;
     if (this.isEditable) {
       this.changeColor = true;
@@ -156,8 +135,8 @@ export class SectionSevenViewComponent implements OnInit {
       this.colorUpdateList.push(value.id);
       const obj = {
         msdId: value.id,
-        facing: this.selectedFacing,
-        unitAvailable: this.selectedSku,
+        facing: -1,
+        unitAvailable: !!value.available_sku ? 0 : 1,
         surveyId: this.surveyId,
         evaluatorId: this.evaluatorId
       };
@@ -170,7 +149,6 @@ export class SectionSevenViewComponent implements OnInit {
     if (data.success) {
       this.loading = false;
       this.toastr.success('Data Updated Successfully');
-      this.childModal.hide();
       // this.products=data.productList;
       const key = data.msdId;
       this.products.forEach(e => {
@@ -180,10 +158,11 @@ export class SectionSevenViewComponent implements OnInit {
           const i = this.products.findIndex(p => p.id === key);
           const obj = {
             id: e.id,
-            available_sku: (this.selectedSku >= 1) ? this.selectedSku = 1 : this.selectedSku  = 0,
+            available_sku: (e.available_sku === 0) ? e.available_sku = 1 : e.available_sku = 0,
             MSL: e.MSL,
             product_title: e.product_title,
-            face_unit: this.selectedFacing,
+            face_unit: e.face_unit,
+            desired_facing: e.desired_facing,
             category_title: e.category_title,
             color: 'red'
           };
@@ -192,7 +171,6 @@ export class SectionSevenViewComponent implements OnInit {
 
           // console.log(this.products[i])
         }
-        localStorage.setItem('productList', JSON.stringify(this.products));
 
 
 
@@ -201,14 +179,8 @@ export class SectionSevenViewComponent implements OnInit {
 
       this.availability = this.getAvailabilityCount(this.products);
       this.MSLNAvailabilityCount = this.getMSLNAvailbilityCount(this.products);
-      this.facing = this.getFacingCount(this.products);
-
 
       });
-
-       this.productForEmit.emit(this.products);
-      // this.toastr.success('Status updated successfully.','Update MSL');
-      this.updatingMSL = false;
 
 
     } else {
@@ -219,7 +191,73 @@ export class SectionSevenViewComponent implements OnInit {
     }
   }
 
-  showChildModal(shop) {
+
+
+  changeFacing(value) {
+
+    this.loading = true;
+    if (this.isEditable) {
+      this.changeColor = true;
+      this.updatingMSL = true;
+
+      this.colorUpdateList.push(value.id);
+      const obj = {
+        msdId: value.id,
+        facing: value.face_unit,
+        unitAvailable: -1,
+        surveyId: this.surveyId,
+        evaluatorId: this.evaluatorId
+      };
+
+
+
+      // return value?'YES':'NO';
+
+  this.httpService.updateMSLStatus(obj).subscribe((data: any) => {
+    if (data.success) {
+      this.loading = false;
+      this.toastr.success('Data Updated Successfully');
+      // this.products=data.productList;
+      const key = data.msdId;
+      this.products.forEach(e => {
+
+      // for (const key of this.colorUpdateList) {
+        if (key === e.id) {
+          const i = this.products.findIndex(p => p.id === key);
+          const obj = {
+            id: e.id,
+            available_sku: e.available_sku,
+            MSL: e.MSL,
+            product_title: e.product_title,
+            face_unit: e.face_unit,
+            desired_facing: e.desired_facing,
+            category_title: e.category_title,
+            color: 'red'
+          };
+
+          this.products.splice(i, 1, obj);
+
+          // console.log(this.products[i])
+        }
+
+
+
+
+      // }
+
+      this.facing = this.getFacingCount(this.products);
+      });
+
+    } else {
+      this.toastr.error(data.message, 'Update Data');
+    }
+  });
+
+    }
+  }
+
+
+  showChildModal(shop): void {
     this.selectedShop = shop;
     this.showModal.emit(this.selectedShop);
     // this.childModal.show();
@@ -235,11 +273,10 @@ export class SectionSevenViewComponent implements OnInit {
     // }
     this.childModal.show();
   }
-}
 
-  hideChildModal() {
+}
+ hideChildModal() {
     this.childModal.hide();
   }
-
-
 }
+

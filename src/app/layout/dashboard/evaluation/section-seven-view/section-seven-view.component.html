@@ -4,7 +4,7 @@
     <div class="row">
 
         <div class="col-md-12 text-center">
-            <h4><u>{{data?.sectionTitle}}</u></h4>
+            <h4><u>{{data?.sectionTitle }} </u><i color="warn" [ngClass]="{'fa fa-cog fa-spin':loading}"></i></h4>
         </div>
 
 
@@ -23,9 +23,12 @@
                     </ngx-image-zoom> -->
 
                     <label class="title" for="title">{{selectedImage?.title}}</label>
-                    <img src="{{ip}}{{selectedImage?.url}}" class="img-thumbnail" style="        height: 500px;  width: 100%;  " (click)="showChildModal(selectedImage)">
+                    <img src="{{ip}}{{selectedImage?.url}}" class="img-thumbnail" style="        height: 450px;  width: 100%;  " (click)="showChildModal(selectedImage)">
                     <div class="row justify-content-center" style="word-break: break-word !important">
-                    <div for="cat" class="cat" style="word-break: break-word">{{selectedImage?.shopRemarks}}</div>
+                <div>
+                    <div for="cat" class="cat" style="word-break: break-word"><strong>Remarks: </strong>{{selectedImage?.shopRemarks}}</div>
+                    <div for="cat" class="cat" style="word-break: break-word"><strong>Time Spent: </strong>{{selectedImage?.timeStamp}}</div>
+                </div>
                 </div>
                 </div>
 
@@ -97,7 +100,7 @@
                         <th>Product Title</th>
                         <th>Availability
                         </th>
-                        <th>Facing</th>
+                        <th>A.Facing</th>
 
                     </tr>
                 </thead>
@@ -105,24 +108,32 @@
                 <tbody>
                     <tr *ngFor="let product of products;let j= index">
                          <!-- <td>{{product?.category_title}}</td> -->
-                        <td style="width:600px !important">{{product?.product_title}}</td>
+                        <td style="width:800px !important">{{product?.product_title}}</td>
                         
                         
                         <!-- <td style="width:250px !important" style="cursor:pointer" [ngStyle]="{'background-color':product.color}" (click)="toggleValue(product)">
                             {{updateString(product?.available_sku)}}
                         </td> -->
-
-                        <td style="width:300px !important" [ngClass]="{'background-color': product?.MSL=='Yes'}" >
+                        <ng-container *ngIf="isEditable==false">
+                        <td style="width:100px !important" [ngClass]="{'background-color': product?.MSL=='Yes'}" >
                             {{updateString(product?.available_sku)}}
                         </td>
-                    
-                        <td style="width:300px !important" [ngStyle]="{'background-color':product.color}" style="cursor:pointer" (click)="showFacingChildModal(product)" >
+                        
+                        <td style="width:100px !important" >
                             {{product?.face_unit}}</td>
+                        </ng-container>
 
-        
+                        <ng-container *ngIf="isEditable==true">
+                            <td style="cursor:pointer" (click)="changeSku(product)" [ngClass]="{'background-color': product?.MSL=='Yes'}">
+                            {{updateString(product?.available_sku)}}</td>
+                                <td style="width:100px !important" [ngStyle]="{'background-color':product.color}">    
+                                    <input type="number" [(ngModel)]="product.face_unit" maxlength="3"  style="width: 4em" (blur)="changeFacing(product)"/></td>
+
+                        </ng-container>
+                        
+
 
                         <!-- <td (click)="product.available_sku = (!product.available_sku)">{{toggleValue(product?.available_sku)}}</td> -->
-
 
                     </tr>
                     <tr>
@@ -130,71 +141,14 @@
                         <th>Availability / Total</th>
                         <td>{{availability}} / {{products.length}}</td>
                         <td>{{facing}}</td>
+                        <!-- <th>
+                            {{MSLNAvailabilityCount}} / {{MSLCount}}
+                        </th> -->
                     </tr>
-
-
                 </tbody>
-           
 
             </table>
-
         </div>
     </div>
-    <div bsModal #childModal="bs-modal" [config]="{ignoreBackdropClick: true, keyboard: false, backdrop: false}" class="modal fade" tabindex="-1"
-    role="dialog" aria-labelledby="dialog-child-name">
-    <div class="modal-dialog ">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 id="dialog-child-name" class="modal-title pull-left">Edit Facing</h4>
-                <i color="warn" [ngClass]="{'fa fa-cog fa-spin':loadingData}"></i>
-                <button type="button" class="close pull-right" aria-label="Close" (click)="hideChildModal()">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-
-                    <div class="col-6" style="
-                    max-height: 500px !important;">
-                        <label class="title" for="title">{{selectedImage?.title}}</label>
-                        <img src="{{ip}}{{selectedImage?.url}}" class="img-thumbnail" style="height: 300px;  width: 100%;  ">
-                    </div>
-
-                    <!-- <div class="col-12">
-                        <div class="row">
-        
-                            <ng-container *ngFor="let img of data?.imageList ;let i=index ">
-                                <div class="col-2 card" (click)="setSelectedImage(img)" style="padding: 0% !important;cursor:pointer" [ngClass]="{'bgColor': img?.url==selectedImage.url}">
-                                    <img src="{{ip}}{{img?.url}} " width="50" class="img-thumbnail side-image" style="height: 50px !important;width: 20px !important;">
-                                </div>
-        
-                            </ng-container>
-                        </div>
-                    </div> -->
-
-                    <div class="col-6">
-                        <mat-form-field class="example-margin example-full-width mr-10-IMP">
-                            <mat-label>Facing</mat-label>
-                            <input matInput [(ngModel)]="selectedFacing" placeholder="{{selectedProduct.face_unit}}">
-                        </mat-form-field>
-                        <h6>Change Availability Status</h6>
-                        <span>Status : </span>
-                        <select class="select" placeholder="Availability" name='availability' [(ngModel)]="selectedSku" >
-                            <option [value]="status.value" *ngFor="let status of statusArray">{{status.title}}</option>
-                        
-                        </select>
-                    </div>
-
-                    </div>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-primary" [disabled]="loading" (click)="toggleValue(selectedProduct)">
-                    <i [ngClass]="{'fa fa-spinner fa-spin': loading}"></i>
-                    Update
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
-
+   
 </div>
