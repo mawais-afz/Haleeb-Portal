@@ -359,6 +359,8 @@ export class FilterBarComponent implements OnInit {
     if (this.endDate >= this.startDate) {
       this.loadingData = true;
       this.loadingReportMessage = true;
+      // tslint:disable-next-line:triple-equals
+      if(this.selectedQuery.type==1) {
       const obj = {
         typeId: this.selectedQuery.id,
         startDate: moment(this.startDate).format('YYYY-MM-DD'),
@@ -389,18 +391,9 @@ export class FilterBarComponent implements OnInit {
           this.clearLoading();
         }
       );
-    } else {
-      this.clearLoading();
-      this.toastr.info('End date must be greater than start date', 'Date Selection');
     }
-  }
-
-
-
-  getReportData() {
-    if (this.endDate >= this.startDate) {
-      this.loadingData = true;
-      this.loadingReportMessage = true;
+    else
+    {
       const obj = {
         typeId: this.selectedQuery.id,
         title: this.selectedQuery.title,
@@ -416,7 +409,7 @@ export class FilterBarComponent implements OnInit {
       const body = this.httpService.UrlEncodeMaker(obj);
       this.httpService.getKeyForProductivityReport(body, url).subscribe(
         data => {
-          console.log(data, 'evaluation data');
+          console.log(data, 'pivot data');
           const res: any = data;
 
           if (res) {
@@ -436,11 +429,14 @@ export class FilterBarComponent implements OnInit {
           this.clearLoading();
         }
       );
-    } else {
+    }
+   } else {
       this.clearLoading();
       this.toastr.info('End date must be greater than start date', 'Date Selection');
     }
   }
+
+
 
 
   //#region filters logic
