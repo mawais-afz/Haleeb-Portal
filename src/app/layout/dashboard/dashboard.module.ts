@@ -50,11 +50,11 @@ import { AddDeviceComponent } from './innerComponents/add-device/add-device.comp
 import { SupervisorWwwrSummaryComponent } from './innerComponents/supervisor-wwwr-summary/supervisor-wwwr-summary.component';
 import { ShopListReportComponent } from './innerComponents/shop-list-report/shop-list-report.component';
 import { UploadRoutesNewComponent } from './innerComponents/upload-routes-new/upload-routes-new.component';
-import { PivotBasedDataComponent } from './pivot-based-data/pivot-based-data.component';
 import { MerchandiserPlannedCallsComponent } from './innerComponents/merchandiser-planned-calls/merchandiser-planned-calls.component';
 import { TableauHelperComponent } from './Tableau/tableau-helper/tableau-helper.component';
 import { DashboardTableauComponent } from './Tableau/dashboard-tableau/dashboard-tableau.component';
 import { ProductivityTableauComponent } from './Tableau/productivity-tableau/productivity-tableau.component';
+import { SkuDashboardComponent } from './Tableau/sku-dashboard/sku-dashboard.component';
 @NgModule({
     imports: [
         FormsModule,
@@ -97,6 +97,6 @@ ReactiveFormsModule
           UpdatePasswordComponent, RawDataComponent, MatTableComponent,
           DataAvailabilityComponent, MerchandiserListComponent,
           AbnormalityComponent, TimeAnalysisReportComponent, MerchandiserAttendanceComponent, DailyEvaluationReportComponent, EmailManagerComponent, MessageStatusListComponent, AddNewMessageComponent, UploadRoutesComponent, SingleRouteDetailComponent, ShopsForSingleRouteComponent, AddEditGroupComponent, AddDeviceComponent, SupervisorWwwrSummaryComponent, ShopListReportComponent, UploadRoutesNewComponent,
-          PivotBasedDataComponent, MerchandiserPlannedCallsComponent, TableauHelperComponent, DashboardTableauComponent, ProductivityTableauComponent]
+          MerchandiserPlannedCallsComponent, TableauHelperComponent, DashboardTableauComponent, ProductivityTableauComponent, SkuDashboardComponent]
 })
 export class DashboardModule {}
