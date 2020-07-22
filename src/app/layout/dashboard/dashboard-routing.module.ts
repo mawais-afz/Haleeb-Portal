@@ -30,10 +30,10 @@ import { AddDeviceComponent } from './innerComponents/add-device/add-device.comp
 import { SupervisorWwwrSummaryComponent } from './innerComponents/supervisor-wwwr-summary/supervisor-wwwr-summary.component';
 import { ShopListReportComponent } from './innerComponents/shop-list-report/shop-list-report.component';
 import { UploadRoutesNewComponent } from './innerComponents/upload-routes-new/upload-routes-new.component';
-import { PivotBasedDataComponent } from './pivot-based-data/pivot-based-data.component';
 import { MerchandiserPlannedCallsComponent } from './innerComponents/merchandiser-planned-calls/merchandiser-planned-calls.component';
 import { DashboardTableauComponent } from './Tableau/dashboard-tableau/dashboard-tableau.component';
 import { ProductivityTableauComponent } from './Tableau/productivity-tableau/productivity-tableau.component';
+import { SkuDashboardComponent } from './Tableau/sku-dashboard/sku-dashboard.component';
 const routes: Routes = [
     {
         path: '',
@@ -66,10 +66,10 @@ const routes: Routes = [
             { path: 'upload_routes/shops_for_single_route', component: ShopsForSingleRouteComponent },
             { path: 'add_device', component: AddDeviceComponent },
             {path: 'upload_routes_new', component: UploadRoutesNewComponent},
-            {path: 'pivot_based_data', component: PivotBasedDataComponent},
             {path: 'merchandiser-planned-calls', component: MerchandiserPlannedCallsComponent},
             {path: 'dashboard-tableau', component: DashboardTableauComponent},
-            {path: 'productivity-tableau', component: ProductivityTableauComponent}
+            {path: 'productivity-tableau', component: ProductivityTableauComponent},
+            {path: 'sku-dashboard', component: SkuDashboardComponent}
 
 
 
