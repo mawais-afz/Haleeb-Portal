@@ -35,6 +35,7 @@ export class SectionEightViewComponent implements OnInit {
   updatingMSL: boolean;
   colorUpdateList: any = [];
   surveyId: any;
+  flag = 0;
   evaluatorId: any;
   MSLCount = 0;
   MSLNAvailabilityCount: number;
@@ -43,8 +44,10 @@ export class SectionEightViewComponent implements OnInit {
   desiredDepth: any;
   stock: any;
   total: any;
+
   selectedProduct: any = {};
   selectedFacing: any;
+  selectedSku: any;
   loadingData: boolean;
   loading = false;
 
@@ -88,7 +91,7 @@ if (this.products.length > 0) {
 getAvailDepthCount(products) {
   let sum = 0;
   products.forEach(el => {
-    sum = sum + el.unit_available;
+    sum =  + el.unit_available + sum;
   });
   return sum;
 }
@@ -122,11 +125,16 @@ getTotalCount(availableDepth, desiredDepth) {
   }
 
 
-  showFacingChildModal(product) {
-    if (this.isEditable) {
+  showChillerChildModal(product, value) {
+    if (value === 1) {
+      this.flag = 1;
+    } else {
+      this.flag = 2;
+    }
     this.selectedProduct = product;
-    this.childModal.show();
-  }
+      this.childModal.show();
+
+
 }
 
   hideChildModal() {
@@ -134,27 +142,19 @@ getTotalCount(availableDepth, desiredDepth) {
   }
 
 
-  toggleValue(value) {
-    // if (this.selectedFacing > '0' && this.selectedSku === '0') {
-    //   this.toastr.error('Availability and Facing has conflicting values', 'Error');
-    //   return;
-    // } else if (this.selectedFacing === '' || this.selectedSku === '') {
-    //   this.toastr.error('Add facing and Availability', 'Error');
-    //   return;
-    // }
-    if (this.isEditable) {
-
+  toggleValue(product, flag) {
     this.loading = true;
+    if (this.isEditable) {
       this.changeColor = true;
-
-      this.colorUpdateList.push(value.id);
-      const obj = {
-        msdId: value.detailId,
-        facing: value.face_unit,
-        surveyId: value.surveyId,
-        evaluatorId: this.evaluatorId
+      this.colorUpdateList.push(product.id);
+       const obj = {
+        msdId: product.detailId,
+        facing: product.face_unit,
+        unit_available: product.unit_available,
+        surveyId: product.surveyId,
+        evaluatorId: this.evaluatorId,
+        flag: flag
       };
-
   this.httpService.updateChillerData(obj).subscribe((data: any) => {
     if (data.success) {
       this.loading = false;
@@ -175,14 +175,14 @@ getTotalCount(availableDepth, desiredDepth) {
 
 
           this.products.splice(i, 1, obj);
-
           // console.log(this.products[i])
         }
         localStorage.setItem('productList', JSON.stringify(this.products));
 
 
       this.facing = this.getFacingCount(this.products);
-
+      this.availableDepth = this.getAvailDepthCount(this.products);
+      this.total = this.getTotalCount(this.availableDepth, this.desiredDepth);
 
       });
 
@@ -197,6 +197,6 @@ getTotalCount(availableDepth, desiredDepth) {
   });
 
     }
-  }
+}
 }
 
