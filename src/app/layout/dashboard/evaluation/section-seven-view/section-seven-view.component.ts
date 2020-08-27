@@ -82,7 +82,7 @@ export class SectionSevenViewComponent implements OnInit {
   getAvailabilityCount(products) {
     const sum = [];
     products.forEach(element => {
-      if (element.available_sku === 1) {
+      if (element.available_sku >= 1) {
       sum.push(element);
       }
 
@@ -196,6 +196,7 @@ export class SectionSevenViewComponent implements OnInit {
   changeFacing(value) {
 
     this.loading = true;
+    if (value.face_unit !== null) {
     if (this.isEditable) {
       this.changeColor = true;
       this.updatingMSL = true;
@@ -250,10 +251,15 @@ export class SectionSevenViewComponent implements OnInit {
 
     } else {
       this.toastr.error(data.message, 'Update Data');
+      this.loading = false;
     }
   });
 
     }
+  } else {
+    this.toastr.error('Facing Value is Incorrect');
+    this.loading = false;
+  }
   }
 
 

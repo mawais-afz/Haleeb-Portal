@@ -144,6 +144,7 @@ getTotalCount(availableDepth, desiredDepth) {
 
   toggleValue(product, flag) {
     this.loading = true;
+    if (product.unit_available != null && product.face_unit != null) {
     if (this.isEditable) {
       this.changeColor = true;
       this.colorUpdateList.push(product.id);
@@ -197,6 +198,10 @@ getTotalCount(availableDepth, desiredDepth) {
   });
 
     }
+} else {
+  this.toastr.error('Value is Incorrect');
+  this.loading = false;
 }
+  }
 }
 
