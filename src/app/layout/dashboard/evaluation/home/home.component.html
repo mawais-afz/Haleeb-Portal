@@ -124,13 +124,13 @@
                                                         margin-bottom: 8px;
                                                     ">
                                             <p style="padding-top: 5px; margin-bottom: 5px ">{{item?.title}}</p>
-                                            <ng-container *ngIf="isCritical">
+                                            <ng-container *ngIf="isCritical && item?.id!=31">
                                                 <input class="checkbox" type="checkbox"
                                                     name="{{item?.title}}" [checked]=item?.isChecked id="{{item?.id}}"
                                                     (click)="counter(checked,item,i);createTickForSlider(item)" #checked>
                                                 <span class="checkmark"></span>
                                             </ng-container>
-                                            <ng-container *ngIf="!isNoNCritical">
+                                            <ng-container *ngIf="item?.id==31 && !isNoNCritical">
                                                 <input class="checkbox" type="checkbox"
                                                     name="{{item?.title}}" [checked]=item?.isChecked id="{{item?.id}}"
                                                     (click)="counter(checked,item,i)" #checked>

@@ -60,6 +60,7 @@ export class HomeComponent implements OnInit {
   isDragging = false;
   selectedSoS: any = {};
   productivityCount: any;
+  surveyorId = -1;
   reevaluatorRole: any;
 
   constructor(
@@ -354,7 +355,7 @@ export class HomeComponent implements OnInit {
         delete element.totalAchievedScore;
         return score;
       } else {
-      if (element.achievedScore >= 0 && element.id !== 5) {
+      if (element.achievedScore >= 0) {
         score = score + element.achievedScore;
       }
     }
@@ -506,11 +507,18 @@ export class HomeComponent implements OnInit {
 
     if (req) {
 
+      for (const element of this.data.shopDetails.tagsList) {
+        // tslint:disable-next-line:triple-equals
+        if (element.heading == 'surveyorId') {
+          this.surveyorId = element.value;
+        }
+      }
       // tslint:disable-next-line:triple-equals
       if (this.userType == this.reevaluatorRole) {
         const obj = {
           criteria: this.cloneArray,
           surveyId: this.surveyId,
+          surveyorId: this.surveyorId,
           evaluatorId: user_id,
           evaluationRemark: this.selectedEvaluationRemark,
           msl: Math.round(this.availabilityCount),
@@ -547,6 +555,7 @@ export class HomeComponent implements OnInit {
         const obj = {
           criteria: this.cloneArray,
           surveyId: this.surveyId,
+          surveyorId: this.surveyorId,
           evaluatorId: user_id,
           msl: Math.round(this.availabilityCount),
           status: this.checkForSlectedRemarks(this.cloneArray)
