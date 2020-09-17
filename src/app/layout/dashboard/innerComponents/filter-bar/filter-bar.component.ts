@@ -356,86 +356,47 @@ export class FilterBarComponent implements OnInit {
 
   }
   getDashboardData() {
-    if (this.endDate >= this.startDate) {
-      this.loadingData = true;
-      this.loadingReportMessage = true;
-      // tslint:disable-next-line:triple-equals
-      if(this.selectedQuery.type==1) {
-      const obj = {
-        typeId: this.selectedQuery.id,
-        startDate: moment(this.startDate).format('YYYY-MM-DD'),
-        endDate: moment(this.endDate).format('YYYY-MM-DD')
-      };
+    this.loadingData = true;
+    this.loadingReportMessage = true;
+    const obj = {
+      queryId: this.selectedQuery.id,
+      zoneId: this.selectedZone.id || -1,
+      regionId: this.selectedRegion.id || -1,
+      cityId: this.selectedCity.id || -1,
+      areaId: this.selectedArea.id || -1,
+      startDate: moment(this.startDate).format('YYYY-MM-DD'),
+      endDate: moment(this.endDate).format('YYYY-MM-DD'),
+    };
+    const url = 'dashboard-data';
+    const body = this.httpService.UrlEncodeMaker(obj);
+    this.httpService.getKeyForProductivityReport(body, url).subscribe(
+      (data) => {
+        const res: any = data;
+        if (res) {
+          const obj2 = {
+            key: res.key,
+            fileType: res.fileType,
+          };
+          const url =
+            this.selectedQuery.type === 1
+              ? 'downloadcsvReport'
+              : 'downloadReport';
 
-      const url = 'dashboard-data';
-      const body = this.httpService.UrlEncodeMaker(obj);
-      this.httpService.getKeyForProductivityReport(body, url).subscribe(
-        data => {
-          console.log(data, 'query list');
-          const res: any = data;
-
-          if (res) {
-            const obj2 = {
-              key: res.key,
-              fileType: res.fileType
-            };
-            const url = 'downloadcsvReport';
-            this.getproductivityDownload(obj2, url);
-          } else {
-            this.clearLoading();
-
-            this.toastr.info('Something went wrong,Please retry', 'Connectivity Message');
-          }
-        },
-        error => {
+          this.getproductivityDownload(obj2, url);
+        } else {
           this.clearLoading();
+
+          this.toastr.info(
+            'Something went wrong, please retry',
+            'Connectivity Message'
+          );
         }
-      );
-    }
-    else
-    {
-      const obj = {
-        typeId: this.selectedQuery.id,
-        title: this.selectedQuery.title,
-        sheetName: this.selectedQuery.sheet_name,
-        templatePath : this.selectedQuery.template_url,
-        heading: this.selectedQuery.heading,
-        query: this.selectedQuery.query,
-        startDate: moment(this.startDate).format('YYYY-MM-DD'),
-        endDate: moment(this.endDate).format('YYYY-MM-DD')
-      };
-
-      const url = 'pivot-data';
-      const body = this.httpService.UrlEncodeMaker(obj);
-      this.httpService.getKeyForProductivityReport(body, url).subscribe(
-        data => {
-          console.log(data, 'pivot data');
-          const res: any = data;
-
-          if (res) {
-            const obj2 = {
-              key: res.key,
-              fileType: 'json.fileType'
-            };
-            const url = 'downloadReport';
-            this.getproductivityDownload(obj2, url);
-          } else {
-            this.clearLoading();
-
-            this.toastr.info('Something went wrong,Please retry', 'Connectivity Message');
-          }
-        },
-        error => {
-          this.clearLoading();
-        }
-      );
-    }
-   } else {
-      this.clearLoading();
-      this.toastr.info('End date must be greater than start date', 'Date Selection');
-    }
+      },
+      (error) => {
+        this.clearLoading();
+      }
+    );
   }
-
 
 
 
