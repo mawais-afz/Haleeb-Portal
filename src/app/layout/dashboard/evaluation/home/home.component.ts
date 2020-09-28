@@ -62,6 +62,7 @@ export class HomeComponent implements OnInit {
   productivityCount: any;
   surveyorId = -1;
   reevaluatorRole: any;
+  visitDay:any;
 
   constructor(
     private router: Router,
@@ -511,6 +512,9 @@ export class HomeComponent implements OnInit {
         // tslint:disable-next-line:triple-equals
         if (element.heading == 'surveyorId') {
           this.surveyorId = element.value;
+        // tslint:disable-next-line:triple-equals
+        } else if (element.heading == 'Visit Date') {
+          this.visitDay = element.value;
         }
       }
       // tslint:disable-next-line:triple-equals
@@ -519,6 +523,7 @@ export class HomeComponent implements OnInit {
           criteria: this.cloneArray,
           surveyId: this.surveyId,
           surveyorId: this.surveyorId,
+          visitDate: this.visitDay,
           evaluatorId: user_id,
           evaluationRemark: this.selectedEvaluationRemark,
           msl: Math.round(this.availabilityCount),
@@ -555,6 +560,7 @@ export class HomeComponent implements OnInit {
         const obj = {
           criteria: this.cloneArray,
           surveyId: this.surveyId,
+          visitDate: this.visitDay,
           surveyorId: this.surveyorId,
           evaluatorId: user_id,
           msl: Math.round(this.availabilityCount),
