@@ -397,59 +397,52 @@ export class FilterBarComponent implements OnInit {
       this.toastr.error("Plz fill all the required details");
     }
   }
+  
   getDashboardData() {
-    this.loadingData = true;
-    this.loadingReportMessage = true;
-    let obj;
-    if (this.selectedQuery.type == 1) {
-      obj = {
-        reportType: this.selectedQuery.type,
-        query: this.selectedQuery.query,
-        startDate: moment(this.startDate).format("YYYY-MM-DD"),
-        endDate: moment(this.endDate).format("YYYY-MM-DD"),
+    if (this.endDate >= this.startDate) {
+      this.loadingData = true;
+      this.loadingReportMessage = true;
+      // tslint:disable-next-line:triple-equals
+      const obj = {
+        queryId: this.selectedQuery.id,
+        startDate: moment(this.startDate).format('YYYY-MM-DD'),
+        endDate: moment(this.endDate).format('YYYY-MM-DD'),
+        zoneId: this.selectedZone.id,
+        regionId: this.selectedRegion.id,
       };
-    } else if (this.selectedQuery.type == 2) {
-      obj = {
-        reportType: this.selectedQuery.type,
-        title: this.selectedQuery.title,
-        sheetName: this.selectedQuery.sheet_name,
-        templatePath: this.selectedQuery.template_url,
-        heading: this.selectedQuery.heading,
-        query: this.selectedQuery.query,
-        startDate: moment(this.startDate).format("YYYY-MM-DD"),
-        endDate: moment(this.endDate).format("YYYY-MM-DD"),
-      };
-    }
-    const url = "dashboard-data";
-    const body = this.httpService.UrlEncodeMaker(obj);
-    this.httpService.getKeyForProductivityReport(body, url).subscribe(
-      (data) => {
-        const res: any = data;
 
-        if (res) {
-          const obj2 = {
-            key: res.key,
-            fileType: res.fileType,
-          };
-          const url =
+      const url = 'dashboard-data';
+      const body = this.httpService.UrlEncodeMaker(obj);
+      this.httpService.getKeyForProductivityReport(body, url).subscribe(
+        data => {
+          console.log(data, 'query list');
+          const res: any = data;
+
+          if (res) {
+            const obj2 = {
+              key: res.key,
+              fileType: res.fileType
+            };
+            const url =
             this.selectedQuery.type == 1
-              ? "downloadcsvReport"
-              : "downloadReport";
+              ? 'downloadcsvReport'
+              : 'downloadReport';
 
-          this.getproductivityDownload(obj2, url);
-        } else {
+            this.getproductivityDownload(obj2, url);
+          } else {
+            this.clearLoading();
+
+            this.toastr.info('Something went wrong,Please retry', 'Connectivity Message');
+          }
+        },
+        error => {
           this.clearLoading();
-
-          this.toastr.info(
-            "Something went wrong,Please retry",
-            "Connectivity Message"
-          );
         }
-      },
-      (error) => {
-        this.clearLoading();
-      }
-    );
+      );
+    } else {
+      this.clearLoading();
+      this.toastr.info('End date must be greater than start date', 'Date Selection');
+    }
   }
 
   //#region filters logic
