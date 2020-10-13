@@ -85,21 +85,54 @@ export class SupervisorWwwrSummaryComponent implements OnInit {
         endDate: moment(this.endDate).format('YYYY-MM-DD'),
         zoneId: this.selectedZone.id || -1,
         regionId: this.selectedRegion.id || -1,
+        angularRequest: 'Y'
       };
       const url = 'supervisorWWWRSummary';
+    const body = this.httpService.UrlEncodeMaker(obj);
+    this.httpService.getKeyForProductivityReport(body, url).subscribe(
+      data => {
+        console.log(data, 'evaluation data');
+        const res: any = data;
 
-      this.httpService.DownloadResource(obj, url);
-    } else {
-      this.clearLoading();
+        if (res) {
+          const obj2 = {
+            key: res.key,
+            fileType: 'json.fileType'
+          };
+          const url = 'downloadReport';
+          this.getproductivityDownload(obj2, url);
+        } else {
+          this.clearLoading();
 
-      this.toastr.info('End date must be greater than start date', 'Date Selection');
-    }
+          this.toastr.info('Something went wrong,Please retry', 'Connectivity Message');
+        }
+      },
+      error => {
+        this.clearLoading();
+      }
+    );
+  } else {
+    this.clearLoading();
+    this.toastr.info('End date must be greater than start date', 'Date Selection');
+  }
   }
 
   clearLoading() {
     this.loading = false;
     this.loadingData = false;
     this.loadingReportMessage = false;
+  }
+
+
+
+  getproductivityDownload(obj, url) {
+    const u = url;
+    this.httpService.DownloadResource(obj, u);
+    setTimeout(() => {
+      this.loadingData = false;
+      this.loadingReportMessage = false;
+      this.httpService.updatedDownloadStatus(false);
+    }, 1000);
   }
 
 }
