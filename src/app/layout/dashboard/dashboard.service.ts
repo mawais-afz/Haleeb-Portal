@@ -393,4 +393,17 @@ export class DashboardService {
     const body = this.UrlEncodeMaker(obj);
     return this.http.post(this.ip + 'tableauTicket',  body, this.httpOptions);
   }
+
+
+  getEvaluationSummary(obj) {
+    const urlEncode = this.UrlEncodeMaker(obj);
+    const url = this.ip + "evaluatorSummaryData";
+    return this.http.post(url, urlEncode, this.httpOptions);
+  }
+
+  getEvaluatorList() {
+    const filter = JSON.stringify({ act: 15 });
+    const url = this.ip + "loadFilters";
+    return this.http.post(url, filter);
+  }
 }
